@@ -1,6 +1,8 @@
 package com.engagepoint.controller;
 
 
+import beans.TemplateBean;
+
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import java.io.Serializable;
@@ -15,20 +17,20 @@ import java.util.List;
 @SessionScoped
 public class SessionController implements Serializable {
 
-    private List<Template> list;
+    private List<TemplateBean> list;
 
     public SessionController() {
-        list = new ArrayList<Template>();
-        list.add(new Template("A"));
-        list.add(new Template("B"));
-        list.add(new Template("C"));
+        list = new ArrayList<TemplateBean>();
+        list.add(new TemplateBean("A"));
+        list.add(new TemplateBean("B"));
+        list.add(new TemplateBean("C"));
     }
 
-    public List<Template> getTemplates() {
+    public List<TemplateBean> getTemplates() {
         return list;
     }
 
-    public void setList(List<Template> list) {
+    public void setList(List<TemplateBean> list) {
         this.list = list;
     }
 }

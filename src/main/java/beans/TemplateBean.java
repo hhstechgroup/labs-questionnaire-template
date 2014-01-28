@@ -14,6 +14,11 @@ public class TemplateBean implements Cloneable {
     private String templateName;
     private List<SectionBean> sectionsList;
 
+    public TemplateBean(){
+    }
+    public TemplateBean(String templateName){
+        this.templateName = templateName;
+    }
     public String getTemplateName() {
         return templateName;
     }
