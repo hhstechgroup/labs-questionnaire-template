@@ -36,7 +36,7 @@ public class TemplateBean implements Cloneable {
     }
 
     @Override
-    protected Object clone() throws CloneNotSupportedException {
+    public Object clone() throws CloneNotSupportedException {
         TemplateBean copy = (TemplateBean) super.clone();
         copy.setTemplateName(this.templateName);
         List<SectionBean> copySectionsList = new ArrayList<SectionBean>();

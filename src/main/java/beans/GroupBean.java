@@ -32,7 +32,7 @@ public class GroupBean implements Cloneable {
     }
 
     @Override
-    protected Object clone() throws CloneNotSupportedException {
+    public Object clone() throws CloneNotSupportedException {
         GroupBean copy = (GroupBean) super.clone();
         copy.setGroupName(this.groupName);
         List<QuestionBean> copyQuestionsList = new ArrayList<QuestionBean>();
