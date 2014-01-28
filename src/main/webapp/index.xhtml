@@ -17,8 +17,11 @@
             <!--h:outputText value="#{template.templateName}"/-->
             #{template.templateName}
         </p:column>
-        <p:column style="width:20%;">
-            <h:outputText value="Edit,Clone,Delete"/>
+        <p:column style="width:30%;">
+            <!--h:outputText value="Edit,Clone,Delete"/-->
+            <p:commandButton value="Edit"></p:commandButton>
+            <p:commandButton value="Clone"></p:commandButton>
+            <p:commandButton value="Delete"></p:commandButton>
         </p:column>
     </p:dataTable>
     <p:commandButton value="Add"></p:commandButton>
