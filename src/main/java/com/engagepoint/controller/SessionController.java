@@ -7,11 +7,8 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
-
-/**
- * Created by yaroslav.nikolaiko on 1/28/14.
- */
 
 @ManagedBean
 @SessionScoped
@@ -21,9 +18,13 @@ public class SessionController implements Serializable {
 
     public SessionController() {
         list = new ArrayList<TemplateBean>();
-        list.add(new TemplateBean("A"));
-        list.add(new TemplateBean("B"));
-        list.add(new TemplateBean("C"));
+        list.add(new TemplateBean("Template D"));
+        list.add(new TemplateBean("Template B"));
+        list.add(new TemplateBean("Template F"));
+        list.add(new TemplateBean("Template A"));
+        list.add(new TemplateBean("Template E"));
+        list.add(new TemplateBean("Template C"));
+        Collections.sort(list);
     }
 
     public List<TemplateBean> getTemplates() {

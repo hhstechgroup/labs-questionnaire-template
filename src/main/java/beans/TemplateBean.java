@@ -10,15 +10,17 @@ import java.util.List;
  * Time: 12:49 PM
  * To change this template use File | Settings | File Templates.
  */
-public class TemplateBean implements Cloneable {
+public class TemplateBean implements Cloneable, Comparable<TemplateBean> {
     private String templateName;
     private List<SectionBean> sectionsList = new ArrayList<SectionBean>();
 
-    public TemplateBean(){
+    public TemplateBean() {
     }
-    public TemplateBean(String templateName){
+
+    public TemplateBean(String templateName) {
         this.templateName = templateName;
     }
+
     public String getTemplateName() {
         return templateName;
     }
@@ -65,5 +67,15 @@ public class TemplateBean implements Cloneable {
         int result = templateName != null ? templateName.hashCode() : 0;
         result = 31 * result + (sectionsList != null ? sectionsList.hashCode() : 0);
         return result;
+    }
+
+    /**
+     * Compares names of objects.
+     * @param o object to compare
+     * @return a negative integer, zero, or a positive integer as this object is less than, equal to, or greater than the specified object.
+     */
+    @Override
+    public int compareTo(TemplateBean o) {
+        return this.getTemplateName().compareTo(o.getTemplateName());
     }
 }

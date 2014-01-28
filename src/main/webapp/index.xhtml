@@ -13,8 +13,7 @@
 <h:body>
     <p:dataTable var="template" value="#{sessionController.templates}">
         <p:column>
-            <!--h:outputText value="#{template.templateName}"/-->
-            #{template.templateName}
+            <h:outputText value="#{template.templateName}"/>
         </p:column>
         <p:column>
             <h:outputText value="Edit"/>
