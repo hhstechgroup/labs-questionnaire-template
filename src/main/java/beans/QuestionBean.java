@@ -22,11 +22,6 @@ public class QuestionBean implements Cloneable {
         this.questionTitle = questionTitle;
     }
 
-    @Override
-    protected Object clone() throws CloneNotSupportedException {
-        return super.clone();
-    }
-
     public Long getId() {
         return id;
     }
@@ -49,5 +44,12 @@ public class QuestionBean implements Cloneable {
 
     public void setQuestionType(QuestionType questionType) {
         this.questionType = questionType;
+    }
+
+    @Override
+    protected Object clone() throws CloneNotSupportedException {
+        QuestionBean copy = (QuestionBean) super.clone();
+        copy.setQuestionType(this.questionType);
+        return copy;
     }
 }
