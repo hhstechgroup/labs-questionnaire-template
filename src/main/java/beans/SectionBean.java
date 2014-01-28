@@ -12,7 +12,7 @@ import java.util.List;
  */
 public class SectionBean implements Cloneable {
     private int pageNumber;
-    private List<GroupBean> groupsList;
+    private List<GroupBean> groupsList = new ArrayList<GroupBean>();
 
     public List<GroupBean> getGroupsList() {
         return groupsList;
@@ -42,4 +42,23 @@ public class SectionBean implements Cloneable {
         return copy;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        SectionBean that = (SectionBean) o;
+
+        if (pageNumber != that.pageNumber) return false;
+        if (groupsList != null ? !groupsList.equals(that.groupsList) : that.groupsList != null) return false;
+
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = pageNumber;
+        result = 31 * result + (groupsList != null ? groupsList.hashCode() : 0);
+        return result;
+    }
 }

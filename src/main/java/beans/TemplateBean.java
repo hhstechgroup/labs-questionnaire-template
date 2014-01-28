@@ -12,7 +12,7 @@ import java.util.List;
  */
 public class TemplateBean implements Cloneable {
     private String templateName;
-    private List<SectionBean> sectionsList;
+    private List<SectionBean> sectionsList = new ArrayList<SectionBean>();
 
     public TemplateBean(){
     }
@@ -45,5 +45,25 @@ public class TemplateBean implements Cloneable {
         }
         copy.setSectionsList(copySectionsList);
         return copy;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        TemplateBean that = (TemplateBean) o;
+
+        if (sectionsList != null ? !sectionsList.equals(that.sectionsList) : that.sectionsList != null) return false;
+        if (templateName != null ? !templateName.equals(that.templateName) : that.templateName != null) return false;
+
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = templateName != null ? templateName.hashCode() : 0;
+        result = 31 * result + (sectionsList != null ? sectionsList.hashCode() : 0);
+        return result;
     }
 }
