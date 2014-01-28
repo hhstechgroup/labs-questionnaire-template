@@ -13,7 +13,7 @@ import java.util.List;
  */
 public class GroupBean implements Cloneable {
     private String groupName;
-    private List<QuestionBean> questionsList;
+    private List<QuestionBean> questionsList = new ArrayList<QuestionBean>();
 
     public String getGroupName() {
         return groupName;
@@ -32,7 +32,7 @@ public class GroupBean implements Cloneable {
     }
 
     @Override
-    protected GroupBean clone() throws CloneNotSupportedException {
+    protected Object clone() throws CloneNotSupportedException {
         GroupBean copy = (GroupBean) super.clone();
         copy.setGroupName(this.groupName);
         List<QuestionBean> copyQuestionsList = new ArrayList<QuestionBean>();
@@ -41,5 +41,26 @@ public class GroupBean implements Cloneable {
         }
         copy.setQuestionsList(copyQuestionsList);
         return copy;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        GroupBean groupBean = (GroupBean) o;
+
+        if (groupName != null ? !groupName.equals(groupBean.groupName) : groupBean.groupName != null) return false;
+        if (questionsList != null ? !questionsList.equals(groupBean.questionsList) : groupBean.questionsList != null)
+            return false;
+
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = groupName != null ? groupName.hashCode() : 0;
+        result = 31 * result + (questionsList != null ? questionsList.hashCode() : 0);
+        return result;
     }
 }
