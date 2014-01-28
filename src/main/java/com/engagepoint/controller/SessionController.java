@@ -1,7 +1,7 @@
 package com.engagepoint.controller;
 
 
-import com.engagepoint.bean.TemplateBean;
+import beans.TemplateBean;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
@@ -14,7 +14,8 @@ import java.util.List;
 @SessionScoped
 public class SessionController implements Serializable {
 
-    private static List<TemplateBean> list;
+    private List<TemplateBean> list;
+    private TemplateBean currentTemplate;
 
     public SessionController() {
         list = new ArrayList<TemplateBean>();
@@ -31,13 +32,17 @@ public class SessionController implements Serializable {
         return list;
     }
 
-    public void setTemplates(List<TemplateBean> list) {
+    public String setTemplates(List<TemplateBean> list) {
         this.list = list;
+        return "success";
     }
 
-    public void clone(TemplateBean template) throws CloneNotSupportedException {
-        list.add((TemplateBean) template.clone());
-        Collections.sort(list);
+    public TemplateBean getCurrentTemplate() {
+        return currentTemplate;
+    }
+
+    public void setCurrentTemplate(TemplateBean currentTemplate) {
+        this.currentTemplate = currentTemplate;
     }
     
     public void delete(String templatename){
@@ -48,9 +53,10 @@ public class SessionController implements Serializable {
     		}
     		
     	}
-    	
+    		
     }
-        
+
+
 }
 
 
