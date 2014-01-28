@@ -1,6 +1,6 @@
 package main.java.beans;
 
-import beans.GroupBean;
+import com.engagepoint.bean.GroupBean;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;

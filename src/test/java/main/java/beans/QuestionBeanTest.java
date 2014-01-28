@@ -1,6 +1,6 @@
 package main.java.beans;
 
-import beans.QuestionBean;
+import com.engagepoint.bean.QuestionBean;
 import org.junit.Assert;
 import org.junit.Before;
 

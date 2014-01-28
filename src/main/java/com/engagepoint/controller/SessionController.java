@@ -1,7 +1,7 @@
 package com.engagepoint.controller;
 
 
-import beans.TemplateBean;
+import com.engagepoint.bean.TemplateBean;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
