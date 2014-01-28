@@ -1,6 +1,6 @@
-package main.java.beans;
+package com.engagepoint.tests;
 
-import beans.TemplateBean;
+import com.engagepoint.bean.TemplateBean;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
