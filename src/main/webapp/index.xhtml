@@ -11,8 +11,8 @@
     <title>Hello World</title>
 </h:head>
 <h:body>
-    <h:form>
-        <p:dataTable var="template" paginator="true" rows="5" value="#{sessionController.templates}"
+    <h:form id="form1">
+        <p:dataTable id="table" var="template" paginator="true" rows="5" value="#{sessionController.templates}"
                      paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                      rowsPerPageTemplate="2,5,10,15"
                      paginatorPosition="bottom">
@@ -29,10 +29,10 @@
                 <!--h:outputText value="Edit,Clone,Delete"/-->
                 <p:commandButton value="Edit"></p:commandButton>
                 <p:commandButton value="Clone"></p:commandButton>
-                <p:commandButton value="Delete" action="sessionController.delete(template.templateName)"></p:commandButton>
+                <p:commandButton value="Delete" action="#{sessionController.delete(template.templateName)}"  ajax="true" update=":form1"/>                                
             </p:column>
         </p:dataTable>
-        <p:commandButton value="Add"></p:commandButton>
+        <p:commandButton value="Add"/>
     </h:form>
 </h:body>
 </html>
