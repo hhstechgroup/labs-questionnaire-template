@@ -28,7 +28,7 @@
             <p:column style="width:30%;">
                 <!--h:outputText value="Edit,Clone,Delete"/-->
                 <p:commandButton value="Edit"></p:commandButton>
-                <p:commandButton value="Clone"></p:commandButton>
+                <p:commandButton value="Clone" action="#{sessionController.clone(template)}"/>
                 <p:commandButton value="Delete" action="sessionController.delete(template.templateName)"></p:commandButton>
             </p:column>
         </p:dataTable>
