@@ -11,6 +11,7 @@ import java.util.List;
  */
 public class SectionBean {
     private int pageNumber;
+    private List<GroupBean> groupsList;
 
     public List<GroupBean> getGroupsList() {
         return groupsList;
@@ -28,5 +29,5 @@ public class SectionBean {
         this.pageNumber = pageNumber;
     }
 
-    private List<GroupBean> groupsList;
+
 }

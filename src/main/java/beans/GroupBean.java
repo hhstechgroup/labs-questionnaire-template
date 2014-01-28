@@ -12,6 +12,7 @@ import java.util.List;
  */
 public class GroupBean {
     private String groupName;
+    private List<QuestionBean> questionsList;
 
     public String getGroupName() {
         return groupName;
@@ -29,5 +30,5 @@ public class GroupBean {
         this.questionsList = questionsList;
     }
 
-    private List<QuestionBean> questionsList;
+
 }
