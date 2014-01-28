@@ -42,7 +42,7 @@ public class SessionController implements Serializable {
     
     public void delete(String templatename){
     	for (TemplateBean tb : list) {
-    		if (tb.getTemplateName().equals(templatename)){
+    		if (tb.getTemplateName().equals(templatename)) {
     			list.remove(tb);
     			break;
     		}
