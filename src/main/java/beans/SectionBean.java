@@ -31,7 +31,7 @@ public class SectionBean implements Cloneable {
     }
 
     @Override
-    protected Object clone() throws CloneNotSupportedException {
+    public Object clone() throws CloneNotSupportedException {
         SectionBean copy = (SectionBean) super.clone();
         copy.setPageNumber(this.pageNumber);
         List<GroupBean> copyGroupsList = new ArrayList<GroupBean>();

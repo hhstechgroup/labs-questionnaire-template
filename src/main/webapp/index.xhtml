@@ -11,19 +11,18 @@
     <title>Hello World</title>
 </h:head>
 <h:body>
-    <p:dataTable var="template" value="#{sessionController.templates}">
+    <p:dataTable var="template" paginator="true" rows="2" value="#{sessionController.templates}">
+        <!--p:column width="400"  style="table-layout:fixed"-->
         <p:column>
             <h:outputText value="#{template.templateName}"/>
         </p:column>
-        <p:column>
-            <h:outputText value="Edit"/>
-        </p:column>
-        <p:column>
-            <h:outputText value="Clone"/>
-        </p:column>
-        <p:column>
-            <h:outputText value="Delete"/>
+        <p:column style="width:30%;">
+            <!--h:outputText value="Edit,Clone,Delete"/-->
+            <p:commandButton value="Edit"></p:commandButton>
+            <p:commandButton value="Clone"></p:commandButton>
+            <p:commandButton value="Delete"></p:commandButton>
         </p:column>
     </p:dataTable>
+    <p:commandButton value="Add"></p:commandButton>
 </h:body>
 </html>

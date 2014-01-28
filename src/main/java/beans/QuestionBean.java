@@ -47,7 +47,7 @@ public class QuestionBean implements Cloneable {
     }
 
     @Override
-    protected Object clone() throws CloneNotSupportedException {
+    public Object clone() throws CloneNotSupportedException {
         QuestionBean copy = (QuestionBean) super.clone();
         copy.setQuestionType(this.questionType);
         return copy;
