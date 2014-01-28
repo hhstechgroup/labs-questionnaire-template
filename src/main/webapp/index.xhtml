@@ -27,7 +27,7 @@
             </p:column>
             <p:column style="width:30%;">
                 <!--h:outputText value="Edit,Clone,Delete"/-->
-                <p:commandButton value="Edit" ajax="false" action="edit" actionListener="#{sessionController.setCurrentTemplate(template)}"/>
+                <p:commandButton value="Edit" action="edit" actionListener="#{sessionController.setCurrentTemplate(template)}"/>
                 <p:commandButton value="Clone" action="#{sessionController.clone(template)}" ajax="true" update=":form1"/>
                 <p:commandButton value="Delete" action="#{sessionController.delete(template.templateName)}"  ajax="true" update=":form1"/>                                
             </p:column>

@@ -32,9 +32,8 @@ public class SessionController implements Serializable {
         return list;
     }
 
-    public String setTemplates(List<TemplateBean> list) {
+    public void setTemplates(List<TemplateBean> list) {
         this.list = list;
-        return "success";
     }
 
     public TemplateBean getCurrentTemplate() {
@@ -56,12 +55,9 @@ public class SessionController implements Serializable {
     			list.remove(tb);
     			break;
     		}
-    		
     	}
     		
     }
-
-
 }
 
 
