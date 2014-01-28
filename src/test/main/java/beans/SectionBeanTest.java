@@ -1,8 +1,8 @@
 package main.java.beans;
 
 import beans.SectionBean;
-import com.engagepoint.controller.SessionController;
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 
 /**
@@ -11,6 +11,7 @@ import org.junit.Test;
 public class SectionBeanTest {
     SectionBean sectionBean;
 
+    @Before
     public void createSectionBean() {
         sectionBean = new SectionBean();
         // Calling setters in sectionBean

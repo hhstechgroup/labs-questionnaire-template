@@ -1,9 +1,8 @@
 package main.java.beans;
 
-import beans.GroupBean;
 import beans.QuestionBean;
 import org.junit.Assert;
-import org.junit.BeforeClass;
+import org.junit.Before;
 
 /**
  * Created by yurii.kukharskyi on 1/28/14.
@@ -11,7 +10,7 @@ import org.junit.BeforeClass;
 public class QuestionBeanTest {
     QuestionBean questionBean;
 
-    @BeforeClass
+    @Before
     public void createQuestionBean() {
         questionBean = new QuestionBean();
         // Calling setters in questionBean

@@ -2,7 +2,7 @@ package main.java.beans;
 
 import beans.GroupBean;
 import org.junit.Assert;
-import org.junit.BeforeClass;
+import org.junit.Before;
 import org.junit.Test;
 
 /**
@@ -11,7 +11,7 @@ import org.junit.Test;
 public class GroupBeanTest {
     GroupBean groupBean;
 
-    @BeforeClass
+    @Before
     public void createGroupBean() {
         groupBean = new GroupBean();
         // Calling setters in groupBean

@@ -1,8 +1,8 @@
 package main.java.beans;
 
-import beans.SectionBean;
 import beans.TemplateBean;
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 
 /**
@@ -11,6 +11,7 @@ import org.junit.Test;
 public class TemplateBeanTest {
     TemplateBean templateBean;
 
+    @Before
     public void createSectionBean() {
         templateBean = new TemplateBean();
         // Calling setters in templateBean
