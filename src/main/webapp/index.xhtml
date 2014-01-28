@@ -5,14 +5,26 @@
       xmlns:p="http://primefaces.org/ui"
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:ui="http://java.sun.com/jsf/facelets"
-        >
+      xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
 <h:head>
     <title>Hello World</title>
 </h:head>
 <h:body>
-    <h:outputLabel value="Hello World JSF first commit !!!)))"/>
-    <p:outputLabel value="Hello World Prime Faces!!!)"/>
-    <p:commandButton value="OK"/>
+    <p:dataTable var="template" value="#{sessionController.templates}">
+        <p:column>
+            <!--h:outputText value="#{template.name}"/-->
+            #{template.name}
+        </p:column>
+        <p:column>
+            <h:outputText value="Edit"/>
+        </p:column>
+        <p:column>
+            <h:outputText value="Clone"/>
+        </p:column>
+        <p:column>
+            <h:outputText value="Delete"/>
+        </p:column>
+    </p:dataTable>
 </h:body>
 </html>
