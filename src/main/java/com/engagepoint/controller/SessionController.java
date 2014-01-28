@@ -37,6 +37,7 @@ public class SessionController implements Serializable {
 
     public void clone(TemplateBean template) throws CloneNotSupportedException {
         list.add((TemplateBean) template.clone());
+        Collections.sort(list);
     }
     
     public void delete(String templatename){
