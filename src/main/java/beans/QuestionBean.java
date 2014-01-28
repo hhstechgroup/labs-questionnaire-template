@@ -8,7 +8,11 @@ package beans;
  * To change this template use File | Settings | File Templates.
  */
 public class QuestionBean {
+    private Long id;
     private String questionTitle;
+    private boolean requiredAnswer;
+    private QuestionType questionType;
+
 
     public String getQuestionTitle() {
         return questionTitle;
@@ -16,5 +20,29 @@ public class QuestionBean {
 
     public void setQuestionTitle(String questionTitle) {
         this.questionTitle = questionTitle;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public boolean isRequiredAnswer() {
+        return requiredAnswer;
+    }
+
+    public void setRequiredAnswer(boolean requiredAnswer) {
+        this.requiredAnswer = requiredAnswer;
+    }
+
+    public QuestionType getQuestionType() {
+        return questionType;
+    }
+
+    public void setQuestionType(QuestionType questionType) {
+        this.questionType = questionType;
     }
 }
