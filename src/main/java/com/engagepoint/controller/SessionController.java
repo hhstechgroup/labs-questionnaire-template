@@ -34,6 +34,17 @@ public class SessionController implements Serializable {
     public void setTemplates(List<TemplateBean> list) {
         this.list = list;
     }
+    
+    public void delete(String templatename){
+    	for (TemplateBean tb : list) {
+    		if (tb.getTemplateName().equals(templatename)){
+    			list.remove(tb);
+    			break;
+    		}
+    		
+    	}
+    		
+    }
 }
 
 
