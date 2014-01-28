@@ -1,5 +1,6 @@
 package beans;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -9,7 +10,7 @@ import java.util.List;
  * Time: 12:49 PM
  * To change this template use File | Settings | File Templates.
  */
-public class TemplateBean {
+public class TemplateBean implements Cloneable {
     private String templateName;
     private List<SectionBean> sectionsList;
 
@@ -27,5 +28,17 @@ public class TemplateBean {
 
     public void setSectionsList(List<SectionBean> sectionsList) {
         this.sectionsList = sectionsList;
+    }
+
+    @Override
+    protected Object clone() throws CloneNotSupportedException {
+        TemplateBean copy = (TemplateBean) super.clone();
+        copy.setTemplateName(this.templateName);
+        List<SectionBean> copySectionsList = new ArrayList<SectionBean>();
+        for (SectionBean sectionBean : sectionsList) {
+            copySectionsList.add((SectionBean) sectionBean.clone());
+        }
+        copy.setSectionsList(copySectionsList);
+        return copy;
     }
 }

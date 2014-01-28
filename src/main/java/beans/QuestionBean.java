@@ -7,7 +7,7 @@ package beans;
  * Time: 12:52 PM
  * To change this template use File | Settings | File Templates.
  */
-public class QuestionBean {
+public class QuestionBean implements Cloneable {
     private Long id;
     private String questionTitle;
     private boolean requiredAnswer;
@@ -20,6 +20,11 @@ public class QuestionBean {
 
     public void setQuestionTitle(String questionTitle) {
         this.questionTitle = questionTitle;
+    }
+
+    @Override
+    protected Object clone() throws CloneNotSupportedException {
+        return super.clone();
     }
 
     public Long getId() {

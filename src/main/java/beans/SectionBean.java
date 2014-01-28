@@ -1,5 +1,6 @@
 package beans;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -9,7 +10,7 @@ import java.util.List;
  * Time: 12:50 PM
  * To change this template use File | Settings | File Templates.
  */
-public class SectionBean {
+public class SectionBean implements Cloneable {
     private int pageNumber;
     private List<GroupBean> groupsList;
 
@@ -29,5 +30,16 @@ public class SectionBean {
         this.pageNumber = pageNumber;
     }
 
+    @Override
+    protected Object clone() throws CloneNotSupportedException {
+        SectionBean copy = (SectionBean) super.clone();
+        copy.setPageNumber(this.pageNumber);
+        List<GroupBean> copyGroupsList = new ArrayList<GroupBean>();
+        for (GroupBean groupBean : copyGroupsList) {
+            copyGroupsList.add((GroupBean) groupBean.clone());
+        }
+        copy.setGroupsList(copyGroupsList);
+        return copy;
+    }
 
 }
