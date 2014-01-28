@@ -30,7 +30,7 @@ public class SessionController implements Serializable {
         return list;
     }
 
-    public void setList(List<TemplateBean> list) {
+    public void setTemplates(List<TemplateBean> list) {
         this.list = list;
     }
 }
