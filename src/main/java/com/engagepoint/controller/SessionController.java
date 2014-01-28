@@ -1,7 +1,7 @@
 package com.engagepoint.controller;
 
 
-import beans.TemplateBean;
+import com.engagepoint.bean.TemplateBean;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
@@ -43,6 +43,11 @@ public class SessionController implements Serializable {
 
     public void setCurrentTemplate(TemplateBean currentTemplate) {
         this.currentTemplate = currentTemplate;
+    }
+
+    public void clone(TemplateBean template) {
+        list.add((TemplateBean) template);
+        Collections.sort(list);
     }
     
     public void delete(String templatename){
