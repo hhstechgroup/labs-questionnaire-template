@@ -54,9 +54,9 @@ public class SessionController implements Serializable {
 
     public void clone(TemplateBean template) {
         list.add((TemplateBean) template);
-        Collections.sort(list);
-
-      update();
+        if(filteredList!=null)
+            filteredList.add(template);
+        sort();
     }
     
     /**
@@ -68,13 +68,9 @@ public class SessionController implements Serializable {
 	 */
 	public void delete(TemplateBean template) {
 		list.remove(template);
-        
-        update();
+        if(filteredList!=null)
+            filteredList.remove(template);
 	}
-
-    private void update() {
-        filteredList=list;
-    }
 
     public List<TemplateBean> getFilteredTemplates() {
         return filteredList;
@@ -100,6 +96,10 @@ public class SessionController implements Serializable {
 			return "";
 		return "Please confirm deleting of "+template.getTemplateName();
 	}
+
+    private void sort(){
+        Collections.sort(list);
+        if(filteredList!=null)
+            Collections.sort(filteredList);
+    }
 }
-
-
