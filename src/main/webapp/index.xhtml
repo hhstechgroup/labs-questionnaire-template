@@ -11,12 +11,7 @@
 	<title>Hello World</title>
 </h:head>
 <h:body>
-	<h:form id="form1">
-		<p:dataTable id="table" var="template" paginator="true" rows="5"
-			value="#{sessionController.templates}"
-			paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-			rowsPerPageTemplate="2,5,10,15" paginatorPosition="bottom">
-			<!--p:column width="400"  style="table-layout:fixed"-->
+
     <h:form id="form1">
         <p:dataTable id="table" var="template" paginator="true" rows="10" value="#{sessionController.templates}"
                      paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
@@ -55,8 +50,11 @@
 				</p:dialog>
 
 			</p:column>
+
 		</p:dataTable>
-		<p:commandButton value="Add" />
+
+        <p:commandButton value="Add" />
 	</h:form>
+
 </h:body>
 </html>
