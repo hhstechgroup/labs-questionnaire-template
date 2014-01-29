@@ -15,14 +15,17 @@
         <p:dataTable id="table" var="template" paginator="true" rows="10" value="#{sessionController.templates}"
                      paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                      rowsPerPageTemplate="2,5,10,15"
-                     paginatorPosition="bottom">
+                     paginatorPosition="bottom"
+                     filteredValue="#{sessionController.filteredTemplates}">
             <!--p:column width="400"  style="table-layout:fixed"-->
 
             <f:facet name="header">
                 Templates
             </f:facet>
 
-            <p:column>
+            <p:column filterBy="#{template.templateName}"
+                      headerText="Template" footerText="contains"
+                      filterMatchMode="contains">
                 <h:outputText value="#{template.templateName}"/>
             </p:column>
             <p:column style="width:30%;">

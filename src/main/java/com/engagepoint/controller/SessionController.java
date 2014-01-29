@@ -17,6 +17,7 @@ public class SessionController implements Serializable {
     private List<TemplateBean> list;
     private TemplateBean currentTemplate;
     private ServiceConfigProperties properties;
+    private List<TemplateBean> filteredList;
 
     public SessionController() {
         properties = new ServiceConfigProperties();
@@ -28,6 +29,7 @@ public class SessionController implements Serializable {
         list.add(new TemplateBean("Template E"));
         list.add(new TemplateBean("Template C"));
         Collections.sort(list);
+
     }
 
     public List<TemplateBean> getTemplates() {
@@ -54,6 +56,8 @@ public class SessionController implements Serializable {
     public void clone(TemplateBean template) {
         list.add((TemplateBean) template);
         Collections.sort(list);
+
+      update();
     }
     
     public void delete(String templatename){
@@ -63,8 +67,24 @@ public class SessionController implements Serializable {
     			break;
     		}
     	}
-    		
+
+        update();
+
     }
+
+    private void update() {
+        filteredList=list;
+    }
+
+    public List<TemplateBean> getFilteredTemplates() {
+        return filteredList;
+    }
+
+    public void setFilteredTemplates(List<TemplateBean> filteredList) {
+        this.filteredList = filteredList;
+    }
+
+
 }
 
 
