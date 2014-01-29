@@ -16,8 +16,10 @@ public class SessionController implements Serializable {
 
     private List<TemplateBean> list;
     private TemplateBean currentTemplate;
+    private ServiceConfigProperties properties;
 
     public SessionController() {
+        properties = new ServiceConfigProperties();
         list = new ArrayList<TemplateBean>();
         list.add(new TemplateBean("Template D"));
         list.add(new TemplateBean("Template B"));
@@ -42,6 +44,11 @@ public class SessionController implements Serializable {
 
     public void setCurrentTemplate(TemplateBean currentTemplate) {
         this.currentTemplate = currentTemplate;
+    }
+
+
+    public int getProperties() {
+        return properties.getPagesCount();
     }
 
     public void clone(TemplateBean template) {
