@@ -49,15 +49,33 @@ public class SessionController implements Serializable {
         Collections.sort(list);
     }
     
-    public void delete(String templatename){
-    	for (TemplateBean tb : list) {
-    		if (tb.getTemplateName().equals(templatename)) {
-    			list.remove(tb);
-    			break;
-    		}
-    	}
-    		
-    }
+    /**
+	 * deleting Template from list
+	 * 
+	 * @param template to be deleted
+	 * 
+	 * @author dmytro.sorych
+	 */
+	public void delete(TemplateBean template) {
+		list.remove(template);
+	}
+	
+	/**
+	 * showing message on delete popup
+	 * 
+	 * @param template
+	 * 
+	 * @return String message to display
+	 * 
+	 * @author dmytro.sorych
+	 */
+	public String showMessageOnDelete(TemplateBean template) {
+		if (template==null)
+			return "";
+		if (template.getTemplateName()==null)
+			return "";
+		return "Please confirm deleting of "+template.getTemplateName();
+	}
 }
 
 
