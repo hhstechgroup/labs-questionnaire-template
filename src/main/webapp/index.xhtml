@@ -29,8 +29,11 @@
 				<h:outputText value="#{template.templateName}" />
 			</p:column>
 			<p:column style="width:30%;">
-				<p:commandButton value="Edit" action="edit"
-					actionListener="#{sessionController.setCurrentTemplate(template)}" />
+                <p:commandButton value="Edit" action="/template?faces-redirect=true" actionListener="#{sessionController.edit}"
+                                 ajax="false">
+                    <f:attribute name="template" value="${template}"/>
+                </p:commandButton>
+
 				<p:commandButton value="Clone"
 					action="#{sessionController.clone(template)}" ajax="true"
 					update=":form1" />

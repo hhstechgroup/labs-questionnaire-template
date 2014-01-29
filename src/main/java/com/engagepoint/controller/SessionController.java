@@ -5,6 +5,7 @@ import com.engagepoint.bean.TemplateBean;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.event.ActionEvent;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -96,6 +97,19 @@ public class SessionController implements Serializable {
 			return "";
 		return "Please confirm deleting of "+template.getTemplateName();
 	}
+
+    /**
+     * operations before editing a template
+     *
+     * @param event
+     *
+     * @author anna.zagrebelnaya
+     */
+    public void edit(ActionEvent event) {
+        TemplateBean template = (TemplateBean) event.getComponent().getAttributes().get("template");
+        setCurrentTemplate(template);
+    }
+
 
     private void sort(){
         Collections.sort(list);
