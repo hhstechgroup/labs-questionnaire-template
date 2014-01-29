@@ -38,7 +38,7 @@
 					update="modalDialog" oncomplete="PF('dlg2').show();">
 				</p:commandButton>
 
-				<p:dialog id="modalDialog" header="Modal Dialog" widgetVar="dlg2"
+				<p:dialog id="modalDialog" widgetVar="dlg2"
 					modal="true" height="100" closable="false" resizeable="false">
 					<h:outputText
 						value="#{sessionController.showMessageOnDelete(sessionController.getCurrentTemplate())}" />
