@@ -3,6 +3,9 @@ package com.engagepoint.bean;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 
+/**
+ * Class represents question tag.
+ */
 public class QuestionBean implements Cloneable {
     private Long id;
     private String questionTitle;

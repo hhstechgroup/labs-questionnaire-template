@@ -6,6 +6,9 @@ import javax.xml.bind.annotation.XmlElementWrapper;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Class represents group tag.
+ */
 public class GroupBean implements Cloneable {
     private String groupName;
     private List<QuestionBean> questionsList = new ArrayList<QuestionBean>();
