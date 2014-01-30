@@ -69,6 +69,7 @@ public class TemplateBean implements Cloneable, Comparable<TemplateBean> {
 
     /**
      * Compares names of objects.
+     *
      * @param o object to compare
      * @return a negative integer, zero, or a positive integer as this object is less than, equal to, or greater than the specified object.
      */

@@ -5,13 +5,6 @@ import javax.xml.bind.annotation.XmlElementWrapper;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created with IntelliJ IDEA.
- * User: anton.kovunov
- * Date: 1/28/14
- * Time: 12:50 PM
- * To change this template use File | Settings | File Templates.
- */
 public class SectionBean implements Cloneable {
     private int pageNumber;
     private List<GroupBean> groupsList = new ArrayList<GroupBean>();
