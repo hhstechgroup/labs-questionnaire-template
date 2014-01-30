@@ -4,6 +4,7 @@ package com.engagepoint.controller;
 import com.engagepoint.bean.TemplateBean;
 import com.engagepoint.utils.XmlImportExport;
 
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.component.UIInput;
@@ -145,4 +146,25 @@ public class SessionController implements Serializable {
             return "error";
         }
     }
+    public void exportToXML() {
+        addExportInfo();
+        //Код для экпорта в XML
+    }
+
+    // Метод для добавления всплывающего сообщения File exported
+    private void addExportInfo() {
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,"File exported", "PrimeFaces rocks!"));
+    }
+
+    public void importFromXML() {
+
+        // Код, отвечающий за импорт файла с диска.
+        addImportInfo();
+    }
+
+    // Метод для добавления всплывающего сообщения File imported
+    private void addImportInfo() {
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "File imported", "PrimeFaces rocks!"));
+    }
 }
+
