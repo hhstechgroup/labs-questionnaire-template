@@ -59,6 +59,11 @@
 		</p:dataTable>
 
         <p:commandButton value="Add" />
+        <p:growl id="messages"/>
+        <p:menuButton value="Options">
+            <p:menuitem value="Export" update = "messages" actionListener="#{sessionController.exportToXML}" icon="ui-icon-disk"/>
+            <p:menuitem value="Import" update = "messages" actionListener="#{sessionController.importFromXML}" icon="ui-icon-arrowrefresh-1-w"/>
+        </p:menuButton>
 	</h:form>
 
 </h:body>

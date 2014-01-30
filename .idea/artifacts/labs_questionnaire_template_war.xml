@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="labs-questionnaire-template:war">
+    <output-path>$PROJECT_DIR$/target</output-path>
+    <root id="archive" name="labs-questionnaire-template-1.0-SNAPSHOT.war">
+      <element id="artifact" artifact-name="labs-questionnaire-template:war exploded" />
+    </root>
+  </artifact>
+</component>

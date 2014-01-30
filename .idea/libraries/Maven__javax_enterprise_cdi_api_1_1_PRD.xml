@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Maven: javax.enterprise:cdi-api:1.1-PRD">
+    <CLASSES>
+      <root url="jar://$MAVEN_REPOSITORY$/javax/enterprise/cdi-api/1.1-PRD/cdi-api-1.1-PRD.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$MAVEN_REPOSITORY$/javax/enterprise/cdi-api/1.1-PRD/cdi-api-1.1-PRD-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$MAVEN_REPOSITORY$/javax/enterprise/cdi-api/1.1-PRD/cdi-api-1.1-PRD-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

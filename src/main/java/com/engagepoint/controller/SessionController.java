@@ -3,9 +3,9 @@ package com.engagepoint.controller;
 
 import com.engagepoint.bean.TemplateBean;
 
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
-import javax.faces.component.UIInput;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 import java.io.Serializable;
@@ -119,30 +119,23 @@ public class SessionController implements Serializable {
             Collections.sort(filteredList);
     }
 
-    /**
-     * saving a template
-     *
-     * @param event
-     *
-     * @author anna.zagrebelnaya
-     */
-    public String saveTemplate(ActionEvent event) {
-        try{
-            FacesContext context = FacesContext.getCurrentInstance();
+    public void exportToXML() {
+        //Код для экпорта в XML
+        addExportInfo();
+    }
 
-            TemplateBean template = (TemplateBean) event.getComponent().getAttributes().get("template");
+    // Метод для добавления всплывающего сообщения File exported
+    private void addExportInfo() {
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,"File exported", "PrimeFaces rocks!"));
+    }
 
-            UIInput nameComponent = (UIInput) context.getViewRoot().findComponent("form2:name");
-            String name = (String) nameComponent.getSubmittedValue();
+    public void importFromXML() {
+        // Код, отвечающий за импорт файла с диска.
+        addImportInfo();
+    }
 
-            template.setTemplateName(name);
-            sort();
-
-            return "saved";
-        }
-        catch(Exception e)
-        {
-            return "error";
-        }
+    // Метод для добавления всплывающего сообщения File imported
+    private void addImportInfo() {
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,"File imported", "PrimeFaces rocks!"));
     }
 }
