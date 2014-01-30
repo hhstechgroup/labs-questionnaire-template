@@ -5,6 +5,9 @@ import javax.xml.bind.annotation.XmlElementWrapper;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Class represents page tag.
+ */
 public class SectionBean implements Cloneable {
     private int pageNumber;
     private List<GroupBean> groupsList = new ArrayList<GroupBean>();

@@ -6,7 +6,10 @@ import javax.xml.bind.annotation.XmlRootElement;
 import java.util.ArrayList;
 import java.util.List;
 
-@XmlRootElement(name="questionnaire-form")
+/**
+ * Class represents questionnaire-form tag.
+ */
+@XmlRootElement(name = "questionnaire-form")
 public class TemplateBean implements Cloneable, Comparable<TemplateBean> {
     private String templateName;
     private List<SectionBean> sectionsList = new ArrayList<SectionBean>();
