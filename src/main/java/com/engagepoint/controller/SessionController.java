@@ -5,6 +5,8 @@ import com.engagepoint.bean.TemplateBean;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.component.UIInput;
+import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -115,5 +117,32 @@ public class SessionController implements Serializable {
         Collections.sort(list);
         if(filteredList!=null)
             Collections.sort(filteredList);
+    }
+
+    /**
+     * saving a template
+     *
+     * @param event
+     *
+     * @author anna.zagrebelnaya
+     */
+    public String saveTemplate(ActionEvent event) {
+        try{
+            FacesContext context = FacesContext.getCurrentInstance();
+
+            TemplateBean template = (TemplateBean) event.getComponent().getAttributes().get("template");
+
+            UIInput nameComponent = (UIInput) context.getViewRoot().findComponent("form2:name");
+            String name = (String) nameComponent.getSubmittedValue();
+
+            template.setTemplateName(name);
+            sort();
+
+            return "saved";
+        }
+        catch(Exception e)
+        {
+            return "error";
+        }
     }
 }

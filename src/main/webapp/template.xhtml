@@ -11,19 +11,14 @@
     <title>Template</title>
 </h:head>
 <h:body>
-    <!--<h:form>
-        <h:outputLabel value="Name"/><br/>
-        <h:inputText value="#{sessionController.getCurrentTemplate().templateName}"/>
-    </h:form> -->
-    <h:form id="form">
+    <h:form id="form2">
         <p:outputLabel for="name" value="Name:"/>
-        <p:inputText id="name" required="true" value="#{sessionController.getCurrentTemplate().templateName}" /> <br/>
+        <p:inputText id="name" required="true" value="#{sessionController.getCurrentTemplate().templateName}" /> <br/> <br/>
 
-        <p:commandButton value="Save" immediate="true" action="/index?faces-redirect=true" actionListener="#{sessionController.getCurrentTemplate().save}" ajax="false">
+        <p:commandButton value="Save" immediate="true" update="form1" action="/index?faces-redirect=true" actionListener="#{sessionController.saveTemplate}" ajax="false">
             <f:attribute name="template" value="#{sessionController.getCurrentTemplate()}"/>
-            <f:attribute name="name" value="#{sessionController.getCurrentTemplate().templateName}"/>
         </p:commandButton>
-        <p:commandButton value="Cancel" />
+        <p:commandButton value="Cancel" immediate="true" action="/index?faces-redirect=true"/>
     </h:form>
 </h:body>
 </html>
