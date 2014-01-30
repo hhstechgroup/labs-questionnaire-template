@@ -9,7 +9,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.component.UIInput;
 import javax.faces.context.FacesContext;
-import javax.faces.event.ActionEvent;
+import javax.faces.event.*;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -135,14 +135,16 @@ public class SessionController implements Serializable {
 
             TemplateBean template = (TemplateBean) event.getComponent().getAttributes().get("template");
 
-            UIInput nameComponent = (UIInput) context.getViewRoot().findComponent("form2:name");
+            UIInput nameComponent = (UIInput) context.getViewRoot().findComponent("formTemplate:name");
             String name = (String) nameComponent.getSubmittedValue();
 
             template.setTemplateName(name);
             sort();
 
             return "saved";
-        } catch (Exception e) {
+        }
+        catch(Exception e)
+        {
             return "error";
         }
     }
