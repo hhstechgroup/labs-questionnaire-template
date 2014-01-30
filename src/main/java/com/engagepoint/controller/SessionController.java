@@ -4,6 +4,7 @@ package com.engagepoint.controller;
 import com.engagepoint.bean.TemplateBean;
 import com.engagepoint.utils.XmlImportExport;
 
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.component.UIInput;
@@ -144,5 +145,19 @@ public class SessionController implements Serializable {
         } catch (Exception e) {
             return "error";
         }
+    }
+
+    public void exportToXML() {
+        addMessage("Data exported");
+    }
+
+
+    public void importFromXML() {
+        addMessage("Data imported");
+    }
+
+    private void addMessage(String summary) {
+        FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, summary,  null);
+        FacesContext.getCurrentInstance().addMessage(null, message);
     }
 }
