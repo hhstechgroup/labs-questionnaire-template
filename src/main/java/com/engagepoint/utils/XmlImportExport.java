@@ -54,11 +54,11 @@ public class XmlImportExport {
     }
 
     /**
+     * Export java objects into XML.
      *
-     * @param listTemplateBean
+     * @param listTemplateBean list of TemplateBean objects
      */
-    public static void exportXmlTemplate(List<TemplateBean> listTemplateBean)
-    {
+    public static void exportXmlTemplate(List<TemplateBean> listTemplateBean) {
         //TODO
     }
 
