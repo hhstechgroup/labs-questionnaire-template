@@ -2,10 +2,11 @@ package com.engagepoint.controller;
 
 
 import com.engagepoint.bean.TemplateBean;
+import com.engagepoint.utils.XmlImportExport;
 
-import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.component.UIInput;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 import java.io.Serializable;
@@ -31,6 +32,12 @@ public class SessionController implements Serializable {
         list.add(new TemplateBean("Template A"));
         list.add(new TemplateBean("Template E"));
         list.add(new TemplateBean("Template C"));
+        //TODO
+        //searching path of XML file in glassfish
+        ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
+        String xmlPath = classLoader.getResource("Questionnaire.xml").getPath();
+        //adding Templates from XML file
+        list.addAll(XmlImportExport.importXmlTemplate(xmlPath));
         Collections.sort(list);
     }
 
@@ -57,23 +64,22 @@ public class SessionController implements Serializable {
 
     public void clone(TemplateBean template) {
         list.add((TemplateBean) template);
-        if(filteredList!=null)
+        if (filteredList != null)
             filteredList.add(template);
         sort();
     }
-    
+
     /**
-	 * deleting Template from list
-	 * 
-	 * @param template to be deleted
-	 * 
-	 * @author dmytro.sorych
-	 */
-	public void delete(TemplateBean template) {
-		list.remove(template);
-        if(filteredList!=null)
+     * deleting Template from list
+     *
+     * @param template to be deleted
+     * @author dmytro.sorych
+     */
+    public void delete(TemplateBean template) {
+        list.remove(template);
+        if (filteredList != null)
             filteredList.remove(template);
-	}
+    }
 
     public List<TemplateBean> getFilteredTemplates() {
         return filteredList;
@@ -82,29 +88,26 @@ public class SessionController implements Serializable {
     public void setFilteredTemplates(List<TemplateBean> filteredList) {
         this.filteredList = filteredList;
     }
-	
-	/**
-	 * showing message on delete popup
-	 * 
-	 * @param template
-	 * 
-	 * @return String message to display
-	 * 
-	 * @author dmytro.sorych
-	 */
-	public String showMessageOnDelete(TemplateBean template) {
-		if (template==null)
-			return "";
-		if (template.getTemplateName()==null)
-			return "";
-		return "Please confirm deleting of "+template.getTemplateName();
-	}
+
+    /**
+     * showing message on delete popup
+     *
+     * @param template
+     * @return String message to display
+     * @author dmytro.sorych
+     */
+    public String showMessageOnDelete(TemplateBean template) {
+        if (template == null)
+            return "";
+        if (template.getTemplateName() == null)
+            return "";
+        return "Please confirm deleting of " + template.getTemplateName();
+    }
 
     /**
      * operations before editing a template
      *
      * @param event
-     *
      * @author anna.zagrebelnaya
      */
     public void edit(ActionEvent event) {
@@ -113,29 +116,33 @@ public class SessionController implements Serializable {
     }
 
 
-    private void sort(){
+    private void sort() {
         Collections.sort(list);
-        if(filteredList!=null)
+        if (filteredList != null)
             Collections.sort(filteredList);
     }
 
-    public void exportToXML() {
-        //Код для экпорта в XML
-        addExportInfo();
-    }
+    /**
+     * saving a template
+     *
+     * @param event
+     * @author anna.zagrebelnaya
+     */
+    public String saveTemplate(ActionEvent event) {
+        try {
+            FacesContext context = FacesContext.getCurrentInstance();
 
-    // Метод для добавления всплывающего сообщения File exported
-    private void addExportInfo() {
-        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,"File exported", "PrimeFaces rocks!"));
-    }
+            TemplateBean template = (TemplateBean) event.getComponent().getAttributes().get("template");
 
-    public void importFromXML() {
-        // Код, отвечающий за импорт файла с диска.
-        addImportInfo();
-    }
+            UIInput nameComponent = (UIInput) context.getViewRoot().findComponent("form2:name");
+            String name = (String) nameComponent.getSubmittedValue();
 
-    // Метод для добавления всплывающего сообщения File imported
-    private void addImportInfo() {
-        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,"File imported", "PrimeFaces rocks!"));
+            template.setTemplateName(name);
+            sort();
+
+            return "saved";
+        } catch (Exception e) {
+            return "error";
+        }
     }
 }
