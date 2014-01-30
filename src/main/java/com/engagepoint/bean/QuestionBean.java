@@ -1,19 +1,15 @@
 package com.engagepoint.bean;
 
-/**
- * Created with IntelliJ IDEA.
- * User: anton.kovunov
- * Date: 1/28/14
- * Time: 12:52 PM
- * To change this template use File | Settings | File Templates.
- */
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlElement;
+
 public class QuestionBean implements Cloneable {
     private Long id;
     private String questionTitle;
     private boolean requiredAnswer;
     private QuestionType questionType;
 
-
+    @XmlElement(name = "question-title")
     public String getQuestionTitle() {
         return questionTitle;
     }
@@ -22,6 +18,7 @@ public class QuestionBean implements Cloneable {
         this.questionTitle = questionTitle;
     }
 
+    @XmlAttribute(name = "question-id")
     public Long getId() {
         return id;
     }
@@ -30,6 +27,7 @@ public class QuestionBean implements Cloneable {
         this.id = id;
     }
 
+    @XmlAttribute(required = true)
     public boolean isRequiredAnswer() {
         return requiredAnswer;
     }
@@ -38,6 +36,7 @@ public class QuestionBean implements Cloneable {
         this.requiredAnswer = requiredAnswer;
     }
 
+    @XmlElement(name = "question-type")
     public QuestionType getQuestionType() {
         return questionType;
     }
