@@ -4,9 +4,7 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElementWrapper;
 import java.util.List;
 
-/**
- * Created by kostiantyn.ustinov on 1/29/14.
- */
+
 public class QuestionnaireForm {
 
     private String formName;
@@ -30,6 +28,4 @@ public class QuestionnaireForm {
     public void setFormName(String formName) {
         this.formName = formName;
     }
-
-
 }
