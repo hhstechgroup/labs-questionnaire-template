@@ -24,7 +24,7 @@ public class ServiceConfigProperties {
 
         try {
 
-            input = new FileInputStream("C:\\Users\\oleksandr.koval\\IdeaProjects\\labs-questionnaire-template\\src\\config.properties");
+            input = new FileInputStream("src\\main\\resources\\sdfconfig.properties");
 
             // load a properties file
             prop.load(input);

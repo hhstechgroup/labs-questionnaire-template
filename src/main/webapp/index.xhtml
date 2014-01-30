@@ -2,37 +2,64 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:p="http://primefaces.org/ui"
-      xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:fn="http://java.sun.com/jsp/jstl/functions"
-      xmlns:ui="http://java.sun.com/jsf/facelets">
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
 <h:head>
-    <title>Hello World</title>
+	<title>Hello World</title>
 </h:head>
 <h:body>
+
     <h:form id="form1">
         <p:dataTable id="table" var="template" paginator="true" rows="10" value="#{sessionController.templates}"
                      paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                      rowsPerPageTemplate="2,5,10,15"
-                     paginatorPosition="bottom">
+                     paginatorPosition="bottom"
+                     filteredValue="#{sessionController.filteredTemplates}">
             <!--p:column width="400"  style="table-layout:fixed"-->
 
-            <f:facet name="header">
+			<f:facet name="header">
                 Templates
             </f:facet>
 
-            <p:column>
-                <h:outputText value="#{template.templateName}"/>
-            </p:column>
-            <p:column style="width:30%;">
-                <!--h:outputText value="Edit,Clone,Delete"/-->
-                <p:commandButton value="Edit" action="edit" actionListener="#{sessionController.setCurrentTemplate(template)}"/>
-                <p:commandButton value="Clone" action="#{sessionController.clone(template)}" ajax="true" update=":form1"/>
-                <p:commandButton value="Delete" action="#{sessionController.delete(template.templateName)}"  ajax="true" update=":form1"/>                                
-            </p:column>
-        </p:dataTable>
-        <p:commandButton value="Add"/>
-    </h:form>
+			<p:column filterBy="#{template.templateName}"
+                      filterMatchMode="contains">
+				<h:outputText value="#{template.templateName}" />
+			</p:column>
+			<p:column style="width:30%;">
+                <p:commandButton value="Edit" action="/template?faces-redirect=true" actionListener="#{sessionController.edit}"
+                                 ajax="false">
+                    <f:attribute name="template" value="${template}"/>
+                </p:commandButton>
+
+				<p:commandButton value="Clone"
+					action="#{sessionController.clone(template)}" ajax="true"
+					update=":form1" />
+
+				<p:commandButton id="DeleteDialogButton" value="Delete"
+					action="#{sessionController.setCurrentTemplate(template)}"
+					update="modalDialog" oncomplete="PF('dlg2').show();">
+				</p:commandButton>
+
+				<p:dialog id="modalDialog" widgetVar="dlg2"
+					modal="true" height="100" closable="false" resizeable="false">
+					<h:outputText
+						value="#{sessionController.showMessageOnDelete(sessionController.getCurrentTemplate())}" />
+					<br></br>
+					<p:commandButton value="Yes, delete it"
+						action="#{sessionController.delete(sessionController.getCurrentTemplate())}"
+						ajax="true" update=":form1" onclick="dlg2.hide()" />
+					<p:commandButton value="No, cancel" onclick="dlg2.hide()" />
+				</p:dialog>
+
+			</p:column>
+
+		</p:dataTable>
+
+        <p:commandButton value="Add" />
+	</h:form>
+
 </h:body>
 </html>

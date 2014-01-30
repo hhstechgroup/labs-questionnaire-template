@@ -8,8 +8,10 @@
     <navigation-rule>
         <from-view-id>/index.xhtml</from-view-id>
         <navigation-case>
+            <from-action>#{sessionController.edit}</from-action>
             <from-outcome>edit</from-outcome>
             <to-view-id>/template.xhtml</to-view-id>
+            <redirect/>
         </navigation-case>
     </navigation-rule>
 </faces-config>

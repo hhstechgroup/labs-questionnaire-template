@@ -5,6 +5,7 @@ import com.engagepoint.bean.TemplateBean;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.event.ActionEvent;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -17,6 +18,7 @@ public class SessionController implements Serializable {
     private List<TemplateBean> list;
     private TemplateBean currentTemplate;
     private ServiceConfigProperties properties;
+    private List<TemplateBean> filteredList;
 
     public SessionController() {
         properties = new ServiceConfigProperties();
@@ -53,18 +55,65 @@ public class SessionController implements Serializable {
 
     public void clone(TemplateBean template) {
         list.add((TemplateBean) template);
-        Collections.sort(list);
+        if(filteredList!=null)
+            filteredList.add(template);
+        sort();
     }
     
-    public void delete(String templatename){
-    	for (TemplateBean tb : list) {
-    		if (tb.getTemplateName().equals(templatename)) {
-    			list.remove(tb);
-    			break;
-    		}
-    	}
-    		
+    /**
+	 * deleting Template from list
+	 * 
+	 * @param template to be deleted
+	 * 
+	 * @author dmytro.sorych
+	 */
+	public void delete(TemplateBean template) {
+		list.remove(template);
+        if(filteredList!=null)
+            filteredList.remove(template);
+	}
+
+    public List<TemplateBean> getFilteredTemplates() {
+        return filteredList;
+    }
+
+    public void setFilteredTemplates(List<TemplateBean> filteredList) {
+        this.filteredList = filteredList;
+    }
+	
+	/**
+	 * showing message on delete popup
+	 * 
+	 * @param template
+	 * 
+	 * @return String message to display
+	 * 
+	 * @author dmytro.sorych
+	 */
+	public String showMessageOnDelete(TemplateBean template) {
+		if (template==null)
+			return "";
+		if (template.getTemplateName()==null)
+			return "";
+		return "Please confirm deleting of "+template.getTemplateName();
+	}
+
+    /**
+     * operations before editing a template
+     *
+     * @param event
+     *
+     * @author anna.zagrebelnaya
+     */
+    public void edit(ActionEvent event) {
+        TemplateBean template = (TemplateBean) event.getComponent().getAttributes().get("template");
+        setCurrentTemplate(template);
+    }
+
+
+    private void sort(){
+        Collections.sort(list);
+        if(filteredList!=null)
+            Collections.sort(filteredList);
     }
 }
-
-
