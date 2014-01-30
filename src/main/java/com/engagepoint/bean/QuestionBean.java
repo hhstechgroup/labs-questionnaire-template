@@ -1,5 +1,9 @@
 package com.engagepoint.bean;
 
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlElementWrapper;
+
 /**
  * Created with IntelliJ IDEA.
  * User: anton.kovunov
@@ -13,7 +17,7 @@ public class QuestionBean implements Cloneable {
     private boolean requiredAnswer;
     private QuestionType questionType;
 
-
+    @XmlElement(name="question-title")
     public String getQuestionTitle() {
         return questionTitle;
     }
@@ -22,6 +26,7 @@ public class QuestionBean implements Cloneable {
         this.questionTitle = questionTitle;
     }
 
+    @XmlAttribute(name = "question-id")
     public Long getId() {
         return id;
     }
@@ -30,6 +35,7 @@ public class QuestionBean implements Cloneable {
         this.id = id;
     }
 
+    @XmlAttribute(required = true)
     public boolean isRequiredAnswer() {
         return requiredAnswer;
     }
@@ -38,6 +44,7 @@ public class QuestionBean implements Cloneable {
         this.requiredAnswer = requiredAnswer;
     }
 
+    @XmlElement(name="question-type")
     public QuestionType getQuestionType() {
         return questionType;
     }

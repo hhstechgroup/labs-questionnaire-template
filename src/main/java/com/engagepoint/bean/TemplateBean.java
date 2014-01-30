@@ -1,15 +1,10 @@
 package com.engagepoint.bean;
 
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlElementWrapper;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created with IntelliJ IDEA.
- * User: anton.kovunov
- * Date: 1/28/14
- * Time: 12:49 PM
- * To change this template use File | Settings | File Templates.
- */
 public class TemplateBean implements Cloneable, Comparable<TemplateBean> {
     private String templateName;
     private List<SectionBean> sectionsList = new ArrayList<SectionBean>();
@@ -21,6 +16,7 @@ public class TemplateBean implements Cloneable, Comparable<TemplateBean> {
         this.templateName = templateName;
     }
 
+    @XmlElement(name = "form-name")
     public String getTemplateName() {
         return templateName;
     }
@@ -29,6 +25,8 @@ public class TemplateBean implements Cloneable, Comparable<TemplateBean> {
         this.templateName = templateName;
     }
 
+    @XmlElementWrapper(name = "pages")
+    @XmlElement(name = "page")
     public List<SectionBean> getSectionsList() {
         return sectionsList;
     }
