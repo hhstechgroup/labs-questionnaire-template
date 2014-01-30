@@ -9,16 +9,36 @@
       xml:lang="en" lang="en">
 <h:head>
     <title>Template</title>
+    <h:outputScript library="js" name="setConfirmUnload.js" target="body"/>
 </h:head>
 <h:body>
-    <h:form id="form2">
-        <p:outputLabel for="name" value="Name:"/>
-        <p:inputText id="name" required="true" value="#{sessionController.getCurrentTemplate().templateName}" /> <br/> <br/>
+    <h:form id="formTemplate">
 
-        <p:commandButton value="Save" immediate="true" update="form1" action="/index?faces-redirect=true" actionListener="#{sessionController.saveTemplate}" ajax="false">
-            <f:attribute name="template" value="#{sessionController.getCurrentTemplate()}"/>
-        </p:commandButton>
-        <p:commandButton value="Cancel" immediate="true" action="/index?faces-redirect=true"/>
+        <p:panelGrid columns="2">
+
+            <f:facet name="header">
+                Template
+            </f:facet>
+
+            <p:outputLabel for="name" value="Name:"/>
+            <p:inputText id="name" required="true"
+                         value="#{sessionController.getCurrentTemplate().templateName}"/>
+
+            <f:facet name="footer">
+                <p:commandButton value="Save" immediate="true"
+                                 action="/index?faces-redirect=true"
+                                 actionListener="#{sessionController.saveTemplate}"
+                                 ajax="false">
+                    <f:attribute name="template"
+                                 value="#{sessionController.getCurrentTemplate()}"/>
+                </p:commandButton>
+
+                <p:commandButton value="Cancel" immediate="true"
+                                 action="/index?faces-redirect=true"/>
+            </f:facet>
+
+        </p:panelGrid>
+
     </h:form>
 </h:body>
 </html>
