@@ -4,14 +4,26 @@
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core"
       xml:lang="en" lang="en">
-<head>
+<h:head>
     <title>Template</title>
-</head>
-<body>
-    <h:form>
+</h:head>
+<h:body>
+    <!--<h:form>
         <h:outputLabel value="Name"/><br/>
         <h:inputText value="#{sessionController.getCurrentTemplate().templateName}"/>
+    </h:form> -->
+    <h:form id="form">
+        <p:outputLabel for="name" value="Name:"/>
+        <p:inputText id="name" required="true" value="#{sessionController.getCurrentTemplate().templateName}" /> <br/>
+
+        <p:commandButton value="Save" immediate="true" action="/index?faces-redirect=true" actionListener="#{sessionController.getCurrentTemplate().save}" ajax="false">
+            <f:attribute name="template" value="#{sessionController.getCurrentTemplate()}"/>
+            <f:attribute name="name" value="#{sessionController.getCurrentTemplate().templateName}"/>
+        </p:commandButton>
+        <p:commandButton value="Cancel" />
     </h:form>
-</body>
+</h:body>
 </html>

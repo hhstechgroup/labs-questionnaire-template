@@ -1,5 +1,7 @@
 package com.engagepoint.bean;
 
+import javax.faces.context.FacesContext;
+import javax.faces.event.ActionEvent;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -35,6 +37,27 @@ public class TemplateBean implements Cloneable, Comparable<TemplateBean> {
 
     public void setSectionsList(List<SectionBean> sectionsList) {
         this.sectionsList = sectionsList;
+    }
+
+    /**
+     * saving a template
+     *
+     * @param event
+     *
+     * @author anna.zagrebelnaya
+     */
+    public String save(ActionEvent event) {
+        try{
+            TemplateBean template = (TemplateBean) event.getComponent().getAttributes().get("template");
+            //String name = (String) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:name").getValueExpression();
+            template.setTemplateName("test");
+
+            return "saved";
+        }
+        catch(Exception e)
+        {
+            return "error";
+        }
     }
 
     @Override
