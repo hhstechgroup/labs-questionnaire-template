@@ -63,8 +63,8 @@ public class SessionController implements Serializable {
         return properties.getPagesCount();
     }
 
-    public void clone(TemplateBean template) {
-        list.add((TemplateBean) template);
+    public void clone(TemplateBean template) throws CloneNotSupportedException {
+        list.add((TemplateBean) template.clone());
         if (filteredList != null)
             filteredList.add(template);
         sort();
