@@ -17,11 +17,16 @@ import java.util.List;
 @SessionScoped
 public class SessionController implements Serializable {
 
-    private List<TemplateBean> list;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	private List<TemplateBean> list;
     private TemplateBean currentTemplate;
     private ServiceConfigProperties properties;
     private List<TemplateBean> filteredList;
-
+    private boolean showNewQuestionForm;
+    
     public SessionController() {
         properties = new ServiceConfigProperties();
         list = new ArrayList<TemplateBean>();
@@ -34,7 +39,19 @@ public class SessionController implements Serializable {
         Collections.sort(list);
     }
 
-    public List<TemplateBean> getTemplates() {
+    public boolean isShowNewQuestionForm() {
+		return showNewQuestionForm;
+	}
+
+	public void setShowNewQuestionForm(boolean showNewQuestionForm) {
+		this.showNewQuestionForm = showNewQuestionForm;
+	}
+
+	public void changeEditable() {
+		this.showNewQuestionForm = true;
+	}
+
+	public List<TemplateBean> getTemplates() {
         return list;
     }
 
