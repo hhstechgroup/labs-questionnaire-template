@@ -7,9 +7,7 @@ import com.engagepoint.utils.XmlImportExport;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
-import javax.faces.component.UIInput;
 import javax.faces.context.FacesContext;
-import javax.faces.event.*;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -19,9 +17,6 @@ import java.util.List;
 @SessionScoped
 public class SessionController implements Serializable {
 
-    /**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	private List<TemplateBean> list;
     private TemplateBean currentTemplate;
@@ -69,15 +64,6 @@ public class SessionController implements Serializable {
     public void setTemplates(List<TemplateBean> list) {
         this.list = list;
     }
-
-    public TemplateBean getCurrentTemplate() {
-        return currentTemplate;
-    }
-
-    public void setCurrentTemplate(TemplateBean currentTemplate) {
-        this.currentTemplate = currentTemplate;
-    }
-
 
     public int getProperties() {
         return properties.getPagesCount();
@@ -128,55 +114,16 @@ public class SessionController implements Serializable {
 		return "Please confirm deleting of "+template.getTemplateName();
 	}
 
-    /**
-     * operations before editing a template
-     *
-     * @param event
-     *
-     * @author anna.zagrebelnaya
-     */
-    public void edit(ActionEvent event) {
-        TemplateBean template = (TemplateBean) event.getComponent().getAttributes().get("template");
-        setCurrentTemplate(template);
-    }
-
-
-    private void sort() {
+    public void sort() {
         Collections.sort(list);
         if (filteredList != null)
             Collections.sort(filteredList);
     }
 
-    /**
-     * saving a template
-     *
-     * @param event
-     * @author anna.zagrebelnaya
-     */
-    public String saveTemplate(ActionEvent event) {
-        try{
-            FacesContext context = FacesContext.getCurrentInstance();
-
-            TemplateBean template = (TemplateBean) event.getComponent().getAttributes().get("template");
-
-            UIInput nameComponent = (UIInput) context.getViewRoot().findComponent("form2:name");
-            String name = (String) nameComponent.getSubmittedValue();
-
-            template.setTemplateName(name);
-            sort();
-
-            return "saved";
-        }
-        catch(Exception e)
-        {
-            return "error";
-        }
-    }
 
     public void exportToXML() {
         addMessage("Data exported");
     }
-
 
     public void importFromXML() {
         addMessage("Data imported");
@@ -186,5 +133,9 @@ public class SessionController implements Serializable {
     private void addMessage(String summary) {
         FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, summary,  null);
         FacesContext.getCurrentInstance().addMessage(null, message);
+    }
+
+    public String income() {
+        return "/index?faces-redirect=true";
     }
 }

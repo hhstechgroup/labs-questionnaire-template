@@ -22,19 +22,16 @@
 
             <p:outputLabel for="name" value="Name:"/>
             <p:inputText id="name" required="true"
-                         value="#{sessionController.getCurrentTemplate().templateName}"/>
+                         value="#{templateController.currentTemplate.templateName}"/>
 
             <f:facet name="footer">
                 <p:commandButton value="Save" immediate="true"
-                                 action="/index?faces-redirect=true"
-                                 actionListener="#{sessionController.saveTemplate}"
+                                 action="#{templateController.saveTemplate}"
                                  ajax="false">
-                    <f:attribute name="template"
-                                 value="#{sessionController.getCurrentTemplate()}"/>
                 </p:commandButton>
 
                 <p:commandButton value="Cancel" immediate="true"
-                                 action="/index?faces-redirect=true"/>
+                                 action="sessionController.income"/>
             </f:facet>
 
         </p:panelGrid>
