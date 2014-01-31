@@ -33,6 +33,7 @@ public class SessionController implements Serializable {
         list.add(new TemplateBean("Template A"));
         list.add(new TemplateBean("Template E"));
         list.add(new TemplateBean("Template C"));
+        list.add(new TemplateBean("Template C"));
         //TODO
         //searching path of XML file in glassfish
         ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
