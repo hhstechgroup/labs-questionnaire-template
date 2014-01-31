@@ -23,6 +23,7 @@ public class SessionController implements Serializable {
     private TemplateBean currentTemplate;
     private ServiceConfigProperties properties;
     private List<TemplateBean> filteredList;
+    private String xmlPath;
 
     public SessionController() {
         properties = new ServiceConfigProperties();
@@ -37,9 +38,10 @@ public class SessionController implements Serializable {
         //TODO
         //searching path of XML file in glassfish
         ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
-        String xmlPath = classLoader.getResource("Questionnaire.xml").getPath();
+        xmlPath = classLoader.getResource("Questionnaire.xml").getPath();
         //adding Templates from XML file
-        list.addAll(XmlImportExport.importXmlTemplate(xmlPath));
+
+        //replaced list.addAll to public void importFromXML()
         Collections.sort(list);
     }
 
@@ -157,6 +159,7 @@ public class SessionController implements Serializable {
 
     public void importFromXML() {
         addMessage("Data imported");
+        list.addAll(XmlImportExport.importXmlTemplate(xmlPath));
     }
 
     private void addMessage(String summary) {
