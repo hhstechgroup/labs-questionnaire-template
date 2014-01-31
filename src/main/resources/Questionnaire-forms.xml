@@ -9,7 +9,7 @@
 					<group>
 						<group-name></group-name>
 						<questions>
-							<question answer-required="true" question-id="1">
+							<question required-answer="required" question-id="1">
 								<question-title></question-title>
 									<question-type></question-type>
 									<help-text></help-text>

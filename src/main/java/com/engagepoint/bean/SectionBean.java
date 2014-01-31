@@ -1,19 +1,19 @@
 package com.engagepoint.bean;
 
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlElementWrapper;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created with IntelliJ IDEA.
- * User: anton.kovunov
- * Date: 1/28/14
- * Time: 12:50 PM
- * To change this template use File | Settings | File Templates.
+ * Class represents page tag.
  */
 public class SectionBean implements Cloneable {
     private int pageNumber;
     private List<GroupBean> groupsList = new ArrayList<GroupBean>();
 
+    @XmlElementWrapper(name = "groups-of-questions")
+    @XmlElement(name = "group")
     public List<GroupBean> getGroupsList() {
         return groupsList;
     }
@@ -22,6 +22,7 @@ public class SectionBean implements Cloneable {
         this.groupsList = groupsList;
     }
 
+    @XmlElement(name = "page-number")
     public int getPageNumber() {
         return pageNumber;
     }

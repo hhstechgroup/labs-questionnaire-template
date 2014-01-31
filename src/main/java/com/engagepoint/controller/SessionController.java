@@ -2,12 +2,14 @@ package com.engagepoint.controller;
 
 
 import com.engagepoint.bean.TemplateBean;
+import com.engagepoint.utils.XmlImportExport;
 
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.component.UIInput;
 import javax.faces.context.FacesContext;
-import javax.faces.event.ActionEvent;
+import javax.faces.event.*;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -25,6 +27,7 @@ public class SessionController implements Serializable {
     private TemplateBean currentTemplate;
     private ServiceConfigProperties properties;
     private List<TemplateBean> filteredList;
+    private String xmlPath;
     private boolean showNewQuestionForm;
     
     public SessionController() {
@@ -36,6 +39,14 @@ public class SessionController implements Serializable {
         list.add(new TemplateBean("Template A"));
         list.add(new TemplateBean("Template E"));
         list.add(new TemplateBean("Template C"));
+        list.add(new TemplateBean("Template C"));
+        //TODO
+        //searching path of XML file in glassfish
+        ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
+        xmlPath = classLoader.getResource("Questionnaire.xml").getPath();
+        //adding Templates from XML file
+
+        //replaced list.addAll to public void importFromXML()
         Collections.sort(list);
     }
 
@@ -72,9 +83,9 @@ public class SessionController implements Serializable {
         return properties.getPagesCount();
     }
 
-    public void clone(TemplateBean template) {
-        list.add((TemplateBean) template);
-        if(filteredList!=null)
+    public void clone(TemplateBean template) throws CloneNotSupportedException {
+        list.add((TemplateBean) template.clone());
+        if (filteredList != null)
             filteredList.add(template);
         sort();
     }
@@ -90,7 +101,7 @@ public class SessionController implements Serializable {
 		list.remove(template);
         if(filteredList!=null)
             filteredList.remove(template);
-	}
+    }
 
     public List<TemplateBean> getFilteredTemplates() {
         return filteredList;
@@ -130,9 +141,9 @@ public class SessionController implements Serializable {
     }
 
 
-    private void sort(){
+    private void sort() {
         Collections.sort(list);
-        if(filteredList!=null)
+        if (filteredList != null)
             Collections.sort(filteredList);
     }
 
@@ -140,7 +151,6 @@ public class SessionController implements Serializable {
      * saving a template
      *
      * @param event
-     *
      * @author anna.zagrebelnaya
      */
     public String saveTemplate(ActionEvent event) {
@@ -161,5 +171,20 @@ public class SessionController implements Serializable {
         {
             return "error";
         }
+    }
+
+    public void exportToXML() {
+        addMessage("Data exported");
+    }
+
+
+    public void importFromXML() {
+        addMessage("Data imported");
+        list.addAll(XmlImportExport.importXmlTemplate(xmlPath));
+    }
+
+    private void addMessage(String summary) {
+        FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, summary,  null);
+        FacesContext.getCurrentInstance().addMessage(null, message);
     }
 }
