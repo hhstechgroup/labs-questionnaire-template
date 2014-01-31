@@ -41,8 +41,7 @@
 					update=":form1" />
 
 				<p:commandButton id="DeleteDialogButton" value="Delete"
-					action="#{sessionController.setCurrentTemplate(template)}"
-					update="modalDialog" oncomplete="PF('dlg2').show();">
+					update="modalDialog" oncomplete="dlg2.show();">
 				</p:commandButton>
 
 				<p:dialog id="modalDialog" widgetVar="dlg2"
