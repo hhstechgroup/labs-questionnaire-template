@@ -29,7 +29,7 @@
 				<h:outputText value="#{template.templateName}" />
 			</p:column>
 			<p:column style="width:30%;">
-                <p:commandButton value="Edit" action="#{templateController.income}">
+                <p:commandButton value="Edit" action="#{templateController.income}" ajax="false">
                     <f:setPropertyActionListener value="#{sessionController}"
                                                  target="#{templateController.sessionController}"/>
                     <f:setPropertyActionListener value="#{template}"
@@ -37,7 +37,7 @@
                 </p:commandButton>
 
 				<p:commandButton value="Clone"
-					action="#{sessionController.clone(template)}" ajax="true"
+					action="#{sessionController.clone(template)}" ajax="false"
 					update=":form1" />
 
 				<p:commandButton id="DeleteDialogButton" value="Delete"
@@ -51,7 +51,7 @@
 					<br></br>
 					<p:commandButton value="Yes, delete it"
 						action="#{sessionController.delete(template)}"
-						ajax="true" update=":form1" onclick="dlg2.hide()" />
+						ajax="false" update=":form1" onclick="dlg2.hide()" />
 					<p:commandButton value="No, cancel" onclick="dlg2.hide()" />
 				</p:dialog>
 
@@ -59,11 +59,14 @@
 
 		</p:dataTable>
 
-        <p:commandButton value="Add new template" />
+        <p:commandButton value="Add new template" action="#{templateController.addTemplate}" ajax="false">
+            <f:setPropertyActionListener value="#{sessionController}"
+                                         target="#{templateController.sessionController}"/>
+        </p:commandButton>
         <p:growl id="messages"/>
         <p:menuButton value="Options">
-            <p:menuitem value="Export" update=":form1" actionListener="#{sessionController.exportToXML}" icon="ui-icon-disk" ajax="true" />
-            <p:menuitem value="Import" update=":form1" actionListener="#{sessionController.importFromXML}" icon="ui-icon-arrowrefresh-1-w" ajax="true" />
+            <p:menuitem value="Export" update=":form1" actionListener="#{sessionController.exportToXML}" icon="ui-icon-disk" ajax="false" />
+            <p:menuitem value="Import" update=":form1" actionListener="#{sessionController.importFromXML}" icon="ui-icon-arrowrefresh-1-w" ajax="false" />
         </p:menuButton>
 	</h:form>
 

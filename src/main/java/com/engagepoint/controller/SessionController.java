@@ -21,6 +21,10 @@ public class SessionController implements Serializable {
 	private List<TemplateBean> list;
     private TemplateBean currentTemplate;
     private ServiceConfigProperties properties;
+    //TODO
+    // 1. adding to filtered list and adding to main list must be together in one method (removing too)
+    // 2. in the same method must be list sorting
+    // 3. there is a bug: when list is filtered, after editing or adding filter (the field) becomes empty
     private List<TemplateBean> filteredList;
     private String xmlPath;
     private boolean showNewQuestionForm;
@@ -65,14 +69,19 @@ public class SessionController implements Serializable {
         this.list = list;
     }
 
+    public void addTemplateToList(TemplateBean template) {
+        this.list.add(template);
+    }
+
     public int getProperties() {
         return properties.getPagesCount();
     }
 
     public void clone(TemplateBean template) throws CloneNotSupportedException {
-        list.add((TemplateBean) template.clone());
+        TemplateBean newTemplate = (TemplateBean) template.clone();
+        list.add(newTemplate);
         if (filteredList != null)
-            filteredList.add(template);
+            filteredList.add(newTemplate);
         sort();
     }
     

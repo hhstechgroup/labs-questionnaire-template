@@ -17,20 +17,21 @@
         <p:panelGrid columns="2">
 
             <f:facet name="header">
-                Template
+                <h:outputText value="Template" rendered="#{!templateController.isNew()}"/>
+                <h:outputText value="New template" rendered="#{templateController.isNew()}"/>
             </f:facet>
 
             <p:outputLabel for="name" value="Name:"/>
             <p:inputText id="name" required="true"
-                         value="#{templateController.currentTemplate.templateName}"/>
+                         value="#{templateController.templateName}"/>
 
             <f:facet name="footer">
-                <p:commandButton value="Save" immediate="true"
+                <p:commandButton value="Save"
                                  action="#{templateController.saveTemplate}"
                                  ajax="false">
                 </p:commandButton>
 
-                <p:commandButton value="Cancel" immediate="true"
+                <p:commandButton value="Cancel"
                                  action="#{sessionController.income}"/>
             </f:facet>
 

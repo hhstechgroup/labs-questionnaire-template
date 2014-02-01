@@ -22,6 +22,15 @@ public class TemplateController {
 
     private SessionController sessionController;
     private TemplateBean currentTemplate;
+    private String templateName;
+
+    public String getTemplateName() {
+        return templateName;
+    }
+
+    public void setTemplateName(String templateName) {
+        this.templateName = templateName;
+    }
 
     public SessionController getSessionController() {
         return sessionController;
@@ -37,6 +46,11 @@ public class TemplateController {
 
     public void setCurrentTemplate(TemplateBean currentTemplate) {
         this.currentTemplate = currentTemplate;
+        this.templateName = currentTemplate.getTemplateName();
+    }
+
+    public boolean isNew() {
+        return (!sessionController.getTemplates().contains(currentTemplate));
     }
 
     public String income() {
@@ -45,12 +59,12 @@ public class TemplateController {
 
     public String saveTemplate() {
         try {
-            FacesContext context = FacesContext.getCurrentInstance();
+            currentTemplate.setTemplateName(templateName);
 
-            UIInput nameComponent = (UIInput) context.getViewRoot().findComponent("formTemplate:name");
-            String name = (String) nameComponent.getSubmittedValue();
-
-            currentTemplate.setTemplateName(name);
+            //TODO
+            //check filtered list
+            if (isNew())
+                sessionController.addTemplateToList(currentTemplate);
 
             sessionController.sort();
 
@@ -61,4 +75,10 @@ public class TemplateController {
             return "error";
         }
     }
+
+    public String addTemplate() {
+        setCurrentTemplate(new TemplateBean());
+        return income();
+    }
+
 }
