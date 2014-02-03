@@ -17,8 +17,8 @@ import java.util.List;
 @SessionScoped
 public class ListController implements Serializable {
 
-	private static final long serialVersionUID = 1L;
-	private List<TemplateBean> list;
+    private static final long serialVersionUID = 1L;
+    private List<TemplateBean> list;
     //TODO
     // 1. adding to filtered list and adding to main list must be together in one method (removing too)
     // 2. in the same method must be list sorting
@@ -28,25 +28,17 @@ public class ListController implements Serializable {
 
     public ListController() {
         list = new ArrayList<TemplateBean>();
-        list.add(new TemplateBean("Template D"));
-        list.add(new TemplateBean("Template B"));
-        list.add(new TemplateBean("Template F"));
-        list.add(new TemplateBean("Template A"));
-        list.add(new TemplateBean("Template E"));
-        list.add(new TemplateBean("Template C"));
-        list.add(new TemplateBean("Template C"));
         //TODO
         //searching path of XML file in glassfish
         ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
         xmlPath = classLoader.getResource("Questionnaire.xml").getPath();
         //adding Templates from XML file
-
-        //replaced list.addAll to public void importFromXML()
+        list.addAll(XmlImportExport.importXmlTemplate(xmlPath));
         Collections.sort(list);
     }
 
     //operations on list
-	public List<TemplateBean> getTemplates() {
+    public List<TemplateBean> getTemplates() {
         return list;
     }
 
@@ -82,17 +74,16 @@ public class ListController implements Serializable {
             filteredList.add(newTemplate);
         sort();
     }
-    
+
     /**
-	 * deleting Template from list
-	 * 
-	 * @param template to be deleted
-	 * 
-	 * @author dmytro.sorych
-	 */
-	public void delete(TemplateBean template) {
-		list.remove(template);
-        if(filteredList!=null)
+     * deleting Template from list
+     *
+     * @param template to be deleted
+     * @author dmytro.sorych
+     */
+    public void delete(TemplateBean template) {
+        list.remove(template);
+        if (filteredList != null)
             filteredList.remove(template);
     }
 
@@ -107,25 +98,24 @@ public class ListController implements Serializable {
     }
 
     //messaging
+
     /**
      * showing message on delete popup
      *
      * @param template
-     *
      * @return String message to display
-     *
      * @author dmytro.sorych
      */
     public String getMessageOnDelete(TemplateBean template) {
-        if (template==null)
+        if (template == null)
             return "";
-        if (template.getTemplateName()==null)
+        if (template.getTemplateName() == null)
             return "";
-        return "Please confirm deleting of "+template.getTemplateName();
+        return "Please confirm deleting of " + template.getTemplateName();
     }
 
     private void addMessage(String summary) {
-        FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, summary,  null);
+        FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, summary, null);
         FacesContext.getCurrentInstance().addMessage(null, message);
     }
 
