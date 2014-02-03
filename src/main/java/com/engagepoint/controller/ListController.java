@@ -72,9 +72,41 @@ public class ListController implements Serializable {
      */
     public void addTemplate(TemplateBean template) {
         this.list.add(template);
-        if (filteredList != null && containsFiltered(template.getTemplateName()))
-            filteredList.add(template);
+        addTemplateToFilteredList(template);
         sort();
+    }
+
+    /**
+     * Add template to filtered list.
+     *
+     * @param template template to be added
+     */
+    public void addTemplateToFilteredList(TemplateBean template) {
+        if (filteredList != null)
+        {
+            if (containsFiltered(template.getTemplateName()))
+                filteredList.add(template);
+            else
+            {
+                //addMessage("changesDontSatisfyFilter");
+            }
+        }
+    }
+
+    /**
+     * Add template to filtered list.
+     *
+     * @param template template to be added
+     */
+    public void removeTemplateFromFilteredList(TemplateBean template) {
+        if (filteredList != null)
+        {
+            if (!containsFiltered(template.getTemplateName()))
+            {
+                filteredList.remove(template);
+                //addMessage("changesDontSatisfyFilter");
+            }
+        }
     }
 
     /**
@@ -84,8 +116,9 @@ public class ListController implements Serializable {
      */
     public void addAllTemplates(List<TemplateBean> templateBeanList) {
         this.list.addAll(templateBeanList);
-        if (filteredList != null)
-            filteredList.addAll(templateBeanList);
+        for (TemplateBean templateBean : templateBeanList) {
+            addTemplateToFilteredList(templateBean);
+        }
         sort();
     }
 
@@ -106,8 +139,7 @@ public class ListController implements Serializable {
      */
     public void deleteTemplate(TemplateBean template) {
         list.remove(template);
-        if (filteredList != null)
-            filteredList.remove(template);
+        removeTemplateFromFilteredList(template);
     }
 
     /**
