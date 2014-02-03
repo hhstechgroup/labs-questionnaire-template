@@ -6,14 +6,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import java.io.Serializable;
 
-/**
- * Created with IntelliJ IDEA.
- * User: anna.zagrebelnaya
- * Date: 2/3/14
- * Time: 2:57 PM
- * To change this template use File | Settings | File Templates.
- */
-@ManagedBean(name="group")
+@ManagedBean(name = "groupController")
 @SessionScoped
 public class GroupController implements Serializable {
     private static final long serialVersionUID = 1L;
