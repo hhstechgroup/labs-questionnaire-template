@@ -169,9 +169,6 @@ public class ListController implements Serializable {
     }
 
     private boolean containsFiltered(String name){
-        if( name.toLowerCase().contains(filterValue.toLowerCase()))
-            return true;
-        else
-            return false;
+        return name.toLowerCase().contains(filterValue.toLowerCase());
     }
 }
