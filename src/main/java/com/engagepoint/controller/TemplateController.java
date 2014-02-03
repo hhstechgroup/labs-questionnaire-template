@@ -54,7 +54,7 @@ public class TemplateController {
     }
 
     public String income() {
-        return "/template?faces-redirect=true";
+        return "pages/template?faces-redirect=true";
     }
 
     public String saveTemplate() {
