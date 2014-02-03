@@ -20,7 +20,6 @@ public class SessionController implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private List<TemplateBean> list;
     private TemplateBean currentTemplate;
-    private ServiceConfigProperties properties;
     //TODO
     // 1. adding to filtered list and adding to main list must be together in one method (removing too)
     // 2. in the same method must be list sorting
@@ -30,7 +29,6 @@ public class SessionController implements Serializable {
     private boolean showNewQuestionForm;
     
     public SessionController() {
-        properties = new ServiceConfigProperties();
         list = new ArrayList<TemplateBean>();
         list.add(new TemplateBean("Template D"));
         list.add(new TemplateBean("Template B"));
@@ -71,10 +69,6 @@ public class SessionController implements Serializable {
 
     public void addTemplateToList(TemplateBean template) {
         this.list.add(template);
-    }
-
-    public int getProperties() {
-        return properties.getPagesCount();
     }
 
     public void clone(TemplateBean template) throws CloneNotSupportedException {
