@@ -1,5 +1,9 @@
 package com.engagepoint.bean;
 
+import org.primefaces.model.DefaultTreeNode;
+
+import javax.enterprise.context.SessionScoped;
+import javax.faces.bean.ManagedBean;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElementWrapper;
 import java.util.ArrayList;
@@ -8,7 +12,9 @@ import java.util.List;
 /**
  * Class represents page tag.
  */
-public class SectionBean implements Cloneable {
+@ManagedBean
+@SessionScoped
+public class SectionBean extends DefaultTreeNode implements Cloneable {
     private int pageNumber;
     private List<GroupBean> groupsList = new ArrayList<GroupBean>();
 
