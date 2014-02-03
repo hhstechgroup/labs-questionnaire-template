@@ -57,7 +57,7 @@
 						value="#{listController.getMessageOnDelete(template)}" />
 					<br/>
 					<p:commandButton value="Yes, delete it"
-						action="#{listController.delete(template)}"
+						action="#{listController.deleteTemplate(template)}"
 						ajax="false" update=":form1" onclick="dlg2.hide()" />
 					<p:commandButton value="No, cancel" onclick="dlg2.hide()" />
 				</p:dialog>
@@ -66,7 +66,7 @@
 
 		</p:dataTable>
         <br/>
-        <p:commandButton value="Add new template" action="#{templateController.addTemplate}" ajax="false">
+        <p:commandButton value="Add new template" action="#{templateController.newTemplate}" ajax="false">
             <f:setPropertyActionListener value="#{listController}"
                                          target="#{templateController.listController}"/>
         </p:commandButton>

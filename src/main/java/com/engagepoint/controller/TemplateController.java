@@ -55,12 +55,10 @@ public class TemplateController implements Serializable {
         try {
             currentTemplate.setTemplateName(templateName);
 
-            //TODO
-            //check filtered list
             if (isNew())
-                listController.addTemplateToList(currentTemplate);
-
-            listController.sort();
+                listController.addTemplate(currentTemplate);
+            else
+                listController.sort();
 
             return listController.income();
         }
@@ -70,7 +68,7 @@ public class TemplateController implements Serializable {
         }
     }
 
-    public String addTemplate() {
+    public String newTemplate() {
         setCurrentTemplate(new TemplateBean());
         return income();
     }
