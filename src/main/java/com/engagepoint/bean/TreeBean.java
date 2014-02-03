@@ -61,7 +61,13 @@ public class TreeBean implements Serializable {
         this.selectedNodes = selectedNodes;
     }
     public void deleteSelectedMultiple(ActionEvent event){
-
+       ArrayList<String> selectedNods = new ArrayList<String>();
+       if (selectedNodes != null && selectedNodes.length > 0){
+           for (int i = 0; i < selectedNodes.length ; i++) {
+                   selectedNods.add(selectedNodes[i].getData().toString());
+           }
+           nodes.removeAll(selectedNods);
+       }
     }
 
     public void displaySelectedMultiple(ActionEvent event) {
