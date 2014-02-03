@@ -13,22 +13,29 @@
 <h:body>
 
     <h:form id="form1">
+
         <p:dataTable id="table" var="template" paginator="true" rows="10" value="#{listController.templates}"
                      paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                      rowsPerPageTemplate="#{config.pagescount},10"
                      paginatorPosition="bottom"
-                     filteredValue="#{listController.filteredTemplates}">
+                     filteredValue="#{listController.filteredTemplates}"
+                     widgetVar="templatesList">
             <!--p:column width="400"  style="table-layout:fixed"-->
 
-			<f:facet name="header">
-                Templates
+            <f:facet name="header">
+                <p:outputPanel>
+                    <p:outputLabel for="globalFilter" value="Search: "/>
+                    <p:inputText id="globalFilter" onkeyup="templatesList.filter()" style="width:150px"/>
+                </p:outputPanel>
             </f:facet>
 
-			<p:column filterBy="#{template.templateName}"
-                      filterMatchMode="contains">
-				<h:outputText value="#{template.templateName}" />
-			</p:column>
-			<p:column style="width:30%;">
+            <p:column filterBy="#{template.templateName}"
+                      filterMatchMode="contains"
+                      filterStyle="visibility:hidden; height:0px">
+                <h:outputText value="#{template.templateName}"/>
+            </p:column>
+
+            <p:column style="width:30%;">
                 <p:commandButton value="Edit" action="#{templateController.income}" ajax="false">
                     <f:setPropertyActionListener value="#{listController}"
                                                  target="#{templateController.listController}"/>
@@ -40,15 +47,15 @@
 					action="#{listController.clone(template)}" ajax="false"
 					update=":form1" />
 
-				<p:commandButton id="DeleteDialogButton" value="Delete"
-					update="modalDialog" oncomplete="dlg2.show();">
-				</p:commandButton>
+                <p:commandButton id="DeleteDialogButton" value="Delete"
+                                 update="modalDialog" oncomplete="dlg2.show();">
+                </p:commandButton>
 
 				<p:dialog id="modalDialog" widgetVar="dlg2"
 					modal="true" height="100" closable="false" resizeable="false">
 					<h:outputText
 						value="#{listController.getMessageOnDelete(template)}" />
-					<br></br>
+					<br/>
 					<p:commandButton value="Yes, delete it"
 						action="#{listController.delete(template)}"
 						ajax="false" update=":form1" onclick="dlg2.hide()" />
