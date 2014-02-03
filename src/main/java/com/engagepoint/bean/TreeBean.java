@@ -32,25 +32,38 @@ import org.primefaces.model.TreeNode;
 @SessionScoped
 public class TreeBean implements Serializable {
 
-    private TreeNode root;
+    private TreeNode root = new DefaultTreeNode("Root",null);
 
     private TreeNode selectedNode;
-    private List<TreeNode> nodes;
+    private ArrayList<TreeNode> nodes;
     private TreeNode[] selectedNodes;
+    private boolean flag = false;
+
+
 
 
     public TreeBean() {
-        nodes = new ArrayList<TreeNode>();
-        root = new DefaultTreeNode("Sections", new DefaultTreeNode());
-        TreeNode section1 = new DefaultTreeNode("Section 1", root);
-        TreeNode section2 = new DefaultTreeNode("Section 2", root);
-        TreeNode section3 = new DefaultTreeNode("Section 3", root);
+        if (flag == false){
+        root = new DefaultTreeNode("Root", null);
+        ArrayList<TreeNode> nodeList = new ArrayList<TreeNode>();
+        setNodes(nodeList);
+        }
+
+
+
+    }
+
+    public void setNodes(ArrayList<TreeNode> nodes) {
+        TreeNode section1 = new DefaultTreeNode("Section 1", getRoot());
+        TreeNode section2 = new DefaultTreeNode("Section 2", getRoot());
+        TreeNode section3 = new DefaultTreeNode("Section 3", getRoot());
         nodes.add(section1);
         nodes.add(section2);
         nodes.add(section3);
         nodes.add(new DefaultTreeNode("Group 1", section1));
         nodes.add(new DefaultTreeNode("Group 2", section1));
         nodes.add(new DefaultTreeNode("Group 3", section2));
+
     }
 
     public TreeNode getRoot() {
@@ -65,13 +78,16 @@ public class TreeBean implements Serializable {
         this.selectedNodes = selectedNodes;
     }
     public void deleteSelectedMultiple(ActionEvent event){
-       ArrayList<String> selectedNods = new ArrayList<String>();
+       ArrayList<TreeNode> selectedNods = new ArrayList<TreeNode>();
        if (selectedNodes != null && selectedNodes.length > 0){
            for (int i = 0; i < selectedNodes.length ; i++) {
-                   selectedNods.add(selectedNodes[i].getData().toString());
+                   selectedNods.add(selectedNodes[i]);
            }
            nodes.removeAll(selectedNods);
+
+
        }
+
     }
 
     public void displaySelectedMultiple(ActionEvent event) {
