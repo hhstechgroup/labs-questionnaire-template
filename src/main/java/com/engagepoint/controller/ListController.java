@@ -21,8 +21,18 @@ public class ListController implements Serializable {
     private static final long serialVersionUID = 1L;
     private List<TemplateBean> list;
     private List<TemplateBean> filteredList;
+
     private String xmlPath;
+
     private String filterValue = "";
+
+    public String getFilterValue() {
+        return filterValue;
+    }
+    public void setFilterValue(String filterValue) {
+        this.filterValue = filterValue;
+    }
+
 
     public ListController() {
         list = new ArrayList<TemplateBean>();
@@ -60,7 +70,7 @@ public class ListController implements Serializable {
      */
     public void addTemplate(TemplateBean template) {
         this.list.add(template);
-        if (filteredList != null)
+        if (filteredList != null && containsFiltered(template.getTemplateName()))
             filteredList.add(template);
         sort();
     }
@@ -158,11 +168,10 @@ public class ListController implements Serializable {
         return "/index?faces-redirect=true";
     }
 
-    public String getFilterValue() {
-        return filterValue;
-    }
-
-    public void setFilterValue(String filterValue) {
-        this.filterValue = filterValue;
+    private boolean containsFiltered(String name){
+        if( name.toLowerCase().contains(filterValue.toLowerCase()))
+            return true;
+        else
+            return false;
     }
 }
