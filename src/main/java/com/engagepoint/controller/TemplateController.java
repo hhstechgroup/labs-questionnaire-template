@@ -7,14 +7,7 @@ import javax.faces.bean.SessionScoped;
 import java.io.Serializable;
 
 
-/**
- * Created with IntelliJ IDEA.
- * User: anna.zagrebelnaya
- * Date: 1/31/14
- * Time: 1:36 PM
- * To change this template use File | Settings | File Templates.
- */
-@ManagedBean(name="templateController")
+@ManagedBean(name = "templateController")
 @SessionScoped
 public class TemplateController implements Serializable {
 
@@ -47,34 +40,46 @@ public class TemplateController implements Serializable {
         this.templateName = currentTemplate.getTemplateName();
     }
 
+    /**
+     * Check if the template already exists.
+     *
+     * @return true - this template already exists.
+     */
     public boolean isNew() {
         return (!listController.getTemplates().contains(currentTemplate));
     }
 
+    /**
+     * Save template.
+     *
+     * @return next page name.
+     */
     public String saveTemplate() {
-        try {
-            currentTemplate.setTemplateName(templateName);
-
-            if (isNew())
-                listController.addTemplate(currentTemplate);
-            else
-                listController.sort();
-
-            return listController.income();
-        }
-        catch(Exception e)
-        {
-            return "error";
-        }
+        currentTemplate.setTemplateName(templateName);
+        if (isNew())
+            listController.addTemplate(currentTemplate);
+        else
+            listController.sort();
+        return listController.income();
     }
 
+
+    /**
+     * Create new template.
+     *
+     * @return next page name
+     */
     public String newTemplate() {
         setCurrentTemplate(new TemplateBean());
         return income();
     }
 
+    /**
+     * Get page name and perform redirect.
+     *
+     * @return page name
+     */
     public String income() {
         return "pages/template?faces-redirect=true";
     }
-
 }
