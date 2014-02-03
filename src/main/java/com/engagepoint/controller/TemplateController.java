@@ -1,12 +1,10 @@
 package com.engagepoint.controller;
 
 import com.engagepoint.bean.TemplateBean;
-import org.primefaces.context.RequestContext;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
-import javax.faces.component.UIInput;
-import javax.faces.context.FacesContext;
+import java.io.Serializable;
 
 
 /**
@@ -18,9 +16,9 @@ import javax.faces.context.FacesContext;
  */
 @ManagedBean(name="templateController")
 @SessionScoped
-public class TemplateController {
+public class TemplateController implements Serializable {
 
-    private SessionController sessionController;
+    private ListController listController;
     private TemplateBean currentTemplate;
     private String templateName;
 
@@ -32,12 +30,12 @@ public class TemplateController {
         this.templateName = templateName;
     }
 
-    public SessionController getSessionController() {
-        return sessionController;
+    public ListController getListController() {
+        return listController;
     }
 
-    public void setSessionController(SessionController sessionController) {
-        this.sessionController = sessionController;
+    public void setListController(ListController listController) {
+        this.listController = listController;
     }
 
     public TemplateBean getCurrentTemplate() {
@@ -50,11 +48,7 @@ public class TemplateController {
     }
 
     public boolean isNew() {
-        return (!sessionController.getTemplates().contains(currentTemplate));
-    }
-
-    public String income() {
-        return "pages/template?faces-redirect=true";
+        return (!listController.getTemplates().contains(currentTemplate));
     }
 
     public String saveTemplate() {
@@ -64,11 +58,11 @@ public class TemplateController {
             //TODO
             //check filtered list
             if (isNew())
-                sessionController.addTemplateToList(currentTemplate);
+                listController.addTemplateToList(currentTemplate);
 
-            sessionController.sort();
+            listController.sort();
 
-            return sessionController.income();
+            return listController.income();
         }
         catch(Exception e)
         {
@@ -79,6 +73,10 @@ public class TemplateController {
     public String addTemplate() {
         setCurrentTemplate(new TemplateBean());
         return income();
+    }
+
+    public String income() {
+        return "pages/template?faces-redirect=true";
     }
 
 }

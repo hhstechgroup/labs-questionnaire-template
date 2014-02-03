@@ -13,25 +13,25 @@
 
 	<h:form id="form3">
 		<p:commandButton value="Add question" immediate="true"
-			action="#{sessionController.changeEditable()}" ajax="true"
+			action="#{group.changeEditable()}" ajax="true"
 			update=":form4">
 		</p:commandButton>
 		<br></br>
 	</h:form>
 	<h:form id="form4">
-		<h:outputLabel for="question" value="Question type: * "
-			rendered="#{sessionController.showNewQuestionForm}" />
+		<h:outputLabel value="Question type: * "
+			rendered="#{group.showNewQuestionForm}" />
 
-		<p:selectOneMenu value="#{qtc.selectedQuestionType}"
-			rendered="#{sessionController.showNewQuestionForm}">
+		<p:selectOneMenu value="#{group.selectedQuestionType}"
+			rendered="#{group.showNewQuestionForm}">
 			<f:selectItem itemLabel="Select One" itemValue="" />
-			<f:selectItems value="#{qtc.questionTypes}" />
+			<f:selectItems value="#{group.questionTypes}" />
 			<p:ajax event="change" update="out" />
 		</p:selectOneMenu>
 		<br></br>
 
-		<h:outputText id="out" value="#{qtc.selectedQuestionType} is selected"
-			rendered="#{sessionController.showNewQuestionForm}" />
+		<h:outputText id="out" value="#{group.selectedQuestionType} is selected"
+			rendered="#{group.showNewQuestionForm}" />
 
 
 	</h:form>
