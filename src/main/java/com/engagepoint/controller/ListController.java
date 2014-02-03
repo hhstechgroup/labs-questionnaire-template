@@ -24,7 +24,6 @@ public class ListController implements Serializable {
 
     public ListController() {
         list = new ArrayList<TemplateBean>();
-        //TODO
         //searching path of XML file in glassfish
         ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
         xmlPath = classLoader.getResource("Questionnaire.xml").getPath();
@@ -51,6 +50,7 @@ public class ListController implements Serializable {
     }
 
     //operations on both lists
+
     /**
      * Add template.
      *
@@ -64,7 +64,9 @@ public class ListController implements Serializable {
     }
 
     /**
-     * Sort list of templates.
+     * Add templates.
+     *
+     * @param templateBeanList template list to be added
      */
     public void addAllTemplates(List<TemplateBean> templateBeanList) {
         this.list.addAll(templateBeanList);
@@ -73,63 +75,59 @@ public class ListController implements Serializable {
         sort();
     }
 
-    /**
-     * deleting Template from list
-     *
-     * @param template to be deleted
-     *
-     * @author dmytro.sorych
-     */
-    public void deleteTemplate(TemplateBean template) {
-        list.remove(template);
-        if(filteredList!=null)
-            filteredList.remove(template);
-    }
 
+    /**
+     * Sort list of templates.
+     */
     public void sort() {
         Collections.sort(list);
         if (filteredList != null)
             Collections.sort(filteredList);
     }
 
-    //operations on current template
+    /**
+     * Clone template.
+     *
+     * @param template template to be clonned
+     * @throws CloneNotSupportedException
+     */
     public void clone(TemplateBean template) throws CloneNotSupportedException {
         TemplateBean newTemplate = (TemplateBean) template.clone();
-        list.add(newTemplate);
-        if (filteredList != null)
-            filteredList.add(newTemplate);
-        sort();
+        addTemplate(newTemplate);
     }
 
     /**
-     * deleting Template from list
+     * Delete template from list.
      *
-     * @param template to be deleted
-     * @author dmytro.sorych
+     * @param template template to be deleted
      */
-    public void delete(TemplateBean template) {
+    public void deleteTemplate(TemplateBean template) {
         list.remove(template);
         if (filteredList != null)
             filteredList.remove(template);
     }
 
-    //exporting/importing XML
+    /**
+     * Perform export questionnaire to XML file.
+     */
     public void exportToXML() {
+        //TODO
         addMessage("Data exported");
     }
 
+    /**
+     * Perform import questionnaire from XML file.
+     */
     public void importFromXML() {
+        //TODO
         addMessage("Data imported");
     }
 
-    //messaging
-
     /**
-     * showing message on delete popup
+     * Show message on delete pop-up.
      *
-     * @param template
-     * @return String message to display
-     * @author dmytro.sorych
+     * @param template template to delete
+     * @return message to display
      */
     public String getMessageOnDelete(TemplateBean template) {
         if (template == null)
@@ -139,12 +137,21 @@ public class ListController implements Serializable {
         return "Please confirm deleting of " + template.getTemplateName();
     }
 
+    /**
+     * Show message on default page.
+     *
+     * @param summary message content
+     */
     private void addMessage(String summary) {
         FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, summary, null);
         FacesContext.getCurrentInstance().addMessage(null, message);
     }
 
-    //income
+    /**
+     * Get page name and perform redirect.
+     *
+     * @return page name
+     */
     public String income() {
         return "/index?faces-redirect=true";
     }
