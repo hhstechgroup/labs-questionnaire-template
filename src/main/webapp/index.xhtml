@@ -56,8 +56,9 @@
 
 				<p:dialog id="modalDialog" widgetVar="dlg2"
 					modal="true" height="100" closable="false" resizeable="false">
-					<h:outputText
-						value="#{listController.getMessageOnDelete(template)}" />
+					<h:outputFormat value="#{msgs.msgOnDelete}">
+                        <f:param value="#{template.templateName}"/>
+                    </h:outputFormat>
 					<br/>
 					<p:commandButton value="Yes, delete it"
 						action="#{listController.deleteTemplate(template)}"

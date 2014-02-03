@@ -10,9 +10,7 @@ import javax.faces.context.FacesContext;
 import javax.inject.Named;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 @Named
 @SessionScoped
@@ -25,14 +23,6 @@ public class ListController implements Serializable {
     private String xmlPath;
 
     private String filterValue = "";
-
-    public String getFilterValue() {
-        return filterValue;
-    }
-    public void setFilterValue(String filterValue) {
-        this.filterValue = filterValue;
-    }
-
 
     public ListController() {
         list = new ArrayList<TemplateBean>();
@@ -59,6 +49,21 @@ public class ListController implements Serializable {
 
     public void setFilteredTemplates(List<TemplateBean> filteredList) {
         this.filteredList = filteredList;
+    }
+
+    public String getFilterValue() {
+        return filterValue;
+    }
+
+    public void setFilterValue(String filterValue) {
+        this.filterValue = filterValue;
+    }
+
+    private boolean containsFiltered(String name){
+        if( name.toLowerCase().contains(filterValue.toLowerCase()))
+            return true;
+        else
+            return false;
     }
 
     //operations on both lists
@@ -98,17 +103,6 @@ public class ListController implements Serializable {
     }
 
     /**
-     * Clone template.
-     *
-     * @param template template to be clonned
-     * @throws CloneNotSupportedException
-     */
-    public void clone(TemplateBean template) throws CloneNotSupportedException {
-        TemplateBean newTemplate = (TemplateBean) template.clone();
-        addTemplate(newTemplate);
-    }
-
-    /**
      * Delete template from list.
      *
      * @param template template to be deleted
@@ -120,11 +114,22 @@ public class ListController implements Serializable {
     }
 
     /**
+     * Clone template.
+     *
+     * @param template template to be clonned
+     * @throws CloneNotSupportedException
+     */
+    public void clone(TemplateBean template) throws CloneNotSupportedException {
+        TemplateBean newTemplate = (TemplateBean) template.clone();
+        addTemplate(newTemplate);
+    }
+
+    /**
      * Perform export questionnaire to XML file.
      */
     public void exportToXML() {
         //TODO
-        addMessage("Data exported");
+        addMessage("dataExported");
     }
 
     /**
@@ -132,31 +137,46 @@ public class ListController implements Serializable {
      */
     public void importFromXML() {
         //TODO
-        addMessage("Data imported");
+        addMessage("dataImported");
+        addAllTemplates(XmlImportExport.importXmlTemplate(xmlPath));
     }
 
-    /**
-     * Show message on delete pop-up.
-     *
-     * @param template template to delete
-     * @return message to display
-     */
-    public String getMessageOnDelete(TemplateBean template) {
-        if (template == null)
-            return "";
-        if (template.getTemplateName() == null)
-            return "";
-        return "Please confirm deleting of " + template.getTemplateName();
-    }
 
     /**
      * Show message on default page.
      *
-     * @param summary message content
+     * @param propertyKey key of messages.properties
      */
-    private void addMessage(String summary) {
+    private void addMessage(String propertyKey) {
+        String summary = getMessageProperty(propertyKey);
         FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, summary, null);
         FacesContext.getCurrentInstance().addMessage(null, message);
+    }
+
+    /**
+     * Get message from messages.properties.
+     *
+     * @param propertyKey key of messages.properties
+     */
+    public static String getMessageProperty(String propertyKey) {
+        return getResourceBundleString("msgs", propertyKey);
+    }
+
+    /**
+     * Get value from resource bundle.
+     *
+     * @param resourceBundleName name of resource bundle
+     * @param resourceBundleKey key of resource bundle
+     */
+    public static String getResourceBundleString(
+            String resourceBundleName,
+            String resourceBundleKey)
+            throws MissingResourceException {
+        FacesContext facesContext = FacesContext.getCurrentInstance();
+        ResourceBundle bundle =
+                facesContext.getApplication().getResourceBundle(
+                        facesContext, resourceBundleName);
+        return bundle.getString(resourceBundleKey);
     }
 
     /**
@@ -168,10 +188,4 @@ public class ListController implements Serializable {
         return "/index?faces-redirect=true";
     }
 
-    private boolean containsFiltered(String name){
-        if( name.toLowerCase().contains(filterValue.toLowerCase()))
-            return true;
-        else
-            return false;
-    }
 }

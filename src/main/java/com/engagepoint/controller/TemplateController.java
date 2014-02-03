@@ -61,7 +61,9 @@ public class TemplateController implements Serializable {
         if (isNew())
             listController.addTemplate(currentTemplate);
         else
+        {
             listController.sort();
+        }
         return listController.income();
     }
 

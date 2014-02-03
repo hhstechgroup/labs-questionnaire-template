@@ -9,5 +9,9 @@
             <base-name>com.engagepoint.config.configuration</base-name>
             <var>config</var>
         </resource-bundle>
+        <resource-bundle>
+            <base-name>com.engagepoint.messages</base-name>
+            <var>msgs</var>
+        </resource-bundle>
     </application>
 </faces-config>
