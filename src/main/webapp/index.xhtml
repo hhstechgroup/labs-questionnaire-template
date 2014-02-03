@@ -25,7 +25,10 @@
             <f:facet name="header">
                 <p:outputPanel>
                     <p:outputLabel for="globalFilter" value="Search: "/>
-                    <p:inputText id="globalFilter" onkeyup="templatesList.filter()" style="width:150px"/>
+                    <p:inputText id="globalFilter"
+                                 onkeyup="templatesList.filter()"
+                                 value="#{listController.filterValue}"
+                                 style="width:150px"/>
                 </p:outputPanel>
             </f:facet>
 

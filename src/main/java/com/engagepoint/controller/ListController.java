@@ -21,6 +21,7 @@ public class ListController implements Serializable {
     private List<TemplateBean> list;
     private List<TemplateBean> filteredList;
     private String xmlPath;
+    private String filterValue = "";
 
     public ListController() {
         list = new ArrayList<TemplateBean>();
@@ -137,5 +138,13 @@ public class ListController implements Serializable {
     //income
     public String income() {
         return "/index?faces-redirect=true";
+    }
+
+    public String getFilterValue() {
+        return filterValue;
+    }
+
+    public void setFilterValue(String filterValue) {
+        this.filterValue = filterValue;
     }
 }
