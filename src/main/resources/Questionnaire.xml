@@ -1,101 +1,33 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <questionnaire-forms>
     <questionnaire-form>
-        <form-name>Family</form-name>
-        <pages>
-            <page>
-                <page-number></page-number>
-                <groups-of-questions>
-                    <group>
-                        <group-name></group-name>
-                        <questions>
-                            <question required-answer="required" question-id="1">
-                                <question-title></question-title>
-                                <question-type></question-type>
-                                <help-text></help-text>
-                                <dependent-questions>
-                                    <dependent-question>
-                                        <question-id></question-id>
-                                        <required-answer></required-answer>
-                                    </dependent-question>
-                                </dependent-questions>
-
-                                <multiple-choice-options>
-                                    <option></option>
-                                </multiple-choice-options>
-
-                                <checkboxes-options>
-                                    <option></option>
-                                </checkboxes-options>
-
-                                <choose-from-list-options>
-                                    <option></option>
-                                </choose-from-list-options>
-
-                                <range range-begin="0" range-end="1"></range>
-
-                                <grid>
-                                    <columns>
-                                        <column></column>
-                                    </columns>
-                                    <rows>
-                                        <row></row>
-                                    </rows>
-                                </grid>
-                            </question>
-                        </questions>
-                    </group>
-                </groups-of-questions>
-            </page>
-        </pages>
+        <form-name>Template A</form-name>
     </questionnaire-form>
     <questionnaire-form>
-        <form-name>Math</form-name>
-        <pages>
-            <page>
-                <page-number></page-number>
-                <groups-of-questions>
-                    <group>
-                        <group-name></group-name>
-                        <questions>
-                            <question required-answer="required" question-id="1">
-                                <question-title></question-title>
-                                <question-type></question-type>
-                                <help-text></help-text>
-                                <dependent-questions>
-                                    <dependent-question>
-                                        <question-id></question-id>
-                                        <required-answer></required-answer>
-                                    </dependent-question>
-                                </dependent-questions>
-
-                                <multiple-choice-options>
-                                    <option></option>
-                                </multiple-choice-options>
-
-                                <checkboxes-options>
-                                    <option></option>
-                                </checkboxes-options>
-
-                                <choose-from-list-options>
-                                    <option></option>
-                                </choose-from-list-options>
-
-                                <range range-begin="0" range-end="1"></range>
-
-                                <grid>
-                                    <columns>
-                                        <column></column>
-                                    </columns>
-                                    <rows>
-                                        <row></row>
-                                    </rows>
-                                </grid>
-                            </question>
-                        </questions>
-                    </group>
-                </groups-of-questions>
-            </page>
-        </pages>
+        <form-name>Template B</form-name>
+    </questionnaire-form>
+    <questionnaire-form>
+        <form-name>Template C</form-name>
+    </questionnaire-form>
+    <questionnaire-form>
+        <form-name>Template D</form-name>
+    </questionnaire-form>
+    <questionnaire-form>
+        <form-name>Template E</form-name>
+    </questionnaire-form>
+    <questionnaire-form>
+        <form-name>Template F</form-name>
+    </questionnaire-form>
+    <questionnaire-form>
+        <form-name>Template G</form-name>
+    </questionnaire-form>
+    <questionnaire-form>
+        <form-name>Template H</form-name>
+    </questionnaire-form>
+    <questionnaire-form>
+        <form-name>Template J</form-name>
+    </questionnaire-form>
+    <questionnaire-form>
+        <form-name>Template K</form-name>
     </questionnaire-form>
 </questionnaire-forms>
