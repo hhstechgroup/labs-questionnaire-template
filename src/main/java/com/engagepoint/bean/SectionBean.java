@@ -1,11 +1,10 @@
 package com.engagepoint.bean;
 
-import org.primefaces.model.DefaultTreeNode;
-
 import javax.enterprise.context.SessionScoped;
-import javax.faces.bean.ManagedBean;
+import javax.inject.Named;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElementWrapper;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -13,7 +12,7 @@ import java.util.List;
 /**
  * Class represents page tag.
  */
-@ManagedBean
+@Named
 @SessionScoped
 public class SectionBean implements Cloneable,Serializable {
     private int pageNumber;

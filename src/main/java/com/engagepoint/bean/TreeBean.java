@@ -8,24 +8,28 @@ package com.engagepoint.bean;
  * To change this template use File | Settings | File Templates.
  */
 
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ViewScoped;
+
+import javax.enterprise.context.SessionScoped;
 import javax.faces.context.FacesContext;
+
+
+
 
 
 
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+
 import javax.faces.application.FacesMessage;
-import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
+import javax.inject.Named;
 
 import org.primefaces.model.DefaultTreeNode;
 import org.primefaces.model.TreeNode;
 
-@ManagedBean
-@ViewScoped
+@Named
+@SessionScoped
 public class TreeBean implements Serializable {
 
     private TreeNode root;

@@ -2,8 +2,9 @@ package com.engagepoint.controller;
 
 import com.engagepoint.bean.QuestionType;
 
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
+import javax.enterprise.context.SessionScoped;
+import javax.inject.Named;
+
 import java.io.Serializable;
 
 /**
@@ -13,7 +14,7 @@ import java.io.Serializable;
  * Time: 2:57 PM
  * To change this template use File | Settings | File Templates.
  */
-@ManagedBean(name="group")
+@Named("group")
 @SessionScoped
 public class GroupController implements Serializable {
     private static final long serialVersionUID = 1L;

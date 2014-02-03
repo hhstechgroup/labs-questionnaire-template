@@ -2,8 +2,9 @@ package com.engagepoint.controller;
 
 import com.engagepoint.bean.TemplateBean;
 
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
+import javax.enterprise.context.SessionScoped;
+import javax.inject.Named;
+
 import java.io.Serializable;
 
 
@@ -14,7 +15,7 @@ import java.io.Serializable;
  * Time: 1:36 PM
  * To change this template use File | Settings | File Templates.
  */
-@ManagedBean(name="templateController")
+@Named("templateController")
 @SessionScoped
 public class TemplateController implements Serializable {
 
