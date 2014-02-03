@@ -19,10 +19,6 @@ public class ListController implements Serializable {
 
     private static final long serialVersionUID = 1L;
     private List<TemplateBean> list;
-    //TODO
-    // 1. adding to filtered list and adding to main list must be together in one method (removing too)
-    // 2. in the same method must be list sorting
-    // 3. there is a bug: when list is filtered, after editing or adding filter (the field) becomes empty
     private List<TemplateBean> filteredList;
     private String xmlPath;
 
@@ -33,8 +29,7 @@ public class ListController implements Serializable {
         ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
         xmlPath = classLoader.getResource("Questionnaire.xml").getPath();
         //adding Templates from XML file
-        list.addAll(XmlImportExport.importXmlTemplate(xmlPath));
-        Collections.sort(list);
+        addAllTemplates(XmlImportExport.importXmlTemplate(xmlPath));
     }
 
     //operations on list
@@ -56,8 +51,31 @@ public class ListController implements Serializable {
     }
 
     //operations on both lists
-    public void addTemplateToList(TemplateBean template) {
+    public void addTemplate(TemplateBean template) {
         this.list.add(template);
+        if (filteredList != null)
+            filteredList.add(template);
+        sort();
+    }
+
+    public void addAllTemplates(List<TemplateBean> templateBeanList) {
+        this.list.addAll(templateBeanList);
+        if (filteredList != null)
+            filteredList.addAll(templateBeanList);
+        sort();
+    }
+
+    /**
+     * deleting Template from list
+     *
+     * @param template to be deleted
+     *
+     * @author dmytro.sorych
+     */
+    public void deleteTemplate(TemplateBean template) {
+        list.remove(template);
+        if(filteredList!=null)
+            filteredList.remove(template);
     }
 
     public void sort() {
@@ -69,10 +87,7 @@ public class ListController implements Serializable {
     //operations on current template
     public void clone(TemplateBean template) throws CloneNotSupportedException {
         TemplateBean newTemplate = (TemplateBean) template.clone();
-        list.add(newTemplate);
-        if (filteredList != null)
-            filteredList.add(newTemplate);
-        sort();
+        addTemplate(newTemplate);
     }
 
     /**
@@ -94,7 +109,7 @@ public class ListController implements Serializable {
 
     public void importFromXML() {
         addMessage("Data imported");
-        list.addAll(XmlImportExport.importXmlTemplate(xmlPath));
+        addAllTemplates(XmlImportExport.importXmlTemplate(xmlPath));
     }
 
     //messaging
