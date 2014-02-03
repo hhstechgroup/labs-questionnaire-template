@@ -6,6 +6,7 @@ import javax.enterprise.context.SessionScoped;
 import javax.faces.bean.ManagedBean;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElementWrapper;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,7 +15,7 @@ import java.util.List;
  */
 @ManagedBean
 @SessionScoped
-public class SectionBean extends DefaultTreeNode implements Cloneable {
+public class SectionBean implements Cloneable,Serializable {
     private int pageNumber;
     private List<GroupBean> groupsList = new ArrayList<GroupBean>();
 

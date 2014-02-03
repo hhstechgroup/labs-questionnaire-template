@@ -15,8 +15,11 @@ import javax.faces.context.FacesContext;
 
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
+import javax.faces.event.ActionEvent;
 
 import org.primefaces.model.DefaultTreeNode;
 import org.primefaces.model.TreeNode;
@@ -28,51 +31,51 @@ public class TreeBean implements Serializable {
     private TreeNode root;
 
     private TreeNode selectedNode;
+    private List<TreeNode> nodes;
+    private TreeNode[] selectedNodes;
+
 
     public TreeBean() {
-        root = new DefaultTreeNode("Sections", new SectionBean());
-        TreeNode node0 = new DefaultTreeNode("Section 1", root);
-        TreeNode node1 = new DefaultTreeNode("Section 2", root);
-        TreeNode node2 = new DefaultTreeNode("Section 3", root);
-
-        TreeNode node00 = new DefaultTreeNode("Group 1.1", node0);
-        TreeNode node01 = new DefaultTreeNode("Group 1.2", node0);
-
-        TreeNode node10 = new DefaultTreeNode("Group 2.1", node1);
-        TreeNode node11 = new DefaultTreeNode("Group 2.2", node1);
-
-        TreeNode node000 = new DefaultTreeNode("Question 1.1.1", node00);
-        TreeNode node001 = new DefaultTreeNode("Question 1.1.2", node00);
-        TreeNode node010 = new DefaultTreeNode("Question 1.1.2", node01);
-
-        TreeNode node100 = new DefaultTreeNode("Node 1.0.0", node10);
+        nodes = new ArrayList<TreeNode>();
+        root = new DefaultTreeNode("Sections", new DefaultTreeNode());
+        TreeNode section1 = new DefaultTreeNode("Section 1", root);
+        TreeNode section2 = new DefaultTreeNode("Section 2", root);
+        TreeNode section3 = new DefaultTreeNode("Section 3", root);
+        nodes.add(section1);
+        nodes.add(section2);
+        nodes.add(section3);
+        nodes.add(new DefaultTreeNode("Group 1", section1));
+        nodes.add(new DefaultTreeNode("Group 2", section1));
+        nodes.add(new DefaultTreeNode("Group 3", section2));
     }
 
     public TreeNode getRoot() {
         return root;
     }
 
-    public TreeNode getSelectedNode() {
-        return selectedNode;
+    public TreeNode[] getSelectedNodes() {
+        return selectedNodes;
     }
 
-    public void setSelectedNode(TreeNode selectedNode) {
-        this.selectedNode = selectedNode;
+    public void setSelectedNodes(TreeNode[] selectedNodes) {
+        this.selectedNodes = selectedNodes;
+    }
+    public void deleteSelectedMultiple(ActionEvent event){
+
     }
 
-    public void displaySelectedSingle() {
-        if(selectedNode != null) {
-            FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Selected", selectedNode.getData().toString());
+    public void displaySelectedMultiple(ActionEvent event) {
+        if(selectedNodes != null && selectedNodes.length > 0) {
+            StringBuilder builder = new StringBuilder();
+
+            for(TreeNode node : selectedNodes) {
+                builder.append(node.getData().toString());
+                builder.append("<br />");
+            }
+
+            FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Selected", builder.toString());
 
             FacesContext.getCurrentInstance().addMessage(null, message);
         }
-    }
-
-    public void deleteNode() {
-        selectedNode.getChildren().clear();
-        selectedNode.getParent().getChildren().remove(selectedNode);
-        selectedNode.setParent(null);
-
-        selectedNode = null;
     }
 }
