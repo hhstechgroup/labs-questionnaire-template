@@ -1,32 +1,33 @@
-package com.engagepoint.tests.mock.impl.bean;
+package com.engagepoint.mock.impl.bean;
 
 import com.engagepoint.bean.GroupBean;
 import com.engagepoint.bean.QuestionBean;
 import com.engagepoint.bean.SectionBean;
 import com.engagepoint.bean.TemplateBean;
-import com.engagepoint.tests.mock.MockBean;
+import com.engagepoint.mock.MockBean;
 
 /**
- * Created by yaroslav.nikolaiko on 2/4/14.
+ * Created by yurii.kucharskiy on 2/4/14.
  */
-public class AllNullMockBean implements MockBean {
+public class NotNullBeans implements MockBean {
+
     @Override
     public TemplateBean getTemplate() {
-        return null;
+        return new TemplateBean();
     }
 
     @Override
     public SectionBean getSection() {
-        return null;
+        return new SectionBean();
     }
 
     @Override
     public GroupBean getGroup() {
-        return null;
+        return new GroupBean();
     }
 
     @Override
     public QuestionBean getQuestion() {
-        return null;
+        return new QuestionBean();
     }
 }

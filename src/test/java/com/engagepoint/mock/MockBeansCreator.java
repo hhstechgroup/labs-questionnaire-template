@@ -1,11 +1,9 @@
-package com.engagepoint.tests.mock;
+package com.engagepoint.mock;
 
 import com.engagepoint.bean.GroupBean;
 import com.engagepoint.bean.QuestionBean;
 import com.engagepoint.bean.SectionBean;
 import com.engagepoint.bean.TemplateBean;
-import com.engagepoint.tests.mock.MockBean;
-import com.engagepoint.tests.mock.MockBeansList;
 
 import java.util.List;
 
