@@ -3,13 +3,7 @@ package com.engagepoint.utils;
 
 import com.engagepoint.bean.TemplateBean;
 import com.engagepoint.bean.Wrapper;
-import org.omg.CORBA._IDLTypeStub;
-import org.primefaces.model.DefaultStreamedContent;
-import org.primefaces.model.StreamedContent;
 
-import javax.faces.context.FacesContext;
-import javax.servlet.ServletContext;
-import javax.swing.*;
 import javax.xml.bind.*;
 import javax.xml.namespace.QName;
 import javax.xml.transform.stream.StreamSource;
@@ -31,21 +25,27 @@ public class XmlImportExport {
     /**
      * Wrap List in Wrapper, then leverage JAXBElement to supply root element
      * information.
+     *
+     * @param marshaller      marshaller object
+     * @param list            list of TemplateBean objects
+     * @param rootElementName name of root XML element
+     * @param filePath        absolute path to XML file location
      */
-    private static void marshal(Marshaller marshaller, List<?> list, String name)
-            throws JAXBException {
-        QName qName = new QName(name);
+    private static void marshal(Marshaller marshaller, List<?> list, String rootElementName, String filePath)
+            throws JAXBException, FileNotFoundException {
+        QName qName = new QName(rootElementName);
         Wrapper wrapper = new Wrapper(list);
         JAXBElement<Wrapper> jaxbElement = new JAXBElement<Wrapper>(qName,
                 Wrapper.class, wrapper);
-        marshaller.marshal(jaxbElement, System.out);
+        OutputStream os = new FileOutputStream(filePath);
+        marshaller.marshal(jaxbElement, os);
     }
 
 
     /**
      * Import XML date into TemplateBean objects.
      *
-     * @param filePath absolute path to file location
+     * @param filePath absolute path to XML file location
      * @return List of TemplateBean objects.
      */
     public static List<TemplateBean> importXmlTemplate(String filePath) {
@@ -64,20 +64,16 @@ public class XmlImportExport {
      * Export java objects into XML.
      *
      * @param listTemplateBean list of TemplateBean objects
+     * @param filePath         absolute path to XML file location
      */
-    public static void exportXmlTemplate(List<TemplateBean> listTemplateBean) {
-
+    public static void exportXmlTemplate(List<TemplateBean> listTemplateBean, String filePath) {
         try {
-            File file = new File("C:\\Users\\stanislav.sobolev\\Desktop\\Software\\file.xml");
-            FileOutputStream fileOutputStream = new FileOutputStream(file);
-
-            JAXBContext jc = JAXBContext.newInstance(TemplateBean.class);
+            JAXBContext jc = JAXBContext.newInstance(Wrapper.class, TemplateBean.class);
             Marshaller marshaller = jc.createMarshaller();
-            marshaller.marshal(listTemplateBean, fileOutputStream);
+            marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
+            marshal(marshaller, listTemplateBean, "questionnaire-forms", filePath);
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
-
-
 }
