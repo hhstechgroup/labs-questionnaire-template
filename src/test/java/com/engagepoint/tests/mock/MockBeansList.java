@@ -1,4 +1,4 @@
-package com.engagepoint.utils;
+package com.engagepoint.tests.mock;
 
 import com.engagepoint.bean.GroupBean;
 import com.engagepoint.bean.QuestionBean;

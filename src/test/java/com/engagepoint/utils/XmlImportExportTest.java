@@ -1,11 +1,7 @@
 package com.engagepoint.utils;
 
-import com.engagepoint.MockBeansCreator;
-import com.engagepoint.bean.TemplateBean;
+import com.engagepoint.tests.mock.MockBeansCreator;
 import org.junit.Test;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by stanislav.sobolev on 2/4/14.

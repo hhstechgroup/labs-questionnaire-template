@@ -1,31 +1,27 @@
-package com.engagepoint;
+package com.engagepoint.tests.mock;
 
 import com.engagepoint.bean.GroupBean;
 import com.engagepoint.bean.QuestionBean;
 import com.engagepoint.bean.SectionBean;
 import com.engagepoint.bean.TemplateBean;
-import com.engagepoint.utils.MockBean;
-import com.engagepoint.utils.MockBeansList;
-import com.engagepoint.utils.mockBeanImpl.MockBeanImpl_all_Null;
-import com.engagepoint.utils.mockBeanListImpl.MockBeanListImpl_all_Null;
+import com.engagepoint.tests.mock.MockBean;
+import com.engagepoint.tests.mock.MockBeansList;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Created by stanislav.sobolev on 2/4/14.
  */
 public class MockBeansCreator {
-    TemplateBean templateBean;
     MockBean mockBean;
     MockBeansList mockBeanList;
 
-    public MockBeansCreator() {
-        mockBean = new MockBeanImpl_all_Null();
-        mockBeanList = new MockBeanListImpl_all_Null();
-        mockBeansCreator();
+    public void setMockBeanList(MockBeansList mockBeanList) {
+        this.mockBeanList = mockBeanList;
     }
-    private void mockBeansCreator() {
+
+    public void setMockBean(MockBean mockBean) {
+        this.mockBean = mockBean;
     }
 
     public TemplateBean getTemplateBean() {
@@ -53,7 +49,5 @@ public class MockBeansCreator {
     private List<QuestionBean> getQuestionsList(){
         return mockBeanList.getQuestionsList();
     }
-
-
 }
 
