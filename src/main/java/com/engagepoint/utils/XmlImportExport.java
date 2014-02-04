@@ -3,6 +3,7 @@ package com.engagepoint.utils;
 
 import com.engagepoint.bean.TemplateBean;
 import com.engagepoint.bean.Wrapper;
+import org.omg.CORBA._IDLTypeStub;
 import org.primefaces.model.DefaultStreamedContent;
 import org.primefaces.model.StreamedContent;
 
@@ -12,10 +13,7 @@ import javax.swing.*;
 import javax.xml.bind.*;
 import javax.xml.namespace.QName;
 import javax.xml.transform.stream.StreamSource;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.FileWriter;
-import java.io.InputStream;
+import java.io.*;
 import java.util.List;
 
 public class XmlImportExport {
@@ -68,16 +66,25 @@ public class XmlImportExport {
      * @param listTemplateBean list of TemplateBean objects
      */
     public static void exportXmlTemplate(List<TemplateBean> listTemplateBean) {
-
+        FileOutputStream fileOutputStream = null;
         try {
-            File file = new File("C:\\Users\\stanislav.sobolev\\Desktop\\Software\\file.xml");
-            FileOutputStream fileOutputStream = new FileOutputStream(file);
-
-            JAXBContext jc = JAXBContext.newInstance(TemplateBean.class);
-            Marshaller marshaller = jc.createMarshaller();
-            marshaller.marshal(listTemplateBean, fileOutputStream);
+            for (int i = 0; i < listTemplateBean.size(); i++) {
+                File folder = new File("C:\\Users\\stanislav.sobolev\\Desktop\\Software\\test-session");
+                folder.mkdir();
+                File file = new File(folder.getAbsolutePath() + "\\file"+ i +".xml");
+                fileOutputStream = new FileOutputStream(file);
+                JAXBContext jc = JAXBContext.newInstance(TemplateBean.class);
+                Marshaller marshaller = jc.createMarshaller();
+                marshaller.marshal(listTemplateBean.get(i), fileOutputStream);
+            }
         } catch (Exception e) {
             e.printStackTrace();
+        } finally {
+            if (fileOutputStream != null) try {
+                fileOutputStream.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     }
 
