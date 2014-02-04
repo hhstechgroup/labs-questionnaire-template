@@ -1,23 +1,29 @@
 package com.engagepoint.bean;
 
+import com.engagepoint.mock.MockBean;
+import com.engagepoint.mock.MockBeansCreator;
+import com.engagepoint.mock.impl.bean.MockBeanContainer;
 import org.junit.Assert;
 import org.junit.Before;
+import org.junit.Test;
+
+import java.util.List;
 
 /**
  * Created by yurii.kukharskyi on 1/28/14.
  */
 public class QuestionBeanTest {
-    QuestionBean questionBean;
+    List<MockBean> mockBeanList = new MockBeanContainer().getList();
+    MockBeansCreator mockBeansCreator = new MockBeansCreator();
 
-    @Before
-    public void createQuestionBean() {
-        questionBean = new QuestionBean();
-        // Calling setters in questionBean
-    }
-
-    @org.junit.Test
+    @Test
     public void testClone() throws Exception {
-        QuestionBean cloneQuestionBean = (QuestionBean) questionBean.clone();
-        Assert.assertEquals(questionBean, cloneQuestionBean);
+        for (MockBean mockBean : mockBeanList) {
+            mockBeansCreator.setMockBean(mockBean);
+            if (mockBeansCreator.getQuestionBean() != null) {
+                Assert.assertEquals(mockBeansCreator.getQuestionBean().toString(),
+                        mockBeansCreator.getQuestionBean(), mockBeansCreator.getQuestionBean().clone());
+            }
+        }
     }
 }
