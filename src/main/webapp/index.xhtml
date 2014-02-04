@@ -79,6 +79,17 @@
             <p:menuitem value="Export" update=":form1" actionListener="#{listController.exportToXML}" icon="ui-icon-disk" ajax="false" />
             <p:menuitem value="Import" update=":form1" actionListener="#{listController.importFromXML}" icon="ui-icon-arrowrefresh-1-w" ajax="false" />
         </p:menuButton>
+
+        <p:lightBox>
+            <h:outputLink value="#">
+                <h:outputText value="Advice"/>
+            </h:outputLink>
+
+            <f:facet name="inline">
+                <p:graphicImage value="resources/images/image1.jpg"/>
+            </f:facet>
+        </p:lightBox>
+
 	</h:form>
 
 </h:body>
