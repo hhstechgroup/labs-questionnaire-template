@@ -3,13 +3,14 @@ package com.engagepoint.controller;
 
 import com.engagepoint.bean.TemplateBean;
 import com.engagepoint.utils.XmlImportExport;
+import com.engagepoint.model.TemplateDataModel;
 
 import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.inject.Named;
 
-import java.io.Serializable;
+import java.io.*;
 import java.util.*;
 
 @Named
@@ -19,8 +20,15 @@ public class ListController implements Serializable {
     private static final long serialVersionUID = 1L;
     private List<TemplateBean> list;
     private List<TemplateBean> filteredList;
+    private List<TemplateBean> selectedTemplates;
+
+    private TemplateDataModel templatesModel;
 
     private String xmlPath;
+
+    private String exportFileName;
+
+    private String exportDirectoryName;
 
     private String filterValue = "";
 
@@ -31,6 +39,28 @@ public class ListController implements Serializable {
         xmlPath = classLoader.getResource("Questionnaire.xml").getPath();
         //adding Templates from XML file
         addAllTemplates(XmlImportExport.importXmlTemplate(xmlPath));
+
+        templatesModel = new TemplateDataModel(list);
+    }
+
+    public String getExportFileName() {
+        return exportFileName;
+    }
+
+    public void setExportFileName(String exportFileName) {
+        this.exportFileName = exportFileName;
+    }
+
+    public String getExportDirectoryName() {
+        return exportDirectoryName;
+    }
+
+    public void setExportDirectoryName(String exportDirectoryName) {
+        this.exportDirectoryName = exportDirectoryName;
+    }
+
+    public TemplateDataModel getTemplatesModel() {
+        return templatesModel;
     }
 
     //operations on list
@@ -40,6 +70,14 @@ public class ListController implements Serializable {
 
     public void setTemplates(List<TemplateBean> list) {
         this.list = list;
+    }
+
+    public List<TemplateBean> getSelectedTemplates() {
+        return selectedTemplates;
+    }
+
+    public void setSelectedTemplates(List<TemplateBean> selectedTemplates) {
+        this.selectedTemplates = selectedTemplates;
     }
 
     //operations on filtered list
@@ -154,11 +192,53 @@ public class ListController implements Serializable {
     }
 
     /**
-     * Perform export questionnaire to XML file.
+     * Perform export selected questionnairies to one XML file.
      */
-    public void exportToXML() {
-        //TODO
+    public void exportSelectedToOneXML() {
+        Collections.sort(selectedTemplates);
+        XmlImportExport.exportXmlTemplates(selectedTemplates, getResourceBundleString("config","pathForXMLs") + exportFileName + ".xml");
         addMessage("dataExported");
+        selectedTemplates.clear();
+    }
+
+    /**
+     * Perform export selected questionnairies to separate XML files.
+     */
+    public void exportSelectedToSeparateXMLs() {
+        Collections.sort(selectedTemplates);
+        String directoryPath = getResourceBundleString("config","pathForXMLs") + exportDirectoryName;
+
+        //create directory
+        File directory = new File(directoryPath);
+        if(!directory.exists()) {
+            if (!directory.mkdir())
+            {
+                addMessage("dataNotExported");
+                return;
+            }
+        }
+
+        for (TemplateBean template : selectedTemplates)
+        {
+            String filePath = directoryPath + "//"+template.getTemplateName()+".xml";
+
+            //create file if not exists
+            File file = new File(filePath);
+            if(!file.exists()) {
+                try {
+                    file.createNewFile();
+                }
+                catch(IOException e)
+                {
+                    addMessage("dataNotExported");
+                    return;
+                }
+            }
+            XmlImportExport.exportXmlTemplate(template, filePath);
+        }
+
+        addMessage("dataExported");
+        selectedTemplates.clear();
     }
 
     /**
@@ -217,5 +297,5 @@ public class ListController implements Serializable {
         return "/index?faces-redirect=true";
     }
 
-    
+
 }

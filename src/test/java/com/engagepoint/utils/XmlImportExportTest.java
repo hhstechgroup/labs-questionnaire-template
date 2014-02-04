@@ -21,8 +21,7 @@ public class XmlImportExportTest {
     String filePath = "temp.xml";
 
     public void exportXmlTemplate() throws Exception {
-        XmlImportExport.exportXmlTemplate(beansCreator.getTemplatesList(),
-                filePath);
+        XmlImportExport.exportXmlTemplates(beansCreator.getTemplatesList(), filePath);
     }
 
     public List<TemplateBean> importXmlTemplate() throws Exception {

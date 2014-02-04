@@ -8,6 +8,7 @@ import javax.xml.bind.*;
 import javax.xml.namespace.QName;
 import javax.xml.transform.stream.StreamSource;
 import java.io.*;
+import java.util.ArrayList;
 import java.util.List;
 
 public class XmlImportExport {
@@ -27,13 +28,14 @@ public class XmlImportExport {
      * information.
      */
     private static void marshal(Marshaller marshaller, List<?> list, String rootElementName, String filePath)
-            throws JAXBException, FileNotFoundException {
+            throws JAXBException, IOException {
         QName qName = new QName(rootElementName);
         Wrapper wrapper = new Wrapper(list);
         JAXBElement<Wrapper> jaxbElement = new JAXBElement<Wrapper>(qName,
                 Wrapper.class, wrapper);
         OutputStream os = new FileOutputStream(filePath);
         marshaller.marshal(jaxbElement, os);
+        os.close();
     }
 
 
@@ -61,12 +63,31 @@ public class XmlImportExport {
      * @param listTemplateBean list of TemplateBean objects
      * @param filePath         absolute path to XML file location
      */
-    public static void exportXmlTemplate(List<TemplateBean> listTemplateBean, String filePath) {
+    public static void exportXmlTemplates(List<TemplateBean> listTemplateBean, String filePath) {
         try {
             JAXBContext jc = JAXBContext.newInstance(Wrapper.class, TemplateBean.class);
             Marshaller marshaller = jc.createMarshaller();
             marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
             marshal(marshaller, listTemplateBean, "questionnaire-forms", filePath);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * Export java objects into XML.
+     *
+     * @param template         TemplateBean object
+     * @param filePath         absolute path to XML file location
+     */
+    public static void exportXmlTemplate(TemplateBean template, String filePath) {
+        try {
+            JAXBContext jc = JAXBContext.newInstance(Wrapper.class, TemplateBean.class);
+            Marshaller marshaller = jc.createMarshaller();
+            marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
+            List<TemplateBean> list = new ArrayList<TemplateBean>();
+            list.add(template);
+            marshal(marshaller, list, "questionnaire-forms", filePath);
         } catch (Exception e) {
             e.printStackTrace();
         }
