@@ -4,6 +4,7 @@ package com.engagepoint.controller;
 import com.engagepoint.bean.TemplateBean;
 import com.engagepoint.utils.XmlImportExport;
 import com.engagepoint.model.TemplateDataModel;
+import org.primefaces.event.FileUploadEvent;
 
 import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
@@ -244,10 +245,11 @@ public class ListController implements Serializable {
     /**
      * Perform import questionnaire from XML file.
      */
-    public void importFromXML() {
+    public void importFromXML(FileUploadEvent event) throws IOException {
         //TODO
-        addMessage("dataImported");
-        addAllTemplates(XmlImportExport.importXmlTemplate(xmlPath));
+        String fileName=event.getFile().getFileName();
+        copyFile(fileName,event.getFile().getInputstream(),"C:\\upload\\");
+        addAllTemplates(XmlImportExport.importXmlTemplate("C:\\upload"+"\\"+fileName));
     }
 
 
@@ -295,6 +297,31 @@ public class ListController implements Serializable {
      */
     public String income() {
         return "/index?faces-redirect=true";
+    }
+
+    //TODO
+    public void copyFile(String fileName, InputStream in,String destination) {
+        try {
+
+
+            // write the inputStream to a FileOutputStream
+            OutputStream out = new FileOutputStream(new File(destination + fileName));
+
+            int read = 0;
+            byte[] bytes = new byte[1024];
+
+            while ((read = in.read(bytes)) != -1) {
+                out.write(bytes, 0, read);
+            }
+
+            in.close();
+            out.flush();
+            out.close();
+
+            System.out.println("New file created!");
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
     }
 
 
