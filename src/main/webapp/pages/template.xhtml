@@ -42,7 +42,7 @@
                                      actionListener="#{treeBean.displaySelectedMultiple}" id="btnDisplay" />
                     <p:commandButton value="Delete Selected" update="messages"  ajax="true"
                                      actionListener="#{treeBean.deleteSelectedMultiple}" id="btnDisplayDelete" />
-                    <p:commandButton value="Edit Group" action="#{groupController.income}" ajax="false"/>
+                    <p:commandButton value="Edit Group" action="#{treeBean.editSelectedGroup}" ajax="false"/>
 
                 </h:form>
 

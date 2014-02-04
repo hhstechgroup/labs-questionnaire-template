@@ -105,18 +105,18 @@ public class TreeBean implements Serializable {
     }
 
 
-    /*public void editSelectedGroup(ActionEvent event) throws IOException {
+    public String editSelectedGroup(){
+        GroupController controller = new GroupController();
 
         for (int i = 0; i <  selectedNodes.length; i++) {
             if (selectedNodes[i] != null && selectedNodes[i].getData().toString().contains("Group")){
-                FacesContext.getCurrentInstance().getExternalContext().redirect("/pages/group.xhtml");
+                return controller.income();
             }
             else{
             FacesMessage errorMessage = new FacesMessage(FacesMessage.SEVERITY_WARN, "Warning", "You've chosen not a group");
             FacesContext.getCurrentInstance().addMessage(null, errorMessage);
             }
-
-
     }
-    } */
+        return null;
+    }
 }
