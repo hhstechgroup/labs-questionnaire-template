@@ -109,11 +109,11 @@ public class TreeBean implements Serializable {
         GroupController controller = new GroupController();
 
         for (int i = 0; i <  selectedNodes.length; i++) {
-            if (selectedNodes[i] != null && selectedNodes[i].getData().toString().contains("Group")){
+            if (selectedNodes[i] != null && selectedNodes.length < 2 && selectedNodes[i].getData().toString().contains("Group")){
                 return controller.income();
             }
             else{
-            FacesMessage errorMessage = new FacesMessage(FacesMessage.SEVERITY_WARN, "Warning", "You've chosen not a group");
+            FacesMessage errorMessage = new FacesMessage(FacesMessage.SEVERITY_WARN, "Warning", "You've chosen not a group or more than one group");
             FacesContext.getCurrentInstance().addMessage(null, errorMessage);
             }
     }
