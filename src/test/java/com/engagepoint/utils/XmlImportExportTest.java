@@ -14,7 +14,7 @@ public class XmlImportExportTest {
     @Test
     public void testExportXmlTemplate() throws Exception {
         MockBeansCreator beansCreator = new MockBeansCreator();
-        XmlImportExport.exportXmlTemplate(beansCreator.templateBeanList(),
+        XmlImportExport.exportXmlTemplate(beansCreator.getTemplatesList(),
                 "temp.xml");
     }
 }

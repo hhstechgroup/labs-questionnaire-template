@@ -4,6 +4,10 @@ import com.engagepoint.bean.GroupBean;
 import com.engagepoint.bean.QuestionBean;
 import com.engagepoint.bean.SectionBean;
 import com.engagepoint.bean.TemplateBean;
+import com.engagepoint.utils.MockBean;
+import com.engagepoint.utils.MockBeansList;
+import com.engagepoint.utils.mockBeanImpl.MockBeanImpl_all_Null;
+import com.engagepoint.utils.mockBeanListImpl.MockBeanListImpl_all_Null;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,67 +17,41 @@ import java.util.List;
  */
 public class MockBeansCreator {
     TemplateBean templateBean;
+    MockBean mockBean;
+    MockBeansList mockBeanList;
 
     public MockBeansCreator() {
+        mockBean = new MockBeanImpl_all_Null();
+        mockBeanList = new MockBeanListImpl_all_Null();
         mockBeansCreator();
+    }
+    private void mockBeansCreator() {
     }
 
     public TemplateBean getTemplateBean() {
-        return templateBean;
+        return mockBean.getTemplate();
+    }
+    public SectionBean getSectionBean() {
+        return mockBean.getSection();
+    }
+    public GroupBean getGroupBean() {
+        return mockBean.getGroup();
+    }
+    public QuestionBean getQuestionBean() {
+        return mockBean.getQuestion();
     }
 
-    public List<TemplateBean> templateBeanList() {
-        List<TemplateBean> templateBeans = new ArrayList<TemplateBean>();
-        templateBeans.add(templateBean);
-        TemplateBean templateBean1 = new TemplateBean();
-        templateBean1.setTemplateName("T2");
-        templateBeans.add(templateBean1);
-        TemplateBean templateBean2 = new TemplateBean();
-        templateBean2.setTemplateName("T3");
-        templateBeans.add(templateBean2);
-        return templateBeans;
+    public List<TemplateBean> getTemplatesList() {
+        return mockBeanList.getTemplatesList();
     }
-
-    private void mockBeansCreator() {
-        templateBean = new TemplateBean();
-        templateBean.setTemplateName("Template One");
-        templateBean.setSectionsList(listSections());
+    public List<SectionBean> getSectionsList(){
+        return mockBeanList.getSectionsList();
     }
-
-    private List<SectionBean> listSections(){
-        List<SectionBean> sectionBeans = new ArrayList<SectionBean>();
-        /// ********** First Group ************
-        SectionBean section = new SectionBean();
-        section.setPageNumber(3);
-        section.setGroupsList(listGroups());
-        /// ****************************************
-
-        sectionBeans.add(section);
-        return sectionBeans;
+    public List<GroupBean> getGroupsList(){
+        return mockBeanList.getGroupsList();
     }
-    private List<GroupBean> listGroups(){
-        List<GroupBean> groupBeans = new ArrayList<GroupBean>();
-        /// ********** First Group ************
-        GroupBean group = new GroupBean();
-        group.setGroupName("Group First");
-        group.setQuestionsList(listQuestions());
-        /// ****************************************
-
-        groupBeans.add(group);
-        return groupBeans;
-
-    }
-    private List<QuestionBean> listQuestions(){
-        List<QuestionBean> questionsBeans = new ArrayList<QuestionBean>();
-        /// ********** First Question ************
-        QuestionBean question = new QuestionBean();
-        question.setId(Long.valueOf(666));
-        question.setQuestionTitle("First Question");
-        question.setRequiredAnswer(true);
-        /// ****************************************
-
-        questionsBeans.add(question);
-        return questionsBeans;
+    private List<QuestionBean> getQuestionsList(){
+        return mockBeanList.getQuestionsList();
     }
 
 
