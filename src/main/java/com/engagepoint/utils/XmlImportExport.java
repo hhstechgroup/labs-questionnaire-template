@@ -25,11 +25,6 @@ public class XmlImportExport {
     /**
      * Wrap List in Wrapper, then leverage JAXBElement to supply root element
      * information.
-     *
-     * @param marshaller      marshaller object
-     * @param list            list of TemplateBean objects
-     * @param rootElementName name of root XML element
-     * @param filePath        absolute path to XML file location
      */
     private static void marshal(Marshaller marshaller, List<?> list, String rootElementName, String filePath)
             throws JAXBException, FileNotFoundException {
