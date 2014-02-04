@@ -12,6 +12,7 @@ public class MockBeanContainer {
         list.add(new AllNullMockBean());
         list.add(new NotNullBeans());
     }
+
     public void add(MockBean bean){
         list.add(bean);
     }
