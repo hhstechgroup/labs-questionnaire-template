@@ -3,10 +3,19 @@ package com.engagepoint.utils;
 
 import com.engagepoint.bean.TemplateBean;
 import com.engagepoint.bean.Wrapper;
+import org.primefaces.model.DefaultStreamedContent;
+import org.primefaces.model.StreamedContent;
 
+import javax.faces.context.FacesContext;
+import javax.servlet.ServletContext;
+import javax.swing.*;
 import javax.xml.bind.*;
 import javax.xml.namespace.QName;
 import javax.xml.transform.stream.StreamSource;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.FileWriter;
+import java.io.InputStream;
 import java.util.List;
 
 public class XmlImportExport {
@@ -59,7 +68,18 @@ public class XmlImportExport {
      * @param listTemplateBean list of TemplateBean objects
      */
     public static void exportXmlTemplate(List<TemplateBean> listTemplateBean) {
-        //TODO
+
+        try {
+            File file = new File("C:\\Users\\stanislav.sobolev\\Desktop\\Software\\file.xml");
+            FileOutputStream fileOutputStream = new FileOutputStream(file);
+
+            JAXBContext jc = JAXBContext.newInstance(TemplateBean.class);
+            Marshaller marshaller = jc.createMarshaller();
+            marshaller.marshal(listTemplateBean, fileOutputStream);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
+
 
 }
