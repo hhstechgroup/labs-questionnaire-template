@@ -25,10 +25,15 @@ public class XmlImportExport {
     /**
      * Wrap List in Wrapper, then leverage JAXBElement to supply root element
      * information.
+     *
+     * @param marshaller      marshaller object
+     * @param list            list of TemplateBean objects
+     * @param rootElementName name of root XML element
+     * @param filePath        absolute path to XML file location
      */
-    private static void marshal(Marshaller marshaller, List<?> list, String name, String filePath)
+    private static void marshal(Marshaller marshaller, List<?> list, String rootElementName, String filePath)
             throws JAXBException, FileNotFoundException {
-        QName qName = new QName(name);
+        QName qName = new QName(rootElementName);
         Wrapper wrapper = new Wrapper(list);
         JAXBElement<Wrapper> jaxbElement = new JAXBElement<Wrapper>(qName,
                 Wrapper.class, wrapper);
@@ -40,7 +45,7 @@ public class XmlImportExport {
     /**
      * Import XML date into TemplateBean objects.
      *
-     * @param filePath absolute path to file location
+     * @param filePath absolute path to XML file location
      * @return List of TemplateBean objects.
      */
     public static List<TemplateBean> importXmlTemplate(String filePath) {
@@ -59,6 +64,7 @@ public class XmlImportExport {
      * Export java objects into XML.
      *
      * @param listTemplateBean list of TemplateBean objects
+     * @param filePath         absolute path to XML file location
      */
     public static void exportXmlTemplate(List<TemplateBean> listTemplateBean, String filePath) {
         try {
@@ -70,6 +76,4 @@ public class XmlImportExport {
             e.printStackTrace();
         }
     }
-
-
 }
