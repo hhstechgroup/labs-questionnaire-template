@@ -3,19 +3,11 @@ package com.engagepoint.utils;
 
 import com.engagepoint.bean.TemplateBean;
 import com.engagepoint.bean.Wrapper;
-import org.primefaces.model.DefaultStreamedContent;
-import org.primefaces.model.StreamedContent;
 
-import javax.faces.context.FacesContext;
-import javax.servlet.ServletContext;
-import javax.swing.*;
 import javax.xml.bind.*;
 import javax.xml.namespace.QName;
 import javax.xml.transform.stream.StreamSource;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.FileWriter;
-import java.io.InputStream;
+import java.io.*;
 import java.util.List;
 
 public class XmlImportExport {
@@ -34,13 +26,14 @@ public class XmlImportExport {
      * Wrap List in Wrapper, then leverage JAXBElement to supply root element
      * information.
      */
-    private static void marshal(Marshaller marshaller, List<?> list, String name)
-            throws JAXBException {
+    private static void marshal(Marshaller marshaller, List<?> list, String name, String filePath)
+            throws JAXBException, FileNotFoundException {
         QName qName = new QName(name);
         Wrapper wrapper = new Wrapper(list);
         JAXBElement<Wrapper> jaxbElement = new JAXBElement<Wrapper>(qName,
                 Wrapper.class, wrapper);
-        marshaller.marshal(jaxbElement, System.out);
+        OutputStream os = new FileOutputStream(filePath);
+        marshaller.marshal(jaxbElement, os);
     }
 
 
@@ -72,7 +65,7 @@ public class XmlImportExport {
             JAXBContext jc = JAXBContext.newInstance(Wrapper.class, TemplateBean.class);
             Marshaller marshaller = jc.createMarshaller();
             marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
-            marshal(marshaller, listTemplateBean, "questionnaire-forms");
+            marshal(marshaller, listTemplateBean, "questionnaire-forms", filePath);
         } catch (Exception e) {
             e.printStackTrace();
         }
