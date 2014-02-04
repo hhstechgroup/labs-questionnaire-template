@@ -29,8 +29,8 @@ public class XmlImportExportTest {
         return XmlImportExport.importXmlTemplate(filePath);
     }
 
-    @Ignore
     @Test
+    @Ignore
     public void testImportExportXmlTemplate() throws Exception {
         for (MockBeansList mockBeansList : mockBeansListList) {
             beansCreator.setMockBeanList(mockBeansList);

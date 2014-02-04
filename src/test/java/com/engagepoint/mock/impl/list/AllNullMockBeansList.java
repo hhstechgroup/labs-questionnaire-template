@@ -32,4 +32,9 @@ public class AllNullMockBeansList implements MockBeansList {
     public List<QuestionBean> getQuestionsList() {
         return null;
     }
+
+    @Override
+    public String description() {
+        return null;
+    }
 }

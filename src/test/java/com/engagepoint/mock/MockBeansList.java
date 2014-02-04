@@ -15,4 +15,5 @@ public interface MockBeansList {
     List<SectionBean>  getSectionsList();
     List<GroupBean>    getGroupsList();
     List<QuestionBean> getQuestionsList();
+    String description();
 }

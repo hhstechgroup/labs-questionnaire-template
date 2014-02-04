@@ -13,4 +13,5 @@ public interface MockBean {
     SectionBean getSection();
     GroupBean getGroup();
     QuestionBean getQuestion();
+    String description();
 }

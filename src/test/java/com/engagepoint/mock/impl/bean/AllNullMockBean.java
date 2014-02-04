@@ -29,4 +29,9 @@ public class AllNullMockBean implements MockBean {
     public QuestionBean getQuestion() {
         return null;
     }
+
+    @Override
+    public String description() {
+        return null;
+    }
 }

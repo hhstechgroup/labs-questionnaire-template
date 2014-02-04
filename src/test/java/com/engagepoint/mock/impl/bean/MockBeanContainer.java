@@ -9,8 +9,9 @@ public class MockBeanContainer {
     List<MockBean> list = new ArrayList<MockBean>();
 
     public MockBeanContainer(){
-        list.add(new AllNullMockBean());
-        list.add(new NotNullBeans());
+        //list.add(new AllNullMockBean());
+        //list.add(new NotNullBeans());
+        list.add(new AllFilledBeans());
     }
 
     public void add(MockBean bean){

@@ -30,4 +30,9 @@ public class NotNullBeans implements MockBean {
     public QuestionBean getQuestion() {
         return new QuestionBean();
     }
+
+    @Override
+    public String description() {
+        return null;
+    }
 }
