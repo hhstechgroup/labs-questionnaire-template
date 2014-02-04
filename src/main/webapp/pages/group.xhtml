@@ -7,7 +7,7 @@
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:f="http://java.sun.com/jsf/core" xml:lang="en" lang="en">
 <h:head>
-	<title>Add Question selectonemenu</title>
+	<title>Question group edition</title>
 </h:head>
 <h:body>
 
@@ -26,15 +26,41 @@
 			rendered="#{groupController.showNewQuestionForm}">
 			<f:selectItem itemLabel="Select One" itemValue="" />
 			<f:selectItems value="#{groupController.questionTypes}" />
-			<p:ajax event="change" update="out" />
+			<p:ajax event="change" update="@form" />
 		</p:selectOneMenu>
 		<br></br>
 
-		<h:outputText id="out" value="#{groupController.selectedQuestionType} is selected"
+		<h:outputText id="out"
+			value="#{groupController.selectedQuestionType} is selected"
 			rendered="#{groupController.showNewQuestionForm}" />
+		<br></br>
 
+		<h:panelGrid id="textquestion" columns="2"
+			rendered="#{groupController.showNewTextTypeQuestionForm}"
+			style="margin-bottom:10px" cellpadding="5">
+
+			<h:outputText value="Question text: * " />
+			<p:inputText size="50" value="" required="true" />
+			<h:outputText value="Default answer: " />
+			<p:inputText size="50" value="" />
+			<h:outputText value="Help text: " />
+			<p:inputText size="50" value="" />
+			<h:outputText value="Required? " />
+			<p:selectBooleanCheckbox value="" />
+		</h:panelGrid>
+		<h:panelGrid id="buttons" columns="3" style="margin-bottom:10px"
+			cellpadding="5"
+			rendered="#{groupController.showNewTextTypeQuestionForm}">
+			<p:commandButton id="addnext" value="Add one more question" />
+			<p:commandButton id="cancel" value="Cancel" />
+			<p:commandButton id="savegroup" value="Save this group and exit" />
+
+
+		</h:panelGrid>
 
 	</h:form>
+
+
 
 </h:body>
 </html>
