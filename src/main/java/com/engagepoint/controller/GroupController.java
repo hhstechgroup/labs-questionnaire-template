@@ -76,7 +76,7 @@ public class GroupController implements Serializable {
     }
 
     public String income() {
-        return "pages/group?faces-redirect=true";
+        return "group?faces-redirect=true";
     }
 
 	public boolean isShowNewTextTypeQuestionForm() {

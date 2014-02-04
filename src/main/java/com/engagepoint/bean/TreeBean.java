@@ -105,11 +105,11 @@ public class TreeBean implements Serializable {
     }
 
 
-    public void editSelectedGroup(ActionEvent event) throws IOException {
+    /*public void editSelectedGroup(ActionEvent event) throws IOException {
 
         for (int i = 0; i <  selectedNodes.length; i++) {
             if (selectedNodes[i] != null && selectedNodes[i].getData().toString().contains("Group")){
-                FacesContext.getCurrentInstance().getExternalContext().redirect("http://localhost:8080/labs-questionnaire-template-1.0-SNAPSHOT/pages/group.xhtml");
+                FacesContext.getCurrentInstance().getExternalContext().redirect("/pages/group.xhtml");
             }
             else{
             FacesMessage errorMessage = new FacesMessage(FacesMessage.SEVERITY_WARN, "Warning", "You've chosen not a group");
@@ -118,5 +118,5 @@ public class TreeBean implements Serializable {
 
 
     }
-    }
+    } */
 }
