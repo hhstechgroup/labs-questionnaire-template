@@ -67,15 +67,12 @@ public class XmlImportExport {
      *
      * @param listTemplateBean list of TemplateBean objects
      */
-    public static void exportXmlTemplate(List<TemplateBean> listTemplateBean) {
-
+    public static void exportXmlTemplate(List<TemplateBean> listTemplateBean, String filePath) {
         try {
-            File file = new File("C:\\Users\\stanislav.sobolev\\Desktop\\Software\\file.xml");
-            FileOutputStream fileOutputStream = new FileOutputStream(file);
-
-            JAXBContext jc = JAXBContext.newInstance(TemplateBean.class);
+            JAXBContext jc = JAXBContext.newInstance(Wrapper.class, TemplateBean.class);
             Marshaller marshaller = jc.createMarshaller();
-            marshaller.marshal(listTemplateBean, fileOutputStream);
+            marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
+            marshal(marshaller, listTemplateBean, "questionnaire-forms");
         } catch (Exception e) {
             e.printStackTrace();
         }
