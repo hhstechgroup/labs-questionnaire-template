@@ -9,11 +9,20 @@ import org.junit.Test;
  * Created by stanislav.sobolev on 2/4/14.
  */
 public class XmlImportExportTest {
-    @Test
-    public void testExportXmlTemplate() throws Exception {
-        MockBeansCreator beansCreator = new MockBeansCreator();
-        beansCreator.setMockBeanList(new OneNullOneRealBeansList());
+    MockBeansCreator beansCreator = new MockBeansCreator();
+    String filePath = "temp.xml";
+
+    public void exportXmlTemplate() throws Exception {
         XmlImportExport.exportXmlTemplate(beansCreator.getTemplatesList(),
-                "temp.xml");
+                filePath);
+    }
+
+    public void importXmlTemplate() throws Exception {
+        XmlImportExport.importXmlTemplate(filePath);
+    }
+
+    @Test
+    public void testImportExportXmlTemplate() throws Exception {
+
     }
 }
