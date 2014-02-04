@@ -1,4 +1,5 @@
 package com.engagepoint.bean;
+import com.engagepoint.controller.GroupController;
 
 /**
  * Created with IntelliJ IDEA.
@@ -10,13 +11,11 @@ package com.engagepoint.bean;
 
 
 import javax.enterprise.context.SessionScoped;
+
 import javax.faces.context.FacesContext;
 
 
-
-
-
-
+import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -38,7 +37,6 @@ public class TreeBean implements Serializable {
     private ArrayList<TreeNode> nodes;
     private TreeNode[] selectedNodes;
     private boolean flag = false;
-
 
 
 
@@ -91,6 +89,7 @@ public class TreeBean implements Serializable {
     }
 
     public void displaySelectedMultiple(ActionEvent event) {
+
         if(selectedNodes != null && selectedNodes.length > 0) {
             StringBuilder builder = new StringBuilder();
 
@@ -103,5 +102,21 @@ public class TreeBean implements Serializable {
 
             FacesContext.getCurrentInstance().addMessage(null, message);
         }
+    }
+
+
+    public void editSelectedGroup(ActionEvent event) throws IOException {
+
+        for (int i = 0; i <  selectedNodes.length; i++) {
+            if (selectedNodes[i] != null && selectedNodes[i].getData().toString().contains("Group")){
+                FacesContext.getCurrentInstance().getExternalContext().redirect("http://localhost:8080/labs-questionnaire-template-1.0-SNAPSHOT/pages/group.xhtml");
+            }
+            else{
+            FacesMessage errorMessage = new FacesMessage(FacesMessage.SEVERITY_WARN, "Warning", "You've chosen not a group");
+            FacesContext.getCurrentInstance().addMessage(null, errorMessage);
+            }
+
+
+    }
     }
 }
