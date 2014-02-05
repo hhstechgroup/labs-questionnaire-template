@@ -41,9 +41,12 @@ public class SectionBean implements Cloneable,Serializable {
     public Object clone() throws CloneNotSupportedException {
         SectionBean copy = (SectionBean) super.clone();
         copy.setPageNumber(this.pageNumber);
-        List<GroupBean> copyGroupsList = new ArrayList<GroupBean>();
-        for (GroupBean groupBean : copyGroupsList) {
-            copyGroupsList.add((GroupBean) groupBean.clone());
+        List<GroupBean> copyGroupsList=null;
+        if(groupsList!=null){
+            copyGroupsList = new ArrayList<GroupBean>();
+            for (GroupBean groupBean : groupsList) {
+             copyGroupsList.add((GroupBean) groupBean.clone());
+            }
         }
         copy.setGroupsList(copyGroupsList);
         return copy;

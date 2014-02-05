@@ -137,7 +137,7 @@ public class ListController implements Serializable {
      */
     public void removeTemplateFromFilteredList(TemplateBean template) {
         if (filteredList != null) {
-            if (!containsFiltered(template.getTemplateName())) {
+            if (containsFiltered(template.getTemplateName())) {
                 filteredList.remove(template);
                 //addMessage("changesDontSatisfyFilter");
             }

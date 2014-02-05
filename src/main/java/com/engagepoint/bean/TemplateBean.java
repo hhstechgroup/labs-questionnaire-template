@@ -44,9 +44,12 @@ public class TemplateBean implements Cloneable, Comparable<TemplateBean> {
     @Override
     public Object clone() throws CloneNotSupportedException {
         TemplateBean copy = (TemplateBean) super.clone();
-        List<SectionBean> copySectionsList = new ArrayList<SectionBean>();
-        for (SectionBean sectionBean : sectionsList) {
-            copySectionsList.add((SectionBean) sectionBean.clone());
+        List<SectionBean> copySectionsList = null;
+        if(sectionsList!=null){
+            copySectionsList = new ArrayList<SectionBean>();
+            for (SectionBean sectionBean : sectionsList) {
+                copySectionsList.add((SectionBean) sectionBean.clone());
+            }
         }
         copy.setSectionsList(copySectionsList);
         return copy;

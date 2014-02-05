@@ -36,9 +36,12 @@ public class GroupBean implements Cloneable {
     public Object clone() throws CloneNotSupportedException {
         GroupBean copy = (GroupBean) super.clone();
         copy.setGroupName(this.groupName);
-        List<QuestionBean> copyQuestionsList = new ArrayList<QuestionBean>();
-        for (QuestionBean questionBean : questionsList) {
-            copyQuestionsList.add((QuestionBean) questionBean.clone());
+        List<QuestionBean> copyQuestionsList =null;
+        if(questionsList!=null){
+            copyQuestionsList = new ArrayList<QuestionBean>();
+            for (QuestionBean questionBean : questionsList) {
+             copyQuestionsList.add((QuestionBean) questionBean.clone());
+            }
         }
         copy.setQuestionsList(copyQuestionsList);
         return copy;
