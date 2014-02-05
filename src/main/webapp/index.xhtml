@@ -95,7 +95,7 @@
         <p:dialog id="ImportDialog" header="Modal Dialog" widgetVar="upload" modal="true" height="200" width="800">
             <br/>
             <p:fileUpload fileUploadListener="#{listController.importFromXML}" multiple="true"
-                          oncomplete="upload.hide()"/>
+                          oncomplete="upload.hide()" update="form1"/>
             <br/>
         </p:dialog>
 
