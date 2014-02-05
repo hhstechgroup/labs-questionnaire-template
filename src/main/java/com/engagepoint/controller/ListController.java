@@ -8,8 +8,10 @@ import org.primefaces.event.FileUploadEvent;
 
 import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.inject.Named;
+import javax.servlet.http.HttpServletResponse;
 
 import java.io.*;
 import java.util.*;
@@ -137,7 +139,7 @@ public class ListController implements Serializable {
      */
     public void removeTemplateFromFilteredList(TemplateBean template) {
         if (filteredList != null) {
-            if (containsFiltered(template.getTemplateName())) {
+            if (!containsFiltered(template.getTemplateName())) {
                 filteredList.remove(template);
                 //addMessage("changesDontSatisfyFilter");
             }
@@ -193,9 +195,41 @@ public class ListController implements Serializable {
      */
     public void exportSelectedToOneXML() {
         Collections.sort(selectedTemplates);
-        XmlImportExport.exportXmlTemplates(selectedTemplates, getResourceBundleString("config", "pathForXMLs") + exportFileName + ".xml");
+        
+        FacesContext facesContext = FacesContext.getCurrentInstance();
+        ExternalContext externalContext = facesContext.getExternalContext();
+        HttpServletResponse response = (HttpServletResponse) externalContext.getResponse();
+
+        response.reset(); // Some JSF component library or some Filter might have set some headers in the buffer beforehand. We want to get rid of them, else it may collide.
+        response.setContentType("application/xml"); // Check http://www.iana.org/assignments/media-types for all types. Use if necessary ServletContext#getMimeType() for auto-detection based on filename.
+        response.setHeader("Content-disposition", "attachment; filename=\"newXml.xml\""); // The Save As popup magic is done here. You can give it any filename you want, this only won't work in MSIE, it will use current request URL as filename instead.
+
+        BufferedOutputStream output = null;
+
+        try {
+            output = new BufferedOutputStream(response.getOutputStream());
+
+            XmlImportExport.exportXmlTemplates(selectedTemplates, output);
+        }
+        catch (IOException e)
+        {
+            addMessage("dataNotExported");
+            return;
+        }
+        finally {
+            try {
+                output.close();
+            }
+            catch (IOException e)
+            {
+                //TODO do something...
+            }
+
+        }
+
+        facesContext.responseComplete(); // Important! Else JSF will attempt to render the response which obviously will fail since it's already written with a file and closed.    }
+
         addMessage("dataExported");
-        selectedTemplates.clear();
     }
 
     /**
@@ -203,7 +237,7 @@ public class ListController implements Serializable {
      */
     public void exportSelectedToSeparateXMLs() {
         Collections.sort(selectedTemplates);
-        String directoryPath = getResourceBundleString("config", "pathForXMLs") + exportDirectoryName;
+        String directoryPath = exportDirectoryName;
 
         //create directory
         File directory = new File(directoryPath);
@@ -231,7 +265,6 @@ public class ListController implements Serializable {
         }
 
         addMessage("dataExported");
-        selectedTemplates.clear();
     }
 
     /**

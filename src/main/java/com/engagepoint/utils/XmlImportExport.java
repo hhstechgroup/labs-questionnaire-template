@@ -38,6 +38,19 @@ public class XmlImportExport {
         os.close();
     }
 
+    /**
+     * Wrap List in Wrapper, then leverage JAXBElement to supply root element
+     * information.
+     */
+    private static void marshal(Marshaller marshaller, List<?> list, String rootElementName, OutputStream os)
+            throws JAXBException, IOException {
+        QName qName = new QName(rootElementName);
+        Wrapper wrapper = new Wrapper(list);
+        JAXBElement<Wrapper> jaxbElement = new JAXBElement<Wrapper>(qName,
+                Wrapper.class, wrapper);
+        marshaller.marshal(jaxbElement, os);
+        os.close();
+    }
 
     /**
      * Import XML date into TemplateBean objects.
@@ -79,6 +92,25 @@ public class XmlImportExport {
      *
      * @param template TemplateBean object
      * @param filePath absolute path to XML file location
+     * @param listTemplateBean list of TemplateBean objects
+     * @param outputStream     output stream
+     */
+    public static void exportXmlTemplates(List<TemplateBean> listTemplateBean, OutputStream outputStream) {
+        try {
+            JAXBContext jc = JAXBContext.newInstance(Wrapper.class, TemplateBean.class);
+            Marshaller marshaller = jc.createMarshaller();
+            marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
+            marshal(marshaller, listTemplateBean, "questionnaire-forms", outputStream);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * Export java objects into XML.
+     *
+     * @param template         TemplateBean object
+     * @param filePath         absolute path to XML file location
      */
     public static void exportXmlTemplate(TemplateBean template, String filePath) {
         try {

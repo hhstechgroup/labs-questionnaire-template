@@ -81,12 +81,13 @@
         <p:menuButton value="Options">
             <p:menuitem value="Export selected templates to one file..."
                         update="modalDialogExportToOne"
-                        oncomplete="dlgExO.show();"
+                        action="#{listController.exportSelectedToOneXML}"
+                        ajax="false"
                         icon="ui-icon-disk"/>
             <p:menuitem value="Export selected templates to separate files..."
                         update="modalDialogExportToSeparate"
                         oncomplete="dlgExS.show();"
-                        icon="ui-icon-disk"/> -->
+                        icon="ui-icon-disk"/>
             <p:separator/>
             <p:menuitem value="Import" update=":form1" icon="ui-icon-arrowrefresh-1-w" oncomplete="upload.show()"/>
         </p:menuButton>
@@ -97,18 +98,6 @@
             <p:fileUpload fileUploadListener="#{listController.importFromXML}" multiple="true"
                           oncomplete="upload.hide()" update="form1"/>
             <br/>
-        </p:dialog>
-
-        <p:dialog id="modalDialogExportToOne" widgetVar="dlgExO"
-                  modal="true" height="100" resizeable="false" header="Export selected templates to one file">
-            <h:outputFormat value="#{msgs.msgOnExportToOne}"/>
-            <br/>
-            <p:inputText id="expFileName"
-                         value="#{listController.exportFileName}"/>
-            <p:commandButton value="Export"
-                             action="#{listController.exportSelectedToOneXML}"
-                             ajax="false" update=":form1" onclick="dlgExO.hide()"/>
-            <p:commandButton value="Cancel" onclick="dlgExO.hide()"/>
         </p:dialog>
 
         <p:dialog id="modalDialogExportToSeparate" widgetVar="dlgExS"
