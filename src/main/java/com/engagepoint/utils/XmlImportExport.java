@@ -77,8 +77,8 @@ public class XmlImportExport {
     /**
      * Export java objects into XML.
      *
-     * @param template         TemplateBean object
-     * @param filePath         absolute path to XML file location
+     * @param template TemplateBean object
+     * @param filePath absolute path to XML file location
      */
     public static void exportXmlTemplate(TemplateBean template, String filePath) {
         try {
@@ -91,5 +91,27 @@ public class XmlImportExport {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+
+    /**
+     * Import XML into TemplateBean objects.
+     *
+     * @param inputStream inputStream of file
+     * @return List of TemplateBean objects.
+     */
+    public static List<TemplateBean> importXmlTemplate(InputStream inputStream) {
+        List<TemplateBean> list = null;
+        try {
+            JAXBContext jc = JAXBContext.newInstance(Wrapper.class, TemplateBean.class);
+            Unmarshaller unmarshaller = jc.createUnmarshaller();
+            StreamSource xml = new StreamSource(inputStream);
+            Wrapper<TemplateBean> wrapper = (Wrapper<TemplateBean>) unmarshaller.unmarshal(xml,
+                    Wrapper.class).getValue();
+            list = wrapper.getItems();
+        } catch (JAXBException e) {
+            e.printStackTrace();
+        }
+        return list;
     }
 }
