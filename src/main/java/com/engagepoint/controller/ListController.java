@@ -98,7 +98,7 @@ public class ListController implements Serializable {
         this.filterValue = filterValue;
     }
 
-    private boolean containsFiltered(String name){
+    private boolean containsFiltered(String name) {
         return name.toLowerCase().contains(filterValue.toLowerCase());
     }
 
@@ -121,12 +121,10 @@ public class ListController implements Serializable {
      * @param template template to be added
      */
     public void addTemplateToFilteredList(TemplateBean template) {
-        if (filteredList != null)
-        {
+        if (filteredList != null) {
             if (containsFiltered(template.getTemplateName()))
                 filteredList.add(template);
-            else
-            {
+            else {
                 //addMessage("changesDontSatisfyFilter");
             }
         }
@@ -138,10 +136,8 @@ public class ListController implements Serializable {
      * @param template template to be added
      */
     public void removeTemplateFromFilteredList(TemplateBean template) {
-        if (filteredList != null)
-        {
-            if (!containsFiltered(template.getTemplateName()))
-            {
+        if (filteredList != null) {
+            if (!containsFiltered(template.getTemplateName())) {
                 filteredList.remove(template);
                 //addMessage("changesDontSatisfyFilter");
             }
@@ -197,7 +193,7 @@ public class ListController implements Serializable {
      */
     public void exportSelectedToOneXML() {
         Collections.sort(selectedTemplates);
-        XmlImportExport.exportXmlTemplates(selectedTemplates, getResourceBundleString("config","pathForXMLs") + exportFileName + ".xml");
+        XmlImportExport.exportXmlTemplates(selectedTemplates, getResourceBundleString("config", "pathForXMLs") + exportFileName + ".xml");
         addMessage("dataExported");
         selectedTemplates.clear();
     }
@@ -207,30 +203,26 @@ public class ListController implements Serializable {
      */
     public void exportSelectedToSeparateXMLs() {
         Collections.sort(selectedTemplates);
-        String directoryPath = getResourceBundleString("config","pathForXMLs") + exportDirectoryName;
+        String directoryPath = getResourceBundleString("config", "pathForXMLs") + exportDirectoryName;
 
         //create directory
         File directory = new File(directoryPath);
-        if(!directory.exists()) {
-            if (!directory.mkdir())
-            {
+        if (!directory.exists()) {
+            if (!directory.mkdir()) {
                 addMessage("dataNotExported");
                 return;
             }
         }
 
-        for (TemplateBean template : selectedTemplates)
-        {
-            String filePath = directoryPath + "//"+template.getTemplateName()+".xml";
+        for (TemplateBean template : selectedTemplates) {
+            String filePath = directoryPath + "//" + template.getTemplateName() + ".xml";
 
             //create file if not exists
             File file = new File(filePath);
-            if(!file.exists()) {
+            if (!file.exists()) {
                 try {
                     file.createNewFile();
-                }
-                catch(IOException e)
-                {
+                } catch (IOException e) {
                     addMessage("dataNotExported");
                     return;
                 }
@@ -246,10 +238,7 @@ public class ListController implements Serializable {
      * Perform import questionnaire from XML file.
      */
     public void importFromXML(FileUploadEvent event) throws IOException {
-        //TODO
-        String fileName=event.getFile().getFileName();
-        copyFile(fileName,event.getFile().getInputstream(),"C:\\upload\\");
-        addAllTemplates(XmlImportExport.importXmlTemplate("C:\\upload"+"\\"+fileName));
+        addAllTemplates(XmlImportExport.importXmlTemplate(event.getFile().getInputstream()));
     }
 
 
@@ -277,7 +266,7 @@ public class ListController implements Serializable {
      * Get value from resource bundle.
      *
      * @param resourceBundleName name of resource bundle
-     * @param resourceBundleKey key of resource bundle
+     * @param resourceBundleKey  key of resource bundle
      */
     public static String getResourceBundleString(
             String resourceBundleName,
@@ -298,31 +287,4 @@ public class ListController implements Serializable {
     public String income() {
         return "/index?faces-redirect=true";
     }
-
-    //TODO
-    public void copyFile(String fileName, InputStream in,String destination) {
-        try {
-
-
-            // write the inputStream to a FileOutputStream
-            OutputStream out = new FileOutputStream(new File(destination + fileName));
-
-            int read = 0;
-            byte[] bytes = new byte[1024];
-
-            while ((read = in.read(bytes)) != -1) {
-                out.write(bytes, 0, read);
-            }
-
-            in.close();
-            out.flush();
-            out.close();
-
-            System.out.println("New file created!");
-        } catch (IOException e) {
-            System.out.println(e.getMessage());
-        }
-    }
-
-
 }
