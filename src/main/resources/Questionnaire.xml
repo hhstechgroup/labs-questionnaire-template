@@ -1,7 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <questionnaire-forms>
     <questionnaire-form>
-        <form-name>Template A</form-name>
+        <form-name>TestSections</form-name>
+        <pages>
+            <page>
+                <page-number>1</page-number>
+            </page>
+            <page>
+                <page-number>2</page-number>
+            </page>
+            <page>
+                <page-number>3</page-number>
+            </page>
+        </pages>
     </questionnaire-form>
     <questionnaire-form>
         <form-name>Template B</form-name>
