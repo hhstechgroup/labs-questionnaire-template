@@ -24,6 +24,8 @@ import javax.faces.application.FacesMessage;
 import javax.faces.event.ActionEvent;
 import javax.inject.Named;
 
+import com.engagepoint.controller.ListController;
+import com.engagepoint.controller.TemplateController;
 import org.primefaces.model.DefaultTreeNode;
 import org.primefaces.model.TreeNode;
 
@@ -31,8 +33,7 @@ import org.primefaces.model.TreeNode;
 @SessionScoped
 public class TreeBean implements Serializable {
 
-    private TreeNode root = new DefaultTreeNode("Root",null);
-
+    private TreeNode root;
     private TreeNode selectedNode;
 
     public TreeNode getSelectedNode() {
@@ -44,26 +45,26 @@ public class TreeBean implements Serializable {
     }
 
     public TreeBean() {
-
         root = new DefaultTreeNode("Root", null);
         ArrayList<TreeNode> nodeList = new ArrayList<TreeNode>();
         setNodes(nodeList);
-
-
-
-
     }
 
     public void setNodes(ArrayList<TreeNode> nodes) {
-        TreeNode section1 = new DefaultTreeNode("Section 1", getRoot());
-        TreeNode section2 = new DefaultTreeNode("Section 2", getRoot());
-        TreeNode section3 = new DefaultTreeNode("Section 3", getRoot());
-        nodes.add(section1);
-        nodes.add(section2);
-        nodes.add(section3);
-        nodes.add(new DefaultTreeNode("Group 1", section1));
-        nodes.add(new DefaultTreeNode("Group 2", section1));
-        nodes.add(new DefaultTreeNode("Group 3", section2));
+        //To work with sections of templates we need to call listController which contains the information
+        //about all the templates we have and inner parameters including sections, groups, questions e.t.c.
+        ListController listController = new ListController();
+        List<TemplateBean> templateBeanList = listController.getTemplates();
+        List<SectionBean> sectionBeanArrayList = templateBeanList.get(0).getSectionsList();
+
+        //We are adding all sections from the sections list of current template.
+        //section ID created using number of section in list and some string
+        for(int i=0; i<sectionBeanArrayList.size(); i++) {
+            Integer sectionNumber = sectionBeanArrayList.get(i).getPageNumber();
+            String sectionID = "SECTION" + sectionNumber.toString();
+            TreeNode section = new DefaultTreeNode(sectionID, getRoot());
+            nodes.add(section);
+        }
 
     }
 
@@ -71,17 +72,12 @@ public class TreeBean implements Serializable {
         return root;
     }
 
-
     public void deleteNode() {
         selectedNode.getChildren().clear();
         selectedNode.getParent().getChildren().remove(selectedNode);
         selectedNode.setParent(null);
-
         selectedNode = null;
     }
-
-
-
 
     public String editSelectedGroup(){
         GroupController controller = new GroupController();
