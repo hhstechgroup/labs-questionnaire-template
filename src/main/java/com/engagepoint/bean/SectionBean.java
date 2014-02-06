@@ -18,6 +18,14 @@ public class SectionBean implements Cloneable,Serializable {
     private int pageNumber;
     private List<GroupBean> groupsList = new ArrayList<GroupBean>();
 
+    public SectionBean() {
+    }
+
+    public SectionBean(int pageNumber, List<GroupBean> groupsList) {
+        this.pageNumber = pageNumber;
+        this.groupsList = groupsList;
+    }
+
     @XmlElementWrapper(name = "groups-of-questions")
     @XmlElement(name = "group")
     public List<GroupBean> getGroupsList() {

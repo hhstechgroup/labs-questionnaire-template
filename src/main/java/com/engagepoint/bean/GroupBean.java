@@ -13,6 +13,14 @@ public class GroupBean implements Cloneable {
     private String groupName;
     private List<QuestionBean> questionsList = new ArrayList<QuestionBean>();
 
+    public GroupBean() {
+    }
+
+    public GroupBean(String groupName, List<QuestionBean> questionsList) {
+        this.groupName = groupName;
+        this.questionsList = questionsList;
+    }
+
     @XmlElement(name = "group-name")
     public String getGroupName() {
         return groupName;

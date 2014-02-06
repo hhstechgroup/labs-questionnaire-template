@@ -4,6 +4,7 @@ import javax.enterprise.context.RequestScoped;
 import javax.inject.Named;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
+import java.util.Random;
 
 /**
  * Class represents question tag.
@@ -58,10 +59,25 @@ public class QuestionBean implements Cloneable {
         this.questionType = questionType;
     }
 
+    public QuestionBean() {
+    }
+
+    public QuestionBean(String questionText, boolean requiredAnswer, QuestionType questionType) {
+        this.questionText = questionText;
+        this.requiredAnswer = requiredAnswer;
+        this.questionType = questionType;
+    }
+
     @Override
     public Object clone() throws CloneNotSupportedException {
+        //Пока не определились как делаем Айди при клонировании, делаю рандом
+        Random rand = new Random(60000);
         QuestionBean copy = (QuestionBean) super.clone();
+        copy.setId(rand.nextLong());
         copy.setQuestionType(this.questionType);
+        copy.setQuestionTitle(this.questionText);
+        copy.setRequiredAnswer(this.requiredAnswer);
+
         return copy;
     }
 
@@ -73,7 +89,7 @@ public class QuestionBean implements Cloneable {
         QuestionBean that = (QuestionBean) o;
 
         if (requiredAnswer != that.requiredAnswer) return false;
-        if (id != null ? !id.equals(that.id) : that.id != null) return false;
+
         if (questionText != null ? !questionText.equals(that.questionText) : that.questionText != null)
             return false;
         if (questionType != that.questionType) return false;

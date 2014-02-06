@@ -17,6 +17,11 @@ public class TemplateBean implements Cloneable, Comparable<TemplateBean> {
     public TemplateBean() {
     }
 
+    public TemplateBean(String templateName, List<SectionBean> sectionsList) {
+        this.templateName = templateName;
+        this.sectionsList = sectionsList;
+    }
+
     public TemplateBean(String templateName) {
         this.templateName = templateName;
     }

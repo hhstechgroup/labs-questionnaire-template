@@ -1,6 +1,6 @@
 package com.engagepoint.bean;
 
-import com.engagepoint.mock.QuestionBeanMock;
+
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Ignore;
@@ -14,7 +14,17 @@ import java.util.List;
 public class QuestionBeanTest {
 
     @Test
-    public void testCloneQuestionBean() throws Exception {
-        Assert.assertEquals(QuestionBeanMock.getSingle(), QuestionBeanMock.getSingle().clone());
+    public void testCloneQuestionBean() throws CloneNotSupportedException {
+        QuestionBean bean = new QuestionBean("blah",true,QuestionType.CHOOSEFROMLIST);
+
+        Assert.assertTrue(bean.equals(bean.clone()));
     }
+    @Test
+    public void testEqualsQuestionBean(){
+        QuestionBean bean = new QuestionBean("blah",true, QuestionType.CHECKBOX);
+        QuestionBean eqBean = new QuestionBean("blah",true, QuestionType.CHECKBOX);
+        Assert.assertTrue(bean.equals(eqBean));
+
+    }
+
 }
