@@ -1,29 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE html
-        PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:p="http://primefaces.org/ui"
-      xmlns:f="http://java.sun.com/jsf/core"
-      xml:lang="en" lang="en">
-<h:head>
-    <title>Template</title>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="/templates/template.xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+                xmlns:uib="http://engagepoint.com/uib">
     <h:outputScript library="js" name="setConfirmUnload.js" target="body"/>
-</h:head>
-<h:body>
-    <h:form id="formTemplate">
 
-        <p:panelGrid columns="1">
+    <uib:pageHeaderFacet logo="/resources/images/test-image.gif"/>
+    <ui:define name="page">
 
-            <f:facet name="header">
-                <h:outputText value="Template" rendered="#{!templateController.isNew()}"/>
-                <h:outputText value="New template" rendered="#{templateController.isNew()}"/>
-            </f:facet>
+        <h:form id="formTemplate">
 
-            <p:outputLabel for="name" value="Name:"/>
-            <p:inputText id="name" required="true"
-                         value="#{templateController.templateName}"/>
+            <p:panelGrid columns="1">
+
+                <f:facet name="header">
+                    <h:outputText value="Template" rendered="#{!templateController.isNew()}"/>
+                    <h:outputText value="New template" rendered="#{templateController.isNew()}"/>
+                </f:facet>
+
+                <p:outputLabel for="name" value="Name:"/>
+                <p:inputText id="name" required="true"
+                             value="#{templateController.templateName}"/>
 
 
                 <h:form id="form">
@@ -34,34 +34,33 @@
                             selectionMode="multiple" selection="#{treeBean.selectedNodes}" id="treeMultiple">
 
                         <p:treeNode>
-                            <h:outputText value="#{node}" />
+                            <h:outputText value="#{node}"/>
                         </p:treeNode>
                     </p:tree>
 
                     <p:commandButton value="Display Selected" update="messages"
-                                     actionListener="#{treeBean.displaySelectedMultiple}" id="btnDisplay" />
-                    <p:commandButton value="Delete Selected" update="messages"  ajax="true"
-                                     actionListener="#{treeBean.deleteSelectedMultiple}" id="btnDisplayDelete" />
+                                     actionListener="#{treeBean.displaySelectedMultiple}" id="btnDisplay"/>
+                    <p:commandButton value="Delete Selected" update="messages" ajax="true"
+                                     actionListener="#{treeBean.deleteSelectedMultiple}" id="btnDisplayDelete"/>
                     <p:commandButton value="Edit Group" action="#{treeBean.editSelectedGroup}" ajax="false"/>
 
                 </h:form>
 
 
+                <f:facet name="footer">
+                    <p:commandButton value="Save"
+                                     action="#{templateController.saveTemplate}"
+                                     ajax="false">
+                    </p:commandButton>
 
-            <f:facet name="footer">
-                <p:commandButton value="Save"
-                                 action="#{templateController.saveTemplate}"
-                                 ajax="false">
-                </p:commandButton>
+                    <p:commandButton value="Cancel"
+                                     action="#{listController.income}"
+                                     immediate="#{templateController.new}"/>
+                </f:facet>
 
-                <p:commandButton value="Cancel"
-                                 action="#{listController.income}"
-                                 immediate="#{templateController.new}"/>
-            </f:facet>
-
-        </p:panelGrid>
+            </p:panelGrid>
 
 
-    </h:form>
-</h:body>
-</html>
+        </h:form>
+    </ui:define>
+</ui:composition>
