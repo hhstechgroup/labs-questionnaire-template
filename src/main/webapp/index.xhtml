@@ -1,128 +1,141 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:p="http://primefaces.org/ui"
-      xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:fn="http://java.sun.com/jsp/jstl/functions"
-      xmlns:ui="http://java.sun.com/jsf/facelets">
-<h:head>
-    <title>Questionnaire Editor</title>
-</h:head>
-<h:body>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="templates/template.xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+                xmlns:uib="http://engagepoint.com/uib">
+    <ui:define name="page">
 
-    <h:form id="form1">
+        <h:form id="form1">
 
-        <p:dataTable id="table" var="template" paginator="true" rows="10" value="#{listController.templatesModel}"
-                     paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-                     rowsPerPageTemplate="#{config.pagescount},10"
-                     paginatorPosition="bottom"
-                     filteredValue="#{listController.filteredTemplates}"
-                     widgetVar="templatesList"
-                     selection="#{listController.selectedTemplates}">
-            <!--p:column width="400"  style="table-layout:fixed"-->
+            <p:dataTable id="table" var="template" paginator="true" rows="10" value="#{listController.templatesModel}"
+                         paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                         rowsPerPageTemplate="#{config.pagescount},10"
+                         paginatorPosition="bottom"
+                         filteredValue="#{listController.filteredTemplates}"
+                         widgetVar="templatesList"
+                         selection="#{listController.selectedTemplates}">
+                <!--p:column width="400"  style="table-layout:fixed"-->
 
-            <f:facet name="header">
-                <p:outputPanel>
-                    <p:outputLabel for="globalFilter" value="Search: "/>
-                    <p:inputText id="globalFilter"
-                                 onkeyup="templatesList.filter()"
-                                 value="#{listController.filterValue}"
-                                 style="width:150px"/>
-                </p:outputPanel>
-            </f:facet>
+                <f:facet name="header">
+                    <p:outputPanel>
+                        <p:outputLabel for="globalFilter" value="Search: "/>
+                        <p:inputText id="globalFilter"
+                                     onkeyup="templatesList.filter()"
+                                     value="#{listController.filterValue}"
+                                     style="width:150px"/>
+                    </p:outputPanel>
+                </f:facet>
 
-            <p:column selectionMode="multiple" style="width:2%"/>
+                <p:column selectionMode="multiple" style="width:2%"/>
 
-            <p:column filterBy="#{template.templateName}"
-                      filterMatchMode="contains"
-                      filterStyle="visibility:hidden; height:0px" headerText="Name">
-                <h:outputText value="#{template.templateName}"/>
-            </p:column>
+                <p:column filterBy="#{template.templateName}"
+                          filterMatchMode="contains"
+                          filterStyle="visibility:hidden; height:0px" headerText="Name">
+                    <h:outputText value="#{template.templateName}"/>
+                </p:column>
 
-            <p:column style="width:30%;">
-                <p:commandButton value="Edit" action="#{templateController.income}" ajax="false">
-                    <f:setPropertyActionListener value="#{listController}"
-                                                 target="#{templateController.listController}"/>
-                    <f:setPropertyActionListener value="#{template}"
-                                                 target="#{templateController.currentTemplate}"/>
-                </p:commandButton>
+                <p:column style="width:30%;">
+                    <p:commandButton value="Edit" action="#{templateController.income}" ajax="false">
+                        <f:setPropertyActionListener value="#{listController}"
+                                                     target="#{templateController.listController}"/>
+                        <f:setPropertyActionListener value="#{template}"
+                                                     target="#{templateController.currentTemplate}"/>
+                    </p:commandButton>
 
-                <p:commandButton value="Clone"
-                                 action="#{listController.clone(template)}" ajax="false"
-                                 update=":form1"/>
+                    <p:commandButton value="Clone"
+                                     action="#{listController.clone(template)}" ajax="false"
+                                     update=":form1"/>
 
-                <p:commandButton id="DeleteDialogButton" value="Delete"
-                                 update="modalDialogDelete" oncomplete="dlg2.show();">
-                </p:commandButton>
+                    <p:commandButton id="DeleteDialogButton" value="Delete"
+                                     update="modalDialogDelete" oncomplete="dlg2.show();">
+                    </p:commandButton>
 
-                <p:dialog id="modalDialogDelete" widgetVar="dlg2"
-                          modal="true" height="100" closable="false" resizeable="false">
-                    <h:outputFormat value="#{msgs.msgOnDelete}">
-                        <f:param value="#{template.templateName}"/>
-                    </h:outputFormat>
-                    <br/>
-                    <p:commandButton value="Yes, delete it"
-                                     action="#{listController.deleteTemplate(template)}"
-                                     ajax="false" update=":form1" onclick="dlg2.hide()"/>
-                    <p:commandButton value="No, cancel" onclick="dlg2.hide()"/>
-                </p:dialog>
+                    <p:dialog id="modalDialogDelete" widgetVar="dlg2"
+                              modal="true" height="100" closable="false" resizeable="false">
+                        <h:outputFormat value="#{msgs.msgOnDelete}">
+                            <f:param value="#{template.templateName}"/>
+                        </h:outputFormat>
+                        <br/>
+                        <p:commandButton value="Yes, delete it"
+                                         action="#{listController.deleteTemplate(template)}"
+                                         ajax="false" update=":form1" onclick="dlg2.hide()"/>
+                        <p:commandButton value="No, cancel" onclick="dlg2.hide()"/>
+                    </p:dialog>
 
-            </p:column>
+                </p:column>
 
-        </p:dataTable>
-        <br/>
-        <p:commandButton value="Add new template" action="#{templateController.newTemplate}" ajax="false">
-            <f:setPropertyActionListener value="#{listController}"
-                                         target="#{templateController.listController}"/>
-        </p:commandButton>
-        <p:growl id="messages"/>
-        <p:menuButton value="Options">
-            <p:menuitem value="Export selected templates to one file..."
-                        update="modalDialogExportToOne"
-                        action="#{listController.exportSelectedToOneXML}"
-                        ajax="false"
-                        icon="ui-icon-disk"/>
-            <p:menuitem value="Export selected templates to separate files..."
-                        update="modalDialogExportToSeparate"
-                        oncomplete="dlgExS.show();"
-                        icon="ui-icon-disk"/>
-            <p:separator/>
-            <p:menuitem value="Import" update=":form1" icon="ui-icon-arrowrefresh-1-w" oncomplete="upload.show()"/>
-        </p:menuButton>
-
-
-        <p:dialog id="ImportDialog" header="Modal Dialog" widgetVar="upload" modal="true" height="200" width="800">
+            </p:dataTable>
             <br/>
-            <p:fileUpload fileUploadListener="#{listController.importFromXML}" multiple="true"
-                          oncomplete="upload.hide()" update="form1"/>
-            <br/>
-        </p:dialog>
+            <p:commandButton value="Add new template" action="#{templateController.newTemplate}" ajax="false">
+                <f:setPropertyActionListener value="#{listController}"
+                                             target="#{templateController.listController}"/>
+            </p:commandButton>
+            <p:growl id="messages"/>
+            <p:menuButton value="Options">
+                <p:menuitem value="Export selected templates to one file..."
+                            update="modalDialogExportToOne"
+                            action="#{listController.exportSelectedToOneXML}"
+                            ajax="false"
+                            icon="ui-icon-disk"/>
+                <p:menuitem value="Export selected templates to separate files..."
+                            update="modalDialogExportToSeparate"
+                            oncomplete="dlgExS.show();"
+                            icon="ui-icon-disk"/>
+                <p:separator/>
+                <p:menuitem value="Import" update=":form1" icon="ui-icon-arrowrefresh-1-w" oncomplete="upload.show()"/>
+            </p:menuButton>
 
-        <p:dialog id="modalDialogExportToSeparate" widgetVar="dlgExS"
-                  modal="true" height="100"
-                  resizeable="false" header="Export selected templates to separate files">
-            <h:outputFormat value="#{msgs.msgOnExportToSeparate}"/>
-            <br/>
-            <p:inputText value="#{listController.exportDirectoryName}"/>
-            <p:commandButton value="Export"
-                             action="#{listController.exportSelectedToSeparateXMLs}"
-                             ajax="false" update=":form1" onclick="dlgExS.hide()"/>
-            <p:commandButton value="Cancel" onclick="dlgExS.hide()"/>
-        </p:dialog>
 
-        <p:lightBox>
-            <h:outputLink value="#">
-                <h:outputText value="Advice"/>
-            </h:outputLink>
+            <p:dialog id="ImportDialog" header="Modal Dialog" widgetVar="upload" modal="true" height="200" width="800">
+                <br/>
+                <p:fileUpload fileUploadListener="#{listController.importFromXML}" multiple="true"
+                              oncomplete="upload.hide()" update="form1"/>
+                <br/>
+            </p:dialog>
 
-            <f:facet name="inline">
-                <p:graphicImage value="resources/images/image1.jpg"/>
-            </f:facet>
-        </p:lightBox>
+            <p:dialog id="modalDialogExportToSeparate" widgetVar="dlgExS"
+                      modal="true" height="100"
+                      resizeable="false" header="Export selected templates to separate files">
+                <h:outputFormat value="#{msgs.msgOnExportToSeparate}"/>
+                <br/>
+                <p:inputText value="#{listController.exportDirectoryName}"/>
+                <p:commandButton value="Export"
+                                 action="#{listController.exportSelectedToSeparateXMLs}"
+                                 ajax="false" update=":form1" onclick="dlgExS.hide()"/>
+                <p:commandButton value="Cancel" onclick="dlgExS.hide()"/>
+            </p:dialog>
 
-    </h:form>
+            <p:lightBox>
+                <h:outputLink value="#">
+                    <h:outputText value="Advice"/>
+                </h:outputLink>
 
-</h:body>
-</html>
+                <f:facet name="inline">
+                    <p:graphicImage value="resources/images/image1.jpg"/>
+                </f:facet>
+            </p:lightBox>
+
+        </h:form>
+    </ui:define>
+
+    <ui:define name="leftMenu">
+        <uib:menu>
+            <uib:menuItem title="test1"/>
+            <uib:menuItem title="test2"/>
+            <uib:menuItem title="test3"/>
+        </uib:menu>
+    </ui:define>
+
+    <ui:define name="headerBar">
+        <p:commandButton value="BAR"/>
+        <p:commandButton value="BAR"/>
+        <p:commandButton value="BAR"/>
+        <p:commandButton value="BAR"/>
+    </ui:define>
+
+
+</ui:composition>
