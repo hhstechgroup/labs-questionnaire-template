@@ -6,6 +6,8 @@
                 xmlns:f="http://java.sun.com/jsf/core"
                 xmlns:fn="http://java.sun.com/jsp/jstl/functions"
                 xmlns:uib="http://engagepoint.com/uib"
+                xmlns:ui-paginator="http://java.sun.com/jsf/composite/uibootstrap/components/paginator"
+
 
                 template="templates/template.xhtml">
 
@@ -20,14 +22,16 @@
                 <f:setPropertyActionListener value="#{listController}"
                                              target="#{templateController.listController}"/>
             </p:commandButton>
+
             <br/><p/>
-            <p:dataTable id="table" var="template" paginator="true" rows="10" value="#{listController.templatesModel}"
+            <uib:dataTable id="table" var="template" paginator="true" rows="10" value="#{listController.templatesModel}"
                          paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                          rowsPerPageTemplate="#{config.pagescount},10"
                          paginatorPosition="bottom"
                          filteredValue="#{listController.filteredTemplates}"
                          widgetVar="templatesList"
-                         selection="#{listController.selectedTemplates}">
+                         selection="#{listController.selectedTemplates}"
+                         summary="Table with pagination">
                 <!--p:column width="400"  style="table-layout:fixed"-->
 
                 <f:facet name="header">
@@ -40,15 +44,15 @@
 
                 </f:facet>
 
-                <p:column selectionMode="multiple" style="width:2%"/>
+                <uib:column selectionMode="multiple" style="width:2%"/>
 
-                <p:column filterBy="#{template.templateName}"
+                <uib:column filterBy="#{template.templateName}"
                           filterMatchMode="contains"
                           filterStyle="visibility:hidden; height:0px" headerText="Name">
                     <h:outputText value="#{template.templateName}"/>
-                </p:column>
+                </uib:column>
 
-                <p:column style="width:30%;">
+                <uib:column style="width:30%;">
                     <p:commandButton value="Edit" action="#{templateController.income}" ajax="false">
                         <f:setPropertyActionListener value="#{listController}"
                                                      target="#{templateController.listController}"/>
@@ -76,11 +80,11 @@
                         <p:commandButton value="No, cancel" onclick="dlg2.hide()"/>
                     </p:dialog>
 
-                </p:column>
+                </uib:column>
 
-            </p:dataTable>
+            </uib:dataTable>
+
             <br/>
-
             <p:growl id="messages"/>
             <p:menuButton value="Options">
                 <p:menuitem value="Export selected templates to one file..."
