@@ -28,12 +28,10 @@
 
                 <h:form id="form">
 
-                    <p:growl id="messages" showDetail="true" />
+                    <p:growl id="messages" showDetail="true" escape="false"/>
 
-                    <p:tree id="treeSingle" value="#{treeBean.root}" var="node"
-                            selectionMode="single"
-                            selection="#{treeBean.selectedNode}"
-                            dynamic="true">
+                    <p:tree value="#{treeBean.root}" var="node"
+                            selectionMode="multiple" selection="#{treeBean.selectedNodes}" id="treeMultiple">
 
                         <p:treeNode>
                             <h:outputText value="#{node}" />
@@ -41,10 +39,11 @@
                     </p:tree>
 
                     <p:commandButton value="Display Selected" update="messages"
-                                     actionListener="#{treeBean.displaySelectedSingle}" id="btnDisplay"/>
-                    <p:commandButton value="Delete Selected" update="treeSingle" actionListener="#{treeBean.deleteNode}"
-                                      id="btnDelete"/>
+                                     actionListener="#{treeBean.displaySelectedMultiple}" id="btnDisplay" />
+                    <p:commandButton value="Delete Selected" update="messages"  ajax="true"
+                                     actionListener="#{treeBean.deleteSelectedMultiple}" id="btnDisplayDelete" />
                     <p:commandButton value="Edit Group" action="#{treeBean.editSelectedGroup}" ajax="false"/>
+
                 </h:form>
 
 

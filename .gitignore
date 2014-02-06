@@ -1,5 +1,6 @@
 # It use for XmlExportImportTest
 temp.xml
+*.temp.xml
 
 # Compiled source #
 ###################
