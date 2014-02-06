@@ -34,18 +34,21 @@ public class TreeBean implements Serializable {
     private TreeNode root = new DefaultTreeNode("Root",null);
 
     private TreeNode selectedNode;
-    private ArrayList<TreeNode> nodes;
-    private TreeNode[] selectedNodes;
-    private boolean flag = false;
 
+    public TreeNode getSelectedNode() {
+        return selectedNode;
+    }
 
+    public void setSelectedNode(TreeNode selectedNode) {
+        this.selectedNode = selectedNode;
+    }
 
     public TreeBean() {
-        if (flag == false){
+
         root = new DefaultTreeNode("Root", null);
         ArrayList<TreeNode> nodeList = new ArrayList<TreeNode>();
         setNodes(nodeList);
-        }
+
 
 
 
@@ -68,55 +71,28 @@ public class TreeBean implements Serializable {
         return root;
     }
 
-    public TreeNode[] getSelectedNodes() {
-        return selectedNodes;
+
+    public void deleteNode() {
+        selectedNode.getChildren().clear();
+        selectedNode.getParent().getChildren().remove(selectedNode);
+        selectedNode.setParent(null);
+
+        selectedNode = null;
     }
 
-    public void setSelectedNodes(TreeNode[] selectedNodes) {
-        this.selectedNodes = selectedNodes;
-    }
-    public void deleteSelectedMultiple(ActionEvent event){
-       ArrayList<TreeNode> selectedNods = new ArrayList<TreeNode>();
-       if (selectedNodes != null && selectedNodes.length > 0){
-           for (int i = 0; i < selectedNodes.length ; i++) {
-                   selectedNods.add(selectedNodes[i]);
-           }
-           nodes.removeAll(selectedNods);
 
-
-       }
-
-    }
-
-    public void displaySelectedMultiple(ActionEvent event) {
-
-        if(selectedNodes != null && selectedNodes.length > 0) {
-            StringBuilder builder = new StringBuilder();
-
-            for(TreeNode node : selectedNodes) {
-                builder.append(node.getData().toString());
-                builder.append("<br />");
-            }
-
-            FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Selected", builder.toString());
-
-            FacesContext.getCurrentInstance().addMessage(null, message);
-        }
-    }
 
 
     public String editSelectedGroup(){
         GroupController controller = new GroupController();
-
-        for (int i = 0; i <  selectedNodes.length; i++) {
-            if (selectedNodes[i] != null && selectedNodes.length < 2 && selectedNodes[i].getData().toString().contains("Group")){
+            if (selectedNode != null && selectedNode.getData().toString().contains("Group")){
                 return controller.income();
             }
             else{
             FacesMessage errorMessage = new FacesMessage(FacesMessage.SEVERITY_WARN, "Warning", "You've chosen not a group or more than one group");
             FacesContext.getCurrentInstance().addMessage(null, errorMessage);
             }
-    }
+
         return null;
     }
 }
