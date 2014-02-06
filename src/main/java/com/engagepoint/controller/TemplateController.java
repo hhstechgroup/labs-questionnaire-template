@@ -85,6 +85,6 @@ public class TemplateController implements Serializable {
      * @return page name
      */
     public String income() {
-        return "pages/template?faces-redirect=true";
+        return "pages/questForm?faces-redirect=true";
     }
 }

@@ -13,6 +13,14 @@
 
         <h:form id="form1">
 
+            <p:commandButton value="Add new template"
+                             action="#{templateController.newTemplate}"
+                             ajax="false"
+                             styleClass="fl-right">
+                <f:setPropertyActionListener value="#{listController}"
+                                             target="#{templateController.listController}"/>
+            </p:commandButton>
+            <br/><p/>
             <p:dataTable id="table" var="template" paginator="true" rows="10" value="#{listController.templatesModel}"
                          paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                          rowsPerPageTemplate="#{config.pagescount},10"
@@ -27,9 +35,9 @@
                         <p:outputLabel for="globalFilter" value="Search: "/>
                         <p:inputText id="globalFilter"
                                      onkeyup="templatesList.filter()"
-                                     value="#{listController.filterValue}"
-                                     style="width:150px"/>
+                                     value="#{listController.filterValue}"/>
                     </p:outputPanel>
+
                 </f:facet>
 
                 <p:column selectionMode="multiple" style="width:2%"/>
@@ -72,10 +80,7 @@
 
             </p:dataTable>
             <br/>
-            <p:commandButton value="Add new template" action="#{templateController.newTemplate}" ajax="false">
-                <f:setPropertyActionListener value="#{listController}"
-                                             target="#{templateController.listController}"/>
-            </p:commandButton>
+
             <p:growl id="messages"/>
             <p:menuButton value="Options">
                 <p:menuitem value="Export selected templates to one file..."
