@@ -2,11 +2,13 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:p="http://primefaces.org/ui"
-                template="templates/template.xhtml"
                 xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:f="http://java.sun.com/jsf/core"
                 xmlns:fn="http://java.sun.com/jsp/jstl/functions"
-                xmlns:uib="http://engagepoint.com/uib">
+                xmlns:uib="http://engagepoint.com/uib"
+
+                template="templates/template.xhtml">
+
     <ui:define name="page">
 
         <h:form id="form1">
@@ -112,12 +114,9 @@
         </h:form>
     </ui:define>
 
-    <ui:define name="leftMenu">
-        <uib:menu>
-            <uib:menuItem title="test1"/>
-            <uib:menuItem title="test2"/>
-            <uib:menuItem title="test3"/>
-        </uib:menu>
+
+    <ui:define name="headerBar">
+        <p:commandButton value="BAR"/>
     </ui:define>
 
 </ui:composition>
