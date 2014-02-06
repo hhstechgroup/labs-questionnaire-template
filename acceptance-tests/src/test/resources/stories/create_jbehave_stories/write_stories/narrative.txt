@@ -1,0 +1,6 @@
+Create acceptance test scenario
+
+Narrative:
+In order to make some actions in browser
+As a user
+I want to be able to write test scripts
