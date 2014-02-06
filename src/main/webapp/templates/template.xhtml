@@ -5,23 +5,27 @@
           xmlns:ui="http://java.sun.com/jsf/facelets"
           xmlns:ui-headerUtilityBar="http://java.sun.com/jsf/composite/uibootstrap/components/headerUtilityBar"
           xmlns:p="http://primefaces.org/ui"
+
           markupType="html5"
           contentType="text/html"
           showFooter="true"
           pageTitle="Template Page"
-          project="notify"
-        >
+          project="notify">
+
     <uib:pageLayout>
 
-        <uib:pageHeaderFacet logo="resources/images/test-image.gif"/>
+        <uib:pageHeaderFacet hideHelpMenu="true"
+                             logo="resources/images/test-image.gif"
+                             linkLogo="http://google.com/">
+            <ui:include src="topMenu.xhtml"/>
+        </uib:pageHeaderFacet>
 
         <uib:pageHeaderUtilityBarFacet>
             <ui:insert name="headerBar"/>
         </uib:pageHeaderUtilityBarFacet>
 
-
         <uib:pageMenuFacet id="pageMenu">
-            <ui:insert name="leftMenu"/>
+            <ui:include src="leftMenu.xhtml"/>
         </uib:pageMenuFacet>
 
         <uib:pageBodyFacet>
