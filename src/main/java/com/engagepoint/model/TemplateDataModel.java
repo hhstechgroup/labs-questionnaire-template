@@ -20,12 +20,12 @@ public class  TemplateDataModel extends ListDataModel<TemplateBean> implements S
         super(data);
     }
 
-    @Override                             //TODO change name to id
-    public TemplateBean getRowData(String templateName) {
+    @Override
+    public TemplateBean getRowData(String templateId) {
         List<TemplateBean> templates = (List<TemplateBean>) getWrappedData();
 
         for(TemplateBean template : templates) {
-            if(template.getTemplateName().equals(templateName))
+            if(template.getId().toString().equals(templateId))
                 return template;
         }
 
@@ -34,6 +34,6 @@ public class  TemplateDataModel extends ListDataModel<TemplateBean> implements S
 
     @Override
     public Object getRowKey(TemplateBean template) {
-        return template.getTemplateName();
+        return template.getId();
     }
 }

@@ -59,7 +59,7 @@ public class QuestFormController implements Serializable {
     public String saveTemplate() {
         currentTemplate.setTemplateName(templateName);
         if (isNew())
-            listController.addTemplate(currentTemplate);
+            listController.addTemplateAndUpdateLists(currentTemplate);
         else
         {
             listController.removeTemplateFromFilteredList(currentTemplate);

@@ -27,39 +27,17 @@ public class ListController implements Serializable {
 
     private TemplateDataModel templatesModel;
 
-    private String xmlPath;
-
-    private String exportFileName;
-
-    private String exportDirectoryName;
-
     private String filterValue = "";
 
     public ListController() {
         list = new ArrayList<TemplateBean>();
         //searching path of XML file in glassfish
         ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
-        xmlPath = classLoader.getResource("Questionnaire.xml").getPath();
+        String xmlPath = classLoader.getResource("Questionnaire.xml").getPath();
         //adding Templates from XML file
         addAllTemplates(XmlImportExport.importXmlTemplate(xmlPath));
 
         templatesModel = new TemplateDataModel(list);
-    }
-
-    public String getExportFileName() {
-        return exportFileName;
-    }
-
-    public void setExportFileName(String exportFileName) {
-        this.exportFileName = exportFileName;
-    }
-
-    public String getExportDirectoryName() {
-        return exportDirectoryName;
-    }
-
-    public void setExportDirectoryName(String exportDirectoryName) {
-        this.exportDirectoryName = exportDirectoryName;
     }
 
     public TemplateDataModel getTemplatesModel() {
@@ -112,8 +90,22 @@ public class ListController implements Serializable {
      * @param template template to be added
      */
     public void addTemplate(TemplateBean template) {
+        if (this.list.contains(template)) { //check if template with the same id exists
+            //addMessage("Template with id " + template.getId().toString() + " already exists");
+            return;
+        }
         this.list.add(template);
+    }
+
+    /**
+     * Add template and update lists.
+     *
+     * @param template template to be added
+     */
+    public void addTemplateAndUpdateLists(TemplateBean template) {
+        addTemplate(template);
         addTemplateToFilteredList(template);
+        templatesModel = new TemplateDataModel(list);
         sort();
     }
 
@@ -124,10 +116,15 @@ public class ListController implements Serializable {
      */
     public void addTemplateToFilteredList(TemplateBean template) {
         if (filteredList != null) {
-            if (containsFiltered(template.getTemplateName()))
-                filteredList.add(template);
+            if (filteredList.contains(template)) {//check if template with the same id exists
+                return;
+            }
             else {
-                //addMessage("changesDontSatisfyFilter");
+                if (containsFiltered(template.getTemplateName())) //check if template satisfies current filter
+                    filteredList.add(template);
+                else {
+                    //addMessage("changesDontSatisfyFilter");
+                }
             }
         }
     }
@@ -152,10 +149,11 @@ public class ListController implements Serializable {
      * @param templateBeanList template list to be added
      */
     public void addAllTemplates(List<TemplateBean> templateBeanList) {
-        this.list.addAll(templateBeanList);
         for (TemplateBean templateBean : templateBeanList) {
+            addTemplate(templateBean);
             addTemplateToFilteredList(templateBean);
         }
+        templatesModel = new TemplateDataModel(list);
         sort();
     }
 
@@ -187,84 +185,21 @@ public class ListController implements Serializable {
      */
     public void clone(TemplateBean template) throws CloneNotSupportedException {
         TemplateBean newTemplate = (TemplateBean) template.clone();
-        addTemplate(newTemplate);
+        addTemplateAndUpdateLists(newTemplate);
     }
 
     /**
-     * Perform export selected questionnairies to one XML file.
+     * Create temporary XML file before downloading
      */
-    public void exportSelectedToOneXML() {
+    public void onExportXML() {
         Collections.sort(selectedTemplates);
-        
-        FacesContext facesContext = FacesContext.getCurrentInstance();
-        ExternalContext externalContext = facesContext.getExternalContext();
-        HttpServletResponse response = (HttpServletResponse) externalContext.getResponse();
-
-        response.reset(); // Some JSF component library or some Filter might have set some headers in the buffer beforehand. We want to get rid of them, else it may collide.
-        response.setContentType("application/xml"); // Check http://www.iana.org/assignments/media-types for all types. Use if necessary ServletContext#getMimeType() for auto-detection based on filename.
-        response.setHeader("Content-disposition", "attachment; filename=\"newXml.xml\""); // The Save As popup magic is done here. You can give it any filename you want, this only won't work in MSIE, it will use current request URL as filename instead.
-
-        BufferedOutputStream output = null;
-
         try {
-            output = new BufferedOutputStream(response.getOutputStream());
-
-            XmlImportExport.exportXmlTemplates(selectedTemplates, output);
+            File tmpFile = FileController.createTempXml(selectedTemplates);
+            FileController.setPathToTempFile(tmpFile.getPath());
         }
-        catch (IOException e)
-        {
-            addMessage("dataNotExported");
-            return;
-        }
-        finally {
-            try {
-                output.close();
-            }
-            catch (IOException e)
-            {
-                //TODO do something...
-            }
+        catch(IOException e) {
 
         }
-
-        facesContext.responseComplete(); // Important! Else JSF will attempt to render the response which obviously will fail since it's already written with a file and closed.    }
-
-        addMessage("dataExported");
-    }
-
-    /**
-     * Perform export selected questionnairies to separate XML files.
-     */
-    public void exportSelectedToSeparateXMLs() {
-        Collections.sort(selectedTemplates);
-        String directoryPath = exportDirectoryName;
-
-        //create directory
-        File directory = new File(directoryPath);
-        if (!directory.exists()) {
-            if (!directory.mkdir()) {
-                addMessage("dataNotExported");
-                return;
-            }
-        }
-
-        for (TemplateBean template : selectedTemplates) {
-            String filePath = directoryPath + "//" + template.getTemplateName() + ".xml";
-
-            //create file if not exists
-            File file = new File(filePath);
-            if (!file.exists()) {
-                try {
-                    file.createNewFile();
-                } catch (IOException e) {
-                    addMessage("dataNotExported");
-                    return;
-                }
-            }
-            XmlImportExport.exportXmlTemplate(template, filePath);
-        }
-
-        addMessage("dataExported");
     }
 
     /**

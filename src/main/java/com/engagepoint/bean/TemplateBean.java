@@ -11,19 +11,37 @@ import java.util.List;
  */
 @XmlRootElement(name = "questionnaire-form")
 public class TemplateBean implements Cloneable, Comparable<TemplateBean> {
+    private static Long lastId = 1L;
+
+    public static Long getLastId() {
+        return lastId++;
+    }
+
+    private Long id;
     private String templateName;
     private List<SectionBean> sectionsList = new ArrayList<SectionBean>();
 
     public TemplateBean() {
+        setId(getLastId());
     }
 
     public TemplateBean(String templateName, List<SectionBean> sectionsList) {
+        setId(getLastId());
         this.templateName = templateName;
         this.sectionsList = sectionsList;
     }
 
     public TemplateBean(String templateName) {
+        setId(getLastId());
         this.templateName = templateName;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
 
@@ -56,6 +74,7 @@ public class TemplateBean implements Cloneable, Comparable<TemplateBean> {
                 copySectionsList.add((SectionBean) sectionBean.clone());
             }
         }
+        copy.setId(getLastId());
         copy.setSectionsList(copySectionsList);
         return copy;
     }
@@ -67,16 +86,15 @@ public class TemplateBean implements Cloneable, Comparable<TemplateBean> {
 
         TemplateBean that = (TemplateBean) o;
 
-        if (sectionsList != null ? !sectionsList.equals(that.sectionsList) : that.sectionsList != null) return false;
-        if (templateName != null ? !templateName.equals(that.templateName) : that.templateName != null) return false;
+        if (id != null ? !id.equals(that.id) : that.id != null) return false;
 
         return true;
     }
 
     @Override
     public int hashCode() {
-        int result = templateName != null ? templateName.hashCode() : 0;
-        result = 31 * result + (sectionsList != null ? sectionsList.hashCode() : 0);
+        int result = id != null ? id.hashCode() : 0;
+        result = 31 * result;
         return result;
     }
 

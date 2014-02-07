@@ -77,7 +77,7 @@ public class QuestionBean implements Cloneable {
 
     @Override
     public Object clone() throws CloneNotSupportedException {
-        //ÐŸÐ¾ÐºÐ° Ð½Ðµ Ð¾Ð¿Ñ€ÐµÐ´ÐµÐ»Ð¸Ð»Ð¸Ñ�ÑŒ ÐºÐ°Ðº Ð´ÐµÐ»Ð°ÐµÐ¼ Ð�Ð¹Ð´Ð¸ Ð¿Ñ€Ð¸ ÐºÐ»Ð¾Ð½Ð¸Ñ€Ð¾Ð²Ð°Ð½Ð¸Ð¸, Ð´ÐµÐ»Ð°ÑŽ Ñ€Ð°Ð½Ð´Ð¾Ð¼
+        //Have not decided yet how to do id when cloning, now - random
         Random rand = new Random(60000);
         QuestionBean copy = (QuestionBean) super.clone();
         copy.setId(rand.nextLong());

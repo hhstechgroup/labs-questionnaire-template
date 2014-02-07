@@ -46,6 +46,10 @@
 
                 <uib:column selectionMode="multiple" style="width:2%"/>
 
+                <uib:column headerText="Id">
+                    <h:outputText value="#{template.id}"/>
+                </uib:column>
+
                 <uib:column filterBy="#{template.templateName}"
                           filterMatchMode="contains"
                           filterStyle="visibility:hidden; height:0px" headerText="Name">
@@ -89,37 +93,28 @@
             <br/>
             <p:growl id="messages"/>
             <p:menuButton value="Options">
-                <p:menuitem value="Export selected templates to one file..."
-                            update="modalDialogExportToOne"
-                            action="#{listController.exportSelectedToOneXML}"
+                <p:menuitem value="Export"
                             ajax="false"
-                            icon="ui-icon-disk"/>
-                <p:menuitem value="Export selected templates to separate files..."
-                            update="modalDialogExportToSeparate"
-                            oncomplete="dlgExS.show();"
-                            icon="ui-icon-disk"/>
-                <p:separator/>
-                <p:menuitem value="Import" update=":form1" icon="ui-icon-arrowrefresh-1-w" oncomplete="upload.show()"/>
+                            icon="ui-icon-disk"
+                            actionListener="#{listController.onExportXML}">
+                    <p:fileDownload value="#{fileController.downloadFile}"/>
+                </p:menuitem>
+                <p:menuitem value="Import"
+                            update="ImportDialog"
+                            icon="ui-icon-arrowrefresh-1-w"
+                            oncomplete="uploadXML.show()"/>
             </p:menuButton>
 
 
-            <p:dialog id="ImportDialog" header="Modal Dialog" widgetVar="upload" modal="true" height="200" width="800">
-                <br/>
-                <p:fileUpload fileUploadListener="#{listController.importFromXML}" multiple="true"
-                              oncomplete="upload.hide()" update="form1"/>
-                <br/>
-            </p:dialog>
-
-            <p:dialog id="modalDialogExportToSeparate" widgetVar="dlgExS"
-                      modal="true" height="100"
-                      resizeable="false" header="Export selected templates to separate files">
-                <h:outputFormat value="#{msgs.msgOnExportToSeparate}"/>
-                <br/>
-                <p:inputText value="#{listController.exportDirectoryName}"/>
-                <p:commandButton value="Export"
-                                 action="#{listController.exportSelectedToSeparateXMLs}"
-                                 ajax="false" update=":form1" onclick="dlgExS.hide()"/>
-                <p:commandButton value="Cancel" onclick="dlgExS.hide()"/>
+            <p:dialog id="ImportDialog"
+                      header="Import Dialog"
+                      widgetVar="uploadXML"
+                      modal="true" height="200" width="800">
+                <p:fileUpload value="#{fileController.uploadFile}"
+                              fileUploadListener="#{listController.importFromXML}"
+                              multiple="true"
+                              oncomplete="uploadXML.hide()"
+                              update="table"/>
             </p:dialog>
 
         </h:form>
