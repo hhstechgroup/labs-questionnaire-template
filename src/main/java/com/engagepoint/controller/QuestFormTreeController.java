@@ -67,7 +67,7 @@ public class QuestFormTreeController implements Serializable {
 
                 // Iterator LEVEL_2 for filling questions of choosed section
                 for(QuestionBean questionBean : groupBean.getQuestionsList()) {
-                    TreeNode question = new DefaultTreeNode(questionBean.getQuestionTitle(), group);
+                    TreeNode question = new DefaultTreeNode(questionBean.getQuestionText(), group);
                 } // END of QUESTION Iterator
             } // END of GROUP Iterator
         } // END of SECTION Iterator

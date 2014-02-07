@@ -1,5 +1,7 @@
 package com.engagepoint.controller;
 
+import com.engagepoint.bean.GroupBean;
+import com.engagepoint.bean.QuestionBean;
 import com.engagepoint.bean.QuestionType;
 
 import javax.enterprise.context.SessionScoped;
@@ -15,6 +17,8 @@ public class GroupController implements Serializable {
     private QuestionType selectedQuestionType;
     private boolean showNewQuestionForm;
     private boolean showNewTextTypeQuestionForm;
+    
+    private GroupBean currentGroup;
 
     public QuestionType getSelectedQuestionType() {
         return selectedQuestionType;
@@ -59,7 +63,15 @@ public class GroupController implements Serializable {
         }
     }
 
-    public QuestionType[] getQuestionTypes() {
+    public GroupBean getCurrentGroup() {
+		return currentGroup;
+	}
+
+	public void setCurrentGroup(GroupBean currentGroup) {
+		this.currentGroup = currentGroup;
+	}
+
+	public QuestionType[] getQuestionTypes() {
         return QuestionType.values();
     }
 
@@ -92,6 +104,11 @@ public class GroupController implements Serializable {
 		this.showNewTextTypeQuestionForm = showNewTextTypeQuestionForm;
 		
 			
+	}
+	
+	public void saveQuestion(QuestionBean qb) {
+		currentGroup.getQuestionsList().add(qb);
+		
 	}
 
 }

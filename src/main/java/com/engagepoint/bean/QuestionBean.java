@@ -16,23 +16,30 @@ public class QuestionBean implements Cloneable {
     private String questionText;		//questiontext
     private boolean requiredAnswer;		//is answer required or not
     private QuestionType questionType;	//questiontype from ENUM of questiontypes
+    private String helpText;			//Help texts for questions
     
-    
-    //private String helpText;			//Help texts for questions
     //Default values for questions
-    //Required/optional questions
+    //Dependent questions
     
 
     @XmlElement(name = "question-title")
-    public String getQuestionTitle() {
-        return questionText;
-    }
+    public String getQuestionText() {
+		return questionText;
+	}
 
-    public void setQuestionTitle(String questionTitle) {
-        this.questionText = questionTitle;
-    }
+	public void setQuestionText(String questionText) {
+		this.questionText = questionText;
+	}
 
-    @XmlAttribute(name = "question-id")
+	public String getHelpText() {
+		return helpText;
+	}
+
+	public void setHelpText(String helpText) {
+		this.helpText = helpText;
+	}
+
+	@XmlAttribute(name = "question-id")
     public Long getId() {
         return id;
     }
@@ -70,12 +77,12 @@ public class QuestionBean implements Cloneable {
 
     @Override
     public Object clone() throws CloneNotSupportedException {
-        //Пока не определились как делаем Айди при клонировании, делаю рандом
+        //ÐŸÐ¾ÐºÐ° Ð½Ðµ Ð¾Ð¿Ñ€ÐµÐ´ÐµÐ»Ð¸Ð»Ð¸Ñ�ÑŒ ÐºÐ°Ðº Ð´ÐµÐ»Ð°ÐµÐ¼ Ð�Ð¹Ð´Ð¸ Ð¿Ñ€Ð¸ ÐºÐ»Ð¾Ð½Ð¸Ñ€Ð¾Ð²Ð°Ð½Ð¸Ð¸, Ð´ÐµÐ»Ð°ÑŽ Ñ€Ð°Ð½Ð´Ð¾Ð¼
         Random rand = new Random(60000);
         QuestionBean copy = (QuestionBean) super.clone();
         copy.setId(rand.nextLong());
         copy.setQuestionType(this.questionType);
-        copy.setQuestionTitle(this.questionText);
+        copy.setQuestionText(this.questionText);
         copy.setRequiredAnswer(this.requiredAnswer);
 
         return copy;

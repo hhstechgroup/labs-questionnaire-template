@@ -7,7 +7,7 @@
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:f="http://java.sun.com/jsf/core" xml:lang="en" lang="en">
 <h:head>
-	<title>Question group edition</title>
+	<title>Question edition</title>
 </h:head>
 <h:body>
 
@@ -40,20 +40,19 @@
 			style="margin-bottom:10px" cellpadding="5">
 
 			<h:outputText value="Question text: * " />
-			<p:inputText size="50" value="" required="true" />
+			<p:inputText size="50" value="#{question.questionText}" required="true" />
 			<h:outputText value="Default answer: " />
 			<p:inputText size="50" value="" />
 			<h:outputText value="Help text: " />
-			<p:inputText size="50" value="" />
+			<p:inputText size="50" value="#{question.helpText}" />
 			<h:outputText value="Required? " />
-			<p:selectBooleanCheckbox value="" />
+			<p:selectBooleanCheckbox value="#{question.requiredAnswer}" />
 		</h:panelGrid>
 		<h:panelGrid id="buttons" columns="3" style="margin-bottom:10px"
 			cellpadding="5"
 			rendered="#{groupController.showNewTextTypeQuestionForm}">
-			<p:commandButton id="addnext" value="Add one more question" />
-			<p:commandButton id="cancel" value="Cancel" />
-			<p:commandButton id="savegroup" value="Save this group and exit" />
+			<p:commandButton id="savequestion" value="Save question" action="questForm?faces-redirect=true" actionListener="#{groupController.saveQuestion(question)}" ajax="false" />
+			<p:commandButton id="cancel" value="Cancel"  imidiate="true" action="questForm?faces-redirect=true" ajax="false" />
 		</h:panelGrid>
 
 	</h:form>
