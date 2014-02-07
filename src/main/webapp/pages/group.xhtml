@@ -11,13 +11,6 @@
 </h:head>
 <h:body>
 
-	<h:form id="form3">
-		<p:commandButton value="Add question" immediate="true"
-			action="#{groupController.changeEditable()}" ajax="true"
-			update=":form4">
-		</p:commandButton>
-		<br></br>
-	</h:form>
 	<h:form id="form4">
 		<h:outputLabel value="Question type: * "
 			rendered="#{groupController.showNewQuestionForm}" />

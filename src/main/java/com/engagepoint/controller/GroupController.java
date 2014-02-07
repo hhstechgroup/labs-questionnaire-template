@@ -15,7 +15,7 @@ import java.io.Serializable;
 public class GroupController implements Serializable {
     private static final long serialVersionUID = 1L;
     private QuestionType selectedQuestionType;
-    private boolean showNewQuestionForm;
+    private boolean showNewQuestionForm=true;
     private boolean showNewTextTypeQuestionForm;
     
     private GroupBean currentGroup;
