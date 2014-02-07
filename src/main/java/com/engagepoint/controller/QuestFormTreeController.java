@@ -1,5 +1,6 @@
 package com.engagepoint.controller;
 
+import com.engagepoint.bean.GroupBean;
 import com.engagepoint.bean.SectionBean;
 import com.engagepoint.bean.TemplateBean;
 import com.engagepoint.controller.GroupController;
@@ -12,13 +13,10 @@ import com.engagepoint.controller.GroupController;
  * To change this template use File | Settings | File Templates.
  */
 
-
-import javax.enterprise.context.RequestScoped;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.context.FacesContext;
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.List;
 import javax.faces.application.FacesMessage;
 import javax.inject.Named;
 
@@ -52,10 +50,20 @@ public class QuestFormTreeController implements Serializable {
     }
 
     public void setNodes() {
+        ArrayList<TreeNode> nodeList = new ArrayList<TreeNode>();
+
+        // Iterator LEVEL_0 for filling sections of choosed template
         for (SectionBean sectionBean : templateBean.getSectionsList()) {
             String sectionID = templateBean.getTemplateName() +
                                "_SECTION_" + sectionBean.getPageNumber();
             TreeNode section = new DefaultTreeNode(sectionID, root);
+
+            // Iterator LEVEL_1 for filling groups of choosed section
+            for(GroupBean groupBean : sectionBean.getGroupsList()) {
+                String groupID = sectionBean.getPageNumber() +
+                        "_GROUP_" + groupBean.getGroupName();
+                nodeList.add(new DefaultTreeNode(groupID, section));
+            }
         }
     }
 

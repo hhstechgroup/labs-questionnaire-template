@@ -5,6 +5,17 @@
         <pages>
             <page>
                 <page-number>1</page-number>
+                <groups-of-questions>
+                    <group>
+                        <group-name>GROUP_1</group-name>
+                    </group>
+                    <group>
+                        <group-name>GROUP_2</group-name>
+                    </group>
+                    <group>
+                        <group-name>GROUP_3</group-name>
+                    </group>
+                </groups-of-questions>
             </page>
             <page>
                 <page-number>2</page-number>
@@ -25,51 +36,6 @@
             </page>
             <page>
                 <page-number>33</page-number>
-            </page>
-        </pages>
-    </questionnaire-form>
-    <questionnaire-form>
-        <form-name>Template C</form-name>
-        <pages>
-            <page>
-                <page-number>111</page-number>
-            </page>
-            <page>
-                <page-number>222</page-number>
-            </page>
-            <page>
-                <page-number>333</page-number>
-            </page>
-        </pages>
-    </questionnaire-form>
-    <questionnaire-form>
-        <form-name>Template D</form-name>
-        <pages>
-            <page>
-                <page-number>1111</page-number>
-            </page>
-            <page>
-                <page-number>2222</page-number>
-            </page>
-            <page>
-                <page-number>3333</page-number>
-            </page>
-        </pages>
-    </questionnaire-form>
-    <questionnaire-form>
-        <form-name>Template E</form-name>
-        <pages>
-            <page>
-                <page-number>1</page-number>
-            </page>
-            <page>
-                <page-number>2</page-number>
-            </page>
-            <page>
-                <page-number>3</page-number>
-            </page>
-            <page>
-                <page-number>4</page-number>
             </page>
         </pages>
     </questionnaire-form>
