@@ -1,6 +1,7 @@
 package com.engagepoint.controller;
 
 import com.engagepoint.bean.GroupBean;
+import com.engagepoint.bean.QuestionBean;
 import com.engagepoint.bean.SectionBean;
 import com.engagepoint.bean.TemplateBean;
 import com.engagepoint.controller.GroupController;
@@ -60,12 +61,18 @@ public class QuestFormTreeController implements Serializable {
 
             // Iterator LEVEL_1 for filling groups of choosed section
             for(GroupBean groupBean : sectionBean.getGroupsList()) {
-                String groupID = sectionBean.getPageNumber() +
+                String groupID = "SECTION_" + sectionBean.getPageNumber() +
                         "_GROUP_" + groupBean.getGroupName();
-                nodeList.add(new DefaultTreeNode(groupID, section));
-            }
-        }
-    }
+                TreeNode group = new DefaultTreeNode(groupID, section);
+
+                // Iterator LEVEL_2 for filling questions of choosed section
+                for(QuestionBean questionBean : groupBean.getQuestionsList()) {
+                    TreeNode question = new DefaultTreeNode(questionBean.getQuestionTitle(), group);
+                } // END of QUESTION Iterator
+            } // END of GROUP Iterator
+        } // END of SECTION Iterator
+
+    } // END of setNodes() METHOD
 
     public TreeNode getRoot() {
         return root;
