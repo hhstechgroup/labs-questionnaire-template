@@ -28,8 +28,8 @@
 
                     <p:growl id="messages" showDetail="true" escape="false"/>
 
-                    <p:tree value="#{treeBean.root}" var="node"
-                            selectionMode="multiple" selection="#{treeBean.selectedNodes}" id="treeMultiple">
+                    <p:tree value="#{questFormTreeController.root}" var="node"
+                            selectionMode="multiple" selection="#{questFormTreeController.selectedNodes}" id="treeMultiple">
 
                         <p:treeNode>
                             <h:outputText value="#{node}"/>
@@ -37,10 +37,10 @@
                     </p:tree>
 
                     <p:commandButton value="Display Selected" update="messages"
-                                     actionListener="#{treeBean.displaySelectedMultiple}" id="btnDisplay"/>
+                                     actionListener="#{questFormTreeController.displaySelectedMultiple}" id="btnDisplay"/>
                     <p:commandButton value="Delete Selected" update="messages" ajax="true"
-                                     actionListener="#{treeBean.deleteSelectedMultiple}" id="btnDisplayDelete"/>
-                    <p:commandButton value="Edit Group" action="#{treeBean.editSelectedGroup}" ajax="false"/>
+                                     actionListener="#{questFormTreeController.deleteSelectedMultiple}" id="btnDisplayDelete"/>
+                    <p:commandButton value="Edit Group" action="#{questFormTreeController.editSelectedGroup}" ajax="false"/>
 
                 </h:form>
 

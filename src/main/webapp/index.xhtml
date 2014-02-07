@@ -58,6 +58,8 @@
                                                      target="#{templateController.listController}"/>
                         <f:setPropertyActionListener value="#{template}"
                                                      target="#{templateController.currentTemplate}"/>
+                        <f:setPropertyActionListener value="#{template}"
+                                                     target="#{questFormTreeController.templateBean}"/>
                     </p:commandButton>
 
                     <p:commandButton value="Clone"

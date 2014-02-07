@@ -14,7 +14,7 @@ import org.primefaces.model.SelectableDataModel;
  */
 
 
-public class TemplateDataModel extends ListDataModel<TemplateBean> implements SelectableDataModel<TemplateBean> {
+public class  TemplateDataModel extends ListDataModel<TemplateBean> implements SelectableDataModel<TemplateBean> {
 
     public TemplateDataModel(List<TemplateBean> data) {
         super(data);

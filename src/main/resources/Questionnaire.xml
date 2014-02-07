@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <questionnaire-forms>
     <questionnaire-form>
-        <form-name>TestSections</form-name>
+        <form-name>Test_template</form-name>
         <pages>
             <page>
                 <page-number>1</page-number>
@@ -16,29 +16,61 @@
     </questionnaire-form>
     <questionnaire-form>
         <form-name>Template B</form-name>
+        <pages>
+            <page>
+                <page-number>11</page-number>
+            </page>
+            <page>
+                <page-number>22</page-number>
+            </page>
+            <page>
+                <page-number>33</page-number>
+            </page>
+        </pages>
     </questionnaire-form>
     <questionnaire-form>
         <form-name>Template C</form-name>
+        <pages>
+            <page>
+                <page-number>111</page-number>
+            </page>
+            <page>
+                <page-number>222</page-number>
+            </page>
+            <page>
+                <page-number>333</page-number>
+            </page>
+        </pages>
     </questionnaire-form>
     <questionnaire-form>
         <form-name>Template D</form-name>
+        <pages>
+            <page>
+                <page-number>1111</page-number>
+            </page>
+            <page>
+                <page-number>2222</page-number>
+            </page>
+            <page>
+                <page-number>3333</page-number>
+            </page>
+        </pages>
     </questionnaire-form>
     <questionnaire-form>
         <form-name>Template E</form-name>
-    </questionnaire-form>
-    <questionnaire-form>
-        <form-name>Template F</form-name>
-    </questionnaire-form>
-    <questionnaire-form>
-        <form-name>Template G</form-name>
-    </questionnaire-form>
-    <questionnaire-form>
-        <form-name>Template H</form-name>
-    </questionnaire-form>
-    <questionnaire-form>
-        <form-name>Template J</form-name>
-    </questionnaire-form>
-    <questionnaire-form>
-        <form-name>Template K</form-name>
+        <pages>
+            <page>
+                <page-number>1</page-number>
+            </page>
+            <page>
+                <page-number>2</page-number>
+            </page>
+            <page>
+                <page-number>3</page-number>
+            </page>
+            <page>
+                <page-number>4</page-number>
+            </page>
+        </pages>
     </questionnaire-form>
 </questionnaire-forms>

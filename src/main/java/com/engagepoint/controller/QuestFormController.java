@@ -11,7 +11,7 @@ import java.io.Serializable;
 
 @Named("templateController")
 @SessionScoped
-public class TemplateController implements Serializable {
+public class QuestFormController implements Serializable {
 
     private ListController listController;
     private TemplateBean currentTemplate;
