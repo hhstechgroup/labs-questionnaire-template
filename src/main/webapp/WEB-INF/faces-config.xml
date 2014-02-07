@@ -16,4 +16,11 @@
         </resource-bundle>
     </application>
 
+    <render-kit>
+        <renderer>
+            <component-family>org.primefaces.component</component-family>
+            <renderer-type>org.primefaces.component.SelectOneButtonRenderer</renderer-type>
+            <renderer-class>com.engagepoint.renderer.primefaces.BootStrapSelectOneButtonRenderer</renderer-class>
+        </renderer>
+    </render-kit>
 </faces-config>

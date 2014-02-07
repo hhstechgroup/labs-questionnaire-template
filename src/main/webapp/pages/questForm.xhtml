@@ -4,6 +4,7 @@
                 xmlns:p="http://primefaces.org/ui"
                 xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:uib="http://engagepoint.com/uib"
 
                 template="/templates/template.xhtml">
 
@@ -33,6 +34,8 @@
 
                         <p:treeNode>
                             <h:outputText value="#{node}"/>
+                            <p:button icon="#{questFormTreeController.getPicture(node)}" value="Close-icon" styleClass="custom" title="Close" />
+                            <p:button icon="ui-icon-remove" value="Close-icon" styleClass="custom" title="Close" />
                         </p:treeNode>
                     </p:tree>
 
@@ -48,8 +51,7 @@
                 <f:facet name="footer">
                     <p:commandButton value="Save"
                                      action="#{templateController.saveTemplate}"
-                                     ajax="false">
-                    </p:commandButton>
+                                     ajax="false"/>
 
                     <p:commandButton value="Cancel"
                                      action="#{listController.income}"

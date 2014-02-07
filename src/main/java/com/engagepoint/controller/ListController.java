@@ -185,7 +185,8 @@ public class ListController implements Serializable {
      */
     public void clone(TemplateBean template) throws CloneNotSupportedException {
         TemplateBean newTemplate = (TemplateBean) template.clone();
-        addTemplateAndUpdateLists(newTemplate);
+        newTemplate.setTemplateName(newTemplate.getTemplateName() + " - clone");
+        addTemplate(newTemplate);
     }
 
     /**

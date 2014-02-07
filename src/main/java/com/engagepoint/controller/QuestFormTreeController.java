@@ -85,6 +85,14 @@ public class QuestFormTreeController implements Serializable {
         selectedNode = null;
     }
 
+    public String getPicture(String nodeID) {
+        if (nodeID.startsWith("SOME")) {
+            return "ui-icon-edit-small";
+        } else {
+            return "ui-icon-add-v2";
+        }
+    }
+
     public String editSelectedGroup() {
         GroupController controller = new GroupController();
         if (selectedNode != null && selectedNode.getData().toString().contains("Group")) {
@@ -93,7 +101,6 @@ public class QuestFormTreeController implements Serializable {
             FacesMessage errorMessage = new FacesMessage(FacesMessage.SEVERITY_WARN, "Warning", "You've chosen not a group or more than one group");
             FacesContext.getCurrentInstance().addMessage(null, errorMessage);
         }
-
         return null;
     }
 }

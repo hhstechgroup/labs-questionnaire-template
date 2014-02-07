@@ -8,7 +8,6 @@
                 xmlns:uib="http://engagepoint.com/uib"
                 xmlns:ui-paginator="http://java.sun.com/jsf/composite/uibootstrap/components/paginator"
 
-
                 template="templates/template.xhtml">
 
     <ui:define name="page">
@@ -56,8 +55,13 @@
                     <h:outputText value="#{template.templateName}"/>
                 </uib:column>
 
-                <uib:column style="width:30%;">
-                    <p:commandButton value="Edit" action="#{templateController.income}" ajax="false">
+                <uib:column style="width:30%;" styleClass="fl-right">
+                    <p:commandButton value="Edit"
+                                     title="Edit"
+                                     action="#{templateController.income}"
+                                     ajax="false"
+                                     styleClass="ui-button-icon-only secondary small"
+                                     icon="ui-icon-edit-small">
                         <f:setPropertyActionListener value="#{listController}"
                                                      target="#{templateController.listController}"/>
                         <f:setPropertyActionListener value="#{template}"
@@ -67,11 +71,17 @@
                     </p:commandButton>
 
                     <p:commandButton value="Clone"
+                                     title="Clone"
                                      action="#{listController.clone(template)}" ajax="false"
-                                     update=":form1"/>
+                                     update=":form1"
+                                     styleClass="ui-button-icon-only secondary small"
+                                     icon="ui-icon-add-v2"/>
 
                     <p:commandButton id="DeleteDialogButton" value="Delete"
-                                     update="modalDialogDelete" oncomplete="dlg2.show();">
+                                     title="Delete"
+                                     update="modalDialogDelete" oncomplete="dlg2.show();"
+                                     styleClass="ui-button-icon-only secondary small"
+                                     icon="ui-icon-remove">
                     </p:commandButton>
 
                     <p:dialog id="modalDialogDelete" widgetVar="dlg2"
