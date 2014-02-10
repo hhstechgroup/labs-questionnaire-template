@@ -1,5 +1,9 @@
 package com.engagepoint.bean;
 
+import org.apache.taglibs.standard.tag.el.sql.SetDataSourceTag;
+import org.primefaces.model.TreeNode;
+
+import javax.faces.bean.SessionScoped;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -92,9 +96,7 @@ public class TemplateBean implements Cloneable, Comparable<TemplateBean> {
 
         TemplateBean that = (TemplateBean) o;
 
-
-
-        return true;
+        return that.getId() == this.getId();
     }
 
     @Override
