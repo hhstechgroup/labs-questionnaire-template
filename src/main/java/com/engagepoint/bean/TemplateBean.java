@@ -36,6 +36,12 @@ public class TemplateBean implements Cloneable, Comparable<TemplateBean> {
         this.templateName = templateName;
     }
 
+    public TemplateBean(Long id, String templateName, List<SectionBean> sectionsList) {
+        this.id = id;
+        this.templateName = templateName;
+        this.sectionsList = sectionsList;
+    }
+
     public Long getId() {
         return id;
     }
@@ -86,7 +92,7 @@ public class TemplateBean implements Cloneable, Comparable<TemplateBean> {
 
         TemplateBean that = (TemplateBean) o;
 
-        if (id != null ? !id.equals(that.id) : that.id != null) return false;
+
 
         return true;
     }

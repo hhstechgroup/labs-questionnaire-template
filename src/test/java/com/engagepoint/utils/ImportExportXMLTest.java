@@ -1,51 +1,24 @@
-package com.engagepoint.bean;
+package com.engagepoint.utils;
 
-
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Ignore;
+import com.engagepoint.bean.*;
+import junit.framework.Assert;
 import org.junit.Test;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by yurii.kukharskyi on 1/28/14.
+ * Created with IntelliJ IDEA.
+ * User: anton.kovunov
+ * Date: 2/10/14
+ * Time: 11:53 AM
+ * To change this template use File | Settings | File Templates.
  */
-public class TemplateBeanTest {
-
+public class ImportExportXMLTest {
     @Test
-    public void testCloneTemplateBean() throws Exception {
-        QuestionBean bean = new QuestionBean("blah",true, QuestionType.CHECKBOX);
-        QuestionBean eqBean = new QuestionBean("blah",true, QuestionType.CHECKBOX);
-        List<QuestionBean> questionBeanList = new ArrayList<QuestionBean>();
-        questionBeanList.add(bean);
-        questionBeanList.add(eqBean);
-        GroupBean testBean = new GroupBean("EqBeans",questionBeanList);
-        GroupBean testBean2 = new GroupBean("EqBeans",questionBeanList);
-        ArrayList<GroupBean> groupBeans = new ArrayList<GroupBean>();
-        groupBeans.add(testBean);
-        groupBeans.add(testBean2);
-        SectionBean section1 = new SectionBean(2,groupBeans);
-        ArrayList<GroupBean> groupBeans1 = new ArrayList<GroupBean>();
-        QuestionBean bean1 = new QuestionBean("blahn",true, QuestionType.CHECKBOX);
-        QuestionBean eqBean1 = new QuestionBean("blah",true, QuestionType.CHECKBOX);
-        List<QuestionBean> questionBeanList1 = new ArrayList<QuestionBean>();
-        questionBeanList1.add(bean1);
-        questionBeanList1.add(eqBean1);
-        GroupBean groupBean2 = new GroupBean("EqBeans",questionBeanList1);
-        GroupBean groupBean3 = new GroupBean("EqBeans",questionBeanList1);
-        groupBeans1.add(groupBean2);
-        groupBeans1.add(groupBean3);
-        SectionBean section2 = new SectionBean(2,groupBeans1);
-        ArrayList<SectionBean> sectionsList = new ArrayList<SectionBean>();
-        sectionsList.add(section1);
-        sectionsList.add(section2);
-        TemplateBean testTemplate = new TemplateBean(new Long(5),"Questonnaire",sectionsList);
-        Assert.assertEquals(testTemplate, testTemplate.clone());
-    }
-    @Test
-    public void testEqualityTemplates(){
+    public void testEqualityXML() throws FileNotFoundException {
         QuestionBean bean = new QuestionBean("blah",false, QuestionType.CHECKBOX);
         QuestionBean eqBean = new QuestionBean("blah",true, QuestionType.CHECKBOX);
         //---------------------------------1---------------------------------------
@@ -106,7 +79,14 @@ public class TemplateBeanTest {
         sectionsList1.add(section12);
         sectionsList1.add(section21);
         TemplateBean testTemplate1 = new TemplateBean(new Long(5),"Questionnaire",sectionsList1);
-        Assert.assertTrue(testTemplate.equals(testTemplate1));
-
+        List<TemplateBean> tempList = new ArrayList<TemplateBean>();
+        tempList.add(testTemplate);
+        tempList.add(testTemplate1);
+        //-----------------------------------------------------------------------------------------
+        XmlImportExport.exportXmlTemplates(tempList, "D:\\temps.xml");
+        FileInputStream stream = new FileInputStream("D:\\temps.xml");
+        List<TemplateBean> newTempsList = new ArrayList<TemplateBean>();
+        newTempsList.addAll(XmlImportExport.importXmlTemplate(stream));
+        Assert.assertTrue(tempList.equals(newTempsList));
     }
 }
