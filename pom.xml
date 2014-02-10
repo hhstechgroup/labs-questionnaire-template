@@ -9,6 +9,7 @@
     <version>1.0-SNAPSHOT</version>
     <modules>
         <module>questionnaire-template-acceptance-tests</module>
+        <module>acceptance-tests</module>
     </modules>
     <packaging>pom</packaging>
 

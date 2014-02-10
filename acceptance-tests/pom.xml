@@ -6,7 +6,7 @@
         <groupId>com.engagepoint.labs-questionnaire-template</groupId>
         <version>1.0-SNAPSHOT</version>
     </parent>
-    <artifactId>acceptance-tests-acceptancetest</artifactId>
+    <artifactId>acceptance-tests</artifactId>
     <packaging>jar</packaging>
     <name>labs-questionnaire-template - Acceptance Test</name>
     <properties>
