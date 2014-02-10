@@ -16,6 +16,8 @@
         </resource-bundle>
     </application>
 
+
+
     <render-kit>
         <renderer>
             <component-family>org.primefaces.component</component-family>

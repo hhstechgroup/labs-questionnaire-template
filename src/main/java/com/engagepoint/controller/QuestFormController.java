@@ -3,6 +3,7 @@ package com.engagepoint.controller;
 import com.engagepoint.bean.TemplateBean;
 
 import javax.enterprise.context.SessionScoped;
+import javax.faces.event.ActionEvent;
 import javax.inject.Named;
 
 import java.io.Serializable;
@@ -58,9 +59,9 @@ public class QuestFormController implements Serializable {
      */
     public String saveTemplate() {
         currentTemplate.setTemplateName(templateName);
-        if (isNew())
+        if (isNew()) {
             listController.addTemplateAndUpdateLists(currentTemplate);
-        else
+        }else
         {
             listController.removeTemplateFromFilteredList(currentTemplate);
             listController.sort();
@@ -85,6 +86,7 @@ public class QuestFormController implements Serializable {
      * @return page name
      */
     public String income() {
-        return "pages/questForm?faces-redirect=true";
-    }
+    return "pages/questForm?faces-redirect=true";
+}
+
 }
