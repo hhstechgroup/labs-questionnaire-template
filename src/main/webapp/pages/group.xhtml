@@ -15,12 +15,10 @@
 	<ui:define name="page">
 
 
-		<h:form id="form4">
-			<h:outputLabel value="Question type: * "
-				rendered="#{groupController.showNewQuestionForm}" />
+		<h:form id="form">
+			<h:outputLabel value="Question type: * " />
 
-			<p:selectOneMenu value="#{groupController.selectedQuestionType}"
-				rendered="#{groupController.showNewQuestionForm}">
+			<p:selectOneMenu value="#{groupController.selectedQuestionType}">
 				<f:selectItem itemLabel="Select One" itemValue="" />
 				<f:selectItems value="#{groupController.questionTypes}" />
 				<p:ajax event="change" update="@form" />
@@ -28,12 +26,11 @@
 			<br></br>
 
 			<h:outputText id="out"
-				value="#{groupController.selectedQuestionType} is selected"
-				rendered="#{groupController.showNewQuestionForm}" />
+				value="#{groupController.selectedQuestionType} is selected"	 />
 			<br></br>
 
 			<h:panelGrid id="textquestion" columns="2"
-				rendered="#{groupController.showNewTextTypeQuestionForm}"
+				rendered="#{groupController.selectedQuestionType == 'TEXT'}"
 				style="margin-bottom:10px" cellpadding="5">
 
 				<h:outputText value="Question text: * " />
@@ -46,9 +43,12 @@
 				<h:outputText value="Required? " />
 				<p:selectBooleanCheckbox value="#{question.requiredAnswer}" />
 			</h:panelGrid>
+			
+			
+			
+			
 			<h:panelGrid id="buttons" columns="3" style="margin-bottom:10px"
-				cellpadding="5"
-				rendered="#{groupController.showNewTextTypeQuestionForm}">
+				cellpadding="5"	>
 				<p:commandButton id="savequestion" value="Save question"
 					action="questForm?faces-redirect=true"
 					actionListener="#{groupController.saveQuestion(question)}"
