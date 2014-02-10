@@ -1,0 +1,28 @@
+<?xml version='1.0' encoding='UTF-8'?>
+
+<faces-config xmlns="http://java.sun.com/xml/ns/javaee"
+              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-facesconfig_2_0.xsd"
+              version="2.0">
+
+    <application>
+        <resource-bundle>
+            <base-name>com.engagepoint.config.configuration</base-name>
+            <var>config</var>
+        </resource-bundle>
+        <resource-bundle>
+            <base-name>com.engagepoint.messages</base-name>
+            <var>msgs</var>
+        </resource-bundle>
+    </application>
+
+
+
+    <render-kit>
+        <renderer>
+            <component-family>org.primefaces.component</component-family>
+            <renderer-type>org.primefaces.component.SelectOneButtonRenderer</renderer-type>
+            <renderer-class>com.engagepoint.renderer.primefaces.BootStrapSelectOneButtonRenderer</renderer-class>
+        </renderer>
+    </render-kit>
+</faces-config>
