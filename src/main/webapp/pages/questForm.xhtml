@@ -10,10 +10,10 @@
 
     <ui:define name="page">
 
-        <h:outputScript library="js" name="setConfirmUnload.js" target="body"/>
-        <h:form id="formTemplate">
 
-            <p:panelGrid columns="1">
+    <h:form id="formTemplate">
+
+        <p:panelGrid columns="1">
 
                 <f:facet name="header">
                     <h:outputText value="Template" rendered="#{!templateController.isNew()}"/>
@@ -30,34 +30,50 @@
                     <p:growl id="messages" showDetail="true" escape="false"/>
 
                     <p:tree value="#{questFormTreeController.root}" var="node"
-                            selectionMode="multiple" selection="#{questFormTreeController.selectedNodes}" id="treeMultiple">
+                            selectionMode="multiple"  id="treeMultiple">
 
                         <p:treeNode>
                             <h:outputText value="#{node}"/>
-                            <p:button icon="#{questFormTreeController.getPicture(node)}" value="Close-icon" styleClass="custom" title="Close" />
-                            <p:button icon="ui-icon-remove" value="Close-icon" styleClass="custom" title="Close" />
                         </p:treeNode>
                     </p:tree>
 
                     <p:commandButton value="Display Selected" update="messages"
-                                     actionListener="#{questFormTreeController.displaySelectedMultiple}" id="btnDisplay"/>
-                    <p:commandButton value="Delete Selected" update="messages" ajax="true"
-                                     actionListener="#{questFormTreeController.deleteSelectedMultiple}" id="btnDisplayDelete"/>
-                    <p:commandButton value="Edit Group" action="#{questFormTreeController.editSelectedGroup}" ajax="false"/>
+                                      id="btnDisplay" />
+                    <p:commandButton value="Delete Selected" update="messages"
+                                      id="btnDisplayDelete"/>
+                    <p:commandButton value="Edit Group"/>
 
                 </h:form>
 
 
                 <f:facet name="footer">
                     <p:commandButton value="Save"
+
                                      action="#{templateController.saveTemplate}"
-                                     ajax="false"/>
 
-                    <p:commandButton value="Cancel"
+                                     />
+
+                <p:commandButton value="Cancel"
+                                 update="modalDialogCancel"
+                                 oncomplete="dlgCancel.show();"
+                        />
+
+                <p:dialog id="modalDialogCancel" widgetVar="dlgCancel"
+                          modal="true" height="100" closable="false" resizeable="false">
+                    <h:outputFormat value="#{msgs.msgOnCancel}">
+                        <f:param value="#{templateController.templateName}"/>
+                    </h:outputFormat>
+                    <br/>
+
+
+                    <p:commandButton value="Yes"
                                      action="#{listController.income}"
-                                     immediate="#{templateController.new}"/>
-                </f:facet>
 
+                                     onclick="dlgCancel.hide()"
+                            />
+                    <p:commandButton value="No"  onclick="dlgCancel.hide()"/>
+                </p:dialog>
+                </f:facet>
             </p:panelGrid>
 
         </h:form>

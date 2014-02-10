@@ -1,5 +1,9 @@
 package com.engagepoint.bean;
 
+import org.apache.taglibs.standard.tag.el.sql.SetDataSourceTag;
+import org.primefaces.model.TreeNode;
+
+import javax.faces.bean.SessionScoped;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -34,6 +38,12 @@ public class TemplateBean implements Cloneable, Comparable<TemplateBean> {
     public TemplateBean(String templateName) {
         setId(getLastId());
         this.templateName = templateName;
+    }
+
+    public TemplateBean(Long id, String templateName, List<SectionBean> sectionsList) {
+        this.id = id;
+        this.templateName = templateName;
+        this.sectionsList = sectionsList;
     }
 
     public Long getId() {
@@ -86,9 +96,7 @@ public class TemplateBean implements Cloneable, Comparable<TemplateBean> {
 
         TemplateBean that = (TemplateBean) o;
 
-        if (id != null ? !id.equals(that.id) : that.id != null) return false;
-
-        return true;
+        return that.getId() == this.getId();
     }
 
     @Override
