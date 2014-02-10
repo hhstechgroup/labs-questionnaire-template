@@ -16,7 +16,6 @@
 
             <p:commandButton value="Add new template"
                              action="#{templateController.newTemplate}"
-                             ajax="false"
                              styleClass="fl-right">
                 <f:setPropertyActionListener value="#{listController}"
                                              target="#{templateController.listController}"/>
@@ -59,7 +58,6 @@
                     <p:commandButton value="Edit"
                                      title="Edit"
                                      action="#{templateController.income}"
-                                     ajax="false"
                                      styleClass="ui-button-icon-only secondary small"
                                      icon="ui-icon-edit-small">
                         <f:setPropertyActionListener value="#{listController}"
@@ -72,8 +70,8 @@
 
                     <p:commandButton value="Clone"
                                      title="Clone"
-                                     action="#{listController.clone(template)}" ajax="false"
-                                     update=":form1"
+                                     action="#{listController.clone(template)}"
+                                     update=":form1:table"
                                      styleClass="ui-button-icon-only secondary small"
                                      icon="ui-icon-add-v2"/>
 
@@ -92,7 +90,7 @@
                         <br/>
                         <p:commandButton value="Yes, delete it"
                                          action="#{listController.deleteTemplate(template)}"
-                                         ajax="false" update=":form1" onclick="dlg2.hide()"/>
+                                         update=":form1:table" onclick="dlg2.hide()"/>
                         <p:commandButton value="No, cancel" onclick="dlg2.hide()"/>
                     </p:dialog>
 
@@ -103,11 +101,11 @@
             <br/>
             <p:growl id="messages"/>
             <p:menuButton value="Options">
-                <p:menuitem value="Export"
-                            ajax="false"
+                <p:menuitem value="Export" id="export"
                             icon="ui-icon-disk"
+                            ajax="false"
                             actionListener="#{listController.onExportXML}">
-                    <p:fileDownload value="#{fileController.downloadFile}"/>
+                        <p:fileDownload value="#{fileController.downloadFile}"/>
                 </p:menuitem>
                 <p:menuitem value="Import"
                             update="ImportDialog"
@@ -124,9 +122,8 @@
                               fileUploadListener="#{listController.importFromXML}"
                               multiple="true"
                               oncomplete="uploadXML.hide()"
-                              update="table"/>
+                              update=":form1:table"/>
             </p:dialog>
-
         </h:form>
     </ui:define>
 

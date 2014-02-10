@@ -48,9 +48,7 @@
 
                 <f:facet name="footer">
                     <p:commandButton value="Save"
-
                                      action="#{templateController.saveTemplate}"
-
                                      />
 
                 <p:commandButton value="Cancel"
@@ -60,16 +58,13 @@
 
                 <p:dialog id="modalDialogCancel" widgetVar="dlgCancel"
                           modal="true" height="100" closable="false" resizeable="false">
-                    <h:outputFormat value="#{msgs.msgOnCancel}">
-                        <f:param value="#{templateController.templateName}"/>
-                    </h:outputFormat>
+                    <h:outputFormat value="#{msgs.msgOnCancel}"/>
                     <br/>
 
 
                     <p:commandButton value="Yes"
+                                     immediate="#{templateController.new}"
                                      action="#{listController.income}"
-
-                                     onclick="dlgCancel.hide()"
                             />
                     <p:commandButton value="No"  onclick="dlgCancel.hide()"/>
                 </p:dialog>

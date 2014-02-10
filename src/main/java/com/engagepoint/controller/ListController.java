@@ -186,7 +186,7 @@ public class ListController implements Serializable {
     public void clone(TemplateBean template) throws CloneNotSupportedException {
         TemplateBean newTemplate = (TemplateBean) template.clone();
         newTemplate.setTemplateName(newTemplate.getTemplateName() + " - clone");
-        addTemplate(newTemplate);
+        addTemplateAndUpdateLists(newTemplate);
     }
 
     /**
@@ -199,7 +199,7 @@ public class ListController implements Serializable {
             FileController.setPathToTempFile(tmpFile.getPath());
         }
         catch(IOException e) {
-
+            System.out.println(e.getMessage());
         }
     }
 
