@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:uib="http://engagepoint.com/uib"
+	xmlns:ago="http://java.sun.com/jsf/composite/apress"
+	template="/templates/template.xhtml">
+
+
+	<ui:define name="page">
+
+		<h:messages style="color:red" />
+		<h:form id="form">
+			<h:outputLabel value="Question type: * " />
+
+			<p:selectOneMenu value="#{questionController.selectedQuestionType}">
+				<f:selectItem itemLabel="Select One" itemValue="" />
+				<f:selectItems value="#{questionController.questionTypes}" />
+				<p:ajax event="change" update="@form" />
+			</p:selectOneMenu>
+			<br></br>
+
+			<h:outputText id="out"
+				value="#{questionController.selectedQuestionType} is selected" />
+			<br></br>
+
+			<ago:questionbody question="#{question}" controller="#{questionController}"/>
+
+			<h:panelGrid id="buttons" columns="3" style="margin-bottom:10px"
+				cellpadding="5">
+				<p:commandButton id="savequestion" value="Save question"
+					action="questForm?faces-redirect=true" ajax="false" />
+					
+					
+				<p:commandButton id="cancel" value="Cancel" imidiate="true"
+					action="questForm?faces-redirect=true" ajax="false" />
+			</h:panelGrid>
+
+		</h:form>
+
+
+
+
+	</ui:define>
+</ui:composition>
