@@ -1,11 +1,14 @@
 package com.engagepoint.utils;
 
 import com.engagepoint.bean.*;
+import com.engagepoint.controller.FileController;
 import junit.framework.Assert;
 import org.junit.Test;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -83,8 +86,15 @@ public class ImportExportXMLTest {
         tempList.add(testTemplate);
         tempList.add(testTemplate1);
         //-----------------------------------------------------------------------------------------
-        XmlImportExport.exportXmlTemplates(tempList, "D:\\temps.xml");
-        FileInputStream stream = new FileInputStream("D:\\temps.xml");
+        File file = null;
+        try {
+            file = FileController.createTempXml(tempList);
+        }
+        catch (IOException e) {
+            Assert.fail();
+            return;
+        }
+        FileInputStream stream = new FileInputStream(file.getAbsolutePath());
         List<TemplateBean> newTempsList = new ArrayList<TemplateBean>();
         newTempsList.addAll(XmlImportExport.importXmlTemplate(stream));
         Assert.assertTrue(tempList.equals(newTempsList));
