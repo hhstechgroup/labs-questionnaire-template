@@ -10,7 +10,7 @@ import java.util.List;
  * Class represents questionnaire-form tag.
  */
 @XmlRootElement(name = "questionnaire-form")
-public class TemplateBean implements Cloneable, Comparable<TemplateBean> {
+public class TemplateBean implements Cloneable, Comparable<TemplateBean>, BasicOperationWithBean {
     private static Long lastId = 1L;
 
     public static Long getLastId() {
@@ -112,5 +112,21 @@ public class TemplateBean implements Cloneable, Comparable<TemplateBean> {
     @Override
     public int compareTo(TemplateBean o) {
         return this.getTemplateName().compareTo(o.getTemplateName());
+    }
+
+    @Override
+    public void deleteFromInnerList(Object o) {
+        ((TemplateBean) o).sectionsList.remove(o);
+    }
+
+    @Override
+    public void addToInnerList(Object o) {
+        ((TemplateBean) o).sectionsList.add((SectionBean) o);
+    }
+
+    @Override
+    public String viewName() {
+        // Isn't necessary
+        return null;
     }
 }

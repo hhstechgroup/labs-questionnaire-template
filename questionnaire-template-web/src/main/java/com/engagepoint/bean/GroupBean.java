@@ -9,7 +9,7 @@ import java.util.List;
 /**
  * Class represents group tag.
  */
-public class GroupBean implements Cloneable {
+public class GroupBean implements Cloneable, BasicOperationWithBean {
     private String groupName;
     private List<QuestionBean> questionsList = new ArrayList<QuestionBean>();
 
@@ -74,5 +74,20 @@ public class GroupBean implements Cloneable {
         int result = groupName != null ? groupName.hashCode() : 0;
         result = 31 * result + (questionsList != null ? questionsList.hashCode() : 0);
         return result;
+    }
+
+    @Override
+    public void deleteFromInnerList(Object o) {
+        ((GroupBean) o).questionsList.remove(o);
+    }
+
+    @Override
+    public void addToInnerList(Object o) {
+        ((GroupBean) o).questionsList.add((QuestionBean) o);
+    }
+
+    @Override
+    public String viewName() {
+        return groupName;
     }
 }

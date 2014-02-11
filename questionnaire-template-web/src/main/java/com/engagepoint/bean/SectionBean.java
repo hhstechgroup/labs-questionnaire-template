@@ -14,7 +14,7 @@ import java.util.List;
  */
 @Named
 @SessionScoped
-public class SectionBean implements Cloneable,Serializable {
+public class SectionBean implements Cloneable, Serializable, BasicOperationWithBean {
     private int pageNumber;
     private List<GroupBean> groupsList = new ArrayList<GroupBean>();
 
@@ -78,5 +78,20 @@ public class SectionBean implements Cloneable,Serializable {
         int result = pageNumber;
         result = 31 * result + (groupsList != null ? groupsList.hashCode() : 0);
         return result;
+    }
+
+    @Override
+    public void deleteFromInnerList(Object o) {
+        ((SectionBean) o).groupsList.remove(o);
+    }
+
+    @Override
+    public void addToInnerList(Object o) {
+        ((SectionBean) o).groupsList.add((GroupBean) o);
+    }
+
+    @Override
+    public String viewName() {
+        return "Page " + pageNumber;
     }
 }

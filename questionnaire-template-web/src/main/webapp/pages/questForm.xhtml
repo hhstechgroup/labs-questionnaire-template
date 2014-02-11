@@ -10,15 +10,15 @@
 
     <style type="html/css">
         .ui-state-highlight {
-            color:#00ff00;
+            color: #00ff00;
         }
     </style>
 
     <ui:define name="page">
 
-    <h:form id="formTemplate">
+        <h:form id="formTemplate">
 
-        <p:panelGrid columns="1">
+            <p:panelGrid columns="1">
 
                 <f:facet name="header">
                     <h:outputText value="Template" rendered="#{!templateController.isNew()}"/>
@@ -35,28 +35,26 @@
                     <p:growl id="messages" showDetail="true" escape="false"/>
 
                     <p:treeTable value="#{questFormTreeController.root}" var="node"
-                            selectionMode="single" selection="#{questFormTreeController.selectedNode}" id="treeMultiple">
+                                 selectionMode="single" selection="#{questFormTreeController.selectedNode}"
+                                 id="treeMultiple">
+
                         <p:ajax event="select" listener="#{questFormTreeController.onNodeSelect}"/>
 
                         <p:column>
                             <h:outputText value="#{node}"/>
-                            <p:commandButton value="Clone"
-                                             title="Clone"
-                                             action="#{questFormTreeController.test(node)}"
-                                             styleClass="ui-button-icon-only secondary small"
-                                             icon="ui-icon-add-v2"/>
                         </p:column>
+
                     </p:treeTable>
 
                     <p:commandButton value="Add section"
                                      ajax="false"
                                      action="#{templateController.addSection}"
                                      update="messages">
-                    <f:setPropertyActionListener value="#{templateController.currentTemplate}"
-                                                 target="#{questFormTreeController.templateBean}"/>
+                        <f:setPropertyActionListener value="#{templateController.currentTemplate}"
+                                                     target="#{questFormTreeController.templateBean}"/>
                     </p:commandButton>
-                    <p:commandButton value="Delete Selected" update="messages"
-                                      id="btnDisplayDelete"/>
+                    <p:commandButton value="Delete Selected" update="form" ajax="true"
+                                     action="#{questFormTreeController.delete()}" id="btnDisplayDelete"/>
                     <p:commandButton value="Edit Group"/>
 
 
@@ -68,23 +66,23 @@
                     <p:commandButton value="Save" id="save"
                                      action="#{templateController.saveTemplate}"/>
 
-                <p:commandButton value="Cancel"
-                                 update="modalDialogCancel"
-                                 oncomplete="dlgCancel.show();"
-                        />
-
-                <p:dialog id="modalDialogCancel" widgetVar="dlgCancel"
-                          modal="true" height="100" closable="false" resizeable="false">
-                    <h:outputFormat value="#{msgs.msgOnCancel}"/>
-                    <br/>
-
-
-                    <p:commandButton value="Yes"
-                                     immediate="#{templateController.new}"
-                                     action="#{listController.income}"
+                    <p:commandButton value="Cancel"
+                                     update="modalDialogCancel"
+                                     oncomplete="dlgCancel.show();"
                             />
-                    <p:commandButton value="No"  onclick="dlgCancel.hide()"/>
-                </p:dialog>
+
+                    <p:dialog id="modalDialogCancel" widgetVar="dlgCancel"
+                              modal="true" height="100" closable="false" resizeable="false">
+                        <h:outputFormat value="#{msgs.msgOnCancel}"/>
+                        <br/>
+
+
+                        <p:commandButton value="Yes"
+                                         immediate="#{templateController.new}"
+                                         action="#{listController.income}"
+                                />
+                        <p:commandButton value="No" onclick="dlgCancel.hide()"/>
+                    </p:dialog>
                 </f:facet>
             </p:panelGrid>
 

@@ -1,10 +1,6 @@
 package com.engagepoint.controller;
 
-import com.engagepoint.bean.GroupBean;
-import com.engagepoint.bean.QuestionBean;
-import com.engagepoint.bean.SectionBean;
-import com.engagepoint.bean.TemplateBean;
-import com.engagepoint.controller.GroupController;
+import com.engagepoint.bean.*;
 
 /**
  * Created with IntelliJ IDEA.
@@ -37,7 +33,6 @@ public class QuestFormTreeController implements Serializable {
     }
 
     public void setTemplateBean(TemplateBean templateBean) {
-        root = new DefaultTreeNode("Root", null);
         this.templateBean = templateBean;
         setNodes();
     }
@@ -50,24 +45,25 @@ public class QuestFormTreeController implements Serializable {
         this.selectedNode = selectedNode;
     }
 
+    public void onNodeSelect() {
+        System.out.println(selectedNode);
+    }
+
     public void setNodes() {
+        root = new DefaultTreeNode("Root", null);
         ArrayList<TreeNode> nodeList = new ArrayList<TreeNode>();
 
         // Iterator LEVEL_0 for filling sections of choosed template
         for (SectionBean sectionBean : templateBean.getSectionsList()) {
-            String sectionID = templateBean.getTemplateName() +
-                               "_SECTION_" + sectionBean.getPageNumber();
-            TreeNode section = new DefaultTreeNode(sectionID, root);
+            TreeNode section = new DefaultTreeNode(new LocaleNode(sectionBean, templateBean), root);
 
             // Iterator LEVEL_1 for filling groups of choosed section
             for(GroupBean groupBean : sectionBean.getGroupsList()) {
-                String groupID = "SECTION_" + sectionBean.getPageNumber() +
-                        "_GROUP_" + groupBean.getGroupName();
-                TreeNode group = new DefaultTreeNode(groupID, section);
+                TreeNode group = new DefaultTreeNode(new LocaleNode(groupBean, sectionBean), section);
 
                 // Iterator LEVEL_2 for filling questions of choosed section
                 for(QuestionBean questionBean : groupBean.getQuestionsList()) {
-                    TreeNode question = new DefaultTreeNode(questionBean.getQuestionText(), group);
+                    TreeNode question = new DefaultTreeNode(new LocaleNode(questionBean, groupBean), group);
                 } // END of QUESTION Iterator
             } // END of GROUP Iterator
         } // END of SECTION Iterator
@@ -93,12 +89,8 @@ public class QuestFormTreeController implements Serializable {
         }
     }
 
-    public void test(String str) {
-        System.out.println(">>>>>>" + str);
-    }
-
     public String editSelectedGroup() {
-        GroupController controller = new GroupController();
+        QuestionEditController controller = new QuestionEditController();
         if (selectedNode != null && selectedNode.getData().toString().contains("Group")) {
             return controller.income();
         } else {
@@ -108,7 +100,27 @@ public class QuestFormTreeController implements Serializable {
         return null;
     }
 
-    public void onNodeSelect(){
-        System.out.println(selectedNode);
+    public void delete() {
+        ((LocaleNode) selectedNode.getData()).delete();
+        setNodes();
+    }
+
+    private class LocaleNode {
+        BasicOperationWithBean node;
+        BasicOperationWithBean parentNode;
+
+        private LocaleNode(BasicOperationWithBean node, BasicOperationWithBean parentNode) {
+            this.node = node;
+            this.parentNode = parentNode;
+        }
+
+        void delete() {
+            parentNode.deleteFromInnerList(node);
+        }
+
+        @Override
+        public String toString() {
+            return node.viewName();
+        }
     }
 }
