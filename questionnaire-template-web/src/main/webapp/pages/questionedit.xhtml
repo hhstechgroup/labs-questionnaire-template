@@ -5,7 +5,6 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:uib="http://engagepoint.com/uib"
-	xmlns:ago="http://java.sun.com/jsf/composite/apress"
 	template="/templates/template.xhtml">
 
 
@@ -15,33 +14,65 @@
 		<h:form id="form">
 			<h:outputLabel value="Question type: * " />
 
-			<p:selectOneMenu value="#{questionController.selectedQuestionType}">
-				<f:selectItem itemLabel="Select One" itemValue="" />
+			<p:selectOneMenu value="#{questionController.selectedQuestionType}"
+				required="true">
+				<f:selectItem itemLabel="Select One" itemValue="#{null}" />
 				<f:selectItems value="#{questionController.questionTypes}" />
-				<p:ajax event="change" update="@this,:form:out,:form:ago" />
+				<p:ajax event="change" update="@this,:form:out,:form2" />
 			</p:selectOneMenu>
 			<br></br>
 
 			<h:outputText id="out"
 				value="#{questionController.selectedQuestionType} is selected" />
 			<br></br>
+		</h:form>
+		<h:form id="form2">
+			<h:panelGrid columns="2"
+				rendered="#{questionController.selectedQuestionType != null}"
+				style="margin-bottom:10px" cellpadding="5">
+				<h:outputText value="Question text: * " />
+				<p:inputText size="50" value="#{question.questionText}"
+					required="true" />
+				<h:outputText value="Default answer: " />
+				<p:inputText size="50" value="" />
+				<h:outputText value="Help text: " />
+				<p:inputText size="50" value="#{question.helpText}" />
+				<h:outputText value="Required? " />
+				<p:selectBooleanCheckbox value="#{question.requiredAnswer}" />
+			</h:panelGrid>
 
-			<ago:questionbody id="ago" question="#{question}" controller="#{questionController}"/>
+
+			<h:panelGrid columns="2"
+				rendered="#{questionController.selectedQuestionType == 'TEXT'}"
+				style="margin-bottom:10px" cellpadding="5">
+				<h:outputText value="Default answer: " />
+				<p:inputText size="50" value="" />
+			</h:panelGrid>
+
+			<h:panelGrid columns="2"
+				rendered="#{questionController.selectedQuestionType == 'PARAGRAPHTEXT'}"
+				style="margin-bottom:10px" cellpadding="5">
+				<h:outputText value="OPTIONS FOR PARAGRAPHTEXT " />
+			</h:panelGrid>
+
+			<h:panelGrid columns="2"
+				rendered="#{questionController.selectedQuestionType == 'MULTIPLECHOICE'}"
+				style="margin-bottom:10px" cellpadding="5">
+				<h:outputText value="OPTIONS FOR MULTIPLECHOICE " />
+			</h:panelGrid>
+
 
 			<h:panelGrid id="buttons" columns="3" style="margin-bottom:10px"
 				cellpadding="5">
 				<p:commandButton id="savequestion" value="Save question"
 					action="questForm?faces-redirect=true" ajax="false" />
-					
-					
-				<p:commandButton id="cancel" value="Cancel" imidiate="true"
+
+
+				<p:commandButton id="cancel" value="Cancel" immediate="true"
 					action="questForm?faces-redirect=true" ajax="false" />
 			</h:panelGrid>
 
 		</h:form>
-
-
-
 
 	</ui:define>
 </ui:composition>

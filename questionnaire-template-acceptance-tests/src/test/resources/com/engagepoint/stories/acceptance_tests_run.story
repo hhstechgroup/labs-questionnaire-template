@@ -5,5 +5,5 @@ I want to access application with the Questionnaire Editor page displayed by def
 
 Scenario:
 Given a browser
-When I put http://localhost:8080/questionnaire-template-web-1.0-SNAPSHOT/
+When I put http://localhost:8080/questionnaire-template-web/
 Then the page title should be Questionnaire Editor
