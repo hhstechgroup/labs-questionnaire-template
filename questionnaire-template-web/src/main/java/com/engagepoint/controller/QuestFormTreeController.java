@@ -4,7 +4,7 @@ import com.engagepoint.bean.GroupBean;
 import com.engagepoint.bean.QuestionBean;
 import com.engagepoint.bean.SectionBean;
 import com.engagepoint.bean.TemplateBean;
-import com.engagepoint.controller.GroupController;
+import com.engagepoint.controller.QuestionEditController;
 
 /**
  * Created with IntelliJ IDEA.
@@ -94,7 +94,7 @@ public class QuestFormTreeController implements Serializable {
     }
 
     public String editSelectedGroup() {
-        GroupController controller = new GroupController();
+        QuestionEditController controller = new QuestionEditController();
         if (selectedNode != null && selectedNode.getData().toString().contains("Group")) {
             return controller.income();
         } else {
