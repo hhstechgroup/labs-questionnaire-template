@@ -11,7 +11,7 @@ import java.util.Random;
  */
 @Named("question")
 @RequestScoped
-public class QuestionBean implements Cloneable, BasicOperationWithBean {
+public class QuestionBean implements Cloneable {
     private Long id;					//id of the question
     private String questionText;		//questiontext
     private boolean requiredAnswer;		//is answer required or not
@@ -111,16 +111,6 @@ public class QuestionBean implements Cloneable, BasicOperationWithBean {
         result = 31 * result + (requiredAnswer ? 1 : 0);
         result = 31 * result + (questionType != null ? questionType.hashCode() : 0);
         return result;
-    }
-
-    @Override
-    public void deleteFromInnerList(Object o) {
-        // Isn't inner list
-    }
-
-    @Override
-    public void addToInnerList(Object o) {
-        // Isn't inner list
     }
 
     @Override
