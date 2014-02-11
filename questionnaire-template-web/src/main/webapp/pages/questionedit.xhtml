@@ -18,7 +18,7 @@
 			<p:selectOneMenu value="#{questionController.selectedQuestionType}">
 				<f:selectItem itemLabel="Select One" itemValue="" />
 				<f:selectItems value="#{questionController.questionTypes}" />
-				<p:ajax event="change" update="@form" />
+				<p:ajax event="change" update="@this,:form:out,:form:ago" />
 			</p:selectOneMenu>
 			<br></br>
 
@@ -26,7 +26,7 @@
 				value="#{questionController.selectedQuestionType} is selected" />
 			<br></br>
 
-			<ago:questionbody question="#{question}" controller="#{questionController}"/>
+			<ago:questionbody id="ago" question="#{question}" controller="#{questionController}"/>
 
 			<h:panelGrid id="buttons" columns="3" style="margin-bottom:10px"
 				cellpadding="5">
