@@ -21,15 +21,17 @@
                                              target="#{templateController.listController}"/>
             </p:commandButton>
 
-            <br/><p/>
+            <br/>
+
+            <p/>
             <uib:dataTable id="table" var="template" paginator="true" rows="10" value="#{listController.templatesModel}"
-                         paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-                         rowsPerPageTemplate="#{config.pagescount},10"
-                         paginatorPosition="bottom"
-                         filteredValue="#{listController.filteredTemplates}"
-                         widgetVar="templatesList"
-                         selection="#{listController.selectedTemplates}"
-                         summary="Table with pagination">
+                           paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                           rowsPerPageTemplate="#{config.pagescount},10"
+                           paginatorPosition="bottom"
+                           filteredValue="#{listController.filteredTemplates}"
+                           widgetVar="templatesList"
+                           selection="#{listController.selectedTemplates}"
+                           summary="Table with pagination">
                 <!--p:column width="400"  style="table-layout:fixed"-->
 
                 <f:facet name="header">
@@ -49,38 +51,40 @@
                 </uib:column>
 
                 <uib:column filterBy="#{template.templateName}"
-                          filterMatchMode="contains"
-                          filterStyle="visibility:hidden; height:0px" headerText="Name">
+                            filterMatchMode="contains"
+                            filterStyle="visibility:hidden; height:0px" headerText="Name">
                     <h:outputText value="#{template.templateName}"/>
                 </uib:column>
 
-                <uib:column style="width:30%;" styleClass="fl-right">
-                    <p:commandButton value="Edit"
-                                     title="Edit"
-                                     action="#{templateController.income}"
-                                     styleClass="ui-button-icon-only secondary small"
-                                     icon="ui-icon-edit-small">
-                        <f:setPropertyActionListener value="#{listController}"
-                                                     target="#{templateController.listController}"/>
-                        <f:setPropertyActionListener value="#{template}"
-                                                     target="#{templateController.currentTemplate}"/>
-                        <f:setPropertyActionListener value="#{template}"
-                                                     target="#{questFormTreeController.templateBean}"/>
-                    </p:commandButton>
+                <uib:column style="width:260px;">
+                    <uib:buttonGroup>
+                        <p:commandButton value="Edit"
+                                         title="Edit"
+                                         action="#{templateController.income}"
+                                         styleClass="secondary small"
+                                         icon="ui-icon-edit-small">
+                            <f:setPropertyActionListener value="#{listController}"
+                                                         target="#{templateController.listController}"/>
+                            <f:setPropertyActionListener value="#{template}"
+                                                         target="#{templateController.currentTemplate}"/>
+                            <f:setPropertyActionListener value="#{template}"
+                                                         target="#{questFormTreeController.templateBean}"/>
+                        </p:commandButton>
 
-                    <p:commandButton value="Clone"
-                                     title="Clone"
-                                     action="#{listController.clone(template)}" ajax="false"
-                                     update=":form1"
-                                     styleClass="ui-button-icon-only secondary small"
-                                     icon="ui-icon-add-v2"/>
+                        <p:commandButton value="Clone"
+                                         title="Clone"
+                                         action="#{listController.clone(template)}" ajax="false"
+                                         update=":form1"
+                                         styleClass="secondary small"
+                                         icon="ui-icon-add-v2"/>
 
-                    <p:commandButton id="DeleteDialogButton" value="Delete"
-                                     title="Delete"
-                                     update="modalDialogDelete" oncomplete="dlg2.show();"
-                                     styleClass="ui-button-icon-only secondary small"
-                                     icon="ui-icon-remove">
-                    </p:commandButton>
+                        <p:commandButton id="DeleteDialogButton" value="Delete"
+                                         title="Delete"
+                                         update="modalDialogDelete" oncomplete="dlg2.show();"
+                                         styleClass="secondary small"
+                                         icon="ui-icon-remove">
+                        </p:commandButton>
+                    </uib:buttonGroup>
 
                     <p:dialog id="modalDialogDelete" widgetVar="dlg2"
                               modal="true" height="100" closable="false" resizeable="false">
@@ -105,7 +109,7 @@
                             icon="ui-icon-disk"
                             ajax="false"
                             actionListener="#{listController.onExportXML}">
-                        <p:fileDownload value="#{fileController.downloadFile}"/>
+                    <p:fileDownload value="#{fileController.downloadFile}"/>
                 </p:menuitem>
                 <p:menuitem value="Import"
                             update="ImportDialog"

@@ -84,7 +84,6 @@ public class QuestionBean implements Cloneable {
         copy.setQuestionType(this.questionType);
         copy.setQuestionText(this.questionText);
         copy.setRequiredAnswer(this.requiredAnswer);
-
         return copy;
     }
 
