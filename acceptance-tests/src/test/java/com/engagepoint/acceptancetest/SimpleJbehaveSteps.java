@@ -124,8 +124,13 @@ public class SimpleJbehaveSteps extends ScenarioSteps {
     }
 
     @Then("wait for '$timeout' sec")
-    public void waitForTimeout(int timeout){
+    public void waitForTimeout(int timeout) {
         uIBootstrapBasePage.waitFor(timeout).seconds();
     }
-	
+
+    @Then("button with $title is visible")
+    public void buttonWithTitleIsVisible(String title) {
+        uIBootstrapBasePage.getDriver().findElement(By.xpath("//button[@title='" + title + "']"));
+    }
+
 }
