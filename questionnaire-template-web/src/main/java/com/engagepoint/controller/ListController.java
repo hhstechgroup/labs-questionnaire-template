@@ -90,7 +90,7 @@ public class ListController implements Serializable {
     public void addTemplate(TemplateBean template) {
         //check if template with the same id exists
         for (TemplateBean templateBean : list) {
-            if (templateBean.getId() == template.getId()) return;
+            if (templateBean.getId().equals(template.getId())) return;
         }
         this.list.add(template);
     }
