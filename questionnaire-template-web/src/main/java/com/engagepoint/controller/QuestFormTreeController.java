@@ -111,6 +111,7 @@ public class QuestFormTreeController implements Serializable {
     }
 
     private class LocaleNode {
+        // Current node
         BasicOperationWithBean node;
         BasicOperationWithBean parentNode;
 
