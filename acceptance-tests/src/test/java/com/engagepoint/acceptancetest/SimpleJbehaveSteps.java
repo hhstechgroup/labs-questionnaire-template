@@ -14,6 +14,7 @@ import org.apache.commons.io.FileUtils;
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
 import org.jbehave.core.annotations.Alias;
+import org.jbehave.core.annotations.Given;
 import org.jbehave.core.annotations.Then;
 import org.jbehave.core.annotations.When;
 import org.openqa.selenium.By;
@@ -47,6 +48,11 @@ public class SimpleJbehaveSteps extends ScenarioSteps {
     public SimpleJbehaveSteps(Pages pages) {
         super(pages);
         uIBootstrapBasePage = pages().get(UIBootstrapBasePage.class);
+    }
+
+    @Given("user is on Home page")
+    public void userIsOnHomePage(){
+        uIBootstrapBasePage.open();
     }
 
     @When("opens all tree with className '$className'")

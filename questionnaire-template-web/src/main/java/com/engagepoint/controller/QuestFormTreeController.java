@@ -4,7 +4,7 @@ import com.engagepoint.bean.GroupBean;
 import com.engagepoint.bean.QuestionBean;
 import com.engagepoint.bean.SectionBean;
 import com.engagepoint.bean.TemplateBean;
-import com.engagepoint.controller.GroupController;
+import com.engagepoint.controller.QuestionEditController;
 
 /**
  * Created with IntelliJ IDEA.
@@ -93,8 +93,12 @@ public class QuestFormTreeController implements Serializable {
         }
     }
 
+    public void test(String str) {
+        System.out.println(">>>>>>" + str);
+    }
+
     public String editSelectedGroup() {
-        GroupController controller = new GroupController();
+        QuestionEditController controller = new QuestionEditController();
         if (selectedNode != null && selectedNode.getData().toString().contains("Group")) {
             return controller.income();
         } else {
@@ -102,5 +106,9 @@ public class QuestFormTreeController implements Serializable {
             FacesContext.getCurrentInstance().addMessage(null, errorMessage);
         }
         return null;
+    }
+
+    public void onNodeSelect(){
+        System.out.println(selectedNode);
     }
 }

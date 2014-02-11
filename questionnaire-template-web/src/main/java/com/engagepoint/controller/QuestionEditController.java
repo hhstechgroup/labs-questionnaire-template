@@ -1,6 +1,6 @@
 package com.engagepoint.controller;
 
-import com.engagepoint.bean.GroupBean;
+
 import com.engagepoint.bean.QuestionBean;
 import com.engagepoint.bean.QuestionType;
 
@@ -10,15 +10,27 @@ import javax.inject.Named;
 import java.io.Serializable;
 
 
-@Named("groupController")
+@Named("questionController")
 @SessionScoped
-public class GroupController implements Serializable {
+public class QuestionEditController implements Serializable {
     private static final long serialVersionUID = 1L;
+    
+    private QuestionBean currentQuestion;
     private QuestionType selectedQuestionType;
     
-    private GroupBean currentGroup;
+    public QuestionEditController(){
+    	currentQuestion = new QuestionBean();
+    }
+    
+    public QuestionBean getCurrentQuestion() {
+		return currentQuestion;
+	}
 
-    public QuestionType getSelectedQuestionType() {
+	public void setCurrentQuestion(QuestionBean currentQuestion) {
+		this.currentQuestion = currentQuestion;
+	}
+
+	public QuestionType getSelectedQuestionType() {
         return selectedQuestionType;
     }
     
@@ -26,16 +38,7 @@ public class GroupController implements Serializable {
     	this.selectedQuestionType = selectedQuestionType;
     }
 
-
-    public GroupBean getCurrentGroup() {
-		return currentGroup;
-	}
-
-	public void setCurrentGroup(GroupBean currentGroup) {
-		this.currentGroup = currentGroup;
-	}
-
-	public QuestionType[] getQuestionTypes() {
+    public QuestionType[] getQuestionTypes() {
         return QuestionType.values();
     }
 
@@ -43,9 +46,6 @@ public class GroupController implements Serializable {
         return "group?faces-redirect=true";
     }
 
-	public void saveQuestion(QuestionBean qb) {
-		currentGroup.getQuestionsList().add(qb);
-		
-	}
+	
 
 }
