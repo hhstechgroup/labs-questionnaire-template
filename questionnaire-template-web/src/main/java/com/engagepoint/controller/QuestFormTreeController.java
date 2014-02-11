@@ -93,6 +93,10 @@ public class QuestFormTreeController implements Serializable {
         }
     }
 
+    public void test(String str) {
+        System.out.println(">>>>>>" + str);
+    }
+
     public String editSelectedGroup() {
         GroupController controller = new GroupController();
         if (selectedNode != null && selectedNode.getData().toString().contains("Group")) {
@@ -102,5 +106,9 @@ public class QuestFormTreeController implements Serializable {
             FacesContext.getCurrentInstance().addMessage(null, errorMessage);
         }
         return null;
+    }
+
+    public void onNodeSelect(){
+        System.out.println(selectedNode);
     }
 }
