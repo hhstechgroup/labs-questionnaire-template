@@ -254,4 +254,8 @@ public class ListController implements Serializable {
     public String income() {
         return "/index?faces-redirect=true";
     }
+
+    public String outcome() {
+        return "pages/questForm?faces-redirect=true";
+    }
 }
