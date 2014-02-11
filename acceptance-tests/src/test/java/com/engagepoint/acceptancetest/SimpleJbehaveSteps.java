@@ -133,4 +133,9 @@ public class SimpleJbehaveSteps extends ScenarioSteps {
         uIBootstrapBasePage.getDriver().findElement(By.xpath("//button[@title='" + title + "']"));
     }
 
+    @Then("element with $text is visible")
+    public void elementWithTextIsVisible(String text) {
+        uIBootstrapBasePage.getDriver().findElement(By.xpath("//*[contains(text(),'" + text + "')]"));
+    }
+
 }
