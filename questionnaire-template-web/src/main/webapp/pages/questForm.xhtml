@@ -38,24 +38,40 @@
                                  selectionMode="single" selection="#{questFormTreeController.selectedNode}"
                                  id="treeMultiple">
 
-                        <p:ajax event="select" listener="#{questFormTreeController.onNodeSelect}"/>
+                        <p:ajax event="select" update=":formTemplate:form:buttonPanel"/>
 
                         <p:column>
                             <h:outputText value="#{node}"/>
                         </p:column>
 
                     </p:treeTable>
-
-                    <p:commandButton value="Add section"
-                                     ajax="false"
-                                     action="#{templateController.addSection}"
-                                     update="messages">
-                        <f:setPropertyActionListener value="#{templateController.currentTemplate}"
-                                                     target="#{questFormTreeController.templateBean}"/>
-                    </p:commandButton>
-                    <p:commandButton value="Delete Selected" update="treeMultiple" ajax="true"
-                                     action="#{questFormTreeController.delete()}" id="btnDisplayDelete"/>
-                    <p:commandButton value="Edit Group"/>
+                    <br/>
+                    <p:panel id="buttonPanel">
+                        <p:commandButton value="Add section"
+                                         ajax="false"
+                                         action="#{templateController.addSection}"
+                                         styleClass="secondary"
+                                         icon="ui-icon-add-v2"
+                                         update="messages">
+                            <f:setPropertyActionListener value="#{templateController.currentTemplate}"
+                                                         target="#{questFormTreeController.templateBean}"/>
+                        </p:commandButton>
+                        <h:outputText value=" "/>
+                        <p:commandButton value="Delete #{questFormTreeController.selectedType}"
+                                         update="treeMultiple,buttonPanel"
+                                         ajax="true"
+                                         action="#{questFormTreeController.delete()}"
+                                         rendered="#{questFormTreeController.haveSelected()}"
+                                         id="btnDisplayDelete"
+                                         styleClass="secondary"
+                                         icon="ui-icon-remove"/>
+                        <h:outputText value=" "/>
+                        <p:commandButton value="#{questFormTreeController.editTitle}"
+                                         rendered="#{questFormTreeController.haveSelected()}"
+                                         icon="#{questFormTreeController.editPicture}"
+                                         styleClass="secondary"
+                                         id="btnDisplayEdit"/>
+                    </p:panel>
 
 
                 </h:form>
@@ -65,7 +81,7 @@
 
                     <p:commandButton value="Save" id="save"
                                      action="#{templateController.saveTemplate}"/>
-
+                    <h:outputText value=" "/>
                     <p:commandButton value="Cancel"
                                      update="modalDialogCancel"
                                      oncomplete="dlgCancel.show();"/>

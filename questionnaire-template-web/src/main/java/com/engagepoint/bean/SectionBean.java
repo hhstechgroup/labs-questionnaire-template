@@ -14,7 +14,8 @@ import java.util.List;
  */
 @Named
 @SessionScoped
-public class SectionBean implements Cloneable, Serializable, BasicOperationWithBean {
+public class SectionBean implements Cloneable, Serializable, BasicOperationWithBean,
+                                    BeanCald{
     private int pageNumber;
     private List<GroupBean> groupsList = new ArrayList<GroupBean>();
 
@@ -93,5 +94,10 @@ public class SectionBean implements Cloneable, Serializable, BasicOperationWithB
     @Override
     public String toString() {
         return "Page " + pageNumber;
+    }
+
+    @Override
+    public String getType() {
+        return "section";
     }
 }

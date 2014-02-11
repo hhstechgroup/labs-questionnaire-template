@@ -9,7 +9,7 @@ import java.util.List;
 /**
  * Class represents group tag.
  */
-public class GroupBean implements Cloneable, BasicOperationWithBean {
+public class GroupBean implements Cloneable, BasicOperationWithBean, BeanCald {
     private String groupName;
     private List<QuestionBean> questionsList = new ArrayList<QuestionBean>();
 
@@ -89,5 +89,10 @@ public class GroupBean implements Cloneable, BasicOperationWithBean {
     @Override
     public String toString() {
         return groupName;
+    }
+
+    @Override
+    public String getType() {
+        return "group";
     }
 }

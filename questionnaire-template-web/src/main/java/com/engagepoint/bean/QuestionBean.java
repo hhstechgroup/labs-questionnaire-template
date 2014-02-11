@@ -11,7 +11,7 @@ import java.util.Random;
  */
 @Named("question")
 @RequestScoped
-public class QuestionBean implements Cloneable {
+public class QuestionBean implements Cloneable, BeanCald {
     private Long id;					//id of the question
     private String questionText;		//questiontext
     private boolean requiredAnswer;		//is answer required or not
@@ -115,5 +115,10 @@ public class QuestionBean implements Cloneable {
     @Override
     public String toString() {
         return "Question" + id;
+    }
+
+    @Override
+    public String getType() {
+        return "question";
     }
 }

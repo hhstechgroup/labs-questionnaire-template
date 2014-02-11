@@ -32,6 +32,32 @@ public class QuestFormTreeController implements Serializable {
     private TreeNode selectedNode;
     private TemplateBean templateBean;
 
+    public String getSelectedType() {
+        return ((BeanCald) selectedNode.getData()).getType();
+    }
+
+    public String getEditTitle() {
+        if (getSelectedType().equals("question")) {
+            return "Edit question";
+        } else if (getSelectedType().equals("group")) {
+            return "Add question";
+        } else {
+            return "Add group";
+        }
+    }
+
+    public String getEditPicture() {
+        if (getSelectedType().equals("question")) {
+            return "ui-icon-edit";
+        } else {
+            return "ui-icon-add-v2";
+        }
+    }
+
+    public boolean haveSelected() {
+        return selectedNode != null;
+    }
+
     public TemplateBean getTemplateBean() {
         return templateBean;
     }
@@ -104,5 +130,6 @@ public class QuestFormTreeController implements Serializable {
         } else {
             templateBean.deleteFromInnerList(selectedNode.getData());
         }
+        selectedNode = null;
     }
 }
