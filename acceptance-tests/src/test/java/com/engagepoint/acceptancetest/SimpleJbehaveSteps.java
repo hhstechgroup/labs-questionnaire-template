@@ -137,5 +137,19 @@ public class SimpleJbehaveSteps extends ScenarioSteps {
     public void elementWithTextIsVisible(String text) {
         uIBootstrapBasePage.getDriver().findElement(By.xpath("//*[contains(text(),'" + text + "')]"));
     }
+    @Then("the user clicks button with title '$Edit'")
+
+    public void clickedButtonEdit(String id){
+        uIBootstrapBasePage.getDriver().findElement(By.xpath("//button [@title ='"+ id +"']")).click();
+    }
+    @When("the user fills '$id' field with '$value'")
+    public void writeTextInField (String id,String value){
+        uIBootstrapBasePage.enter(value).intoField(findVisibleElementAndGetSelector(id));
+    }
+    @Then("the user clicks  button with id '$id'")
+    public void clickButtonSave(String id){
+        uIBootstrapBasePage.getDriver().findElement(By.xpath("//button [@id ='"+ id +"']")).click();
+    }
+
 
 }

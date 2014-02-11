@@ -1,5 +1,6 @@
 package com.engagepoint.controller;
 
+import com.engagepoint.bean.SectionBean;
 import com.engagepoint.bean.TemplateBean;
 
 import javax.enterprise.context.SessionScoped;
@@ -86,6 +87,14 @@ public class QuestFormController implements Serializable {
      */
     public String income() {
     return "pages/questForm?faces-redirect=true";
-}
+    }
+
+    public String addSection() {
+        currentTemplate = getCurrentTemplate();
+        SectionBean sectionBean = new SectionBean();
+        sectionBean.setPageNumber(currentTemplate.getSectionsList().size()+1);
+        currentTemplate.getSectionsList().add(sectionBean);
+        return listController.outcome();
+    }
 
 }

@@ -4,7 +4,7 @@
                 xmlns:p="http://primefaces.org/ui"
                 xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:f="http://java.sun.com/jsf/core"
-                xmlns:uib="http://engagepoint.com/uib"
+                xmlns:uib="http://engagepoint.com/uib" xmlns:F="http://java.sun.com/jsp/jstl/sql"
 
                 template="/templates/template.xhtml">
 
@@ -37,19 +37,25 @@
                         </p:treeNode>
                     </p:tree>
 
-                    <p:commandButton value="Display Selected" update="messages"
-                                      id="btnDisplay" />
+                    <p:commandButton value="Add section"
+                                     ajax="false"
+                                     action="#{templateController.addSection}"
+                                     update="messages">
+                    <f:setPropertyActionListener value="#{templateController.currentTemplate}"
+                                                 target="#{questFormTreeController.templateBean}"/>
+                    </p:commandButton>
                     <p:commandButton value="Delete Selected" update="messages"
                                       id="btnDisplayDelete"/>
                     <p:commandButton value="Edit Group"/>
+
 
                 </h:form>
 
 
                 <f:facet name="footer">
-                    <p:commandButton value="Save"
-                                     action="#{templateController.saveTemplate}"
-                                     />
+
+                    <p:commandButton value="Save" id="save"
+                                     action="#{templateController.saveTemplate}"/>
 
                 <p:commandButton value="Cancel"
                                  update="modalDialogCancel"
