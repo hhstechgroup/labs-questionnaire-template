@@ -82,16 +82,16 @@ public class SectionBean implements Cloneable, Serializable, BasicOperationWithB
 
     @Override
     public void deleteFromInnerList(Object o) {
-        ((SectionBean) o).groupsList.remove(o);
+        groupsList.remove(o);
     }
 
     @Override
     public void addToInnerList(Object o) {
-        ((SectionBean) o).groupsList.add((GroupBean) o);
+        groupsList.add((GroupBean) o);
     }
 
     @Override
-    public String viewName() {
+    public String toString() {
         return "Page " + pageNumber;
     }
 }

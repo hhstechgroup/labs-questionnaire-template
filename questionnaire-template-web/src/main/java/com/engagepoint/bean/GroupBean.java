@@ -83,11 +83,11 @@ public class GroupBean implements Cloneable, BasicOperationWithBean {
 
     @Override
     public void addToInnerList(Object o) {
-        ((GroupBean) o).questionsList.add((QuestionBean) o);
+        questionsList.add((QuestionBean) o);
     }
 
     @Override
-    public String viewName() {
+    public String toString() {
         return groupName;
     }
 }

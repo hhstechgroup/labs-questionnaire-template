@@ -116,16 +116,16 @@ public class TemplateBean implements Cloneable, Comparable<TemplateBean>, BasicO
 
     @Override
     public void deleteFromInnerList(Object o) {
-        ((TemplateBean) o).sectionsList.remove(o);
+        sectionsList.remove(o);
     }
 
     @Override
     public void addToInnerList(Object o) {
-        ((TemplateBean) o).sectionsList.add((SectionBean) o);
+        sectionsList.add((SectionBean) o);
     }
 
     @Override
-    public String viewName() {
+    public String toString() {
         // Isn't necessary
         return null;
     }

@@ -124,7 +124,7 @@ public class QuestionBean implements Cloneable, BasicOperationWithBean {
     }
 
     @Override
-    public String viewName() {
+    public String toString() {
         return "Question" + id;
     }
 }

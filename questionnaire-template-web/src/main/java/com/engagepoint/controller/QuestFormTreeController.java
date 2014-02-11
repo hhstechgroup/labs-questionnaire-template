@@ -4,7 +4,6 @@ import com.engagepoint.bean.GroupBean;
 import com.engagepoint.bean.QuestionBean;
 import com.engagepoint.bean.SectionBean;
 import com.engagepoint.bean.TemplateBean;
-import com.engagepoint.controller.QuestionEditController;
 import com.engagepoint.bean.*;
 
 /**
@@ -60,15 +59,15 @@ public class QuestFormTreeController implements Serializable {
 
         // Iterator LEVEL_0 for filling sections of choosed template
         for (SectionBean sectionBean : templateBean.getSectionsList()) {
-            TreeNode section = new DefaultTreeNode(new LocaleNode(sectionBean, templateBean), root);
+            TreeNode section = new DefaultTreeNode(sectionBean, root);
 
             // Iterator LEVEL_1 for filling groups of choosed section
             for(GroupBean groupBean : sectionBean.getGroupsList()) {
-                TreeNode group = new DefaultTreeNode(new LocaleNode(groupBean, sectionBean), section);
+                TreeNode group = new DefaultTreeNode(groupBean, section);
 
                 // Iterator LEVEL_2 for filling questions of choosed section
                 for(QuestionBean questionBean : groupBean.getQuestionsList()) {
-                    TreeNode question = new DefaultTreeNode(new LocaleNode(questionBean, groupBean), group);
+                    new DefaultTreeNode(questionBean, group);
                 } // END of QUESTION Iterator
             } // END of GROUP Iterator
         } // END of SECTION Iterator
@@ -77,13 +76,6 @@ public class QuestFormTreeController implements Serializable {
 
     public TreeNode getRoot() {
         return root;
-    }
-
-    public void deleteNode() {
-        selectedNode.getChildren().clear();
-        selectedNode.getParent().getChildren().remove(selectedNode);
-        selectedNode.setParent(null);
-        selectedNode = null;
     }
 
     public String getPicture(String nodeID) {
@@ -106,27 +98,11 @@ public class QuestFormTreeController implements Serializable {
     }
 
     public void delete() {
-        ((LocaleNode) selectedNode.getData()).delete();
-        setNodes();
-    }
-
-    private class LocaleNode {
-        // Current node
-        BasicOperationWithBean node;
-        BasicOperationWithBean parentNode;
-
-        private LocaleNode(BasicOperationWithBean node, BasicOperationWithBean parentNode) {
-            this.node = node;
-            this.parentNode = parentNode;
-        }
-
-        void delete() {
-            parentNode.deleteFromInnerList(node);
-        }
-
-        @Override
-        public String toString() {
-            return node.viewName();
+        selectedNode.getParent().getChildren().remove(selectedNode);
+        if (!selectedNode.getParent().getData().equals("Root")) {
+            ((BasicOperationWithBean) selectedNode.getParent().getData()).deleteFromInnerList(selectedNode.getData());
+        } else {
+            templateBean.deleteFromInnerList(selectedNode.getData());
         }
     }
 }
