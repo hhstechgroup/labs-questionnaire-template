@@ -88,9 +88,9 @@ public class ListController implements Serializable {
      * @param template template to be added
      */
     public void addTemplate(TemplateBean template) {
-        if (this.list.contains(template)) { //check if template with the same id exists
-            //addMessage("Template with id " + template.getId().toString() + " already exists");
-            return;
+        //check if template with the same id exists
+        for (TemplateBean templateBean : list) {
+            if (templateBean.getId() == template.getId()) return;
         }
         this.list.add(template);
     }
@@ -116,8 +116,7 @@ public class ListController implements Serializable {
         if (filteredList != null) {
             if (filteredList.contains(template)) {//check if template with the same id exists
                 return;
-            }
-            else {
+            } else {
                 if (containsFiltered(template.getTemplateName())) //check if template satisfies current filter
                     filteredList.add(template);
                 else {
@@ -195,8 +194,7 @@ public class ListController implements Serializable {
         try {
             File tmpFile = FileController.createTempXml(selectedTemplates);
             FileController.setPathToTempFile(tmpFile.getPath());
-        }
-        catch(IOException e) {
+        } catch (IOException e) {
             System.out.println(e.getMessage());
         }
     }

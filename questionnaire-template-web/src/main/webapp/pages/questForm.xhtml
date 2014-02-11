@@ -8,8 +8,13 @@
 
                 template="/templates/template.xhtml">
 
-    <ui:define name="page">
+    <style type="html/css">
+        .ui-state-highlight {
+            color:#00ff00;
+        }
+    </style>
 
+    <ui:define name="page">
 
     <h:form id="formTemplate">
 
@@ -29,13 +34,19 @@
 
                     <p:growl id="messages" showDetail="true" escape="false"/>
 
-                    <p:tree value="#{questFormTreeController.root}" var="node"
-                            selectionMode="multiple"  id="treeMultiple">
+                    <p:treeTable value="#{questFormTreeController.root}" var="node"
+                            selectionMode="single" selection="#{questFormTreeController.selectedNode}" id="treeMultiple">
+                        <p:ajax event="select" listener="#{questFormTreeController.onNodeSelect}"/>
 
-                        <p:treeNode>
+                        <p:column>
                             <h:outputText value="#{node}"/>
-                        </p:treeNode>
-                    </p:tree>
+                            <p:commandButton value="Clone"
+                                             title="Clone"
+                                             action="#{questFormTreeController.test(node)}"
+                                             styleClass="ui-button-icon-only secondary small"
+                                             icon="ui-icon-add-v2"/>
+                        </p:column>
+                    </p:treeTable>
 
                     <p:commandButton value="Add section"
                                      ajax="false"
