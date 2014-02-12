@@ -92,8 +92,7 @@ public class TemplateBean implements Cloneable, Comparable<TemplateBean>, BasicO
 
         TemplateBean that = (TemplateBean) o;
 
-        return (that.getTemplateName().equals(this.getTemplateName()))
-                &&(that.getSectionsList().equals(this.getSectionsList()));
+        return that.getId().equals(this.getId());
     }
 
     @Override

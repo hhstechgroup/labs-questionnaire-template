@@ -66,15 +66,15 @@
                                          icon="ui-icon-edit-small">
                             <f:setPropertyActionListener value="#{listController}"
                                                          target="#{templateController.listController}"/>
-                            <f:setPropertyActionListener value="#{template}"
-                                                         target="#{templateController.currentTemplate}"/>
+                            <f:setPropertyActionListener value="#{template.id}"
+                                                         target="#{templateController.currentTemplateId}"/>
                             <f:setPropertyActionListener value="#{template}"
                                                          target="#{questFormTreeController.templateBean}"/>
                         </p:commandButton>
 
                         <p:commandButton value="Clone"
                                          title="Clone"
-                                         action="#{listController.clone(template)}" ajax="false"
+                                         action="#{listController.clone(template)}"
                                          update=":form1"
                                          styleClass="secondary small"
                                          icon="ui-icon-add-v2"/>
