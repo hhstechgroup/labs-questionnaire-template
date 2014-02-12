@@ -28,115 +28,119 @@ import org.primefaces.model.TreeNode;
 @SessionScoped
 public class QuestFormTreeController implements Serializable {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
-	private static TreeNode root = new DefaultTreeNode("Root", null);
-	private TreeNode selectedNode;
-	private static TemplateBean templateBean;
+    /**
+     *
+     */
+    private static final long serialVersionUID = 1L;
+    private static TreeNode root = new DefaultTreeNode("Root", null);
+    private TreeNode selectedNode;
+    private static TemplateBean templateBean;
 
-	public String getSelectedType() {
-		return ((BasicBeanProperty) selectedNode.getData()).getType();
-	}
+    public String getSelectedType() {
+        return ((BasicBeanProperty) selectedNode.getData()).getType();
+    }
 
-	public String getEditTitle() {
-		if (getSelectedType().equals("question")) {
-			return "Edit question";
-		} else if (getSelectedType().equals("group")) {
-			return "Add question";
-		} else {
-			return "Add group";
-		}
-	}
+    public String getEditTitle() {
+        if (getSelectedType().equals("question")) {
+            return "Edit question";
+        } else if (getSelectedType().equals("group")) {
+            return "Add question";
+        } else {
+            return "Add group";
+        }
+    }
 
-	public String getEditPicture() {
-		if (getSelectedType().equals("question")) {
-			return "ui-icon-edit";
-		} else {
-			return "ui-icon-add-v2";
-		}
-	}
+    public String getEditPicture() {
+        if (getSelectedType().equals("question")) {
+            return "ui-icon-edit";
+        } else {
+            return "ui-icon-add-v2";
+        }
+    }
 
-	public boolean haveSelected() {
-		return selectedNode != null;
-	}
+    public boolean haveSelected() {
+        return selectedNode != null;
+    }
 
-	public TemplateBean getTemplateBean() {
-		return templateBean;
-	}
+    public TemplateBean getTemplateBean() {
+        return templateBean;
+    }
 
-	public void setTemplateBean(TemplateBean templateBean) {
-		this.templateBean = templateBean;
-		setNodes();
-	}
+    public void setTemplateBean(TemplateBean templateBean) {
+        this.templateBean = templateBean;
+        setNodes();
+    }
 
-	public TreeNode getSelectedNode() {
-		return selectedNode;
-	}
+    public TreeNode getSelectedNode() {
+        return selectedNode;
+    }
 
-	public void setSelectedNode(TreeNode selectedNode) {
-		this.selectedNode = selectedNode;
-	}
+    public void setSelectedNode(TreeNode selectedNode) {
+        this.selectedNode = selectedNode;
+    }
 
     public static void setNodes() {
-		root = new DefaultTreeNode("Root", null);
-		ArrayList<TreeNode> nodeList = new ArrayList<TreeNode>();
+        root = new DefaultTreeNode("Root", null);
+        ArrayList<TreeNode> nodeList = new ArrayList<TreeNode>();
 
-		// Iterator LEVEL_0 for filling sections of choosed template
-		for (SectionBean sectionBean : templateBean.getSectionsList()) {
-			TreeNode section = new DefaultTreeNode(sectionBean, root);
+        // Iterator LEVEL_0 for filling sections of choosed template
+        for (SectionBean sectionBean : templateBean.getSectionsList()) {
+            TreeNode section = new DefaultTreeNode(sectionBean, root);
 
-			// Iterator LEVEL_1 for filling groups of choosed section
-			for (GroupBean groupBean : sectionBean.getGroupsList()) {
-				TreeNode group = new DefaultTreeNode(groupBean, section);
+            // Iterator LEVEL_1 for filling groups of choosed section
+            for (GroupBean groupBean : sectionBean.getGroupsList()) {
+                TreeNode group = new DefaultTreeNode(groupBean, section);
 
-				// Iterator LEVEL_2 for filling questions of choosed section
-				for (QuestionBean questionBean : groupBean.getQuestionsList()) {
-					new DefaultTreeNode(questionBean, group);
-				} // END of QUESTION Iterator
-			} // END of GROUP Iterator
-		} // END of SECTION Iterator
+                // Iterator LEVEL_2 for filling questions of choosed section
+                for (QuestionBean questionBean : groupBean.getQuestionsList()) {
+                    new DefaultTreeNode(questionBean, group);
+                } // END of QUESTION Iterator
+            } // END of GROUP Iterator
+        } // END of SECTION Iterator
 
-	} // END of setNodes() METHOD
+    } // END of setNodes() METHOD
 
-	public TreeNode getRoot() {
-		return root;
-	}
-	
-	public void edit() {
-		if (getSelectedType().equals("question")) {
-			editQuestion();
-		} else if (getSelectedType().equals("group")) {
-			addQuestion();
-		} else {
-			addGroup();
-		}
-	}
+    public TreeNode getRoot() {
+        return root;
+    }
 
-	private void addGroup() {
-		// TODO Auto-generated method stub
-		
-	}
+    public void edit() {
+        if (getSelectedType().equals("question")) {
+            editQuestion();
+        } else if (getSelectedType().equals("group")) {
+            addQuestion();
+        } else {
+            addGroup();
+        }
+    }
 
-	private void addQuestion() {
-		// TODO Auto-generated method stub
-		
-	}
+    private String addGroup() {
+        GroupBean groupBean = new GroupBean();
+        groupBean.setGroupName("New Group");
+        ((SectionBean) selectedNode).getGroupsList().add(groupBean);
+        TreeNode node = new DefaultTreeNode(groupBean,selectedNode);
+        selectedNode.getChildren().add(node);
+        return "/pages/questForm?faces-redirect=true";
+    }
 
-	private void editQuestion() {
-		// TODO Auto-generated method stub
-		
-	}
+    private void addQuestion() {
+        // TODO Auto-generated method stub
 
-	public void delete() {
-		selectedNode.getParent().getChildren().remove(selectedNode);
-		if (!selectedNode.getParent().getData().equals("Root")) {
-			((BasicOperationWithBean) selectedNode.getParent().getData())
-					.deleteFromInnerList(selectedNode.getData());
-		} else {
-			templateBean.deleteFromInnerList(selectedNode.getData());
-		}
-		selectedNode = null;
-	}
+    }
+
+    private void editQuestion() {
+        // TODO Auto-generated method stub
+
+    }
+
+    public void delete() {
+        selectedNode.getParent().getChildren().remove(selectedNode);
+        if (!selectedNode.getParent().getData().equals("Root")) {
+            ((BasicOperationWithBean) selectedNode.getParent().getData())
+                    .deleteFromInnerList(selectedNode.getData());
+        } else {
+            templateBean.deleteFromInnerList(selectedNode.getData());
+        }
+        selectedNode = null;
+    }
 }
