@@ -76,7 +76,7 @@ public class ListController implements Serializable {
         this.filterValue = filterValue;
     }
 
-    private boolean containsFiltered(String name) {
+    private boolean containsFilterValue(String name) {
         return name.toLowerCase().contains(filterValue.toLowerCase());
     }
 
@@ -88,11 +88,9 @@ public class ListController implements Serializable {
      * @param template template to be added
      */
     public void addTemplate(TemplateBean template) {
-        //check if template with the same id exists
-        for (TemplateBean templateBean : list) {
-            if (templateBean.getId().equals(template.getId())) return;
+        if (!list.contains(template)) {
+            this.list.add(template);
         }
-        this.list.add(template);
     }
 
     /**
@@ -117,7 +115,7 @@ public class ListController implements Serializable {
             if (filteredList.contains(template)) {//check if template with the same id exists
                 return;
             } else {
-                if (containsFiltered(template.getTemplateName())) //check if template satisfies current filter
+                if (containsFilterValue(template.getTemplateName())) //check if template satisfies current filter
                     filteredList.add(template);
                 else {
                     //addMessage("changesDontSatisfyFilter");
@@ -133,9 +131,13 @@ public class ListController implements Serializable {
      */
     public void removeTemplateFromFilteredList(TemplateBean template) {
         if (filteredList != null) {
-            if (!containsFiltered(template.getTemplateName())) {
+            if (!containsFilterValue(template.getTemplateName())) {
                 filteredList.remove(template);
                 //addMessage("changesDontSatisfyFilter");
+            } else {
+                if (!list.contains(template)) {
+                    filteredList.remove(template);
+                }
             }
         }
     }

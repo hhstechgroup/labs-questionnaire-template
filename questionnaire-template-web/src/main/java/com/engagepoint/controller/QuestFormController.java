@@ -17,6 +17,16 @@ public class QuestFormController implements Serializable {
     private ListController listController;
     private TemplateBean currentTemplate;
     private String templateName;
+    private Long currentTemplateId;
+
+    public Long getCurrentTemplateId() {
+        return currentTemplateId;
+    }
+
+    public void setCurrentTemplateId(Long currentTemplateId) {
+        this.currentTemplateId = currentTemplateId;
+        setCurrentTemplate(listController.getTemplatesModel().getRowData(currentTemplateId.toString()));
+    }
 
     public String getTemplateName() {
         return templateName;
@@ -86,7 +96,7 @@ public class QuestFormController implements Serializable {
      * @return page name
      */
     public String income() {
-    return "pages/questForm?faces-redirect=true";
+    return "pages/questForm?faces-redirect=true&includeViewParams=true";
     }
 
     public String addSection() {

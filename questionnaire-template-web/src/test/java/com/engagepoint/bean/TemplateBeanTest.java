@@ -40,7 +40,9 @@ public class TemplateBeanTest {
         sectionsList.add(section1);
         sectionsList.add(section2);
         TemplateBean testTemplate = new TemplateBean(new Long(5),"Questonnaire",sectionsList);
-        Assert.assertEquals(testTemplate, testTemplate.clone());
+        TemplateBean testTemplateClone = (TemplateBean) testTemplate.clone();
+        Assert.assertEquals(testTemplate.getTemplateName(), testTemplateClone.getTemplateName());
+        Assert.assertEquals(testTemplate.getSectionsList(), testTemplateClone.getSectionsList());
     }
     @Test
     public void testEqualityTemplates(){
