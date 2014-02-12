@@ -72,10 +72,9 @@
                         <h:outputText value=" "/>
                         <p:commandButton value="#{questFormTreeController.editTitle}"
                                          rendered="#{questFormTreeController.haveSelected()}"
-                                         update="treeMultiple,buttonPanel"
-                                         ajax="true"
                                          action="#{questFormTreeController.edit()}"
                                          icon="#{questFormTreeController.editPicture}"
+                                         ajax="false"
                                          styleClass="secondary"
                                          id="btnDisplayEdit"/>
                     </p:panel>
