@@ -251,7 +251,7 @@ public class ListController implements Serializable {
      *
      * @return page name
      */
-    public String income() {
+    public static String income() {
         return "/index?faces-redirect=true";
     }
 

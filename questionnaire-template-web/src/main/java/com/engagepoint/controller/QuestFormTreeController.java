@@ -15,10 +15,9 @@ import com.engagepoint.bean.*;
  */
 
 import javax.enterprise.context.SessionScoped;
-import javax.faces.context.FacesContext;
 import java.io.Serializable;
 import java.util.ArrayList;
-import javax.faces.application.FacesMessage;
+import javax.inject.Inject;
 import javax.inject.Named;
 
 import org.primefaces.model.DefaultTreeNode;
@@ -35,6 +34,8 @@ public class QuestFormTreeController implements Serializable {
     private TreeNode root = new DefaultTreeNode("Root", null);
     private TreeNode selectedNode;
     private TemplateBean templateBean;
+    private TemplateBean duplicateTemplate;
+    @Inject private QuestFormController questFormController;
 
     public String getSelectedType() {
         return ((BasicBeanProperty) selectedNode.getData()).getType();
@@ -66,8 +67,17 @@ public class QuestFormTreeController implements Serializable {
         return templateBean;
     }
 
+    /**
+     * There is no need to pass an argument to this method now. It's done via CDI
+     * @param templateBean
+     */
     public void setTemplateBean(TemplateBean templateBean) {
-        this.templateBean = templateBean;
+        this.templateBean= questFormController.getCurrentTemplate();
+        try {
+            duplicateTemplate = this.templateBean.duplicate();
+        } catch (CloneNotSupportedException e) {
+            //NOP
+        }
         setNodes();
     }
 
@@ -148,5 +158,20 @@ public class QuestFormTreeController implements Serializable {
             templateBean.deleteFromInnerList(selectedNode.getData());
         }
         selectedNode = null;
+    }
+
+    /**
+     * duplicateTemplate - is old template before editing( same ID, etc).
+     * But the address in memory is differ(two instance that match each other via equals).
+     * So need to delete edited templateBean in ListControler, in order not to have
+     * them both, ot other kind of ambiguity.
+     *
+     * @return index page
+     */
+    public String cancel() {
+        questFormController.getListController().deleteTemplate(templateBean);
+        questFormController.setCurrentTemplate(duplicateTemplate);
+        questFormController.saveTemplate();
+        return ListController.income();
     }
 }
