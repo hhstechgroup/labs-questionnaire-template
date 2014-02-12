@@ -53,18 +53,15 @@
 
                     <p:panel id="buttonPanel">
                         <p:commandButton value="Add section"
-                                         ajax="false"
+                                         id="addSelection"
                                          action="#{templateController.addSection}"
                                          styleClass="secondary"
                                          icon="ui-icon-add-v2"
-                                         update="messages">
-                            <f:setPropertyActionListener value="#{templateController.currentTemplate}"
-                                                         target="#{questFormTreeController.templateBean}"/>
+                                         update="treeMultiple,messages">
                         </p:commandButton>
                         <h:outputText value=" "/>
                         <p:commandButton value="Delete #{questFormTreeController.selectedType}"
                                          update="treeMultiple,buttonPanel"
-                                         ajax="true"
                                          action="#{questFormTreeController.delete()}"
                                          rendered="#{questFormTreeController.haveSelected()}"
                                          id="btnDisplayDelete"
