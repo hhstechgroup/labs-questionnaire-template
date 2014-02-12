@@ -99,12 +99,11 @@ public class QuestFormController implements Serializable {
     return "pages/questForm?faces-redirect=true&includeViewParams=true";
     }
 
-    public String addSection() {
+    public void addSection() {
         currentTemplate = getCurrentTemplate();
         SectionBean sectionBean = new SectionBean();
         sectionBean.setPageNumber(currentTemplate.getSectionsList().size()+1);
         currentTemplate.getSectionsList().add(sectionBean);
-        return listController.outcome();
     }
 
 }
