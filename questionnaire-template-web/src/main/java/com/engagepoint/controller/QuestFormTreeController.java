@@ -117,9 +117,11 @@ public class QuestFormTreeController implements Serializable {
     private String addGroup() {
         GroupBean groupBean = new GroupBean();
         groupBean.setGroupName("New Group");
-        ((SectionBean) selectedNode).getGroupsList().add(groupBean);
-        TreeNode node = new DefaultTreeNode(groupBean,selectedNode);
+        TreeNode node = new DefaultTreeNode(groupBean, selectedNode);
+        System.out.println("Children count: "+selectedNode.getChildCount());
         selectedNode.getChildren().add(node);
+        System.out.println("Children count: "+selectedNode.getChildCount());
+        ((SectionBean)selectedNode.getData()).getGroupsList().add(groupBean);
         return "/pages/questForm?faces-redirect=true";
     }
 
