@@ -80,8 +80,8 @@ public class QuestFormTreeController implements Serializable {
     }
 
     public void setNodes() {
-		root = new DefaultTreeNode("Root", null);
-		ArrayList<TreeNode> nodeList = new ArrayList<TreeNode>();
+        root = new DefaultTreeNode("Root", null);
+        ArrayList<TreeNode> nodeList = new ArrayList<TreeNode>();
 
         // Iterator LEVEL_0 for filling sections of choosed template
         for (SectionBean sectionBean : templateBean.getSectionsList()) {
@@ -116,7 +116,7 @@ public class QuestFormTreeController implements Serializable {
 
     private String addGroup() {
         GroupBean groupBean = new GroupBean();
-        groupBean.setGroupName("New Group");
+        groupBean.setGroupName("GROUP_" + (selectedNode.getChildCount() + 1));
         TreeNode node = new DefaultTreeNode(groupBean, selectedNode);
         return "/pages/questForm?faces-redirect=true";
     }
