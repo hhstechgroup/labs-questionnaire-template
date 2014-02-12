@@ -79,11 +79,7 @@ public class QuestFormTreeController implements Serializable {
         this.selectedNode = selectedNode;
     }
 
-    public void onNodeSelect() {
-        System.out.println(selectedNode);
-    }
-
-    public void setNodes() {
+    private void setNodes() {
         root = new DefaultTreeNode("Root", null);
         ArrayList<TreeNode> nodeList = new ArrayList<TreeNode>();
 
@@ -108,15 +104,7 @@ public class QuestFormTreeController implements Serializable {
         return root;
     }
 
-    public String getPicture(String nodeID) {
-        if (nodeID.startsWith("SOME")) {
-            return "ui-icon-edit-small";
-        } else {
-            return "ui-icon-add-v2";
-        }
-    }
-
-    public void delete() {
+       public void delete() {
         selectedNode.getParent().getChildren().remove(selectedNode);
         if (!selectedNode.getParent().getData().equals("Root")) {
             ((BasicOperationWithBean) selectedNode.getParent().getData()).deleteFromInnerList(selectedNode.getData());
