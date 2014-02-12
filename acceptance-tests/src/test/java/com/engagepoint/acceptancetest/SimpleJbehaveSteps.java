@@ -63,6 +63,15 @@ public class SimpleJbehaveSteps extends ScenarioSteps {
         }
     }
 
+    @When("opens tree with className '$className'")
+    @Alias("the user opens tree with className '$className'")
+    public void openTree(String className) {
+        for (WebElement element : uIBootstrapBasePage.getDriver().findElements(By.className(className))) {
+            element.click();
+            break;
+        }
+    }
+
     @When("clicks on all elements with className '$className' with text '$text'")
     @Alias("the user clicks on all elements with className '$className' with text '$text'")
     public void clickByText(String className, String text) {
@@ -143,8 +152,8 @@ public class SimpleJbehaveSteps extends ScenarioSteps {
     public void elementWithTextIsVisible(String text) {
         uIBootstrapBasePage.getDriver().findElement(By.xpath("//*[contains(text(),'" + text + "')]"));
     }
-    @Then("the user clicks button with title '$Edit'")
 
+    @Then("the user clicks button with title '$Edit'")
     public void clickedButtonEdit(String id){
         uIBootstrapBasePage.getDriver().findElement(By.xpath("//button [@title ='"+ id +"']")).click();
     }
@@ -152,9 +161,15 @@ public class SimpleJbehaveSteps extends ScenarioSteps {
     public void writeTextInField (String id,String value){
         uIBootstrapBasePage.enter(value).intoField(findVisibleElementAndGetSelector(id));
     }
+
     @Then("the user clicks  button with id '$id'")
-    public void clickButtonSave(String id){
+    public void clickButton(String id){
         uIBootstrapBasePage.getDriver().findElement(By.xpath("//button [@id ='"+ id +"']")).click();
+    }
+
+    @Then("the user clicks element with id '$id'")
+    public void clickElement(String id){
+        uIBootstrapBasePage.getDriver().findElement(By.xpath("//span [@id ='"+ id +"']")).click();
     }
 
 
