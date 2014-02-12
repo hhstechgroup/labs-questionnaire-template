@@ -39,7 +39,7 @@ public class AcceptanceTestsRun {
         @Override
         public List<String> storyPaths() {
             return new StoryFinder().findPaths(CodeLocations.codeLocationFromClass(getClass()),
-                    asList("**/" + testsFolder + "/**/LQE*.story"), asList(""));
+                    asList("**/" + testsFolder + "/**/*.story"), asList(""));
         }
     }
 
