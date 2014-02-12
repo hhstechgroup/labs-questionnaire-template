@@ -69,6 +69,7 @@
                         <h:outputText value=" "/>
                         <p:commandButton value="#{questFormTreeController.editTitle}"
                                          rendered="#{questFormTreeController.haveSelected()}"
+                                         action="#{questFormTreeController.edit()}"
                                          icon="#{questFormTreeController.editPicture}"
                                          styleClass="secondary"
                                          id="btnDisplayEdit"/>
