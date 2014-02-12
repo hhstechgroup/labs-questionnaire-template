@@ -39,13 +39,14 @@
                                  id="treeMultiple">
 
                         <p:ajax event="select" update=":formTemplate:form:buttonPanel"/>
+                        <p:ajax event="unselect" update=":formTemplate:form:buttonPanel"/>
 
                         <p:column>
                             <h:outputText value="#{node}"/>
                         </p:column>
 
                     </p:treeTable>
-                    <br/>
+
                     <p:panel id="buttonPanel">
                         <p:commandButton value="Add section"
                                          ajax="false"

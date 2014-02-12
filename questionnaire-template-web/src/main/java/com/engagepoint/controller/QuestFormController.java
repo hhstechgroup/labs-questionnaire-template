@@ -1,6 +1,6 @@
 package com.engagepoint.controller;
 
-import com.engagepoint.bean.SectionBean;
+import com.engagepoint.bean.SectionBasicBean;
 import com.engagepoint.bean.TemplateBean;
 
 import javax.enterprise.context.SessionScoped;
@@ -91,7 +91,7 @@ public class QuestFormController implements Serializable {
 
     public String addSection() {
         currentTemplate = getCurrentTemplate();
-        SectionBean sectionBean = new SectionBean();
+        SectionBasicBean sectionBean = new SectionBasicBean();
         sectionBean.setPageNumber(currentTemplate.getSectionsList().size()+1);
         currentTemplate.getSectionsList().add(sectionBean);
         return listController.outcome();

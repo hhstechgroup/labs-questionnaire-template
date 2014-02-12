@@ -15,12 +15,12 @@ public class GroupBeanTest {
 
     @Test
     public void testCloneGroupBean() throws Exception {
-        QuestionBean bean = new QuestionBean("blah",true, QuestionType.CHECKBOX);
-        QuestionBean eqBean = new QuestionBean("blah",true, QuestionType.CHECKBOX);
-        List<QuestionBean> questionBeanList = new ArrayList<QuestionBean>();
+        QuestionBasicBean bean = new QuestionBasicBean("blah",true, QuestionType.CHECKBOX);
+        QuestionBasicBean eqBean = new QuestionBasicBean("blah",true, QuestionType.CHECKBOX);
+        List<QuestionBasicBean> questionBeanList = new ArrayList<QuestionBasicBean>();
         questionBeanList.add(bean);
         questionBeanList.add(eqBean);
-        GroupBean testBean = new GroupBean("EqBeans",questionBeanList);
+        GroupBasicBean testBean = new GroupBasicBean("EqBeans",questionBeanList);
 
 
         Assert.assertTrue(testBean.equals(testBean.clone()));
@@ -28,13 +28,13 @@ public class GroupBeanTest {
     }
     @Test
     public void testEqualsGroupBean(){
-        QuestionBean bean = new QuestionBean("blah",true, QuestionType.CHECKBOX);
-        QuestionBean eqBean = new QuestionBean("blah",true, QuestionType.CHECKBOX);
-        List<QuestionBean> questionBeanList = new ArrayList<QuestionBean>();
+        QuestionBasicBean bean = new QuestionBasicBean("blah",true, QuestionType.CHECKBOX);
+        QuestionBasicBean eqBean = new QuestionBasicBean("blah",true, QuestionType.CHECKBOX);
+        List<QuestionBasicBean> questionBeanList = new ArrayList<QuestionBasicBean>();
         questionBeanList.add(bean);
         questionBeanList.add(eqBean);
-        GroupBean testBean = new GroupBean("EqBeans",questionBeanList);
-        GroupBean testBean2 = new GroupBean("EqBeans",questionBeanList);
+        GroupBasicBean testBean = new GroupBasicBean("EqBeans",questionBeanList);
+        GroupBasicBean testBean2 = new GroupBasicBean("EqBeans",questionBeanList);
         Assert.assertTrue(testBean.equals(testBean2));
 
     }

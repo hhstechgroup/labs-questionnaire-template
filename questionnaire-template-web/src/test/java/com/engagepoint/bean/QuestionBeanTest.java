@@ -11,14 +11,14 @@ public class QuestionBeanTest {
 
     @Test
     public void testCloneQuestionBean() throws CloneNotSupportedException {
-        QuestionBean bean = new QuestionBean("blah",true,QuestionType.CHOOSEFROMLIST);
+        QuestionBasicBean bean = new QuestionBasicBean("blah",true,QuestionType.CHOOSEFROMLIST);
 
         Assert.assertTrue(bean.equals(bean.clone()));
     }
     @Test
     public void testEqualsQuestionBean(){
-        QuestionBean bean = new QuestionBean("blah",true, QuestionType.CHECKBOX);
-        QuestionBean eqBean = new QuestionBean("blah",true, QuestionType.CHECKBOX);
+        QuestionBasicBean bean = new QuestionBasicBean("blah",true, QuestionType.CHECKBOX);
+        QuestionBasicBean eqBean = new QuestionBasicBean("blah",true, QuestionType.CHECKBOX);
         Assert.assertTrue(bean.equals(eqBean));
 
     }

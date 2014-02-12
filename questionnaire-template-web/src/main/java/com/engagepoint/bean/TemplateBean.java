@@ -19,13 +19,13 @@ public class TemplateBean implements Cloneable, Comparable<TemplateBean>, BasicO
 
     private Long id;
     private String templateName;
-    private List<SectionBean> sectionsList = new ArrayList<SectionBean>();
+    private List<SectionBasicBean> sectionsList = new ArrayList<SectionBasicBean>();
 
     public TemplateBean() {
         setId(getLastId());
     }
 
-    public TemplateBean(String templateName, List<SectionBean> sectionsList) {
+    public TemplateBean(String templateName, List<SectionBasicBean> sectionsList) {
         setId(getLastId());
         this.templateName = templateName;
         this.sectionsList = sectionsList;
@@ -36,7 +36,7 @@ public class TemplateBean implements Cloneable, Comparable<TemplateBean>, BasicO
         this.templateName = templateName;
     }
 
-    public TemplateBean(Long id, String templateName, List<SectionBean> sectionsList) {
+    public TemplateBean(Long id, String templateName, List<SectionBasicBean> sectionsList) {
         this.id = id;
         this.templateName = templateName;
         this.sectionsList = sectionsList;
@@ -62,22 +62,22 @@ public class TemplateBean implements Cloneable, Comparable<TemplateBean>, BasicO
 
     @XmlElementWrapper(name = "pages")
     @XmlElement(name = "page")
-    public List<SectionBean> getSectionsList() {
+    public List<SectionBasicBean> getSectionsList() {
         return sectionsList;
     }
 
-    public void setSectionsList(List<SectionBean> sectionsList) {
+    public void setSectionsList(List<SectionBasicBean> sectionsList) {
         this.sectionsList = sectionsList;
     }
 
     @Override
     public Object clone() throws CloneNotSupportedException {
         TemplateBean copy = (TemplateBean) super.clone();
-        List<SectionBean> copySectionsList = null;
+        List<SectionBasicBean> copySectionsList = null;
         if(sectionsList!=null){
-            copySectionsList = new ArrayList<SectionBean>();
-            for (SectionBean sectionBean : sectionsList) {
-                copySectionsList.add((SectionBean) sectionBean.clone());
+            copySectionsList = new ArrayList<SectionBasicBean>();
+            for (SectionBasicBean sectionBean : sectionsList) {
+                copySectionsList.add((SectionBasicBean) sectionBean.clone());
             }
         }
         copy.setId(getLastId());
@@ -121,7 +121,7 @@ public class TemplateBean implements Cloneable, Comparable<TemplateBean>, BasicO
 
     @Override
     public void addToInnerList(Object o) {
-        sectionsList.add((SectionBean) o);
+        sectionsList.add((SectionBasicBean) o);
     }
 
     @Override

@@ -1,5 +1,5 @@
 package com.engagepoint.bean;
 
-public interface BeanCald {
+public interface BasicBeanProperty {
     String getType();
 }

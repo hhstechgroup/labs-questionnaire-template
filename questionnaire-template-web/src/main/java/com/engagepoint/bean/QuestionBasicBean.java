@@ -11,7 +11,7 @@ import java.util.Random;
  */
 @Named("question")
 @RequestScoped
-public class QuestionBean implements Cloneable, BeanCald {
+public class QuestionBasicBean implements Cloneable, BasicBeanProperty {
     private Long id;					//id of the question
     private String questionText;		//questiontext
     private boolean requiredAnswer;		//is answer required or not
@@ -66,10 +66,10 @@ public class QuestionBean implements Cloneable, BeanCald {
         this.questionType = questionType;
     }
 
-    public QuestionBean() {
+    public QuestionBasicBean() {
     }
 
-    public QuestionBean(String questionText, boolean requiredAnswer, QuestionType questionType) {
+    public QuestionBasicBean(String questionText, boolean requiredAnswer, QuestionType questionType) {
         this.questionText = questionText;
         this.requiredAnswer = requiredAnswer;
         this.questionType = questionType;
@@ -79,7 +79,7 @@ public class QuestionBean implements Cloneable, BeanCald {
     public Object clone() throws CloneNotSupportedException {
         //Have not decided yet how to do id when cloning, now - random
         Random rand = new Random(60000);
-        QuestionBean copy = (QuestionBean) super.clone();
+        QuestionBasicBean copy = (QuestionBasicBean) super.clone();
         copy.setId(rand.nextLong());
         copy.setQuestionType(this.questionType);
         copy.setQuestionText(this.questionText);
@@ -92,7 +92,7 @@ public class QuestionBean implements Cloneable, BeanCald {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        QuestionBean that = (QuestionBean) o;
+        QuestionBasicBean that = (QuestionBasicBean) o;
 
         if (requiredAnswer != that.requiredAnswer) return false;
 

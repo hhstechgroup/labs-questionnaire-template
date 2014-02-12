@@ -1,7 +1,7 @@
 package com.engagepoint.controller;
 
 
-import com.engagepoint.bean.QuestionBean;
+import com.engagepoint.bean.QuestionBasicBean;
 import com.engagepoint.bean.QuestionType;
 
 import javax.enterprise.context.SessionScoped;
@@ -15,18 +15,18 @@ import java.io.Serializable;
 public class QuestionEditController implements Serializable {
     private static final long serialVersionUID = 1L;
     
-    private QuestionBean currentQuestion;
+    private QuestionBasicBean currentQuestion;
     private QuestionType selectedQuestionType;
     
     public QuestionEditController(){
-    	currentQuestion = new QuestionBean();
+    	currentQuestion = new QuestionBasicBean();
     }
     
-    public QuestionBean getCurrentQuestion() {
+    public QuestionBasicBean getCurrentQuestion() {
 		return currentQuestion;
 	}
 
-	public void setCurrentQuestion(QuestionBean currentQuestion) {
+	public void setCurrentQuestion(QuestionBasicBean currentQuestion) {
 		this.currentQuestion = currentQuestion;
 	}
 

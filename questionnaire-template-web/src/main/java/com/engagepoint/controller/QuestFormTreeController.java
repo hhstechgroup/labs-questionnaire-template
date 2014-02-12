@@ -1,8 +1,8 @@
 package com.engagepoint.controller;
 
-import com.engagepoint.bean.GroupBean;
-import com.engagepoint.bean.QuestionBean;
-import com.engagepoint.bean.SectionBean;
+import com.engagepoint.bean.GroupBasicBean;
+import com.engagepoint.bean.QuestionBasicBean;
+import com.engagepoint.bean.SectionBasicBean;
 import com.engagepoint.bean.TemplateBean;
 import com.engagepoint.bean.*;
 
@@ -33,7 +33,7 @@ public class QuestFormTreeController implements Serializable {
     private TemplateBean templateBean;
 
     public String getSelectedType() {
-        return ((BeanCald) selectedNode.getData()).getType();
+        return ((BasicBeanProperty) selectedNode.getData()).getType();
     }
 
     public String getEditTitle() {
@@ -84,15 +84,15 @@ public class QuestFormTreeController implements Serializable {
         ArrayList<TreeNode> nodeList = new ArrayList<TreeNode>();
 
         // Iterator LEVEL_0 for filling sections of choosed template
-        for (SectionBean sectionBean : templateBean.getSectionsList()) {
+        for (SectionBasicBean sectionBean : templateBean.getSectionsList()) {
             TreeNode section = new DefaultTreeNode(sectionBean, root);
 
             // Iterator LEVEL_1 for filling groups of choosed section
-            for(GroupBean groupBean : sectionBean.getGroupsList()) {
+            for(GroupBasicBean groupBean : sectionBean.getGroupsList()) {
                 TreeNode group = new DefaultTreeNode(groupBean, section);
 
                 // Iterator LEVEL_2 for filling questions of choosed section
-                for(QuestionBean questionBean : groupBean.getQuestionsList()) {
+                for(QuestionBasicBean questionBean : groupBean.getQuestionsList()) {
                     new DefaultTreeNode(questionBean, group);
                 } // END of QUESTION Iterator
             } // END of GROUP Iterator

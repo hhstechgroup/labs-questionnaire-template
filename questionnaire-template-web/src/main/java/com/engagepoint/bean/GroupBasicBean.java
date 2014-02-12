@@ -9,14 +9,14 @@ import java.util.List;
 /**
  * Class represents group tag.
  */
-public class GroupBean implements Cloneable, BasicOperationWithBean, BeanCald {
+public class GroupBasicBean implements Cloneable, BasicOperationWithBean, BasicBeanProperty {
     private String groupName;
-    private List<QuestionBean> questionsList = new ArrayList<QuestionBean>();
+    private List<QuestionBasicBean> questionsList = new ArrayList<QuestionBasicBean>();
 
-    public GroupBean() {
+    public GroupBasicBean() {
     }
 
-    public GroupBean(String groupName, List<QuestionBean> questionsList) {
+    public GroupBasicBean(String groupName, List<QuestionBasicBean> questionsList) {
         this.groupName = groupName;
         this.questionsList = questionsList;
     }
@@ -32,23 +32,23 @@ public class GroupBean implements Cloneable, BasicOperationWithBean, BeanCald {
 
     @XmlElementWrapper(name = "questions")
     @XmlElement(name = "question")
-    public List<QuestionBean> getQuestionsList() {
+    public List<QuestionBasicBean> getQuestionsList() {
         return questionsList;
     }
 
-    public void setQuestionsList(List<QuestionBean> questionsList) {
+    public void setQuestionsList(List<QuestionBasicBean> questionsList) {
         this.questionsList = questionsList;
     }
 
     @Override
     public Object clone() throws CloneNotSupportedException {
-        GroupBean copy = (GroupBean) super.clone();
+        GroupBasicBean copy = (GroupBasicBean) super.clone();
         copy.setGroupName(this.groupName);
-        List<QuestionBean> copyQuestionsList =null;
+        List<QuestionBasicBean> copyQuestionsList =null;
         if(questionsList!=null){
-            copyQuestionsList = new ArrayList<QuestionBean>();
-            for (QuestionBean questionBean : questionsList) {
-             copyQuestionsList.add((QuestionBean) questionBean.clone());
+            copyQuestionsList = new ArrayList<QuestionBasicBean>();
+            for (QuestionBasicBean questionBean : questionsList) {
+             copyQuestionsList.add((QuestionBasicBean) questionBean.clone());
             }
         }
         copy.setQuestionsList(copyQuestionsList);
@@ -60,7 +60,7 @@ public class GroupBean implements Cloneable, BasicOperationWithBean, BeanCald {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        GroupBean groupBean = (GroupBean) o;
+        GroupBasicBean groupBean = (GroupBasicBean) o;
 
         if (groupName != null ? !groupName.equals(groupBean.groupName) : groupBean.groupName != null) return false;
         if (questionsList != null ? !questionsList.equals(groupBean.questionsList) : groupBean.questionsList != null)
@@ -78,12 +78,12 @@ public class GroupBean implements Cloneable, BasicOperationWithBean, BeanCald {
 
     @Override
     public void deleteFromInnerList(Object o) {
-        ((GroupBean) o).questionsList.remove(o);
+        ((GroupBasicBean) o).questionsList.remove(o);
     }
 
     @Override
     public void addToInnerList(Object o) {
-        questionsList.add((QuestionBean) o);
+        questionsList.add((QuestionBasicBean) o);
     }
 
     @Override

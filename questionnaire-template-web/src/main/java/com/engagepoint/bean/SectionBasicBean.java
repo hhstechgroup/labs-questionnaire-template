@@ -14,26 +14,26 @@ import java.util.List;
  */
 @Named
 @SessionScoped
-public class SectionBean implements Cloneable, Serializable, BasicOperationWithBean,
-                                    BeanCald{
+public class SectionBasicBean implements Cloneable, Serializable, BasicOperationWithBean,
+        BasicBeanProperty {
     private int pageNumber;
-    private List<GroupBean> groupsList = new ArrayList<GroupBean>();
+    private List<GroupBasicBean> groupsList = new ArrayList<GroupBasicBean>();
 
-    public SectionBean() {
+    public SectionBasicBean() {
     }
 
-    public SectionBean(int pageNumber, List<GroupBean> groupsList) {
+    public SectionBasicBean(int pageNumber, List<GroupBasicBean> groupsList) {
         this.pageNumber = pageNumber;
         this.groupsList = groupsList;
     }
 
     @XmlElementWrapper(name = "groups-of-questions")
     @XmlElement(name = "group")
-    public List<GroupBean> getGroupsList() {
+    public List<GroupBasicBean> getGroupsList() {
         return groupsList;
     }
 
-    public void setGroupsList(List<GroupBean> groupsList) {
+    public void setGroupsList(List<GroupBasicBean> groupsList) {
         this.groupsList = groupsList;
     }
 
@@ -48,13 +48,13 @@ public class SectionBean implements Cloneable, Serializable, BasicOperationWithB
 
     @Override
     public Object clone() throws CloneNotSupportedException {
-        SectionBean copy = (SectionBean) super.clone();
+        SectionBasicBean copy = (SectionBasicBean) super.clone();
         copy.setPageNumber(this.pageNumber);
-        List<GroupBean> copyGroupsList=null;
+        List<GroupBasicBean> copyGroupsList=null;
         if(groupsList!=null){
-            copyGroupsList = new ArrayList<GroupBean>();
-            for (GroupBean groupBean : groupsList) {
-             copyGroupsList.add((GroupBean) groupBean.clone());
+            copyGroupsList = new ArrayList<GroupBasicBean>();
+            for (GroupBasicBean groupBean : groupsList) {
+             copyGroupsList.add((GroupBasicBean) groupBean.clone());
             }
         }
         copy.setGroupsList(copyGroupsList);
@@ -66,7 +66,7 @@ public class SectionBean implements Cloneable, Serializable, BasicOperationWithB
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        SectionBean that = (SectionBean) o;
+        SectionBasicBean that = (SectionBasicBean) o;
 
         if (pageNumber != that.pageNumber) return false;
         if (groupsList != null ? !groupsList.equals(that.groupsList) : that.groupsList != null) return false;
@@ -88,7 +88,7 @@ public class SectionBean implements Cloneable, Serializable, BasicOperationWithB
 
     @Override
     public void addToInnerList(Object o) {
-        groupsList.add((GroupBean) o);
+        groupsList.add((GroupBasicBean) o);
     }
 
     @Override
