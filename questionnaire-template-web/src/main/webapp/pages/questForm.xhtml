@@ -84,6 +84,7 @@
                                      action="#{templateController.saveTemplate}"/>
                     <h:outputText value=" "/>
                     <p:commandButton value="Cancel"
+                                     id="cancel"
                                      update="modalDialogCancel"
                                      oncomplete="dlgCancel.show();"/>
 
@@ -97,7 +98,7 @@
                                          immediate="#{templateController.new}"
                                          action="#{listController.income}"
                                 />
-                        <p:commandButton value="No" onclick="dlgCancel.hide()"/>
+                        <p:commandButton value="No" id="no" onclick="dlgCancel.hide()"/>
                     </p:dialog>
                 </f:facet>
             </p:panelGrid>
