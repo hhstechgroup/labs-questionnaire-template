@@ -18,6 +18,8 @@ public class QuestionBean implements Cloneable, BasicBeanProperty {
     private QuestionType questionType;	//questiontype from ENUM of questiontypes
     private String helpText;			//Help texts for questions
     
+    private String defaultAnswer; 		//TODO temp, will be replaced after we implement hierarchy
+    
     //Default values for questions
     //Dependent questions
     
@@ -48,7 +50,15 @@ public class QuestionBean implements Cloneable, BasicBeanProperty {
         this.id = id;
     }
 
-    @XmlAttribute(required = true)
+    public String getDefaultAnswer() {
+		return defaultAnswer;
+	}
+
+	public void setDefaultAnswer(String defaultAnswer) {
+		this.defaultAnswer = defaultAnswer;
+	}
+
+	@XmlAttribute(required = true)
     public boolean isRequiredAnswer() {
         return requiredAnswer;
     }

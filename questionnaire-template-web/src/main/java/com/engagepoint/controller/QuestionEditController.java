@@ -18,6 +18,7 @@ public class QuestionEditController implements Serializable {
     private QuestionBean currentQuestion;
     private QuestionType selectedQuestionType;
     
+    //TODO ?????
     public QuestionEditController(){
     	currentQuestion = new QuestionBean();
     }
@@ -42,10 +43,13 @@ public class QuestionEditController implements Serializable {
         return QuestionType.values();
     }
 
-    public String income() {
+   /* public String income() {
         return "group?faces-redirect=true";
-    }
+    }*/
 
-	
+	public void changeQuestionType(){
+		//TODO cast currentQuestion to extended type depended on selectedQuestionType
+		//valueChangeListener maybe?
+	}
 
 }

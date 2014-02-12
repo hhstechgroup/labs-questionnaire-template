@@ -28,7 +28,11 @@ import org.primefaces.model.TreeNode;
 @SessionScoped
 public class QuestFormTreeController implements Serializable {
 
-    private TreeNode root = new DefaultTreeNode("Root", null);
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	private TreeNode root = new DefaultTreeNode("Root", null);
     private TreeNode selectedNode;
     private TemplateBean templateBean;
 
@@ -110,17 +114,6 @@ public class QuestFormTreeController implements Serializable {
         } else {
             return "ui-icon-add-v2";
         }
-    }
-
-    public String editSelectedGroup() {
-        QuestionEditController controller = new QuestionEditController();
-        if (selectedNode != null && selectedNode.getData().toString().contains("Group")) {
-            return controller.income();
-        } else {
-            FacesMessage errorMessage = new FacesMessage(FacesMessage.SEVERITY_WARN, "Warning", "You've chosen not a group or more than one group");
-            FacesContext.getCurrentInstance().addMessage(null, errorMessage);
-        }
-        return null;
     }
 
     public void delete() {
