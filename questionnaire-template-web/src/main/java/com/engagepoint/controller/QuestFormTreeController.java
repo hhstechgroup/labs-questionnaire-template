@@ -75,11 +75,7 @@ public class QuestFormTreeController implements Serializable {
         this.selectedNode = selectedNode;
     }
 
-    public void onNodeSelect() {
-        System.out.println(selectedNode);
-    }
-
-    public void setNodes() {
+    private void setNodes() {
         root = new DefaultTreeNode("Root", null);
         ArrayList<TreeNode> nodeList = new ArrayList<TreeNode>();
 
@@ -102,25 +98,6 @@ public class QuestFormTreeController implements Serializable {
 
     public TreeNode getRoot() {
         return root;
-    }
-
-    public String getPicture(String nodeID) {
-        if (nodeID.startsWith("SOME")) {
-            return "ui-icon-edit-small";
-        } else {
-            return "ui-icon-add-v2";
-        }
-    }
-
-    public String editSelectedGroup() {
-        QuestionEditController controller = new QuestionEditController();
-        if (selectedNode != null && selectedNode.getData().toString().contains("Group")) {
-            return controller.income();
-        } else {
-            FacesMessage errorMessage = new FacesMessage(FacesMessage.SEVERITY_WARN, "Warning", "You've chosen not a group or more than one group");
-            FacesContext.getCurrentInstance().addMessage(null, errorMessage);
-        }
-        return null;
     }
 
     public void delete() {
