@@ -100,10 +100,10 @@ public class QuestFormController implements Serializable {
     }
 
     public void addSection() {
-        currentTemplate = getCurrentTemplate();
         SectionBean sectionBean = new SectionBean();
         sectionBean.setPageNumber(currentTemplate.getSectionsList().size()+1);
         currentTemplate.getSectionsList().add(sectionBean);
+        QuestFormTreeController.setNodes();
     }
 
 }

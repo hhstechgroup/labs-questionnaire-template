@@ -32,9 +32,9 @@ public class QuestFormTreeController implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private TreeNode root = new DefaultTreeNode("Root", null);
+	private static TreeNode root = new DefaultTreeNode("Root", null);
 	private TreeNode selectedNode;
-	private TemplateBean templateBean;
+	private static TemplateBean templateBean;
 
 	public String getSelectedType() {
 		return ((BasicBeanProperty) selectedNode.getData()).getType();
@@ -79,7 +79,7 @@ public class QuestFormTreeController implements Serializable {
 		this.selectedNode = selectedNode;
 	}
 
-	private void setNodes() {
+    public static void setNodes() {
 		root = new DefaultTreeNode("Root", null);
 		ArrayList<TreeNode> nodeList = new ArrayList<TreeNode>();
 

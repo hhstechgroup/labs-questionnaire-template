@@ -42,33 +42,32 @@
                                  selectionMode="single" selection="#{questFormTreeController.selectedNode}"
                                  id="treeMultiple">
 
+                        <p:ajax event="expand" update=":formTemplate:form:buttonPanel"/>
+                        <p:ajax event="collapse" update=":formTemplate:form:buttonPanel"/>
                         <p:ajax event="select" update=":formTemplate:form:buttonPanel"/>
                         <p:ajax event="unselect" update=":formTemplate:form:buttonPanel"/>
 
                         <p:column>
-                            <h:outputText value="#{node}"/>
+                            <h:outputText id="treeNode" value="#{node}"/>
                         </p:column>
 
                     </p:treeTable>
 
                     <p:panel id="buttonPanel">
                         <p:commandButton value="Add section"
-                                         ajax="false"
+                                         id="addSelection"
                                          action="#{templateController.addSection}"
                                          styleClass="secondary"
                                          icon="ui-icon-add-v2"
-                                         update="messages">
-                            <f:setPropertyActionListener value="#{templateController.currentTemplate}"
-                                                         target="#{questFormTreeController.templateBean}"/>
+                                         update="treeMultiple,messages">
                         </p:commandButton>
                         <h:outputText value=" "/>
                         <p:commandButton value="Delete #{questFormTreeController.selectedType}"
                                          update="treeMultiple,buttonPanel"
-                                         ajax="true"
                                          action="#{questFormTreeController.delete()}"
                                          rendered="#{questFormTreeController.haveSelected()}"
                                          id="btnDisplayDelete"
-                                         styleClass="secondary"
+                                         styleClass="blue"
                                          icon="ui-icon-remove"/>
                         <h:outputText value=" "/>
                         <p:commandButton value="#{questFormTreeController.editTitle}"
