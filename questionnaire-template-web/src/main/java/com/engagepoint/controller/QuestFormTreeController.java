@@ -114,10 +114,18 @@ public class QuestFormTreeController implements Serializable {
         }
     }
 
+    /**
+     * Add group to template.
+     *
+     * @return next page
+     */
     private String addGroup() {
         GroupBean groupBean = new GroupBean();
         groupBean.setGroupName("GROUP_" + (selectedNode.getChildCount() + 1));
+        //adding group to the tree
         TreeNode node = new DefaultTreeNode(groupBean, selectedNode);
+        //adding group to templateBean
+        ((SectionBean) selectedNode.getData()).getGroupsList().add(groupBean);
         return "/pages/questForm?faces-redirect=true";
     }
 
