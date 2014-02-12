@@ -14,29 +14,29 @@ public class TemplateBeanTest {
 
     @Test
     public void testCloneTemplateBean() throws Exception {
-        QuestionBasicBean bean = new QuestionBasicBean("blah",true, QuestionType.CHECKBOX);
-        QuestionBasicBean eqBean = new QuestionBasicBean("blah",true, QuestionType.CHECKBOX);
-        List<QuestionBasicBean> questionBeanList = new ArrayList<QuestionBasicBean>();
+        QuestionBean bean = new QuestionBean("blah",true, QuestionType.CHECKBOX);
+        QuestionBean eqBean = new QuestionBean("blah",true, QuestionType.CHECKBOX);
+        List<QuestionBean> questionBeanList = new ArrayList<QuestionBean>();
         questionBeanList.add(bean);
         questionBeanList.add(eqBean);
-        GroupBasicBean testBean = new GroupBasicBean("EqBeans",questionBeanList);
-        GroupBasicBean testBean2 = new GroupBasicBean("EqBeans",questionBeanList);
-        ArrayList<GroupBasicBean> groupBeans = new ArrayList<GroupBasicBean>();
+        GroupBean testBean = new GroupBean("EqBeans",questionBeanList);
+        GroupBean testBean2 = new GroupBean("EqBeans",questionBeanList);
+        ArrayList<GroupBean> groupBeans = new ArrayList<GroupBean>();
         groupBeans.add(testBean);
         groupBeans.add(testBean2);
-        SectionBasicBean section1 = new SectionBasicBean(2,groupBeans);
-        ArrayList<GroupBasicBean> groupBeans1 = new ArrayList<GroupBasicBean>();
-        QuestionBasicBean bean1 = new QuestionBasicBean("blahn",true, QuestionType.CHECKBOX);
-        QuestionBasicBean eqBean1 = new QuestionBasicBean("blah",true, QuestionType.CHECKBOX);
-        List<QuestionBasicBean> questionBeanList1 = new ArrayList<QuestionBasicBean>();
+        SectionBean section1 = new SectionBean(2,groupBeans);
+        ArrayList<GroupBean> groupBeans1 = new ArrayList<GroupBean>();
+        QuestionBean bean1 = new QuestionBean("blahn",true, QuestionType.CHECKBOX);
+        QuestionBean eqBean1 = new QuestionBean("blah",true, QuestionType.CHECKBOX);
+        List<QuestionBean> questionBeanList1 = new ArrayList<QuestionBean>();
         questionBeanList1.add(bean1);
         questionBeanList1.add(eqBean1);
-        GroupBasicBean groupBean2 = new GroupBasicBean("EqBeans",questionBeanList1);
-        GroupBasicBean groupBean3 = new GroupBasicBean("EqBeans",questionBeanList1);
+        GroupBean groupBean2 = new GroupBean("EqBeans",questionBeanList1);
+        GroupBean groupBean3 = new GroupBean("EqBeans",questionBeanList1);
         groupBeans1.add(groupBean2);
         groupBeans1.add(groupBean3);
-        SectionBasicBean section2 = new SectionBasicBean(2,groupBeans1);
-        ArrayList<SectionBasicBean> sectionsList = new ArrayList<SectionBasicBean>();
+        SectionBean section2 = new SectionBean(2,groupBeans1);
+        ArrayList<SectionBean> sectionsList = new ArrayList<SectionBean>();
         sectionsList.add(section1);
         sectionsList.add(section2);
         TemplateBean testTemplate = new TemplateBean(new Long(5),"Questonnaire",sectionsList);
@@ -44,63 +44,63 @@ public class TemplateBeanTest {
     }
     @Test
     public void testEqualityTemplates(){
-        QuestionBasicBean bean = new QuestionBasicBean("blah",false, QuestionType.CHECKBOX);
-        QuestionBasicBean eqBean = new QuestionBasicBean("blah",true, QuestionType.CHECKBOX);
+        QuestionBean bean = new QuestionBean("blah",false, QuestionType.CHECKBOX);
+        QuestionBean eqBean = new QuestionBean("blah",true, QuestionType.CHECKBOX);
         //---------------------------------1---------------------------------------
-        List<QuestionBasicBean> questionBeanList = new ArrayList<QuestionBasicBean>();
+        List<QuestionBean> questionBeanList = new ArrayList<QuestionBean>();
         questionBeanList.add(bean);
         questionBeanList.add(eqBean);
         //-----------------------------1----------------------------------------------
-        GroupBasicBean testBean = new GroupBasicBean("EqBeans",questionBeanList);
-        GroupBasicBean testBean2 = new GroupBasicBean("EqBeans",questionBeanList);
-        ArrayList<GroupBasicBean> groupBeans = new ArrayList<GroupBasicBean>();
+        GroupBean testBean = new GroupBean("EqBeans",questionBeanList);
+        GroupBean testBean2 = new GroupBean("EqBeans",questionBeanList);
+        ArrayList<GroupBean> groupBeans = new ArrayList<GroupBean>();
         groupBeans.add(testBean);
         groupBeans.add(testBean2);
         //--------------------------------1------------------------------------
-        SectionBasicBean section1 = new SectionBasicBean(2,groupBeans);
-        QuestionBasicBean bean1 = new QuestionBasicBean("blah",true, QuestionType.CHECKBOX);
-        QuestionBasicBean eqBean1 = new QuestionBasicBean("blah",true, QuestionType.CHECKBOX);
+        SectionBean section1 = new SectionBean(2,groupBeans);
+        QuestionBean bean1 = new QuestionBean("blah",true, QuestionType.CHECKBOX);
+        QuestionBean eqBean1 = new QuestionBean("blah",true, QuestionType.CHECKBOX);
         //-----------------------------------1-------------------------------
-        List<QuestionBasicBean> questionBeanList1 = new ArrayList<QuestionBasicBean>();
+        List<QuestionBean> questionBeanList1 = new ArrayList<QuestionBean>();
         questionBeanList1.add(bean1);
         questionBeanList1.add(eqBean1);
         //-------------------------------------------1------------------------------
-        GroupBasicBean groupBean2 = new GroupBasicBean("EqBeans",questionBeanList1);
-        GroupBasicBean groupBean3 = new GroupBasicBean("EqBeans",questionBeanList1);
-        ArrayList<GroupBasicBean> groupBeans1 = new ArrayList<GroupBasicBean>();
+        GroupBean groupBean2 = new GroupBean("EqBeans",questionBeanList1);
+        GroupBean groupBean3 = new GroupBean("EqBeans",questionBeanList1);
+        ArrayList<GroupBean> groupBeans1 = new ArrayList<GroupBean>();
         groupBeans1.add(groupBean2);
         groupBeans1.add(groupBean3);
-        SectionBasicBean section2 = new SectionBasicBean(2,groupBeans1);
+        SectionBean section2 = new SectionBean(2,groupBeans1);
         //----------------------------------1-----------------------------
-        ArrayList<SectionBasicBean> sectionsList = new ArrayList<SectionBasicBean>();
+        ArrayList<SectionBean> sectionsList = new ArrayList<SectionBean>();
         sectionsList.add(section1);
         sectionsList.add(section2);
         TemplateBean testTemplate = new TemplateBean(new Long(5),"Questionnaire",sectionsList);
         //end of first template
         //
-        QuestionBasicBean bean12 = new QuestionBasicBean("blah",false, QuestionType.CHECKBOX);
-        QuestionBasicBean eqBean13 = new QuestionBasicBean("blah",true, QuestionType.CHECKBOX);
-        List<QuestionBasicBean> questionBeanList13 = new ArrayList<QuestionBasicBean>();
+        QuestionBean bean12 = new QuestionBean("blah",false, QuestionType.CHECKBOX);
+        QuestionBean eqBean13 = new QuestionBean("blah",true, QuestionType.CHECKBOX);
+        List<QuestionBean> questionBeanList13 = new ArrayList<QuestionBean>();
         questionBeanList13.add(bean12);
         questionBeanList13.add(eqBean13);
-        GroupBasicBean testBean21 = new GroupBasicBean("EqBeans",questionBeanList13);
-        GroupBasicBean testBean22 = new GroupBasicBean("EqBeans",questionBeanList13);
-        ArrayList<GroupBasicBean> groupBeans12 = new ArrayList<GroupBasicBean>();
+        GroupBean testBean21 = new GroupBean("EqBeans",questionBeanList13);
+        GroupBean testBean22 = new GroupBean("EqBeans",questionBeanList13);
+        ArrayList<GroupBean> groupBeans12 = new ArrayList<GroupBean>();
         groupBeans12.add(testBean21);
         groupBeans12.add(testBean22);
-        SectionBasicBean section12 = new SectionBasicBean(2,groupBeans12);
-        ArrayList<GroupBasicBean> groupBeans11 = new ArrayList<GroupBasicBean>();
-        QuestionBasicBean bean18 = new QuestionBasicBean("blah",true, QuestionType.CHECKBOX);
-        QuestionBasicBean eqBean19 = new QuestionBasicBean("blah",true, QuestionType.CHECKBOX);
-        List<QuestionBasicBean> questionBeanList14 = new ArrayList<QuestionBasicBean>();
+        SectionBean section12 = new SectionBean(2,groupBeans12);
+        ArrayList<GroupBean> groupBeans11 = new ArrayList<GroupBean>();
+        QuestionBean bean18 = new QuestionBean("blah",true, QuestionType.CHECKBOX);
+        QuestionBean eqBean19 = new QuestionBean("blah",true, QuestionType.CHECKBOX);
+        List<QuestionBean> questionBeanList14 = new ArrayList<QuestionBean>();
         questionBeanList14.add(bean18);
         questionBeanList14.add(eqBean19);
-        GroupBasicBean groupBean24 = new GroupBasicBean("EqBeans",questionBeanList14);
-        GroupBasicBean groupBean37 = new GroupBasicBean("EqBeans",questionBeanList14);
+        GroupBean groupBean24 = new GroupBean("EqBeans",questionBeanList14);
+        GroupBean groupBean37 = new GroupBean("EqBeans",questionBeanList14);
         groupBeans11.add(groupBean24);
         groupBeans11.add(groupBean37);
-        SectionBasicBean section21 = new SectionBasicBean(2,groupBeans11);
-        ArrayList<SectionBasicBean> sectionsList1 = new ArrayList<SectionBasicBean>();
+        SectionBean section21 = new SectionBean(2,groupBeans11);
+        ArrayList<SectionBean> sectionsList1 = new ArrayList<SectionBean>();
         sectionsList1.add(section12);
         sectionsList1.add(section21);
         TemplateBean testTemplate1 = new TemplateBean(new Long(5),"Questionnaire",sectionsList1);
