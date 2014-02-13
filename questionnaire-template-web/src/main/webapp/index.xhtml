@@ -111,7 +111,7 @@
 
             <br/>
             <p:growl id="messages"/>
-            <p:menuButton value="Options">
+            <p:menuButton value="Options" id="Options">
                 <p:menuitem value="Export" id="export"
                             icon="ui-icon-disk"
                             ajax="false"
@@ -119,6 +119,7 @@
                     <p:fileDownload value="#{fileController.downloadFile}"/>
                 </p:menuitem>
                 <p:menuitem value="Import"
+                            name ="Import"
                             update="ImportDialog"
                             icon="ui-icon-arrowrefresh-1-w"
                             oncomplete="uploadXML.show()"/>
