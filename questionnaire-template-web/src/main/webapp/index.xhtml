@@ -20,6 +20,8 @@
                              styleClass="fl-right">
                 <f:setPropertyActionListener value="#{listController}"
                                              target="#{templateController.listController}"/>
+                <f:setPropertyActionListener value="#{questFormTreeController}"
+                                             target="#{templateController.questFormTreeController}"/>
             </p:commandButton>
 
             <br/>
@@ -36,12 +38,12 @@
                 <!--p:column width="400"  style="table-layout:fixed"-->
 
                 <f:facet name="header">
-                    <p:outputPanel>
+                    <h:panelGrid columns="3">
                         <p:outputLabel for="globalFilter" value="Search: "/>
                         <p:inputText id="globalFilter"
                                      onkeyup="templatesList.filter()"
                                      value="#{listController.filterValue}"/>
-                    </p:outputPanel>
+                    </h:panelGrid>
 
                 </f:facet>
 
@@ -59,7 +61,8 @@
 
                 <uib:column style="width:260px;">
                     <uib:buttonGroup>
-                        <p:commandButton value="Edit"
+                        <p:commandButton id="btnEdit"
+                                         value="Edit"
                                          title="Edit"
                                          action="#{templateController.income}"
                                          styleClass="secondary small"
@@ -70,6 +73,8 @@
                                                          target="#{templateController.currentTemplateId}"/>
                             <f:setPropertyActionListener value="#{template}"
                                                          target="#{questFormTreeController.templateBean}"/>
+                            <f:setPropertyActionListener value="#{questFormTreeController}"
+                                                         target="#{templateController.questFormTreeController}"/>
                         </p:commandButton>
 
                         <p:commandButton value="Clone"

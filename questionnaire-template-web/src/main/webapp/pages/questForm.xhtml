@@ -15,7 +15,7 @@
     </style>
 
     <f:metadata>
-        <f:viewParam name="item" value="#{templateController.currentTemplateId}" />
+        <f:viewParam name="item" value="#{templateController.currentTemplateId}"/>
     </f:metadata>
 
     <ui:define name="page">
@@ -29,10 +29,12 @@
                     <h:outputText value="New template" rendered="#{templateController.isNew()}"/>
                 </f:facet>
 
-                <p:outputLabel for="name" value="Name:"/>
-                <p:inputText id="name" required="true"
-                             value="#{templateController.templateName}"/>
-
+                <h:panelGrid columns="3">
+                    <p:outputLabel value="New name:" rendered="#{!templateController.isNew()}"/>
+                    <p:outputLabel value="Name:" rendered="#{templateController.isNew()}"/>
+                    <p:inputText id="name" required="true"
+                                 value="#{templateController.templateName}"/>
+                </h:panelGrid>
 
                 <h:form id="form">
 
@@ -42,39 +44,44 @@
                                  selectionMode="single" selection="#{questFormTreeController.selectedNode}"
                                  id="treeMultiple">
 
+                        <f:facet name="header">
+                            #{questFormTreeController.templateBean.templateName} content
+                        </f:facet>
+
+                        <p:ajax event="expand" update=":formTemplate:form:buttonPanel"/>
+                        <p:ajax event="collapse" update=":formTemplate:form:buttonPanel"/>
                         <p:ajax event="select" update=":formTemplate:form:buttonPanel"/>
                         <p:ajax event="unselect" update=":formTemplate:form:buttonPanel"/>
 
                         <p:column>
-                            <h:outputText value="#{node}"/>
+                            <h:outputText id="treeNode" value="#{node}"/>
                         </p:column>
 
                     </p:treeTable>
 
                     <p:panel id="buttonPanel">
                         <p:commandButton value="Add section"
-                                         ajax="false"
+                                         title="Add section"
+                                         id="addSection"
                                          action="#{templateController.addSection}"
                                          styleClass="secondary"
                                          icon="ui-icon-add-v2"
-                                         update="messages">
-                            <f:setPropertyActionListener value="#{templateController.currentTemplate}"
-                                                         target="#{questFormTreeController.templateBean}"/>
+                                         update="treeMultiple,messages">
                         </p:commandButton>
                         <h:outputText value=" "/>
                         <p:commandButton value="Delete #{questFormTreeController.selectedType}"
                                          update="treeMultiple,buttonPanel"
-                                         ajax="true"
                                          action="#{questFormTreeController.delete()}"
                                          rendered="#{questFormTreeController.haveSelected()}"
                                          id="btnDisplayDelete"
-                                         styleClass="secondary"
+                                         styleClass="blue"
                                          icon="ui-icon-remove"/>
                         <h:outputText value=" "/>
                         <p:commandButton value="#{questFormTreeController.editTitle}"
                                          rendered="#{questFormTreeController.haveSelected()}"
                                          action="#{questFormTreeController.edit()}"
                                          icon="#{questFormTreeController.editPicture}"
+                                         ajax="false"
                                          styleClass="secondary"
                                          id="btnDisplayEdit"/>
                     </p:panel>
@@ -101,7 +108,7 @@
 
                         <p:commandButton value="Yes"
                                          immediate="#{templateController.new}"
-                                         action="#{listController.income}"
+                                         action="#{questFormTreeController.cancel}"
                                 />
                         <p:commandButton value="No" id="no" onclick="dlgCancel.hide()"/>
                     </p:dialog>

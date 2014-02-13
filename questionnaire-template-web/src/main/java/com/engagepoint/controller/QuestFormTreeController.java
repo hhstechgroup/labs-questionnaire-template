@@ -3,30 +3,33 @@ package com.engagepoint.controller;
 import com.engagepoint.bean.*;
 
 import javax.enterprise.context.SessionScoped;
-import javax.faces.context.FacesContext;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 
-import javax.faces.application.FacesMessage;
+import javax.inject.Inject;
 import javax.inject.Named;
 
 import org.primefaces.model.DefaultTreeNode;
 import org.primefaces.model.TreeNode;
 
+
+/**
+ * Use for control
+ *
+ * @version 1.0
+ */
 @Named
 @SessionScoped
 public class QuestFormTreeController implements Serializable {
-
-	/**
-	 * 
-	 */
+	
 	private static final long serialVersionUID = 1L;
 	private TreeNode root = new DefaultTreeNode("Root", null);
 	private TreeNode selectedNode;
 	private TemplateBean templateBean;
-	
 	private QuestionBean addedquestion;
+	private TemplateBean duplicateTemplate;
+    @Inject private QuestFormController questFormController;
 
 	public String getSelectedType() {
 		return ((BasicBeanProperty) selectedNode.getData()).getType();
@@ -58,10 +61,19 @@ public class QuestFormTreeController implements Serializable {
 		return templateBean;
 	}
 
-	public void setTemplateBean(TemplateBean templateBean) {
-		this.templateBean = templateBean;
-		setNodes();
-	}
+	 /**
+     * There is no need to pass an argument to this method now. It's done via CDI
+     * @param templateBean
+     */
+    public void setTemplateBean(TemplateBean templateBean) {
+        this.templateBean= questFormController.getCurrentTemplate();
+        try {
+            duplicateTemplate = this.templateBean.duplicate();
+        } catch (CloneNotSupportedException e) {
+            //NOP
+        }
+        setNodes();
+    }
 
 	public TreeNode getSelectedNode() {
 		return selectedNode;
@@ -92,26 +104,26 @@ public class QuestFormTreeController implements Serializable {
 		}
 	}
 
-	private void setNodes() {
-		root = new DefaultTreeNode("Root", null);
-		ArrayList<TreeNode> nodeList = new ArrayList<TreeNode>();
+	public void setNodes() {
+        root = new DefaultTreeNode("Root", null);
+        ArrayList<TreeNode> nodeList = new ArrayList<TreeNode>();
 
-		// Iterator LEVEL_0 for filling sections of choosed template
-		for (SectionBean sectionBean : templateBean.getSectionsList()) {
-			TreeNode section = new DefaultTreeNode(sectionBean, root);
+        // Iterator LEVEL_0 for filling sections of choosed template
+        for (SectionBean sectionBean : templateBean.getSectionsList()) {
+            TreeNode section = new DefaultTreeNode(sectionBean, root);
 
-			// Iterator LEVEL_1 for filling groups of choosed section
-			for (GroupBean groupBean : sectionBean.getGroupsList()) {
-				TreeNode group = new DefaultTreeNode(groupBean, section);
+            // Iterator LEVEL_1 for filling groups of choosed section
+            for (GroupBean groupBean : sectionBean.getGroupsList()) {
+                TreeNode group = new DefaultTreeNode(groupBean, section);
 
-				// Iterator LEVEL_2 for filling questions of choosed section
-				for (QuestionBean questionBean : groupBean.getQuestionsList()) {
-					new DefaultTreeNode(questionBean, group);
-				} // END of QUESTION Iterator
-			} // END of GROUP Iterator
-		} // END of SECTION Iterator
+                // Iterator LEVEL_2 for filling questions of choosed section
+                for (QuestionBean questionBean : groupBean.getQuestionsList()) {
+                    new DefaultTreeNode(questionBean, group);
+                } // END of QUESTION Iterator
+            } // END of GROUP Iterator
+        } // END of SECTION Iterator
 
-	} // END of setNodes() METHOD
+    } // END of setNodes() METHOD
 
 	public TreeNode getRoot() {
 		return root;
@@ -128,11 +140,21 @@ public class QuestFormTreeController implements Serializable {
 
 	}
 
-	private String addGroup() {
-		return null;
-		// TODO Auto-generated method stub
-		
-	}
+	/**
+     * Add group to template.
+     *
+     * @return next page
+     */
+    private String addGroup() {
+        GroupBean groupBean = new GroupBean();
+        groupBean.setGroupName("GROUP_" + (selectedNode.getChildCount() + 1));
+        //adding group to the tree
+        TreeNode node = new DefaultTreeNode(groupBean, selectedNode);
+        //adding group to templateBean
+        ((SectionBean) selectedNode.getData()).getGroupsList().add(groupBean);
+        return "/pages/questForm?faces-redirect=true";
+    }
+
 
 	/**
 	 * adding new QuestionBean to the group and redirect to questionedit.xhtml page where this QestionBean will be edited
@@ -156,13 +178,29 @@ public class QuestFormTreeController implements Serializable {
 	}
 
 	public void delete() {
-		selectedNode.getParent().getChildren().remove(selectedNode);
-		if (!selectedNode.getParent().getData().equals("Root")) {
-			((BasicOperationWithBean) selectedNode.getParent().getData())
-					.deleteFromInnerList(selectedNode.getData());
-		} else {
-			templateBean.deleteFromInnerList(selectedNode.getData());
-		}
-		selectedNode = null;
-	}
+        selectedNode.getParent().getChildren().remove(selectedNode);
+        if (!selectedNode.getParent().getData().equals("Root")) {
+            ((BasicOperationWithBean) selectedNode.getParent().getData())
+                    .deleteFromInnerList(selectedNode.getData());
+        } else {
+            templateBean.deleteFromInnerList(selectedNode.getData());
+        }
+        selectedNode = null;
+    }
+    
+     /**
+     * duplicateTemplate - is old template before editing( same ID, etc).
+     * But the address in memory is differ(two instance that match each other via equals).
+     * So need to delete edited templateBean in ListControler, in order not to have
+     * them both, ot other kind of ambiguity.
+     *
+     * @return index page
+     */
+    public String cancel() {
+        questFormController.getListController().deleteTemplate(templateBean);
+        questFormController.setCurrentTemplate(duplicateTemplate);
+        questFormController.saveTemplate();
+        return ListController.income();
+    }
+	
 }

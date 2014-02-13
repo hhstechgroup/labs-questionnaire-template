@@ -15,6 +15,7 @@ import java.io.Serializable;
 public class QuestFormController implements Serializable {
 
     private ListController listController;
+    private QuestFormTreeController questFormTreeController;
     private TemplateBean currentTemplate;
     private String templateName;
     private Long currentTemplateId;
@@ -25,7 +26,10 @@ public class QuestFormController implements Serializable {
 
     public void setCurrentTemplateId(Long currentTemplateId) {
         this.currentTemplateId = currentTemplateId;
-        setCurrentTemplate(listController.getTemplatesModel().getRowData(currentTemplateId.toString()));
+        if (!isNew())
+        {
+            setCurrentTemplate(listController.getTemplatesModel().getRowData(currentTemplateId.toString()));
+        }
     }
 
     public String getTemplateName() {
@@ -42,6 +46,14 @@ public class QuestFormController implements Serializable {
 
     public void setListController(ListController listController) {
         this.listController = listController;
+    }
+
+    public QuestFormTreeController getQuestFormTreeController() {
+        return questFormTreeController;
+    }
+
+    public void setQuestFormTreeController(QuestFormTreeController questFormTreeController) {
+        this.questFormTreeController = questFormTreeController;
     }
 
     public TemplateBean getCurrentTemplate() {
@@ -86,7 +98,10 @@ public class QuestFormController implements Serializable {
      * @return next page name
      */
     public String newTemplate() {
-        setCurrentTemplate(new TemplateBean());
+        TemplateBean newTemplate = new TemplateBean();
+        setCurrentTemplate(newTemplate);
+        currentTemplateId = newTemplate.getId();
+        questFormTreeController.setTemplateBean(newTemplate);
         return income();
     }
 
@@ -99,12 +114,11 @@ public class QuestFormController implements Serializable {
     return "pages/questForm?faces-redirect=true&includeViewParams=true";
     }
 
-    public String addSection() {
-        currentTemplate = getCurrentTemplate();
+    public void addSection() {
         SectionBean sectionBean = new SectionBean();
         sectionBean.setPageNumber(currentTemplate.getSectionsList().size()+1);
         currentTemplate.getSectionsList().add(sectionBean);
-        return listController.outcome();
+        questFormTreeController.setNodes();
     }
 
 }

@@ -15,7 +15,7 @@ import java.util.List;
 @Named
 @SessionScoped
 public class SectionBean implements Cloneable, Serializable, BasicOperationWithBean,
-        BasicBeanProperty {
+                                    BasicBeanProperty {
     private int pageNumber;
     private List<GroupBean> groupsList = new ArrayList<GroupBean>();
 

@@ -18,7 +18,7 @@ public class TemplateBean implements Cloneable, Comparable<TemplateBean>, BasicO
     }
 
     private Long id;
-    private String templateName;
+    private String templateName = "";
     private List<SectionBean> sectionsList = new ArrayList<SectionBean>();
 
     public TemplateBean() {
@@ -72,16 +72,14 @@ public class TemplateBean implements Cloneable, Comparable<TemplateBean>, BasicO
 
     @Override
     public Object clone() throws CloneNotSupportedException {
-        TemplateBean copy = (TemplateBean) super.clone();
-        List<SectionBean> copySectionsList = null;
-        if(sectionsList!=null){
-            copySectionsList = new ArrayList<SectionBean>();
-            for (SectionBean sectionBean : sectionsList) {
-                copySectionsList.add((SectionBean) sectionBean.clone());
-            }
-        }
+        TemplateBean copy = clone1();
         copy.setId(getLastId());
-        copy.setSectionsList(copySectionsList);
+        return copy;
+    }
+
+    public TemplateBean duplicate() throws CloneNotSupportedException {
+        TemplateBean copy = clone1();
+        copy.setId(this.id);
         return copy;
     }
 
@@ -127,5 +125,18 @@ public class TemplateBean implements Cloneable, Comparable<TemplateBean>, BasicO
     public String toString() {
         // Isn't necessary
         return null;
+    }
+
+    private TemplateBean clone1() throws CloneNotSupportedException {
+        TemplateBean copy = (TemplateBean) super.clone();
+        List<SectionBean> copySectionsList = null;
+        if(sectionsList!=null){
+            copySectionsList = new ArrayList<SectionBean>();
+            for (SectionBean sectionBean : sectionsList) {
+                copySectionsList.add((SectionBean) sectionBean.clone());
+            }
+        }
+        copy.setSectionsList(copySectionsList);
+        return copy;
     }
 }
