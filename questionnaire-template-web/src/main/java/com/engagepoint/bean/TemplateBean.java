@@ -21,6 +21,8 @@ public class TemplateBean implements Cloneable, Comparable<TemplateBean>, BasicO
     private String templateName = "";
     private List<SectionBean> sectionsList = new ArrayList<SectionBean>();
 
+    public static boolean duplicate;
+
     public TemplateBean() {
         setId(getLastId());
     }
@@ -78,8 +80,10 @@ public class TemplateBean implements Cloneable, Comparable<TemplateBean>, BasicO
     }
 
     public TemplateBean duplicate() throws CloneNotSupportedException {
+        duplicate=true;
         TemplateBean copy = clone1();
         copy.setId(this.id);
+        duplicate=false;
         return copy;
     }
 
