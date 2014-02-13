@@ -163,15 +163,20 @@ public class QuestFormTreeController implements Serializable {
     /**
      * duplicateTemplate - is old template before editing( same ID, etc).
      * But the address in memory is differ(two instance that match each other via equals).
-     * So need to delete edited templateBean in ListControler, in order not to have
-     * them both, ot other kind of ambiguity.
+     * So, in case, if this is existing template, there is need to delete edited templateBean
+     * in ListControler, in order not to have them both, ot other kind of ambiguity.
+     * And if this is new, not yet saved template, just skip saving.
      *
      * @return index page
      */
     public String cancel() {
+        boolean isNew = questFormController.isNew();
         questFormController.getListController().deleteTemplate(templateBean);
-        questFormController.setCurrentTemplate(duplicateTemplate);
-        questFormController.saveTemplate();
+        if (!isNew) {
+            questFormController.setCurrentTemplate(duplicateTemplate);
+            questFormController.setTemplateName(duplicateTemplate.getTemplateName());
+            questFormController.saveTemplate();
+        }
         return ListController.income();
     }
 }

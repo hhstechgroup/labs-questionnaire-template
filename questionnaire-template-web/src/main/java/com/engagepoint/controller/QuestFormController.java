@@ -24,11 +24,22 @@ public class QuestFormController implements Serializable {
         return currentTemplateId;
     }
 
+    /**
+     * Setting id happens when enter a page.
+     * If this is existing template, we have to set up current
+     * template and name.
+     * If this is new template, these actions are done in
+     * newTemplate() method.
+     *
+     * @return index page
+     */
     public void setCurrentTemplateId(Long currentTemplateId) {
         this.currentTemplateId = currentTemplateId;
-        if (!isNew())
+        TemplateBean templateBean = listController.getTemplatesModel().getRowData(currentTemplateId.toString());
+        if (templateBean!=null)
         {
-            setCurrentTemplate(listController.getTemplatesModel().getRowData(currentTemplateId.toString()));
+            setCurrentTemplate(templateBean);
+            setTemplateName(templateBean.getTemplateName());
         }
     }
 
@@ -62,11 +73,10 @@ public class QuestFormController implements Serializable {
 
     public void setCurrentTemplate(TemplateBean currentTemplate) {
         this.currentTemplate = currentTemplate;
-        this.templateName = currentTemplate.getTemplateName();
     }
 
     /**
-     * Check if the template already exists.
+     * Check if the template already exists (searching by id, because equals-method is by id).
      *
      * @return true - this template already exists.
      */
@@ -100,7 +110,8 @@ public class QuestFormController implements Serializable {
     public String newTemplate() {
         TemplateBean newTemplate = new TemplateBean();
         setCurrentTemplate(newTemplate);
-        currentTemplateId = newTemplate.getId();
+        setCurrentTemplateId(newTemplate.getId());
+        setTemplateName(newTemplate.getTemplateName());
         questFormTreeController.setTemplateBean(newTemplate);
         return income();
     }
