@@ -18,7 +18,7 @@ import static java.util.Arrays.asList;
  * Time: 2:50 PM
  * To change this template use File | Settings | File Templates.
  */
-public class LQE3Run {
+public class LQE2_3Run {
     private static String testsFolder;
 
     public static void main(String[] args) throws Throwable {
@@ -45,8 +45,9 @@ public class LQE3Run {
         @Override
         public List<String> storyPaths() {
             return new StoryFinder().findPaths(CodeLocations.codeLocationFromClass(getClass()),
-                    asList("**/" + testsFolder + "/**/LQE3.story"), asList(""));
+                    asList("**/" + testsFolder + "/**/simple.story"), asList(""));
         }
     }
 
 }
+
