@@ -1,6 +1,7 @@
 Narrative:
-LQE-4: As a template author I want to remove question groups from questionnair
-       e templates so that they meet my needs
+LQE-7: As a template author I want to remove question groups from questionnair
+       e templates so that they meet my needs.
+
 
 Scenario:
 Given user is on Home page

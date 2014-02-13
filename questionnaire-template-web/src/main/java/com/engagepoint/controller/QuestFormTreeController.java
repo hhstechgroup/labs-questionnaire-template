@@ -23,13 +23,14 @@ import javax.inject.Named;
 import org.primefaces.model.DefaultTreeNode;
 import org.primefaces.model.TreeNode;
 
+/**
+ * Use for control
+ *
+ * @version 1.0
+ */
 @Named
 @SessionScoped
 public class QuestFormTreeController implements Serializable {
-
-    /**
-     *
-     */
     private static final long serialVersionUID = 1L;
     private TreeNode root = new DefaultTreeNode("Root", null);
     private TreeNode selectedNode;
@@ -146,7 +147,6 @@ public class QuestFormTreeController implements Serializable {
 
     private void editQuestion() {
         // TODO Auto-generated method stub
-
     }
 
     public void delete() {

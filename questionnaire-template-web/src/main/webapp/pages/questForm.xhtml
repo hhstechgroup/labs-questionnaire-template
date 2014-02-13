@@ -29,10 +29,12 @@
                     <h:outputText value="New template" rendered="#{templateController.isNew()}"/>
                 </f:facet>
 
-                <p:outputLabel for="name" value="Name:"/>
-                <p:inputText id="name" required="true"
-                             value="#{templateController.templateName}"/>
-
+                <h:panelGrid columns="3">
+                    <p:outputLabel value="New name:" rendered="#{!templateController.isNew()}"/>
+                    <p:outputLabel value="Name:" rendered="#{templateController.isNew()}"/>
+                    <p:inputText id="name" required="true"
+                                 value="#{templateController.templateName}"/>
+                </h:panelGrid>
 
                 <h:form id="form">
 
@@ -41,6 +43,10 @@
                     <p:treeTable value="#{questFormTreeController.root}" var="node"
                                  selectionMode="single" selection="#{questFormTreeController.selectedNode}"
                                  id="treeMultiple">
+
+                        <f:facet name="header">
+                            #{questFormTreeController.templateBean.templateName} content
+                        </f:facet>
 
                         <p:ajax event="expand" update=":formTemplate:form:buttonPanel"/>
                         <p:ajax event="collapse" update=":formTemplate:form:buttonPanel"/>
