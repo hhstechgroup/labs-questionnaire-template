@@ -17,6 +17,8 @@ import org.openqa.selenium.WebElement;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.List;
+
 public class SimpleJbehaveSteps extends ScenarioSteps {
 
     private static final String XPATH_SELECTOR_SUFFIX = "')]";
@@ -172,6 +174,29 @@ public class SimpleJbehaveSteps extends ScenarioSteps {
     @Then("Edit page is shown")
     public void editPageIsShown(){
         pages().isCurrentPageAt(EditPage.class);
+    }
+
+    @Then("clicks button with className '$className'")
+    public void openMenuButton(String className) {
+        List<WebElement> list = uIBootstrapBasePage.getDriver().findElements(By.className(className));
+        for (int i = 0; i < list.size() ; i++) {
+            if (i == 2){
+                list.get(i).click();
+            }
+
+        }
+    }
+
+    @When("the user checks first template")
+    public void checkFirstTemplate() {
+        boolean headIsPassed=false;
+        for (WebElement element : uIBootstrapBasePage.getDriver().findElements(By.className("ui-chkbox"))) {
+            if (headIsPassed) {
+                element.click();
+                break;
+            }
+            headIsPassed=true;
+        }
     }
 
 //    @Then("the user is brought to the '$url')
