@@ -1,8 +1,8 @@
 package com.engagepoint.pageobjects;
 
+import com.engagepoint.acceptancetest.base.pages.UIBootstrapBasePage;
 import net.thucydides.core.annotations.At;
 import net.thucydides.core.annotations.DefaultUrl;
-import net.thucydides.core.pages.PageObject;
 import org.openqa.selenium.WebDriver;
 
 /**
@@ -12,8 +12,9 @@ import org.openqa.selenium.WebDriver;
  * Time: 6:40 PM
  * To change this template use File | Settings | File Templates.
  */
-@At("#HOST/questionnaire-template-web-1.0-SNAPSHOT/pages/questForm.xhtml?item={1}")
-public class EditPage extends PageObject {
+@At("#HOST/questionnaire-template-web-1.0-SNAPSHOT/pages/questForm*")
+@DefaultUrl("/questionnaire-template-web-1.0-SNAPSHOT/pages/questForm.xhtml?item={1}")
+public class EditPage extends UIBootstrapBasePage {
 
     public EditPage(WebDriver driver) {
         super(driver);

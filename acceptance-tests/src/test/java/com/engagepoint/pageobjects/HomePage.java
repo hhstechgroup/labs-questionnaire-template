@@ -1,7 +1,7 @@
 package com.engagepoint.pageobjects;
 
+import com.engagepoint.acceptancetest.base.pages.UIBootstrapBasePage;
 import net.thucydides.core.annotations.At;
-import net.thucydides.core.pages.PageObject;
 import org.openqa.selenium.WebDriver;
 
 
@@ -13,7 +13,7 @@ import org.openqa.selenium.WebDriver;
  * To change this template use File | Settings | File Templates.
  */
 @At("#HOST/questionnaire-template-web-1.0-SNAPSHOT/")
-public class HomePage extends PageObject {
+public class HomePage extends UIBootstrapBasePage {
     /*from example
     @CacheLookup
     @FindBy(name="adFilter.searchTerm")
