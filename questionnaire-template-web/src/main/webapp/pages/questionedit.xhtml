@@ -12,31 +12,35 @@
 
 		<h:messages style="color:red" />
 		<h:form id="form">
-			<h:outputLabel value="Question type: * " />
-
 			<p:selectOneMenu value="#{questionController.selectedQuestionType}"
 				required="true">
 				<f:selectItem itemLabel="Select One" itemValue="#{null}" />
 				<f:selectItems value="#{questionController.questionTypes}" />
-				<p:ajax event="change" update="@this,:form:out,:form2" listener="#{questionController.changeQuestionType}" />
+				<p:ajax event="change" update=":form:out,:form2"
+					listener="#{questionController.changeQuestionType}" />
 			</p:selectOneMenu>
 			<br></br>
 
 			<h:outputText id="out"
 				value="#{questionController.selectedQuestionType} is selected" />
 			<br></br>
+
+
 		</h:form>
 		<h:form id="form2">
 			<h:panelGrid columns="2"
 				rendered="#{questionController.selectedQuestionType != null}"
 				style="margin-bottom:10px" cellpadding="5">
 				<h:outputText value="Question text: * " />
-				<p:inputText size="50" value="#{questionController.currentQuestion.questionText}"
+				<p:inputText size="50"
+					value="#{questionController.currentQuestion.questionText}"
 					required="true" />
 				<h:outputText value="Help text: " />
-				<p:inputText size="50" value="#{questionController.currentQuestion.helpText}" />
+				<p:inputText size="50"
+					value="#{questionController.currentQuestion.helpText}" />
 				<h:outputText value="Required? " />
-				<p:selectBooleanCheckbox value="#{questionController.currentQuestion.requiredAnswer}" />
+				<p:selectBooleanCheckbox
+					value="#{questionController.currentQuestion.requiredAnswer}" />
 			</h:panelGrid>
 
 
@@ -44,8 +48,10 @@
 				rendered="#{questionController.selectedQuestionType == 'TEXT'}"
 				style="margin-bottom:10px" cellpadding="5">
 				<h:outputText value="Default answer: " />
-				<p:inputText size="50" value="#{questionController.currentQuestion.defaultAnswer}" />
+				<p:inputText size="50"
+					value="#{questionController.currentQuestion.defaultAnswer}" />
 			</h:panelGrid>
+
 
 			<h:panelGrid columns="2"
 				rendered="#{questionController.selectedQuestionType == 'PARAGRAPHTEXT'}"
@@ -60,17 +66,26 @@
 			</h:panelGrid>
 
 
+		</h:form>
+		<h:form id="form4">
 			<h:panelGrid id="buttons" columns="3" style="margin-bottom:10px"
-				cellpadding="5">
+				cellpadding="5"	>
 				<p:commandButton id="savequestion" value="Save question"
-					action="questForm?faces-redirect=true" ajax="false" />
+					action="questForm?faces-redirect=true">
+					<f:setPropertyActionListener
+						value="#{questionController.currentQuestion}"
+						target="#{questFormTreeController.addedquestion}" />
+				</p:commandButton>
 
 
 				<p:commandButton id="cancel" value="Cancel" immediate="true"
-					action="questForm?faces-redirect=true" ajax="false" />
+					action="questForm?faces-redirect=true" />
+
 			</h:panelGrid>
 
+
 		</h:form>
+
 
 	</ui:define>
 </ui:composition>

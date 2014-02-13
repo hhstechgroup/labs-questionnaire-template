@@ -1,23 +1,13 @@
 package com.engagepoint.controller;
 
-import com.engagepoint.bean.GroupBean;
-import com.engagepoint.bean.QuestionBean;
-import com.engagepoint.bean.SectionBean;
-import com.engagepoint.bean.TemplateBean;
 import com.engagepoint.bean.*;
-
-/**
- * Created with IntelliJ IDEA.
- * User: anton.kovunov
- * Date: 1/31/14
- * Time: 5:33 PM
- * To change this template use File | Settings | File Templates.
- */
 
 import javax.enterprise.context.SessionScoped;
 import javax.faces.context.FacesContext;
+
 import java.io.Serializable;
 import java.util.ArrayList;
+
 import javax.faces.application.FacesMessage;
 import javax.inject.Named;
 
@@ -35,6 +25,8 @@ public class QuestFormTreeController implements Serializable {
 	private TreeNode root = new DefaultTreeNode("Root", null);
 	private TreeNode selectedNode;
 	private TemplateBean templateBean;
+	
+	private QuestionBean addedquestion;
 
 	public String getSelectedType() {
 		return ((BasicBeanProperty) selectedNode.getData()).getType();
@@ -79,6 +71,27 @@ public class QuestFormTreeController implements Serializable {
 		this.selectedNode = selectedNode;
 	}
 
+	public QuestionBean getAddedquestion() {
+		return addedquestion;
+	}
+
+	public void setAddedquestion(QuestionBean addedquestion) {
+		this.addedquestion = addedquestion;
+		addQuestionToNode(addedquestion);
+	}
+
+	/**
+	 * if currentnode is group add question to group and rebuild tree
+	 * 
+	 * @param questionbean
+	 */
+	private void addQuestionToNode(QuestionBean questionbean) {
+		if (getSelectedType().equals("group")) {
+			((GroupBean) selectedNode.getData()).addToInnerList(addedquestion);
+			setNodes();
+		}
+	}
+
 	private void setNodes() {
 		root = new DefaultTreeNode("Root", null);
 		ArrayList<TreeNode> nodeList = new ArrayList<TreeNode>();
@@ -103,28 +116,41 @@ public class QuestFormTreeController implements Serializable {
 	public TreeNode getRoot() {
 		return root;
 	}
-	
-	public void edit() {
+
+	public String edit() {
 		if (getSelectedType().equals("question")) {
-			editQuestion();
+			return editQuestion();
 		} else if (getSelectedType().equals("group")) {
-			addQuestion();
+			return addQuestion();
 		} else {
-			addGroup();
+			return addGroup();
 		}
+
 	}
 
-	private void addGroup() {
+	private String addGroup() {
+		return null;
 		// TODO Auto-generated method stub
 		
 	}
 
-	private void addQuestion() {
-		// TODO Auto-generated method stub
+	/**
+	 * adding new QuestionBean to the group and redirect to questionedit.xhtml page where this QestionBean will be edited
+	 * 
+	 */
+	private String addQuestion() {
+		if (getSelectedType().equals("group")) {
+			return "questionedit?faces-redirect=true";
+						
+		}
+		
+		//TODO ????
+		return null;
 		
 	}
 
-	private void editQuestion() {
+	private String editQuestion() {
+		return null;
 		// TODO Auto-generated method stub
 		
 	}

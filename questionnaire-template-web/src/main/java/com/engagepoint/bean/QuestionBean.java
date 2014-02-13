@@ -23,6 +23,11 @@ public class QuestionBean implements Cloneable, BasicBeanProperty {
     //Default values for questions
     //Dependent questions
     
+    private static Long idgenerator = 1L;
+    
+    public QuestionBean() {
+		id=idgenerator++;
+	}
 
     @XmlElement(name = "question-title")
     public String getQuestionText() {
@@ -76,9 +81,6 @@ public class QuestionBean implements Cloneable, BasicBeanProperty {
         this.questionType = questionType;
     }
 
-    public QuestionBean() {
-    }
-
     public QuestionBean(String questionText, boolean requiredAnswer, QuestionType questionType) {
         this.questionText = questionText;
         this.requiredAnswer = requiredAnswer;
@@ -124,7 +126,7 @@ public class QuestionBean implements Cloneable, BasicBeanProperty {
 
     @Override
     public String toString() {
-        return "Question" + id;
+        return "Question " + id;
     }
 
     @Override

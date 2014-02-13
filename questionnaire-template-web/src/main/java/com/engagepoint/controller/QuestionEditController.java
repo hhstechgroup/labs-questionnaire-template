@@ -4,16 +4,14 @@ package com.engagepoint.controller;
 import com.engagepoint.bean.QuestionBean;
 import com.engagepoint.bean.QuestionType;
 
-import javax.enterprise.context.SessionScoped;
-import javax.inject.Named;
+import javax.enterprise.context.RequestScoped;
 
-import java.io.Serializable;
+import javax.inject.Named;
 
 
 @Named("questionController")
-@SessionScoped
-public class QuestionEditController implements Serializable {
-    private static final long serialVersionUID = 1L;
+@RequestScoped
+public class QuestionEditController {
     
     private QuestionBean currentQuestion;
     private QuestionType selectedQuestionType;
@@ -43,9 +41,9 @@ public class QuestionEditController implements Serializable {
         return QuestionType.values();
     }
 
-   /* public String income() {
-        return "group?faces-redirect=true";
-    }*/
+    public String income() {
+        return "questForm?faces-redirect=true";
+    }
 
 	public void changeQuestionType(){
 		//TODO cast currentQuestion to extended type depended on selectedQuestionType
