@@ -4,8 +4,6 @@ import com.engagepoint.bean.*;
 
 import javax.enterprise.context.SessionScoped;
 
-
-import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
 import java.util.ArrayList;
 
@@ -25,51 +23,53 @@ import org.primefaces.model.TreeNode;
 @Named
 @SessionScoped
 public class QuestFormTreeController implements Serializable {
-	
-	private static final long serialVersionUID = 1L;
-	private TreeNode root = new DefaultTreeNode("Root", null);
-	private TreeNode selectedNode;
-	private TemplateBean templateBean;
-	private QuestionBean addedquestion;
-	private TemplateBean duplicateTemplate;
-    @Inject private QuestFormController questFormController;
 
-	public String getSelectedType() {
-		return ((BasicBeanProperty) selectedNode.getData()).getType();
-	}
+    private static final long serialVersionUID = 1L;
+    private TreeNode root = new DefaultTreeNode("Root", null);
+    private TreeNode selectedNode;
+    private TemplateBean templateBean;
+    private QuestionBean addedquestion;
+    private TemplateBean duplicateTemplate;
+    @Inject
+    private QuestFormController questFormController;
 
-	public String getEditTitle() {
-		if (getSelectedType().equals("question")) {
-			return "Edit question";
-		} else if (getSelectedType().equals("group")) {
-			return "Add question";
-		} else {
-			return "Add group";
-		}
-	}
+    public String getSelectedType() {
+        return ((BasicBeanProperty) selectedNode.getData()).getType();
+    }
 
-	public String getEditPicture() {
-		if (getSelectedType().equals("question")) {
-			return "ui-icon-edit";
-		} else {
-			return "ui-icon-add-v2";
-		}
-	}
+    public String getEditTitle() {
+        if (getSelectedType().equals("question")) {
+            return "Edit question";
+        } else if (getSelectedType().equals("group")) {
+            return "Add question";
+        } else {
+            return "Add group";
+        }
+    }
 
-	public boolean haveSelected() {
-		return selectedNode != null;
-	}
+    public String getEditPicture() {
+        if (getSelectedType().equals("question")) {
+            return "ui-icon-edit";
+        } else {
+            return "ui-icon-add-v2";
+        }
+    }
 
-	public TemplateBean getTemplateBean() {
-		return templateBean;
-	}
+    public boolean haveSelected() {
+        return selectedNode != null;
+    }
 
-	 /**
+    public TemplateBean getTemplateBean() {
+        return templateBean;
+    }
+
+    /**
      * There is no need to pass an argument to this method now. It's done via CDI
+     *
      * @param templateBean
      */
     public void setTemplateBean(TemplateBean templateBean) {
-        this.templateBean= questFormController.getCurrentTemplate();
+        this.templateBean = questFormController.getCurrentTemplate();
         try {
             duplicateTemplate = this.templateBean.duplicate();
         } catch (CloneNotSupportedException e) {
@@ -78,36 +78,36 @@ public class QuestFormTreeController implements Serializable {
         setNodes();
     }
 
-	public TreeNode getSelectedNode() {
-		return selectedNode;
-	}
+    public TreeNode getSelectedNode() {
+        return selectedNode;
+    }
 
-	public void setSelectedNode(TreeNode selectedNode) {
-		this.selectedNode = selectedNode;
-	}
+    public void setSelectedNode(TreeNode selectedNode) {
+        this.selectedNode = selectedNode;
+    }
 
-	public QuestionBean getAddedquestion() {
-		return addedquestion;
-	}
+    public QuestionBean getAddedquestion() {
+        return addedquestion;
+    }
 
-	public void setAddedquestion(QuestionBean addedquestion) {
-		this.addedquestion = addedquestion;
-		addQuestionToNode(addedquestion);
-	}
+    public void setAddedquestion(QuestionBean addedquestion) {
+        this.addedquestion = addedquestion;
+        addQuestionToNode(addedquestion);
+    }
 
-	/**
-	 * if currentnode is group add question to group and rebuild tree
-	 * 
-	 * @param questionbean
-	 */
-	private void addQuestionToNode(QuestionBean questionbean) {
-		if (getSelectedType().equals("group")) {
-			((GroupBean) selectedNode.getData()).addToInnerList(addedquestion);
-			setNodes();
-		}
-	}
+    /**
+     * if currentnode is group add question to group and rebuild tree
+     *
+     * @param questionbean
+     */
+    private void addQuestionToNode(QuestionBean questionbean) {
+        if (getSelectedType().equals("group")) {
+            ((GroupBean) selectedNode.getData()).addToInnerList(addedquestion);
+            setNodes();
+        }
+    }
 
-	public void setNodes() {
+    public void setNodes() {
         root = new DefaultTreeNode("Root", null);
         ArrayList<TreeNode> nodeList = new ArrayList<TreeNode>();
 
@@ -128,22 +128,22 @@ public class QuestFormTreeController implements Serializable {
 
     } // END of setNodes() METHOD
 
-	public TreeNode getRoot() {
-		return root;
-	}
+    public TreeNode getRoot() {
+        return root;
+    }
 
-	public String edit() {
-		if (getSelectedType().equals("question")) {
-			return editQuestion();
-		} else if (getSelectedType().equals("group")) {
-			return addQuestion();
-		} else {
-			return addGroup();
-		}
+    public String edit() {
+        if (getSelectedType().equals("question")) {
+            return editQuestion();
+        } else if (getSelectedType().equals("group")) {
+            return addQuestion();
+        } else {
+            return addGroup();
+        }
 
-	}
+    }
 
-	/**
+    /**
      * Add group to template.
      *
      * @return next page
@@ -155,32 +155,31 @@ public class QuestFormTreeController implements Serializable {
         TreeNode node = new DefaultTreeNode(groupBean, selectedNode);
         //adding group to templateBean
         ((SectionBean) selectedNode.getData()).getGroupsList().add(groupBean);
-        return "/pages/questForm?faces-redirect=true";
+        return null;
     }
 
 
-	/**
-	 * adding new QuestionBean to the group and redirect to questionedit.xhtml page where this QestionBean will be edited
-	 * 
-	 */
-	private String addQuestion() {
-		if (getSelectedType().equals("group")) {
-			return "questionedit?faces-redirect=true";
-						
-		}
-		
-		//TODO ????
-		return null;
-		
-	}
+    /**
+     * adding new QuestionBean to the group and redirect to questionedit.xhtml page where this QestionBean will be edited
+     */
+    private String addQuestion() {
+        if (getSelectedType().equals("group")) {
+            return "questionedit?faces-redirect=true";
 
-	private String editQuestion() {
-		return null;
-		// TODO Auto-generated method stub
-		
-	}
+        }
 
-	public void delete() {
+        //TODO ????
+        return null;
+
+    }
+
+    private String editQuestion() {
+        return null;
+        // TODO Auto-generated method stub
+
+    }
+
+    public void delete() {
         selectedNode.getParent().getChildren().remove(selectedNode);
         if (!selectedNode.getParent().getData().equals("Root")) {
             ((BasicOperationWithBean) selectedNode.getParent().getData())
@@ -190,8 +189,8 @@ public class QuestFormTreeController implements Serializable {
         }
         selectedNode = null;
     }
-    
-     /**
+
+    /**
      * duplicateTemplate - is old template before editing( same ID, etc).
      * But the address in memory is differ(two instance that match each other via equals).
      * So, in case, if this is existing template, there is need to delete edited templateBean
@@ -210,5 +209,5 @@ public class QuestFormTreeController implements Serializable {
         }
         return ListController.income();
     }
-	
+
 }
