@@ -187,6 +187,18 @@ public class SimpleJbehaveSteps extends ScenarioSteps {
         }
     }
 
+    @When("the user checks first template")
+    public void checkFirstTemplate() {
+        boolean headIsPassed=false;
+        for (WebElement element : uIBootstrapBasePage.getDriver().findElements(By.className("ui-chkbox"))) {
+            if (headIsPassed) {
+                element.click();
+                break;
+            }
+            headIsPassed=true;
+        }
+    }
+
 //    @Then("the user is brought to the '$url')
 //    public void thenTheUserIsBroughtToThePageWithQuestionnaireEditorTitleLQE3() {
 //        uIBootstrapBasePage.getDriver().getPageSource() ==
