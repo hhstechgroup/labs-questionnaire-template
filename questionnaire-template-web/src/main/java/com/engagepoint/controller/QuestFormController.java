@@ -26,7 +26,10 @@ public class QuestFormController implements Serializable {
 
     public void setCurrentTemplateId(Long currentTemplateId) {
         this.currentTemplateId = currentTemplateId;
-        setCurrentTemplate(listController.getTemplatesModel().getRowData(currentTemplateId.toString()));
+        if (!isNew())
+        {
+            setCurrentTemplate(listController.getTemplatesModel().getRowData(currentTemplateId.toString()));
+        }
     }
 
     public String getTemplateName() {
@@ -97,6 +100,7 @@ public class QuestFormController implements Serializable {
     public String newTemplate() {
         TemplateBean newTemplate = new TemplateBean();
         setCurrentTemplate(newTemplate);
+        currentTemplateId = newTemplate.getId();
         questFormTreeController.setTemplateBean(newTemplate);
         return income();
     }

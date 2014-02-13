@@ -18,7 +18,7 @@ public class TemplateBean implements Cloneable, Comparable<TemplateBean>, BasicO
     }
 
     private Long id;
-    private String templateName;
+    private String templateName = "";
     private List<SectionBean> sectionsList = new ArrayList<SectionBean>();
 
     public TemplateBean() {
