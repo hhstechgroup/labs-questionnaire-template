@@ -1,5 +1,6 @@
 Narrative:
 LQE-4
-GivenStories: stories\create_jbehave_stories\write_stories\defaultpage.story
+GivenStories: stories\create_jbehave_stories\write_stories\editpage.story
 Scenario:
-Then wait for '2' sec
+When the user clicks button with title 'Add section'
+Then Edit page is shown

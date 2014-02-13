@@ -11,11 +11,11 @@ import java.util.List;
 
 import static java.util.Arrays.asList;
 
-public class AcceptanceTestsRun {
+public class LQE4Run {
 
     private static String testsFolder;
 
-	public static void main(String[] args) throws Throwable {
+    public static void main(String[] args) throws Throwable {
         if(args.length == 1) {
             testsFolder = args[0];
             new RunableIT().run();
@@ -27,8 +27,8 @@ public class AcceptanceTestsRun {
         HtmlAggregateStoryReporter reporter = new HtmlAggregateStoryReporter(Thucydides.getDefaultProjectKey());
         reporter.setOutputDirectory(sourceDirectory);
         reporter.generateReportsForTestResultsFrom(sourceDirectory);
-		System.exit(0);
-	}
+        System.exit(0);
+    }
 
     public static class RunableIT extends ThucydidesJUnitStories {
 
@@ -39,7 +39,7 @@ public class AcceptanceTestsRun {
         @Override
         public List<String> storyPaths() {
             return new StoryFinder().findPaths(CodeLocations.codeLocationFromClass(getClass()),
-                    asList("**/" + testsFolder + "/**/LQE*.story"), asList(""));
+                    asList("**/" + testsFolder + "/**/LQE4.story"), asList(""));
         }
     }
 

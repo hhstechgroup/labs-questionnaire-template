@@ -1,41 +1,23 @@
 package com.engagepoint.acceptancetest;
 
-import com.engagepoint.acceptancetest.base.filedownload.FileDownloader;
-import com.engagepoint.acceptancetest.base.filedownload.utils.RequestMethod;
-import com.engagepoint.acceptancetest.base.filedownload.utils.RequestParameters;
 import com.engagepoint.acceptancetest.base.pages.UIBootstrapBasePage;
 import com.engagepoint.acceptancetest.base.steps.JbehaveBaseSteps;
 import com.engagepoint.acceptancetest.base.steps.UseVariablesSteps;
-import net.thucydides.core.Thucydides;
+import com.engagepoint.pageobjects.EditPage;
+import com.engagepoint.pageobjects.HomePage;
 import net.thucydides.core.annotations.Steps;
 import net.thucydides.core.pages.Pages;
 import net.thucydides.core.steps.ScenarioSteps;
-import org.apache.commons.io.FileUtils;
-import org.apache.http.HttpResponse;
-import org.apache.http.NameValuePair;
 import org.jbehave.core.annotations.Alias;
 import org.jbehave.core.annotations.Given;
 import org.jbehave.core.annotations.Then;
 import org.jbehave.core.annotations.When;
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.MalformedURLException;
-import java.net.URISyntaxException;
-import java.util.List;
-
-import static org.hamcrest.CoreMatchers.equalTo;
-import static org.hamcrest.CoreMatchers.is;
-import static org.junit.Assert.assertThat;
-
 public class SimpleJbehaveSteps extends ScenarioSteps {
-
 
     private static final String XPATH_SELECTOR_SUFFIX = "')]";
     private UIBootstrapBasePage uIBootstrapBasePage;
@@ -52,7 +34,8 @@ public class SimpleJbehaveSteps extends ScenarioSteps {
 
     @Given("user is on Home page")
     public void userIsOnHomePage(){
-        uIBootstrapBasePage.open();
+        HomePage homePage = getPages().get(HomePage.class);
+        homePage.open();
     }
 
     @When("opens all tree with className '$className'")
@@ -60,6 +43,15 @@ public class SimpleJbehaveSteps extends ScenarioSteps {
     public void openAllTree(String className) {
         for (WebElement element : uIBootstrapBasePage.getDriver().findElements(By.className(className))) {
             element.click();
+        }
+    }
+
+    @When("opens tree with className '$className'")
+    @Alias("the user opens tree with className '$className'")
+    public void openTree(String className) {
+        for (WebElement element : uIBootstrapBasePage.getDriver().findElements(By.className(className))) {
+            element.click();
+            break;
         }
     }
 
@@ -143,8 +135,8 @@ public class SimpleJbehaveSteps extends ScenarioSteps {
     public void elementWithTextIsVisible(String text) {
         uIBootstrapBasePage.getDriver().findElement(By.xpath("//*[contains(text(),'" + text + "')]"));
     }
-    @Then("the user clicks button with title '$Edit'")
 
+    @Then("the user clicks button with title '$Edit'")
     public void clickedButtonEdit(String id){
         uIBootstrapBasePage.getDriver().findElement(By.xpath("//button [@title ='"+ id +"']")).click();
     }
@@ -152,11 +144,35 @@ public class SimpleJbehaveSteps extends ScenarioSteps {
     public void writeTextInField (String id,String value){
         uIBootstrapBasePage.enter(value).intoField(findVisibleElementAndGetSelector(id));
     }
+
     @Then("the user clicks  button with id '$id'")
-    public void clickButtonSave(String id){
+    public void clickButton(String id){
         uIBootstrapBasePage.getDriver().findElement(By.xpath("//button [@id ='"+ id +"']")).click();
     }
 
+    @Then("the user clicks element with id '$id'")
+    public void clickElement(String id){
+        uIBootstrapBasePage.getDriver().findElement(By.xpath("//span [@id ='"+ id +"']")).click();
+    }
+
+    @When("the user clicks button with id '$id'")
+    public void clickButtonWithId(String id){
+        uIBootstrapBasePage.getDriver().findElement(By.xpath("//button [@id ='"+ id +"']")).click();
+    }
+    @When("the user clicks button with value '$id'")
+    public void clickButtonWithValue(String value){
+        uIBootstrapBasePage.getDriver().findElement(By.xpath("//button [@value ='" + value + "']")).click();
+    }
+
+    @When("the user clicks button with title '$id'")
+    public void clickButtonWithTitle(String title){
+        uIBootstrapBasePage.getDriver().findElement(By.xpath("//button [@title ='"+ title +"']")).click();
+    }
+
+    @Then("Edit page is shown")
+    public void editPageIsShown(){
+        pages().isCurrentPageAt(EditPage.class);
+    }
 
 //    @Then("the user is brought to the '$url')
 //    public void thenTheUserIsBroughtToThePageWithQuestionnaireEditorTitleLQE3() {
