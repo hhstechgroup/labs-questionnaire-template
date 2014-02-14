@@ -3,7 +3,7 @@ In order to have an ability to edit template
 As a template author
 I want to clone questionnaire templates (LQE-23)
 
-GivenStories: stories\create_jbehave_stories\write_stories\defaultpage.story
+GivenStories: stories/create_jbehave_stories/write_stories/defaultpage.story
 Then the user clicks  button with id 'form1:table:0:Clone'
 Then wait for '1' sec
 Then the user clicks button with id 'form1:table:0:btnEdit'
