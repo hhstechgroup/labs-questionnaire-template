@@ -50,10 +50,10 @@
 
                         <p:ajax event="expand" update=":formTemplate:form:buttonPanel"/>
                         <p:ajax event="collapse" update=":formTemplate:form:buttonPanel"/>
-                        <p:ajax event="select" update=":formTemplate:form:buttonPanel"/>
+                        <p:ajax event="select" update=":formTemplate:form:buttonPanel,treeMultiple"/>
                         <p:ajax event="unselect" update=":formTemplate:form:buttonPanel"/>
 
-                        <p:column>
+                        <p:column style="#{questFormTreeController.getStyle(node)}">
                             <h:outputText id="treeNode" value="#{node}"/>
                         </p:column>
 
