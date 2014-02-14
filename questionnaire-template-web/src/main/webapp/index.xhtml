@@ -100,6 +100,7 @@
                         </h:outputFormat>
                         <br/>
                         <p:commandButton value="Yes, delete it"
+                                         id="yes"
                                          action="#{listController.deleteTemplate(template)}"
                                          update=":form1:table" onclick="dlg2.hide()"/>
                         <p:commandButton value="No, cancel" onclick="dlg2.hide()"/>
