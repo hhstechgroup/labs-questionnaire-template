@@ -89,10 +89,11 @@ public class QuestionBean implements Cloneable, BasicBeanProperty {
 
     @Override
     public Object clone() throws CloneNotSupportedException {
-        //Have not decided yet how to do id when cloning, now - random
-        Random rand = new Random(60000);
         QuestionBean copy = (QuestionBean) super.clone();
-        copy.setId(rand.nextLong());
+        if(TemplateBean.duplicate)
+            copy.setId(this.id);
+        else
+            copy.setId(idgenerator++);
         copy.setQuestionType(this.questionType);
         copy.setQuestionText(this.questionText);
         copy.setRequiredAnswer(this.requiredAnswer);
