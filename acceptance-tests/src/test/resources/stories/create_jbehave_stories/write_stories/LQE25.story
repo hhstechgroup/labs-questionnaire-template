@@ -1,7 +1,7 @@
 Narrative:
-LQE-25: As a template author I want to search for questio nnaire templates so that I
-        can quickly find the needed ones.
-
+In order to have an ability to edit template 
+As a template author
+I want to search for questionnaire templates (LQE-25)
 
 
 Scenario:

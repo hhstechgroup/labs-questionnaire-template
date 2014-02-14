@@ -1,5 +1,8 @@
 Narrative:
-LQE-2
+In order to have an ability to edit template 
+As a template author
+I want to create new questionnaire templates LQE-2
+
 Scenario:
 When the user opens the default page
 Then the user clicks  button with id  'form1:AddTemplate'

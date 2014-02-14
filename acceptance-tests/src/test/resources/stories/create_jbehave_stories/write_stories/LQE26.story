@@ -1,5 +1,7 @@
 Narrative:
-LQE-26: As a template author I want to export questionnaire templates.
+In order to have an ability to edit template 
+As a template author
+I want to export questionnaire templates LQE-26
 
 Scenario:
 Given user is on Home page
