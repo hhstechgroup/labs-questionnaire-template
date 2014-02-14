@@ -214,15 +214,7 @@ public class QuestFormTreeController implements Serializable {
     public String getStyle(Object node) {
         if (selectedNode != null) {
             if (selectedNode.getData() == node) {
-                return "color: white;\n" +
-//                        "line-height: 24px;\n" +
-//                        "padding: 8px 15px;\n" +
-//                        "vertical-align: middle;\n" +
-//                        "font-family: \"MuseoSans700\", sans-serif;\n" +
-                        "background: #0075ac;\n" +
-//                        "border-right: 1px solid #0075ac;\n" +
-//                        "min-height: 40px;";
-                        "";
+                return "color:white;background:#0075ac;";
             }
         }
         return "";

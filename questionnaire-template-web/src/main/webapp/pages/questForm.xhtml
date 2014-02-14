@@ -8,12 +8,6 @@
 
                 template="/templates/template.xhtml">
 
-    <style type="html/css">
-        .ui-state-highlight {
-            color: #00ff00;
-        }
-    </style>
-
     <f:metadata>
         <f:viewParam name="item" value="#{templateController.currentTemplateId}"/>
     </f:metadata>
@@ -54,7 +48,7 @@
                         <p:ajax event="unselect" update=":formTemplate:form:buttonPanel"/>
 
                         <p:column style="#{questFormTreeController.getStyle(node)}">
-                            <h:outputText id="treeNode" value="#{node}"/>
+                            <h:outputText id="treeNode" value="#{node}" style="cursor: pointer"/>
                         </p:column>
 
                     </p:treeTable>
@@ -74,7 +68,7 @@
                                          action="#{questFormTreeController.delete()}"
                                          rendered="#{questFormTreeController.haveSelected()}"
                                          id="btnDisplayDelete"
-                                         styleClass="blue"
+                                         styleClass="secondary"
                                          icon="ui-icon-remove"/>
                         <h:outputText value=" "/>
                         <p:commandButton value="#{questFormTreeController.editTitle}"
