@@ -11,5 +11,6 @@
     <modules>
         <module>acceptance-tests</module>
         <module>questionnaire-template-web</module>
+        <module>labs-questionnaire-template-acceptancetest</module>
     </modules>
 </project>
