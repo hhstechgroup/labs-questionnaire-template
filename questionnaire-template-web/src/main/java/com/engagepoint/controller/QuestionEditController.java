@@ -54,6 +54,11 @@ public class QuestionEditController implements Serializable {
 		switch (selectedQuestionType) {
 		case TEXT:
 			return "/question-pages/textquestion?faces-redirect=true";
+        case DATE:
+            return "/question-pages/datequestion?faces-redirect=true";
+
+        case CHOOSEFROMLIST:
+            return "/question-pages/chooseFromList?faces-redirect=true";
 
 		default:
 			return null;
