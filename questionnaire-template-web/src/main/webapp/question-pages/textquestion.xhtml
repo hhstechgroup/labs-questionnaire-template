@@ -17,17 +17,16 @@
 			<ago:questioncommon qb="#{textquestion}" />
 			<h:panelGrid columns="2" style="margin-bottom:10px" cellpadding="5">
 				<h:outputText value="Default answer: " />
-				<p:inputText size="50" value="" />
-
-
-			</h:panelGrid>
+				<p:inputText size="50" value="#{textquestion.defaultAnswer}" />
+	</h:panelGrid>
 		</h:form>
 		<h:form id="form4">
 			<h:panelGrid id="buttons" columns="3" style="margin-bottom:10px"
 				cellpadding="5">
 				<p:commandButton id="savequestion" value="Save question"
 					action="questForm?faces-redirect=true">
-					<f:setPropertyActionListener value="" target="" />
+					<f:ajax execute=":form2"/>
+					<f:setPropertyActionListener value="textquestion" target="questFormTreeController.addedquestion" />
 				</p:commandButton>
 				<p:commandButton id="cancel" value="Cancel" immediate="true"
 					action="questForm?faces-redirect=true" />

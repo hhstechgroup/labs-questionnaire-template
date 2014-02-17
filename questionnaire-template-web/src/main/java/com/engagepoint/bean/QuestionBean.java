@@ -1,6 +1,8 @@
 package com.engagepoint.bean;
 
 
+import javax.enterprise.context.RequestScoped;
+import javax.inject.Named;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 
@@ -8,7 +10,8 @@ import javax.xml.bind.annotation.XmlElement;
 /**
  * Class represents question tag.
  */
-
+@Named("question")
+@RequestScoped
 public class QuestionBean implements Cloneable, BasicBeanProperty {
     private Long id;					//id of the question
     
