@@ -20,7 +20,7 @@ import java.util.List;
  * To change this template use File | Settings | File Templates.
  */
 public class ImportExportXMLTest {
-    @Test
+   /* @Test
     public void testEqualityXML() throws FileNotFoundException {
         QuestionBean bean = new QuestionBean("blah",false, QuestionType.CHECKBOX);
         QuestionBean eqBean = new QuestionBean("blah",true, QuestionType.CHECKBOX);
@@ -98,5 +98,5 @@ public class ImportExportXMLTest {
         List<TemplateBean> newTempsList = new ArrayList<TemplateBean>();
         newTempsList.addAll(XmlImportExport.importXmlTemplate(stream));
         Assert.assertTrue(tempList.equals(newTempsList));
-    }
+    }*/
 }

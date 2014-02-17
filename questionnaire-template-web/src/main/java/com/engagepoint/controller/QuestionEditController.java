@@ -1,27 +1,32 @@
 package com.engagepoint.controller;
 
+import java.io.Serializable;
 
 import com.engagepoint.bean.QuestionBean;
 import com.engagepoint.bean.QuestionType;
 
 import javax.enterprise.context.RequestScoped;
-
+import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
 
-
 @Named("questionController")
-@RequestScoped
-public class QuestionEditController {
-    
-    private QuestionBean currentQuestion;
-    private QuestionType selectedQuestionType;
-    
-    //TODO ?????
-    public QuestionEditController(){
-    	currentQuestion = new QuestionBean();
-    }
-    
-    public QuestionBean getCurrentQuestion() {
+@SessionScoped
+public class QuestionEditController implements Serializable {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
+	private QuestionBean currentQuestion;
+	private QuestionType selectedQuestionType;
+
+	
+	public QuestionEditController() {
+		
+	}
+
+	public QuestionBean getCurrentQuestion() {
 		return currentQuestion;
 	}
 
@@ -30,24 +35,30 @@ public class QuestionEditController {
 	}
 
 	public QuestionType getSelectedQuestionType() {
-        return selectedQuestionType;
-    }
-    
-    public void setSelectedQuestionType(QuestionType selectedQuestionType) {
-    	this.selectedQuestionType = selectedQuestionType;
-    }
+		return selectedQuestionType;
+	}
 
-    public QuestionType[] getQuestionTypes() {
-        return QuestionType.values();
-    }
+	public void setSelectedQuestionType(QuestionType selectedQuestionType) {
+		this.selectedQuestionType = selectedQuestionType;
+	}
 
-    public String income() {
-        return "questForm?faces-redirect=true";
-    }
+	public QuestionType[] getQuestionTypes() {
+		return QuestionType.values();
+	}
 
-	public void changeQuestionType(){
-		//TODO cast currentQuestion to extended type depended on selectedQuestionType
-		//valueChangeListener maybe?
+	public String income() {
+		return "questForm?faces-redirect=true";
+	}
+
+	public String changeQuestionType() {
+		switch (selectedQuestionType) {
+		case TEXT:
+			return "/question-pages/textquestion?faces-redirect=true";
+
+		default:
+			return null;
+		}
+
 	}
 
 }

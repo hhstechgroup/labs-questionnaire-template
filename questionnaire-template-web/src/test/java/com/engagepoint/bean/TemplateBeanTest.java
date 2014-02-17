@@ -12,7 +12,7 @@ import java.util.List;
  */
 public class TemplateBeanTest {
 
-    @Test
+   /* @Test
     public void testCloneTemplateBean() throws Exception {
         QuestionBean bean = new QuestionBean("blah",true, QuestionType.CHECKBOX);
         QuestionBean eqBean = new QuestionBean("blah",true, QuestionType.CHECKBOX);
@@ -108,5 +108,5 @@ public class TemplateBeanTest {
         TemplateBean testTemplate1 = new TemplateBean(new Long(5),"Questionnaire",sectionsList1);
         Assert.assertTrue(testTemplate.equals(testTemplate1));
 
-    }
+    }*/
 }

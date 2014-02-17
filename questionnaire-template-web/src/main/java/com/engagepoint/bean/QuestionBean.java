@@ -1,26 +1,22 @@
 package com.engagepoint.bean;
 
-import javax.enterprise.context.RequestScoped;
-import javax.inject.Named;
+
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
-import java.util.Random;
+
 
 /**
  * Class represents question tag.
  */
-@Named("question")
-@RequestScoped
+
 public class QuestionBean implements Cloneable, BasicBeanProperty {
     private Long id;					//id of the question
+    
     private String questionText;		//questiontext
     private boolean requiredAnswer;		//is answer required or not
     private QuestionType questionType;	//questiontype from ENUM of questiontypes
     private String helpText;			//Help texts for questions
     
-    private String defaultAnswer; 		//TODO temp, will be replaced after we implement hierarchy
-    
-    //Default values for questions
     //Dependent questions
     
     private static Long idgenerator = 1L;
@@ -54,14 +50,6 @@ public class QuestionBean implements Cloneable, BasicBeanProperty {
     public void setId(Long id) {
         this.id = id;
     }
-
-    public String getDefaultAnswer() {
-		return defaultAnswer;
-	}
-
-	public void setDefaultAnswer(String defaultAnswer) {
-		this.defaultAnswer = defaultAnswer;
-	}
 
 	@XmlAttribute(required = true)
     public boolean isRequiredAnswer() {
