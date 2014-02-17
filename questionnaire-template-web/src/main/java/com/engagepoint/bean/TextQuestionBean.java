@@ -8,6 +8,10 @@ import javax.inject.Named;
 @RequestScoped
 public class TextQuestionBean extends QuestionBean {
 	
+	public TextQuestionBean(){
+		super();
+	}
+	
 	private String defaultAnswer;
 
 	public String getDefaultAnswer() {
