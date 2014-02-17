@@ -55,6 +55,9 @@ public class QuestionEditController implements Serializable {
 		case TEXT:
 			return "/question-pages/textquestion?faces-redirect=true";
 
+        case CHOOSEFROMLIST:
+            return "/question-pages/chooseFromList?faces-redirect=true";
+
 		default:
 			return null;
 		}
