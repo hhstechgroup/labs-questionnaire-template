@@ -41,19 +41,7 @@
         </h:form>
 
         <h:form id="form4">
-            <h:panelGrid id="buttons" columns="3" style="margin-bottom:10px"
-                         cellpadding="5">
-                <p:commandButton id="savequestion" value="Save question"
-                                 action="questForm?faces-redirect=true">
-                    <f:setPropertyActionListener
-                            value=""
-                            target=""/>
-                </p:commandButton>
-                <p:commandButton id="cancel" value="Cancel" immediate="true"
-                                 action="questForm?faces-redirect=true"/>
-
-
-            </h:panelGrid>
+            <ago:questionbuttons target="" value=""/>
         </h:form>
 
     </ui:define>
