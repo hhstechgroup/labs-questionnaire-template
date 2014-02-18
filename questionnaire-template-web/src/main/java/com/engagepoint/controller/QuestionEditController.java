@@ -56,12 +56,16 @@ public class QuestionEditController implements Serializable {
                 return "/question-pages/textquestion?faces-redirect=true";
             case DATE:
                 return "/question-pages/datequestion?faces-redirect=true";
+            case PARAGRAPHTEXT:
+                return "/question-pages/paragraphQuestion?faces-redirect=true";
             case CHOOSEFROMLIST:
                 return "/question-pages/chooseFromList?faces-redirect=true";
             case MULTIPLECHOICE:
                 return "/question-pages/chooseFromList?faces-redirect=true";
             case FILEUPLOAD:
                 return "/question-pages/fileUploadQuestion?faces-redirect=true";
+            case TIME:
+                return "/question-pages/timeQuestion?faces-redirect=true";
             default:
                 return null;
         }
