@@ -12,29 +12,28 @@
     <ui:define name="question">
 
         <h:form id="form2">
-            <ago:questioncommon qb="#{textquestion}" />
+            <ago:questioncommon qb="#{datequestion}" />
             <h:panelGrid columns="2" style="margin-bottom:10px" cellpadding="5">
 
 
                 <h:outputText value="Default answer: " />
-                <p:calendar id="cal" value="#{dateQuestionBean.defaultAnswer}" navigator="true" display="inline"/>
+                <p:calendar title="calendar" id="calendar" pattern="MM/dd/yyyy" showOn="button" />
 
             </h:panelGrid>
-        </h:form>
-        <h:form id="form4">
             <h:panelGrid id="buttons" columns="3" style="margin-bottom:10px"
                          cellpadding="5">
                 <p:commandButton id="savequestion" value="Save question"
-                                 action="questForm?faces-redirect=true">
+                                 action="/pages/questForm?faces-redirect=true">
                     <f:setPropertyActionListener
-                            value=""
-                            target="" />
+                            value="#{datequestion}"
+                            target="#{questFormTreeController.addedquestion}" />
                 </p:commandButton>
                 <p:commandButton id="cancel" value="Cancel" immediate="true"
-                                 action="questForm?faces-redirect=true" />
+                                 action="/pages/questForm?faces-redirect=true" />
 
 
             </h:panelGrid>
+
         </h:form>
 
     </ui:define>
