@@ -1,4 +1,6 @@
-package com.engagepoint.bean;
+package com.engagepoint.bean.QuestionBeans;
+
+import com.engagepoint.bean.QuestionBeans.QuestionBean;
 
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Named;

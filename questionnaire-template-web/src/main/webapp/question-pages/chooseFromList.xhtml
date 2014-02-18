@@ -1,27 +1,42 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
-                xmlns:ui="http://java.sun.com/jsf/facelets"
-                xmlns:p="http://primefaces.org/ui"
-                xmlns:h="http://java.sun.com/jsf/html"
-                xmlns:f="http://java.sun.com/jsf/core"
-                xmlns:uib="http://engagepoint.com/uib"
-                template="/pages/questionedit.xhtml"
-                xmlns:ago="http://java.sun.com/jsf/composite/questiontemplate">
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:uib="http://engagepoint.com/uib"
+	template="/pages/questionedit.xhtml"
+    xmlns:ago="http://java.sun.com/jsf/composite/questiontemplate">
 
+    <f:metadata>
+        <f:viewParam name="item" value="#{templateController.currentTemplateId}"/>
+        <f:viewParam name="ques" value="#{optionsController.optionsQuestionBean.id}"/>
+    </f:metadata>
 
     <ui:define name="question">
 
         <h:form id="form2">
-            <ago:questioncommon qb="#{optionBean}"/>
+            <ago:questioncommon qb="#{optionsQuestionBean}"/>
         </h:form>
 
         <h:form id="form3">
+
+            <br/>
+
+            <p:growl id="messages" showDetail="true"/>
+            
+            <p:commandButton value="Add option"
+                             id="AddOption"
+                             action="#{optionsController.addOption('New')}"
+                             update=":form3:tableOptions"
+                             styleClass="fl-right">
+            </p:commandButton>
+
             <uib:dataTable id="tableOptions"
                            widgetVar="tableOptions"
                            var="option"
-                           value="#{optionsController.dataModel}"
-                           selection="#{optionsController.selectedOption}"
-                           editable="true"
+                           value="#{optionsController.optionQuestionModel.dataModel}"
+                           selection="#{optionsController.optionQuestionModel.defaultOption}"                           editable="true"
                            editMode="cell">
 
                 <uib:column headerText="Default"
@@ -36,7 +51,10 @@
                             <p:inputText value="#{option.value}" style="width:100%"/>
                         </f:facet>
                     </p:cellEditor>
+                    <h:outputText value="#{option}" />
+                    <h:outputText value="#{optionsController.optionsQuestionBean}" />
                 </uib:column>
+
             </uib:dataTable>
         </h:form>
 
@@ -44,5 +62,5 @@
             <ago:questionbuttons target="" value="#{optionBean}"/>
         </h:form>
 
-    </ui:define>
+	</ui:define>
 </ui:composition>

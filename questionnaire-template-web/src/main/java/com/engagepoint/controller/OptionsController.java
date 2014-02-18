@@ -1,57 +1,64 @@
 package com.engagepoint.controller;
 
-import com.engagepoint.model.OptionDataModel;
+import com.engagepoint.bean.QuestionBeans.OptionsQuestionBean;
+import com.engagepoint.bean.QuestionBeans.QuestionBean;
+import com.engagepoint.model.OptionQuestionModel;
+import com.engagepoint.model.TableModels.ListOfOptionsDataModel;
+import org.primefaces.event.RowEditEvent;
 import com.engagepoint.model.VariantItem;
 
-import javax.enterprise.context.RequestScoped;
+import javax.annotation.PostConstruct;
+import javax.faces.bean.RequestScoped;
+import javax.faces.bean.SessionScoped;
+import javax.inject.Inject;
 import javax.inject.Named;
-import java.util.ArrayList;
-import java.util.List;
+import java.io.Serializable;
 
-@Named
-@RequestScoped
 /**
  * Controller for multiplechoice,checkboxes and choose from a list question types.
  */
-public class OptionsController {
-    //dataModel for table
-    private OptionDataModel dataModel;
-    //list of variants
-    private List<VariantItem> options;
-    //selected variant
-    private VariantItem selectedOption;
+@Named
+@SessionScoped
+public class OptionsController implements Serializable {
 
-    public OptionsController() {
-        //creating list of variants
-        options = new ArrayList<VariantItem>();
-        options.add(new VariantItem("First option"));
-        options.add(new VariantItem("Second option"));
-        options.add(new VariantItem("Third option"));
-        //adding variants to dataModel
-        dataModel = new OptionDataModel(options);
+    @Inject
+    private QuestFormTreeController questFormTreeController;
+    private OptionsQuestionBean optionsQuestionBean;
+    private OptionQuestionModel optionQuestionModel;
+
+    public OptionQuestionModel getOptionQuestionModel() {
+        return optionQuestionModel;
     }
 
-    public OptionDataModel getDataModel() {
-        return dataModel;
+    public void setOptionQuestionModel(OptionQuestionModel optionQuestionModel) {
+        this.optionQuestionModel = optionQuestionModel;
     }
 
-    public void setDataModel(OptionDataModel dataModel) {
-        this.dataModel = dataModel;
+    public OptionsQuestionBean getOptionsQuestionBean() {
+        return optionsQuestionBean;
     }
 
-    public VariantItem getSelectedOption() {
-        return selectedOption;
+    public void setOptionsQuestionBean(OptionsQuestionBean optionsQuestionBean) {
+        this.optionsQuestionBean = optionsQuestionBean;
+        init(optionsQuestionBean);
     }
 
-    public void setSelectedOption(VariantItem selectedOption) {
-        this.selectedOption = selectedOption;
+    public void init(OptionsQuestionBean optionsQuestionBean){
+        optionQuestionModel = new OptionQuestionModel(optionsQuestionBean);
     }
 
-    public List<VariantItem> getOptions() {
-        return options;
+    public void addOption(String option) {
+        optionQuestionModel.addOption(new VariantItem(option));
     }
 
-    public void setOptions(List<VariantItem> options) {
-        this.options = options;
+    public void removeOption(String option) {
+        optionQuestionModel.removeOption(new VariantItem(option));
+    }
+
+    public String saveQuestion() {
+        optionsQuestionBean.setOptions(optionQuestionModel.getOptions());
+        optionsQuestionBean.setDefaultOption(optionQuestionModel.getDefaultOption());
+        questFormTreeController.setAddedquestion(optionsQuestionBean);
+        return "/pages/questForm?faces-redirect=true";
     }
 }

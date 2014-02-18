@@ -11,6 +11,7 @@ import java.util.List;
 import javax.inject.Inject;
 import javax.inject.Named;
 
+import com.engagepoint.bean.QuestionBeans.QuestionBean;
 import org.primefaces.model.DefaultTreeNode;
 import org.primefaces.model.TreeNode;
 
@@ -165,7 +166,7 @@ public class QuestFormTreeController implements Serializable {
      */
     private String addQuestion() {
         if (getSelectedType().equals("group")) {
-            return "questionedit?faces-redirect=true";
+             return "questionedit?faces-redirect=true&includeViewParams=true";
 
         }
 

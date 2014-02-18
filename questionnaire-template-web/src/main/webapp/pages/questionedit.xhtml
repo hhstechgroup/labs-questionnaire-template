@@ -7,6 +7,9 @@
                 xmlns:uib="http://engagepoint.com/uib"
                 template="/templates/template.xhtml">
 
+    <f:metadata>
+        <f:viewParam name="item" value="#{templateController.currentTemplateId}"/>
+    </f:metadata>
 
     <ui:define name="page">
 
@@ -24,9 +27,26 @@
             <p:commandButton id="go" value="Choose selected type"
                              action="#{questionController.changeQuestionType}" />
             <br></br>
+		<h:messages style="color:red"/>
+		<h:form id="form">
+			<h:outputText value="Please choose a question type" />
+			<br></br>
+			<p:selectOneMenu value="#{questionController.selectedQuestionType}"
+				required="true">
+				<f:selectItem itemLabel="Select One" itemValue="#{null}" />
+				<f:selectItems value="#{questionController.questionTypes}" />
+				<p:ajax event="change" update=":form:out" />
+			</p:selectOneMenu>
+			<br></br>
+
 			<h:outputText id="out"
 				value="#{questionController.selectedQuestionType} is selected" 	/>
 			<br></br>
+			<p:commandButton id="go" value="GO"
+				action="#{questionController.changeQuestionType}">
+		    </p:commandButton>
+
+		</h:form>
         </h:form>
 
         <uib:pageBodyFacet>

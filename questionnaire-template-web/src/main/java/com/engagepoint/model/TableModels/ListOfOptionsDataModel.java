@@ -1,5 +1,6 @@
-package com.engagepoint.model;
+package com.engagepoint.model.TableModels;
 
+import com.engagepoint.model.VariantItem;
 import org.primefaces.model.SelectableDataModel;
 
 import javax.faces.model.ListDataModel;
@@ -8,9 +9,10 @@ import java.util.List;
 /**
  * Class for enabling selection in the dataTable.
  */
-public class OptionDataModel extends ListDataModel<VariantItem> implements SelectableDataModel<VariantItem> {
 
-    public OptionDataModel(List<VariantItem> data) {
+public class ListOfOptionsDataModel extends ListDataModel<VariantItem> implements SelectableDataModel<VariantItem> {
+
+    public ListOfOptionsDataModel(List<VariantItem> data) {
         super(data);
     }
 

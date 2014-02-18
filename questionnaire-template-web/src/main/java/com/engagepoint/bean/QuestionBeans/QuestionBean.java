@@ -1,5 +1,9 @@
-package com.engagepoint.bean;
+package com.engagepoint.bean.QuestionBeans;
 
+
+import com.engagepoint.bean.BasicBeanProperty;
+import com.engagepoint.bean.QuestionType;
+import com.engagepoint.bean.TemplateBean;
 
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Named;

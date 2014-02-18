@@ -1,4 +1,4 @@
-package com.engagepoint.model;
+package com.engagepoint.model.TableModels;
 
 import java.util.List;
 import javax.faces.model.ListDataModel;
@@ -14,9 +14,9 @@ import org.primefaces.model.SelectableDataModel;
  */
 
 
-public class  TemplateDataModel extends ListDataModel<TemplateBean> implements SelectableDataModel<TemplateBean> {
+public class ListOfTemplatesDataModel extends ListDataModel<TemplateBean> implements SelectableDataModel<TemplateBean> {
 
-    public TemplateDataModel(List<TemplateBean> data) {
+    public ListOfTemplatesDataModel(List<TemplateBean> data) {
         super(data);
     }
 

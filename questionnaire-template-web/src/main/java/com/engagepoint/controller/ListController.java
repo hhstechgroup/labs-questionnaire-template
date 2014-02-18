@@ -2,8 +2,8 @@ package com.engagepoint.controller;
 
 
 import com.engagepoint.bean.TemplateBean;
+import com.engagepoint.model.TableModels.ListOfTemplatesDataModel;
 import com.engagepoint.utils.XmlImportExport;
-import com.engagepoint.model.TemplateDataModel;
 import org.primefaces.event.FileUploadEvent;
 
 import javax.enterprise.context.SessionScoped;
@@ -23,7 +23,7 @@ public class ListController implements Serializable {
     private List<TemplateBean> filteredList;
     private List<TemplateBean> selectedTemplates;
 
-    private TemplateDataModel templatesModel;
+    private ListOfTemplatesDataModel templatesModel;
 
     private String filterValue = "";
 
@@ -35,10 +35,10 @@ public class ListController implements Serializable {
         //adding Templates from XML file
         addAllTemplates(XmlImportExport.importXmlTemplate(xmlPath));
 
-        templatesModel = new TemplateDataModel(list);
+        templatesModel = new ListOfTemplatesDataModel(list);
     }
 
-    public TemplateDataModel getTemplatesModel() {
+    public ListOfTemplatesDataModel getTemplatesModel() {
         return templatesModel;
     }
 
@@ -101,7 +101,7 @@ public class ListController implements Serializable {
     public void addTemplateAndUpdateLists(TemplateBean template) {
         addTemplate(template);
         addTemplateToFilteredList(template);
-        templatesModel = new TemplateDataModel(list);
+        templatesModel = new ListOfTemplatesDataModel(list);
         sort();
     }
 
@@ -152,7 +152,7 @@ public class ListController implements Serializable {
             addTemplate(templateBean);
             addTemplateToFilteredList(templateBean);
         }
-        templatesModel = new TemplateDataModel(list);
+        templatesModel = new ListOfTemplatesDataModel(list);
         sort();
     }
 
