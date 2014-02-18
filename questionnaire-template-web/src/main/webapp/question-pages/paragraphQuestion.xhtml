@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:uib="http://engagepoint.com/uib"
+                xmlns:ago="http://java.sun.com/jsf/composite/questiontemplate"
+                template="/pages/questionedit.xhtml">
+
+
+<ui:define name="question">
+
+
+        <h:form id="form4">
+            <ago:questioncommon qb="#{textquestion}"/>
+            <h:panelGrid columns="2" style="margin-bottom:10px" cellpadding="5">
+                <h:outputText value="Default answer: " />
+                <p:inputTextarea rows="8" cols="5555" />
+            </h:panelGrid>
+            <h:panelGrid id="buttons" columns="3" style="margin-bottom:10px"
+                         cellpadding="5">
+                <p:commandButton id="savequestion" value="Save question"
+                                 action="/pages/questForm?faces-redirect=true">
+                    <f:setPropertyActionListener value="#{textquestion}"
+                                                 target="#{questFormTreeController.addedquestion}"/>
+                </p:commandButton>
+                <p:commandButton id="cancel" value="Cancel" immediate="true"
+                                 action="/pages/questForm?faces-redirect=true"/>
+
+            </h:panelGrid>
+        </h:form>
+
+    </ui:define>
+</ui:composition>
