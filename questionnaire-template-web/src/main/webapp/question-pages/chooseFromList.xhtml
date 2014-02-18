@@ -1,52 +1,42 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:p="http://primefaces.org/ui"
-	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:uib="http://engagepoint.com/uib"
-	template="/pages/questionedit.xhtml"
-    xmlns:ago="http://java.sun.com/jsf/composite/questiontemplate">
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:uib="http://engagepoint.com/uib"
+                template="/pages/questionedit.xhtml"
+                xmlns:ago="http://java.sun.com/jsf/composite/questiontemplate">
 
 
-	<ui:define name="question">
+    <ui:define name="question">
 
         <h:form id="form2">
-            <ago:questioncommon qb="#{optionBean}" />
+            <ago:questioncommon qb="#{optionBean}"/>
         </h:form>
 
         <h:form id="form3">
-
-            <br/>
-
-            <p:growl id="messages" showDetail="true"/>
-
             <uib:dataTable id="tableOptions"
                            widgetVar="tableOptions"
                            var="option"
                            value="#{optionsController.dataModel}"
-                           selection="#{optionsController.defaultOption}"
-                           editable="true">
-
-                <p:ajax event="rowEdit" listener="#{optionsController.onEdit}" update=":form3:messages" />
+                           selection="#{optionsController.selectedOption}"
+                           editable="true"
+                           editMode="cell">
 
                 <uib:column headerText="Default"
                             selectionMode="single"/>
+
                 <uib:column headerText="Options">
                     <p:cellEditor>
                         <f:facet name="output">
-                            <h:outputText value="#{option}" />
+                            <h:outputText value="#{option.value}"/>
                         </f:facet>
                         <f:facet name="input">
-                            <p:inputText value="#{option}" style="width:100%"/>
+                            <p:inputText value="#{option.value}" style="width:100%"/>
                         </f:facet>
                     </p:cellEditor>
                 </uib:column>
-
-                <uib:column style="width:6%">
-                    <p:rowEditor />
-                </uib:column>
-
             </uib:dataTable>
         </h:form>
 
@@ -57,14 +47,14 @@
                                  action="questForm?faces-redirect=true">
                     <f:setPropertyActionListener
                             value=""
-                            target="" />
+                            target=""/>
                 </p:commandButton>
                 <p:commandButton id="cancel" value="Cancel" immediate="true"
-                                 action="questForm?faces-redirect=true" />
+                                 action="questForm?faces-redirect=true"/>
 
 
             </h:panelGrid>
         </h:form>
 
-	</ui:define>
+    </ui:define>
 </ui:composition>
