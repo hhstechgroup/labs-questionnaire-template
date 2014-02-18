@@ -1,68 +1,37 @@
 package com.engagepoint.controller;
 
 import com.engagepoint.model.OptionDataModel;
-import org.primefaces.event.RowEditEvent;
+import com.engagepoint.model.VariantItem;
 
-import javax.faces.application.FacesMessage;
-import javax.faces.bean.RequestScoped;
-import javax.faces.bean.SessionScoped;
-import javax.faces.context.FacesContext;
+import javax.enterprise.context.RequestScoped;
 import javax.inject.Named;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
-/**
- * Created with IntelliJ IDEA.
- * User: anna.zagrebelnaya
- * Date: 2/17/14
- * Time: 2:19 PM
- * To change this template use File | Settings | File Templates.
- */
 @Named
-@SessionScoped
+@RequestScoped
+/**
+ * Controller for multiplechoice,checkboxes and choose from a list question types.
+ */
 public class OptionsController {
-    private List<String> options;
-    private String defaultOption;
-    private List<String> defaultOptions;
+    //dataModel for table
     private OptionDataModel dataModel;
+    //list of variants
+    private List<VariantItem> options;
+    //selected variant
+    private VariantItem selectedOption;
 
     public OptionsController() {
-        if (options==null) {
-            options = new ArrayList<String>();
-            this.options.add("First option");
-            this.options.add("Second option");
-        }
+        //creating list of variants
+        options = new ArrayList<VariantItem>();
+        options.add(new VariantItem("First option"));
+        options.add(new VariantItem("Second option"));
+        options.add(new VariantItem("Third option"));
+        //adding variants to dataModel
         dataModel = new OptionDataModel(options);
-    }
-
-    public List<String> getOptions() {
-        return options;
-    }
-
-    public void setOptions(List<String> options) {
-        this.options = options;
-        dataModel = new OptionDataModel(options);
-    }
-
-    public String getDefaultOption() {
-        return defaultOption;
-    }
-
-    public void setDefaultOption(String defaultOption) {
-        this.defaultOption = defaultOption;
-    }
-
-    public List<String> getDefaultOptions() {
-        return defaultOptions;
-    }
-
-    public void setDefaultOptions(List<String> defaultOptions) {
-        this.defaultOptions = defaultOptions;
     }
 
     public OptionDataModel getDataModel() {
-        dataModel = new OptionDataModel(options);
         return dataModel;
     }
 
@@ -70,18 +39,19 @@ public class OptionsController {
         this.dataModel = dataModel;
     }
 
-    public void addOption(String option) {
-        this.options.add(option);
+    public VariantItem getSelectedOption() {
+        return selectedOption;
     }
 
-    public void removeOption(String option) {
-        this.options.remove(option);
+    public void setSelectedOption(VariantItem selectedOption) {
+        this.selectedOption = selectedOption;
     }
 
-    public void onEdit(RowEditEvent event) {
-        String curOption = (String) event.getObject();
-        FacesMessage msg = new FacesMessage("Option Edited", curOption);
+    public List<VariantItem> getOptions() {
+        return options;
+    }
 
-        FacesContext.getCurrentInstance().addMessage(null, msg);
+    public void setOptions(List<VariantItem> options) {
+        this.options = options;
     }
 }
