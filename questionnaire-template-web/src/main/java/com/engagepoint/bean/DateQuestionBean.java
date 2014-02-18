@@ -16,11 +16,21 @@ import java.util.Date;
 public class DateQuestionBean extends QuestionBean {
    private Date defaultAnswer;
 
+    public DateQuestionBean() {
+        super();
+    }
+
     public Date getDefaultAnswer() {
         return defaultAnswer;
     }
 
+    public DateQuestionBean(String questionText, boolean requiredAnswer, QuestionType questionType, Date defaultAnswer) {
+        super(questionText, requiredAnswer, questionType);
+        this.defaultAnswer = defaultAnswer;
+    }
+
     public void setDefaultAnswer(Date defaultAnswer) {
+
         this.defaultAnswer = defaultAnswer;
     }
 }
