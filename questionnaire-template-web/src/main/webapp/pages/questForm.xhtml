@@ -34,8 +34,10 @@
 
                     <p:growl id="messages" showDetail="true" escape="false"/>
 
-                    <p:treeTable value="#{questFormTreeController.root}" var="node"
-                                 selectionMode="single" selection="#{questFormTreeController.selectedNode}"
+                    <p:treeTable value="#{questFormTreeController.root}"
+                                 var="node"
+                                 selectionMode="single"
+                                 selection="#{questFormTreeController.selectedNode}"
                                  id="treeMultiple">
 
                         <f:facet name="header">
@@ -79,10 +81,7 @@
                                          styleClass="secondary"
                                          id="btnDisplayEdit"/>
                     </p:panel>
-
-
                 </h:form>
-
 
                 <f:facet name="footer">
 
@@ -99,13 +98,12 @@
                         <h:outputFormat value="#{msgs.msgOnCancel}"/>
                         <br/>
 
-
                         <p:commandButton value="Yes"
                                          id="yes"
                                          immediate="#{templateController.new}"
-                                         action="#{questFormTreeController.cancel}"
-                                />
+                                         action="#{questFormTreeController.cancel}"/>
                         <p:commandButton value="No" id="no" onclick="dlgCancel.hide()"/>
+
                     </p:dialog>
                 </f:facet>
             </p:panelGrid>

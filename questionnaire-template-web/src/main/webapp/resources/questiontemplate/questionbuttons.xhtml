@@ -17,7 +17,7 @@
         <p:commandButton id="savequestion" value="Save question"
                          action="/pages/questForm?faces-redirect=true">
             <f:setPropertyActionListener value="#{cc.attrs.value}"
-                                         target="#{cc.attrs.target}"/>
+                                         target="#{cc.attrs.target}" />
         </p:commandButton>
         <p:commandButton id="cancel" value="Cancel" immediate="true"
                          action="/pages/questForm?faces-redirect=true"/>

@@ -15,7 +15,7 @@
     <acceptancetest.base.version>1.0-M26</acceptancetest.base.version>
     <thucydides.version>0.9.229</thucydides.version>
     <thucydides.jbehave.version>0.9.229</thucydides.jbehave.version>
-    <thucydides.project.key>hep_THUCJBEHAVE</thucydides.project.key>
+    <thucydides.project.key>lqe_THUCJBEHAVE</thucydides.project.key>
     <project.junit.stories.package>com.engagepoint.acceptancetest</project.junit.stories.package>
 </properties>
 <dependencies>

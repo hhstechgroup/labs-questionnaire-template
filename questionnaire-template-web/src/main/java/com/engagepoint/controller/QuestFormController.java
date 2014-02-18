@@ -19,6 +19,7 @@ public class QuestFormController implements Serializable {
     private TemplateBean currentTemplate;
     private String templateName;
     private Long currentTemplateId;
+    private int pageNumber;
 
     public Long getCurrentTemplateId() {
         return currentTemplateId;

@@ -10,28 +10,28 @@
 
     <ui:define name="page">
 
-        <h:messages style="color:red"/>
+        <h:messages style="color:red" />
         <h:form id="form">
-            <h:outputText value="Please choose a question type"/>
+            <h:outputText value="Please choose a question type" />
             <br></br>
             <p:selectOneMenu value="#{questionController.selectedQuestionType}"
                              required="true">
-                <f:selectItem itemLabel="Select One" itemValue="#{null}"/>
-                <f:selectItems value="#{questionController.questionTypes}"/>
-                <p:ajax event="change" update=":form:out"/>
+                <f:selectItem itemLabel="Select One" itemValue="#{null}" />
+                <f:selectItems value="#{questionController.questionTypes}" />
+                <p:ajax event="change" update=":form" />
             </p:selectOneMenu>
             <br></br>
-
-            <h:outputText id="out"
-                          value="#{questionController.selectedQuestionType} is selected"/>
+            <p:commandButton id="go" value="Choose selected type"
+                             action="#{questionController.changeQuestionType}" />
             <br></br>
-            <p:commandButton id="go" value="GO"
-                             action="#{questionController.changeQuestionType}"/>
+			<h:outputText id="out"
+				value="#{questionController.selectedQuestionType} is selected" 	/>
+			<br></br>
         </h:form>
 
         <uib:pageBodyFacet>
             <ui:insert name="question"/>
-            <ui:insert name="buttons"/>
         </uib:pageBodyFacet>
+
     </ui:define>
 </ui:composition>

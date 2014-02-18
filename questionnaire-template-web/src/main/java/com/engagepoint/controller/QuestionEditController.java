@@ -64,6 +64,8 @@ public class QuestionEditController implements Serializable {
                 return "/question-pages/chooseFromList?faces-redirect=true";
             case FILEUPLOAD:
                 return "/question-pages/fileUploadQuestion?faces-redirect=true";
+            case RANGE:
+                return "/question-pages/rangeQuestion?faces-redirect=true";
             case TIME:
                 return "/question-pages/timeQuestion?faces-redirect=true";
             default:
