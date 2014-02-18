@@ -13,58 +13,59 @@ import javax.inject.Named;
 @SessionScoped
 public class QuestionEditController implements Serializable {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
-	
-	private QuestionBean currentQuestion;
-	private QuestionType selectedQuestionType;
+    /**
+     *
+     */
+    private static final long serialVersionUID = 1L;
 
-	
-	public QuestionEditController() {
-		
-	}
+    private QuestionBean currentQuestion;
+    private QuestionType selectedQuestionType;
 
-	public QuestionBean getCurrentQuestion() {
-		return currentQuestion;
-	}
 
-	public void setCurrentQuestion(QuestionBean currentQuestion) {
-		this.currentQuestion = currentQuestion;
-	}
+    public QuestionEditController() {
 
-	public QuestionType getSelectedQuestionType() {
-		return selectedQuestionType;
-	}
+    }
 
-	public void setSelectedQuestionType(QuestionType selectedQuestionType) {
-		this.selectedQuestionType = selectedQuestionType;
-	}
+    public QuestionBean getCurrentQuestion() {
+        return currentQuestion;
+    }
 
-	public QuestionType[] getQuestionTypes() {
-		return QuestionType.values();
-	}
+    public void setCurrentQuestion(QuestionBean currentQuestion) {
+        this.currentQuestion = currentQuestion;
+    }
 
-	public String income() {
-		return "questForm?faces-redirect=true";
-	}
+    public QuestionType getSelectedQuestionType() {
+        return selectedQuestionType;
+    }
 
-	public String changeQuestionType() {
-		switch (selectedQuestionType) {
-		case TEXT:
-			return "/question-pages/textquestion?faces-redirect=true";
-        case DATE:
-            return "/question-pages/datequestion?faces-redirect=true";
+    public void setSelectedQuestionType(QuestionType selectedQuestionType) {
+        this.selectedQuestionType = selectedQuestionType;
+    }
 
-        case CHOOSEFROMLIST:
-            return "/question-pages/chooseFromList?faces-redirect=true";
-        case FILEUPLOAD:
-            return "/question-pages/fileUploadQuestion?faces-redirect=true";
-		default:
-			return null;
-		}
+    public QuestionType[] getQuestionTypes() {
+        return QuestionType.values();
+    }
 
-	}
+    public String income() {
+        return "questForm?faces-redirect=true";
+    }
+
+    public String changeQuestionType() {
+        switch (selectedQuestionType) {
+            case TEXT:
+                return "/question-pages/textquestion?faces-redirect=true";
+            case DATE:
+                return "/question-pages/datequestion?faces-redirect=true";
+            case CHOOSEFROMLIST:
+                return "/question-pages/chooseFromList?faces-redirect=true";
+            case MULTIPLECHOICE:
+                return "/question-pages/chooseFromList?faces-redirect=true";
+            case FILEUPLOAD:
+                return "/question-pages/fileUploadQuestion?faces-redirect=true";
+            default:
+                return null;
+        }
+
+    }
 
 }
