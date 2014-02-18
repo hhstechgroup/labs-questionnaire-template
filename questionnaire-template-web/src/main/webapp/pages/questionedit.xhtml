@@ -1,36 +1,37 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:p="http://primefaces.org/ui"
-	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:uib="http://engagepoint.com/uib"
-	template="/templates/template.xhtml">
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:uib="http://engagepoint.com/uib"
+                template="/templates/template.xhtml">
 
 
-	<ui:define name="page">
+    <ui:define name="page">
 
-		<h:messages style="color:red" />
-		<h:form id="form">
-			<h:outputText value="Please choose a question type" />
-			<br></br>
-			<p:selectOneMenu value="#{questionController.selectedQuestionType}"
-				required="true">
-				<f:selectItem itemLabel="Select One" itemValue="#{null}" />
-				<f:selectItems value="#{questionController.questionTypes}" />
-				<p:ajax event="change" update=":form:out" />
-			</p:selectOneMenu>
-			<br></br>
+        <h:messages style="color:red"/>
+        <h:form id="form">
+            <h:outputText value="Please choose a question type"/>
+            <br></br>
+            <p:selectOneMenu value="#{questionController.selectedQuestionType}"
+                             required="true">
+                <f:selectItem itemLabel="Select One" itemValue="#{null}"/>
+                <f:selectItems value="#{questionController.questionTypes}"/>
+                <p:ajax event="change" update=":form:out"/>
+            </p:selectOneMenu>
+            <br></br>
 
-			<h:outputText id="out"
-				value="#{questionController.selectedQuestionType} is selected" 	/>
-			<br></br>
-			<p:commandButton id="go" value="GO"
-				action="#{questionController.changeQuestionType}" />
-		</h:form>
+            <h:outputText id="out"
+                          value="#{questionController.selectedQuestionType} is selected"/>
+            <br></br>
+            <p:commandButton id="go" value="GO"
+                             action="#{questionController.changeQuestionType}"/>
+        </h:form>
 
-		<uib:pageBodyFacet>
-			<ui:insert name="question" />
-		</uib:pageBodyFacet>
-	</ui:define>
+        <uib:pageBodyFacet>
+            <ui:insert name="question"/>
+            <ui:insert name="buttons"/>
+        </uib:pageBodyFacet>
+    </ui:define>
 </ui:composition>
