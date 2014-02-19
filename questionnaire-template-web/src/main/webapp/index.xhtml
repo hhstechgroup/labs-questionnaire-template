@@ -18,10 +18,6 @@
                              id="AddTemplate"
                              action="#{templateController.newTemplate}"
                              styleClass="fl-right">
-                <f:setPropertyActionListener value="#{listController}"
-                                             target="#{templateController.listController}"/>
-                <f:setPropertyActionListener value="#{questFormTreeController}"
-                                             target="#{templateController.questFormTreeController}"/>
             </p:commandButton>
 
             <br/>
@@ -67,14 +63,10 @@
                                          action="#{templateController.income}"
                                          styleClass="secondary small"
                                          icon="ui-icon-edit-small">
-                            <f:setPropertyActionListener value="#{listController}"
-                                                         target="#{templateController.listController}"/>
                             <f:setPropertyActionListener value="#{template.id}"
                                                          target="#{templateController.currentTemplateId}"/>
                             <f:setPropertyActionListener value="#{template}"
                                                          target="#{questFormTreeController.templateBean}"/>
-                            <f:setPropertyActionListener value="#{questFormTreeController}"
-                                                         target="#{templateController.questFormTreeController}"/>
                         </p:commandButton>
 
                         <p:commandButton value="Clone"

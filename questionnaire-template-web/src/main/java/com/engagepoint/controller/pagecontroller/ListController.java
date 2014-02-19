@@ -1,7 +1,8 @@
-package com.engagepoint.controller;
+package com.engagepoint.controller.pagecontroller;
 
 
 import com.engagepoint.bean.TemplateBean;
+import com.engagepoint.controller.FileController;
 import com.engagepoint.model.TableModels.ListOfTemplatesDataModel;
 import com.engagepoint.utils.XmlImportExport;
 import org.primefaces.event.FileUploadEvent;

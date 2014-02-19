@@ -16,7 +16,7 @@
     <ui:define name="question">
 
         <h:form id="form2">
-            <ago:questioncommon qb="#{optionsQuestionBean}"/>
+            <ago:questioncommon qb="#{optionsController.optionsQuestionBean}"/>
         </h:form>
 
         <h:form id="form3">
@@ -56,7 +56,15 @@
         </h:form>
 
         <h:form id="form4">
-            <ago:questionbuttons target="" value="#{optionBean}"/>
+            <h:panelGrid id="buttons" columns="3" style="margin-bottom:10px"
+                         cellpadding="5">
+                <p:commandButton id="savequestion" value="Save question"
+                                 update=":form3:tableOptions"
+                                 action="#{optionsController.saveQuestion}">
+                </p:commandButton>
+                <p:commandButton id="cancel" value="Cancel" immediate="true"
+                                 action="/pages/questForm?faces-redirect=true"/>
+            </h:panelGrid>
         </h:form>
 
     </ui:define>

@@ -1,10 +1,11 @@
-package com.engagepoint.controller;
+package com.engagepoint.controller.pagecontroller;
 
 import java.io.Serializable;
 
 import com.engagepoint.bean.QuestionBeans.OptionsQuestionBean;
 import com.engagepoint.bean.QuestionBeans.QuestionBean;
 import com.engagepoint.bean.QuestionType;
+import com.engagepoint.controller.QuestFormTreeController;
 
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Inject;
@@ -23,11 +24,8 @@ public class QuestionEditController implements Serializable {
 	private QuestionType selectedQuestionType;
 
     @Inject
-    private OptionsController optionsController;
+    private QuestFormTreeController questFormTreeController;
 
-
-
-	
 	public QuestionEditController() {
 		
 	}
@@ -52,15 +50,20 @@ public class QuestionEditController implements Serializable {
 		return QuestionType.values();
 	}
 
-	public String changeQuestionTypeold() {
+	public String changeQuestionType() {
 		switch (selectedQuestionType) {
 		case TEXT:
 			return "/question-pages/textquestion?faces-redirect=true";
         case DATE:
             return "/question-pages/datequestion?faces-redirect=true";
+        case RANGE:
+            return "/question-pages/rangeQuestion?faces-redirect=true";
+        case TIME:
+            return "/question-pages/timeQuestion?faces-redirect=true";
+        case PARAGRAPHTEXT:
+            return "/question-pages/paragraphQuestion?faces-redirect=true";
         case CHOOSEFROMLIST:
             currentQuestion = new OptionsQuestionBean();
-            optionsController.setOptionsQuestionBean((OptionsQuestionBean)currentQuestion);
             return "/question-pages/chooseFromList?faces-redirect=true";
         case FILEUPLOAD:
             return "/question-pages/fileUploadQuestion?faces-redirect=true";
@@ -71,32 +74,12 @@ public class QuestionEditController implements Serializable {
 		}
     }
 
-    public String income() {
-        return "questForm?faces-redirect=true";
+    public void addQuestionToTree() {
+        questFormTreeController.addQuestionToCurrentGroup(currentQuestion);
     }
 
-    public String changeQuestionType() {
-        switch (selectedQuestionType) {
-            case TEXT:
-                return "/question-pages/textquestion?faces-redirect=true";
-            case DATE:
-                return "/question-pages/datequestion?faces-redirect=true";
-            case PARAGRAPHTEXT:
-                return "/question-pages/paragraphQuestion?faces-redirect=true";
-            case CHOOSEFROMLIST:
-                return "/question-pages/chooseFromList?faces-redirect=true";
-            case MULTIPLECHOICE:
-                return "/question-pages/chooseFromList?faces-redirect=true";
-            case FILEUPLOAD:
-                return "/question-pages/fileUploadQuestion?faces-redirect=true";
-            case RANGE:
-                return "/question-pages/rangeQuestion?faces-redirect=true";
-            case TIME:
-                return "/question-pages/timeQuestion?faces-redirect=true";
-            default:
-                return null;
-        }
-
+    public String income() {
+        return "questForm?faces-redirect=true";
     }
 
 }

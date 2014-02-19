@@ -6,12 +6,15 @@ import javax.enterprise.context.SessionScoped;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.List;
 
 import javax.inject.Inject;
 import javax.inject.Named;
 
+import com.engagepoint.bean.QuestionBeans.OptionsQuestionBean;
 import com.engagepoint.bean.QuestionBeans.QuestionBean;
+import com.engagepoint.controller.pagecontroller.ListController;
+import com.engagepoint.controller.pagecontroller.QuestFormController;
+import com.engagepoint.controller.pagecontroller.QuestionEditController;
 import org.primefaces.model.DefaultTreeNode;
 import org.primefaces.model.TreeNode;
 
@@ -34,6 +37,10 @@ public class QuestFormTreeController implements Serializable {
     private TemplateBean duplicateTemplate;
     @Inject
     private QuestFormController questFormController;
+    @Inject
+    private ListController listController;
+    @Inject
+    private QuestionEditController questionEditController;
 
     public String getSelectedType() {
         return ((BasicBeanProperty) selectedNode.getData()).getType();
@@ -109,6 +116,13 @@ public class QuestFormTreeController implements Serializable {
         }
     }
 
+    public void addQuestionToCurrentGroup(QuestionBean questionbean) {
+        if (getSelectedType().equals("group")) {
+            ((GroupBean) selectedNode.getData()).addToInnerList(questionbean);
+            setNodes();
+        }
+    }
+
     public void setNodes() {
         root = new DefaultTreeNode("Root", null);
         ArrayList<TreeNode> nodeList = new ArrayList<TreeNode>();
@@ -176,7 +190,9 @@ public class QuestFormTreeController implements Serializable {
     }
 
     private String editQuestion() {
-        return null;
+        questionEditController.setCurrentQuestion((OptionsQuestionBean) questionEditController.getCurrentQuestion());
+        return "/question-pages/chooseFromList?faces-redirect=true&includeViewParams=true";
+        //return null;
         // TODO Auto-generated method stub
 
     }
@@ -203,7 +219,7 @@ public class QuestFormTreeController implements Serializable {
      */
     public String cancel() {
         boolean isNew = questFormController.isNew();
-        questFormController.getListController().deleteTemplate(templateBean);
+        listController.deleteTemplate(templateBean);
         if (!isNew) {
             questFormController.setCurrentTemplate(duplicateTemplate);
             questFormController.setTemplateName(duplicateTemplate.getTemplateName());

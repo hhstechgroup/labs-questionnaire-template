@@ -1,9 +1,11 @@
-package com.engagepoint.controller;
+package com.engagepoint.controller.pagecontroller;
 
 import com.engagepoint.bean.SectionBean;
 import com.engagepoint.bean.TemplateBean;
+import com.engagepoint.controller.QuestFormTreeController;
 
 import javax.enterprise.context.SessionScoped;
+import javax.inject.Inject;
 import javax.inject.Named;
 
 import java.io.Serializable;
@@ -14,8 +16,11 @@ import java.io.Serializable;
 @SessionScoped
 public class QuestFormController implements Serializable {
 
+    @Inject
     private ListController listController;
+    @Inject
     private QuestFormTreeController questFormTreeController;
+
     private TemplateBean currentTemplate;
     private String templateName;
     private Long currentTemplateId;
@@ -54,22 +59,6 @@ public class QuestFormController implements Serializable {
 
     public void setTemplateName(String templateName) {
         this.templateName = templateName;
-    }
-
-    public ListController getListController() {
-        return listController;
-    }
-
-    public void setListController(ListController listController) {
-        this.listController = listController;
-    }
-
-    public QuestFormTreeController getQuestFormTreeController() {
-        return questFormTreeController;
-    }
-
-    public void setQuestFormTreeController(QuestFormTreeController questFormTreeController) {
-        this.questFormTreeController = questFormTreeController;
     }
 
     public TemplateBean getCurrentTemplate() {
