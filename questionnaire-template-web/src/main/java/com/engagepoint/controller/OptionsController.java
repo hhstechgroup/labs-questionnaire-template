@@ -1,14 +1,9 @@
 package com.engagepoint.controller;
 
 import com.engagepoint.bean.QuestionBeans.OptionsQuestionBean;
-import com.engagepoint.bean.QuestionBeans.QuestionBean;
 import com.engagepoint.model.OptionQuestionModel;
-import com.engagepoint.model.TableModels.ListOfOptionsDataModel;
-import org.primefaces.event.RowEditEvent;
 import com.engagepoint.model.VariantItem;
 
-import javax.annotation.PostConstruct;
-import javax.faces.bean.RequestScoped;
 import javax.faces.bean.SessionScoped;
 import javax.inject.Inject;
 import javax.inject.Named;

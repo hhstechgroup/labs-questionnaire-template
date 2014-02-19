@@ -1,8 +1,6 @@
 package com.engagepoint.bean.QuestionBeans;
 
-import com.engagepoint.bean.QuestionBeans.QuestionBean;
 import com.engagepoint.model.VariantItem;
-
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Named;
 import java.io.Serializable;
