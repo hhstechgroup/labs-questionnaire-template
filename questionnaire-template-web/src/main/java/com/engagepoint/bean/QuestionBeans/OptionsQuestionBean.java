@@ -12,7 +12,7 @@ import java.util.List;
 @RequestScoped
 public class OptionsQuestionBean extends QuestionBean implements Serializable {
     private List<VariantItem> options;
-    private String defaultOption;
+    private VariantItem defaultOption;
 
     public OptionsQuestionBean() {
         options = new ArrayList<VariantItem>();
@@ -28,11 +28,11 @@ public class OptionsQuestionBean extends QuestionBean implements Serializable {
         this.options = options;
     }
 
-    public String getDefaultOption() {
+    public VariantItem getDefaultOption() {
         return defaultOption;
     }
 
-    public void setDefaultOption(String defaultOption) {
+    public void setDefaultOption(VariantItem defaultOption) {
         this.defaultOption = defaultOption;
     }
 }

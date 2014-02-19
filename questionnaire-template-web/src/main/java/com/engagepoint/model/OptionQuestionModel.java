@@ -22,7 +22,7 @@ public class OptionQuestionModel implements Serializable {
     //selected variants
     private List<VariantItem> defaultOptions;
     //selected variant
-    private String defaultOption;
+    private VariantItem defaultOption;
 
     public OptionQuestionModel() {
         this.options = new ArrayList<VariantItem>();
@@ -55,11 +55,11 @@ public class OptionQuestionModel implements Serializable {
         this.defaultOptions = defaultOptions;
     }
 
-    public String getDefaultOption() {
+    public VariantItem getDefaultOption() {
         return defaultOption;
     }
 
-    public void setDefaultOption(String defaultOption) {
+    public void setDefaultOption(VariantItem defaultOption) {
         this.defaultOption = defaultOption;
     }
 
