@@ -42,6 +42,35 @@ public class QuestFormTreeController implements Serializable {
     @Inject
     private QuestionEditController questionEditController;
 
+    private SectionBean currentSection;
+    private GroupBean currentGroup;
+
+    public void onSelect() {
+        if (getSelectedType().equals("question")) {
+            QuestionBean questionBean = (QuestionBean) selectedNode.getData();
+            questionEditController.setCurrentQuestion(questionBean);
+            //check if current group has not been changed
+            GroupBean groupBean = (GroupBean) selectedNode.getParent().getData();
+            if (currentGroup!=groupBean) {
+                currentGroup=groupBean;
+            }
+            //check if current section has not been changed
+            SectionBean sectionBean = (SectionBean) selectedNode.getParent().getParent().getData();
+            if (currentSection!=sectionBean) {
+                currentSection=sectionBean;
+            }
+        } else if (getSelectedType().equals("group")) {
+            currentGroup = (GroupBean) selectedNode.getData();
+            //check if current section has not been changed
+            SectionBean sectionBean = (SectionBean) selectedNode.getParent().getData();
+            if (currentSection!=sectionBean) {
+                currentSection=sectionBean;
+            }
+        } else {
+            currentSection = (SectionBean) selectedNode.getData();
+        }
+    }
+
     public String getSelectedType() {
         return ((BasicBeanProperty) selectedNode.getData()).getType();
     }
@@ -117,8 +146,8 @@ public class QuestFormTreeController implements Serializable {
     }
 
     public void addQuestionToCurrentGroup(QuestionBean questionbean) {
-        if (getSelectedType().equals("group")) {
-            ((GroupBean) selectedNode.getData()).addToInnerList(questionbean);
+        if (currentGroup!=null && !currentGroup.getQuestionsList().contains(questionbean)) {
+            currentGroup.addToInnerList(questionbean);
             setNodes();
         }
     }

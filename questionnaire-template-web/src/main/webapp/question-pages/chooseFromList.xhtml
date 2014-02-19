@@ -10,22 +10,24 @@
 
     <f:metadata>
         <f:viewParam name="item" value="#{templateController.currentTemplateId}"/>
-        <f:viewParam name="ques" value="#{optionsController.optionsQuestionBean.id}"/>
+        <f:viewParam name="ques" value="#{questionController.currentQuestion.id}"/>
     </f:metadata>
 
     <ui:define name="question">
 
         <h:form id="form2">
-            <ago:questioncommon qb="#{optionsController.optionsQuestionBean}"/>
+
         </h:form>
 
         <h:form id="form3">
+
+            <ago:questioncommon qb="#{questionController}"/>
 
             <br/>
 
             <p:commandButton value="Add option"
                              id="AddOption"
-                             action="#{optionsController.addOption('New')}"
+                             action="#{optionsQuestionEditController.addOption('New')}"
                              update=":form3:tableOptions"
                              styleClass="fl-right">
             </p:commandButton>
@@ -33,8 +35,8 @@
             <uib:dataTable id="tableOptions"
                            widgetVar="tableOptions"
                            var="option"
-                           value="#{optionsController.optionQuestionModel.dataModel}"
-                           selection="#{optionsController.optionQuestionModel.defaultOption}"
+                           value="#{optionsQuestionEditController.optionQuestionModel.dataModel}"
+                           selection="#{optionsQuestionEditController.optionQuestionModel.defaultOption}"
                            editable="true"
                            editMode="cell">
 
@@ -53,19 +55,9 @@
                 </uib:column>
 
             </uib:dataTable>
-        </h:form>
 
-        <h:form id="form4">
-            <h:panelGrid id="buttons" columns="3" style="margin-bottom:10px"
-                         cellpadding="5">
-                <p:commandButton id="savequestion" value="Save question"
-                                 update=":form3:tableOptions"
-                                 action="#{optionsController.saveQuestion}">
-                </p:commandButton>
-                <p:commandButton id="cancel" value="Cancel" immediate="true"
-                                 action="/pages/questForm?faces-redirect=true"/>
-            </h:panelGrid>
-        </h:form>
+            <ago:questionbuttons2 controller="#{optionsQuestionEditController}"/>
 
+        </h:form>
     </ui:define>
 </ui:composition>

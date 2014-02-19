@@ -19,10 +19,10 @@ import javax.xml.bind.annotation.XmlElement;
 public class QuestionBean implements Cloneable, BasicBeanProperty {
     private Long id;					//id of the question
     
-    private String questionText;		//questiontext
+    protected String questionText="";		//questiontext
     private boolean requiredAnswer;		//is answer required or not
     private QuestionType questionType;	//questiontype from ENUM of questiontypes
-    private String helpText;			//Help texts for questions
+    private String helpText="";			//Help texts for questions
     
     //Dependent questions
     

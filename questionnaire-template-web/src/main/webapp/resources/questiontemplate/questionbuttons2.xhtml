@@ -1,0 +1,23 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:composite="http://java.sun.com/jsf/composite">
+
+<composite:interface>
+    <composite:attribute name="controller" required="true"/>
+</composite:interface>
+
+<composite:implementation>
+    <h:panelGrid id="buttons" columns="3" style="margin-bottom:10px"
+                 cellpadding="5">
+        <p:commandButton id="savequestion" value="Save question"
+                         action="#{cc.attrs.controller.actionSave}">
+        </p:commandButton>
+        <p:commandButton id="cancel" value="Cancel" immediate="true"
+                         action="#{cc.attrs.controller.actionCancel}"/>
+    </h:panelGrid>
+</composite:implementation>
+</html>

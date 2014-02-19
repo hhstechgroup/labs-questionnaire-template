@@ -1,10 +1,12 @@
 package com.engagepoint.controller.pagecontroller;
 
 import com.engagepoint.bean.QuestionBeans.OptionsQuestionBean;
+import com.engagepoint.bean.QuestionType;
 import com.engagepoint.model.OptionQuestionModel;
 import com.engagepoint.model.VariantItem;
 
 import javax.annotation.PostConstruct;
+import javax.enterprise.context.RequestScoped;
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -14,18 +16,27 @@ import java.io.Serializable;
  * Controller for multiplechoice,checkboxes and choose from a list question types.
  */
 @Named
-@SessionScoped
-public class OptionsController implements Serializable {
+@RequestScoped
+public class OptionsQuestionEditController implements Serializable {
 
     @Inject
-    private QuestionEditController questionEditController;
-    private OptionsQuestionBean optionsQuestionBean;
+    private QuestionEditController questionController;
     @Inject
     private OptionQuestionModel optionsQuestionModel;
 
     @PostConstruct
     public void postCostruct() {
-        setOptionsQuestionBean((OptionsQuestionBean) questionEditController.getCurrentQuestion());
+        init();
+    }
+
+    public void init() {
+        OptionsQuestionBean optionsQuestionBean = getCurrentQuestion();
+        optionsQuestionModel = new OptionQuestionModel(optionsQuestionBean);
+    }
+
+
+    public OptionsQuestionBean getCurrentQuestion() {
+        return (OptionsQuestionBean) questionController.getCurrentQuestion();
     }
 
 
@@ -37,19 +48,6 @@ public class OptionsController implements Serializable {
         this.optionsQuestionModel = optionQuestionModel;
     }
 
-    public OptionsQuestionBean getOptionsQuestionBean() {
-        return optionsQuestionBean;
-    }
-
-    public void setOptionsQuestionBean(OptionsQuestionBean optionsQuestionBean) {
-        this.optionsQuestionBean = optionsQuestionBean;
-        init(optionsQuestionBean);
-    }
-
-    public void init(OptionsQuestionBean optionsQuestionBean) {
-        optionsQuestionModel = new OptionQuestionModel(optionsQuestionBean);
-    }
-
     public void addOption(String option) {
         optionsQuestionModel.addOption(new VariantItem(option));
     }
@@ -58,11 +56,15 @@ public class OptionsController implements Serializable {
         optionsQuestionModel.removeOption(new VariantItem(option));
     }
 
-    public String saveQuestion() {
+    public String actionSave() {
+        OptionsQuestionBean optionsQuestionBean = getCurrentQuestion();
         optionsQuestionBean.setOptions(optionsQuestionModel.getOptions());
         optionsQuestionBean.setDefaultOption(optionsQuestionModel.getDefaultOption());
-        questionEditController.setCurrentQuestion(optionsQuestionBean);
-        questionEditController.addQuestionToTree();
+        questionController.addQuestionToTree();
+        return "/pages/questForm?faces-redirect=true";
+    }
+
+    public String actionCancel() {
         return "/pages/questForm?faces-redirect=true";
     }
 }

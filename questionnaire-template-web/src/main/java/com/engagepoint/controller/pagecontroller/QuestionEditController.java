@@ -22,6 +22,9 @@ public class QuestionEditController implements Serializable {
 	
 	private QuestionBean currentQuestion;
 	private QuestionType selectedQuestionType;
+    private String questionText="";		//questiontext
+    private boolean requiredAnswer;		//is answer required or not
+    private String helpText="";			//Help texts for questions
 
     @Inject
     private QuestFormTreeController questFormTreeController;
@@ -36,6 +39,9 @@ public class QuestionEditController implements Serializable {
 
 	public void setCurrentQuestion(QuestionBean currentQuestion) {
 		this.currentQuestion = currentQuestion;
+        questionText = currentQuestion.getQuestionText();
+        requiredAnswer = currentQuestion.isRequiredAnswer();
+        helpText = currentQuestion.getHelpText();
 	}
 
 	public QuestionType getSelectedQuestionType() {
@@ -46,7 +52,31 @@ public class QuestionEditController implements Serializable {
 		this.selectedQuestionType = selectedQuestionType;
 	}
 
-	public QuestionType[] getQuestionTypes() {
+    public String getQuestionText() {
+        return questionText;
+    }
+
+    public void setQuestionText(String questionText) {
+        this.questionText = questionText;
+    }
+
+    public boolean isRequiredAnswer() {
+        return requiredAnswer;
+    }
+
+    public void setRequiredAnswer(boolean requiredAnswer) {
+        this.requiredAnswer = requiredAnswer;
+    }
+
+    public String getHelpText() {
+        return helpText;
+    }
+
+    public void setHelpText(String helpText) {
+        this.helpText = helpText;
+    }
+
+    public QuestionType[] getQuestionTypes() {
 		return QuestionType.values();
 	}
 
@@ -63,7 +93,8 @@ public class QuestionEditController implements Serializable {
         case PARAGRAPHTEXT:
             return "/question-pages/paragraphQuestion?faces-redirect=true";
         case CHOOSEFROMLIST:
-            currentQuestion = new OptionsQuestionBean();
+            setCurrentQuestion(new OptionsQuestionBean());
+            currentQuestion.setQuestionType(QuestionType.CHOOSEFROMLIST);
             return "/question-pages/chooseFromList?faces-redirect=true";
         case FILEUPLOAD:
             return "/question-pages/fileUploadQuestion?faces-redirect=true";
@@ -75,6 +106,9 @@ public class QuestionEditController implements Serializable {
     }
 
     public void addQuestionToTree() {
+        currentQuestion.setHelpText(helpText);
+        currentQuestion.setRequiredAnswer(requiredAnswer);
+        currentQuestion.setQuestionText(questionText);
         questFormTreeController.addQuestionToCurrentGroup(currentQuestion);
     }
 
