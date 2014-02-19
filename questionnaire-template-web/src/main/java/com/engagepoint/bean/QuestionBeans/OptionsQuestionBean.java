@@ -35,4 +35,13 @@ public class OptionsQuestionBean extends QuestionBean implements Serializable {
     public void setDefaultOption(VariantItem defaultOption) {
         this.defaultOption = defaultOption;
     }
+
+    @Override
+    public Object clone() throws CloneNotSupportedException {
+        OptionsQuestionBean copy = (OptionsQuestionBean) super.clone();
+        copy.setOptions(this.options);
+        copy.setDefaultOption(this.defaultOption);
+        return copy;
+    }
+
 }

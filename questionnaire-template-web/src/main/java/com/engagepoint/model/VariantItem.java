@@ -17,4 +17,11 @@ public class VariantItem {
     public void setValue(String value) {
         this.value = value;
     }
+
+    @Override
+    public Object clone() throws CloneNotSupportedException {
+        VariantItem copy = (VariantItem) super.clone();
+        copy.setValue(this.value);
+        return copy;
+    }
 }
