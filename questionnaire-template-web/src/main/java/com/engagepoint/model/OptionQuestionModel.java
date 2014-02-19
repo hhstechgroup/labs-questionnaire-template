@@ -3,16 +3,17 @@ package com.engagepoint.model;
 import com.engagepoint.bean.QuestionBeans.OptionsQuestionBean;
 import com.engagepoint.model.TableModels.ListOfOptionsDataModel;
 
-import javax.enterprise.context.RequestScoped;
-import javax.faces.bean.SessionScoped;
+
+import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 //model for question with options
 @Named("optionsQuestionModel")
 @SessionScoped
-public class OptionQuestionModel {
+public class OptionQuestionModel implements Serializable {
 
     //dataModel for table
     private ListOfOptionsDataModel dataModel;
@@ -25,6 +26,10 @@ public class OptionQuestionModel {
 
     public OptionQuestionModel() {
         this.options = new ArrayList<VariantItem>();
+        options.add(new VariantItem("Option 1"));
+        options.add(new VariantItem("Option 2"));
+        options.add(new VariantItem("Option 3"));
+        options.add(new VariantItem("Option 4"));
         updateModel();
     }
 
@@ -72,11 +77,9 @@ public class OptionQuestionModel {
 
     //adding variants to dataModel
     public void updateModel() {
-        if (dataModel==null)
-        {
+        if (dataModel == null) {
             dataModel = new ListOfOptionsDataModel(options);
-        }
-        else {
+        } else {
             dataModel.setWrappedData(options);
         }
     }

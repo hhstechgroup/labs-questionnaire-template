@@ -4,7 +4,7 @@ import com.engagepoint.bean.QuestionBeans.OptionsQuestionBean;
 import com.engagepoint.model.OptionQuestionModel;
 import com.engagepoint.model.VariantItem;
 
-import javax.faces.bean.SessionScoped;
+import javax.enterprise.context.SessionScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 import java.io.Serializable;
@@ -18,7 +18,9 @@ public class OptionsController implements Serializable {
 
     @Inject
     private QuestFormTreeController questFormTreeController;
+    @Inject
     private OptionsQuestionBean optionsQuestionBean;
+    @Inject
     private OptionQuestionModel optionQuestionModel;
 
     public OptionQuestionModel getOptionQuestionModel() {
@@ -38,7 +40,7 @@ public class OptionsController implements Serializable {
         init(optionsQuestionBean);
     }
 
-    public void init(OptionsQuestionBean optionsQuestionBean){
+    public void init(OptionsQuestionBean optionsQuestionBean) {
         optionQuestionModel = new OptionQuestionModel(optionsQuestionBean);
     }
 
