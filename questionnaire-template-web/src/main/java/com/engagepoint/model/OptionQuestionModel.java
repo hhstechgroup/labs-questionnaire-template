@@ -26,10 +26,6 @@ public class OptionQuestionModel implements Serializable {
 
     public OptionQuestionModel() {
         this.options = new ArrayList<VariantItem>();
-        options.add(new VariantItem("Option 1"));
-        options.add(new VariantItem("Option 2"));
-        options.add(new VariantItem("Option 3"));
-        options.add(new VariantItem("Option 4"));
         updateModel();
     }
 
