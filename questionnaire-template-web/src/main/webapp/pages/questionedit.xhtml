@@ -21,7 +21,6 @@
                              required="true">
                 <f:selectItem itemLabel="Select One" itemValue="#{null}"/>
                 <f:selectItems value="#{questionController.questionTypes}"/>
-                <p:ajax event="change" update=":form"/>
             </p:selectOneMenu>
             <br/>
             <p:commandButton id="go" value="Choose selected type"
