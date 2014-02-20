@@ -10,6 +10,8 @@ import java.util.ArrayList;
 import javax.inject.Named;
 
 import com.engagepoint.bean.QuestionBeans.QuestionBean;
+import com.engagepoint.controller.pagecontroller.OptionsQuestionEditController;
+import com.engagepoint.controller.pagecontroller.QuestionEditController;
 import org.primefaces.model.DefaultTreeNode;
 import org.primefaces.model.TreeNode;
 
@@ -193,7 +195,7 @@ public class QuestFormTreeController implements Serializable {
      */
     private String addQuestion() {
         if (selectedType.equals("group")) {
-            return "questionedit?faces-redirect=true&includeViewParams=true";
+            return QuestionEditController.income();
         }
         //TODO ????
         return null;
@@ -204,7 +206,7 @@ public class QuestFormTreeController implements Serializable {
      * will be edited
      */
     private String editQuestion() {
-        return "/question-pages/chooseFromList?faces-redirect=true&includeViewParams=true";
+        return OptionsQuestionEditController.income();
     }
 
     /**

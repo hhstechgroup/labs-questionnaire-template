@@ -7,7 +7,8 @@ import com.engagepoint.bean.QuestionBeans.QuestionBean;
 import com.engagepoint.bean.QuestionType;
 import com.engagepoint.controller.QuestFormTreeController;
 
-import javax.enterprise.context.SessionScoped;
+import javax.annotation.PostConstruct;
+import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
@@ -16,40 +17,35 @@ import javax.inject.Named;
  */
 
 @Named("questionController")
-@SessionScoped
+@RequestScoped
 public class QuestionEditController implements Serializable {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	
-	private QuestionBean currentQuestion;
+
+    //temp properties
 	private QuestionType selectedQuestionType;
     private String questionText="";		//questiontext
     private boolean requiredAnswer;		//is answer required or not
     private String helpText="";			//Help texts for questions
+    //...temp properties
 
     @Inject
     private QuestFormTreeController questFormTreeController;
 
-	public QuestionEditController() {
-		
-	}
+    @PostConstruct
+    private void postConstruct() {
+        changeTempPropertiesDueToCurrentQuestion();
+    }
 
 	public QuestionBean getCurrentQuestion() {
-		return questFormTreeController.getCurrentQuestion();
+        return questFormTreeController.getCurrentQuestion();
 	}
 
 	public void setCurrentQuestion(QuestionBean currentQuestion) {
-		/*this.currentQuestion = currentQuestion;
-        questionText = currentQuestion.getQuestionText();
-        requiredAnswer = currentQuestion.isRequiredAnswer();
-        helpText = currentQuestion.getHelpText(); */
         questFormTreeController.setCurrentQuestion(currentQuestion);
-        questionText = currentQuestion.getQuestionText();
-        requiredAnswer = currentQuestion.isRequiredAnswer();
-        helpText = currentQuestion.getHelpText();
 	}
 
 	public QuestionType getSelectedQuestionType() {
@@ -101,29 +97,75 @@ public class QuestionEditController implements Serializable {
         case PARAGRAPHTEXT:
             return "/question-pages/paragraphQuestion?faces-redirect=true";
         case CHOOSEFROMLIST:
-            OptionsQuestionBean question = new OptionsQuestionBean();
-            question.setQuestionType(QuestionType.CHOOSEFROMLIST);
-            setCurrentQuestion(question);
-            return "/question-pages/chooseFromList?faces-redirect=true";
+            newChooseFromListQuestion();
+            return OptionsQuestionEditController.income();
         case FILEUPLOAD:
             return "/question-pages/fileUploadQuestion?faces-redirect=true";
         case MULTIPLECHOICE:
-            return "/question-pages/chooseFromList?faces-redirect=true";
+            newMultipleChoiceQuestion();
+            return OptionsQuestionEditController.income();
 		default:
 			return null;
 		}
     }
 
+    /**
+     * Saving common properties of question
+     * and adding question to group (if new)
+     */
     public void addQuestionToTree() {
+        changeCurrentQuestionDueToTempProperties();
+        questFormTreeController.addQuestionToCurrentGroup(getCurrentQuestion());
+    }
+
+    /**
+     * Pulling values of common properties of
+     * current question to temp properties
+     */
+    public void changeTempPropertiesDueToCurrentQuestion() {
         QuestionBean question = getCurrentQuestion();
+        if (question!=null) {
+            selectedQuestionType = question.getQuestionType();
+            questionText = question.getQuestionText();
+            requiredAnswer = question.isRequiredAnswer();
+            helpText = question.getHelpText();
+        }
+    }
+
+    /**
+     * Pushing values of common properties from
+     * temp properties to current question
+     */
+    public void changeCurrentQuestionDueToTempProperties() {
+        QuestionBean question = getCurrentQuestion();
+        question.setQuestionType(selectedQuestionType);
         question.setHelpText(helpText);
         question.setRequiredAnswer(requiredAnswer);
         question.setQuestionText(questionText);
-        questFormTreeController.addQuestionToCurrentGroup(question);
     }
 
-    public String income() {
-        return "questForm?faces-redirect=true";
+    /**
+     * Creating a new question with type CHOOSEFROMLIST
+     */
+    public void newChooseFromListQuestion() {
+        OptionsQuestionBean question = new OptionsQuestionBean();
+        setCurrentQuestion(question);
+        question.setQuestionType(QuestionType.CHOOSEFROMLIST);
+        changeTempPropertiesDueToCurrentQuestion();
+    }
+
+    /**
+     * Creating a new question with type MULTIPLECHOICE
+     */
+    public void newMultipleChoiceQuestion() {
+        OptionsQuestionBean question = new OptionsQuestionBean();
+        setCurrentQuestion(question);
+        question.setQuestionType(QuestionType.MULTIPLECHOICE);
+        changeTempPropertiesDueToCurrentQuestion();
+    }
+
+    public static String income() {
+        return "/pages/questionedit?faces-redirect=true&includeViewParams=true";
     }
 
 }

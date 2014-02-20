@@ -105,8 +105,8 @@ public class QuestFormController implements Serializable {
      *
      * @return page name
      */
-    public String income() {
-        return "pages/questForm?faces-redirect=true&includeViewParams=true";
+    public static String income() {
+        return "/pages/questForm?faces-redirect=true&includeViewParams=true";
     }
 
 }
