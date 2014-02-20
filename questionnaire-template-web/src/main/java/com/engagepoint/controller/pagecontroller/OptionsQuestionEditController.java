@@ -49,8 +49,8 @@ public class OptionsQuestionEditController implements Serializable {
         optionsQuestionModel.addOption(new VariantItem(option));
     }
 
-    public void removeOption(String option) {
-        optionsQuestionModel.removeOption(new VariantItem(option));
+    public void removeOption(VariantItem option) {
+        optionsQuestionModel.removeOption(option);
     }
 
     public String actionSave() {

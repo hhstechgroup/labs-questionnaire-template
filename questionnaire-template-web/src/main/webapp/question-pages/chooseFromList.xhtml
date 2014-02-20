@@ -42,7 +42,6 @@
 
                 <uib:column headerText="Default"
                             selectionMode="single"/>
-
                 <uib:column headerText="Options">
                     <p:cellEditor>
                         <f:facet name="output">
@@ -52,6 +51,15 @@
                             <p:inputText value="#{option.value}" style="width:100%"/>
                         </f:facet>
                     </p:cellEditor>
+                </uib:column>
+
+                <uib:column>
+                    <p:commandButton value="Delete"
+                                     id="DeleteOption"
+                                     action="#{optionsQuestionEditController.removeOption(option)}"
+                                     update=":form3:tableOptions"
+                                     styleClass="fl-right">
+                    </p:commandButton>
                 </uib:column>
 
             </uib:dataTable>
