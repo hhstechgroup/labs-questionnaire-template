@@ -63,10 +63,8 @@
                                          action="#{templateController.income}"
                                          styleClass="secondary small"
                                          icon="ui-icon-edit-small">
-                            <f:setPropertyActionListener value="#{template.id}"
-                                                         target="#{templateController.currentTemplateId}"/>
                             <f:setPropertyActionListener value="#{template}"
-                                                         target="#{questFormTreeController.templateBean}"/>
+                                                         target="#{templateController.currentTemplate}"/>
                         </p:commandButton>
 
                         <p:commandButton value="Clone"

@@ -9,7 +9,7 @@
                 template="/templates/template.xhtml">
 
     <f:metadata>
-        <f:viewParam name="item" value="#{templateController.currentTemplateId}"/>
+        <f:viewParam name="item" value="#{templateController.currentTemplate.id}"/>
     </f:metadata>
 
     <ui:define name="page">
@@ -27,7 +27,7 @@
                     <p:outputLabel value="New name:" rendered="#{!templateController.isNew()}"/>
                     <p:outputLabel value="Name:" rendered="#{templateController.isNew()}"/>
                     <p:inputText id="name" required="true"
-                                 value="#{templateController.templateName}"/>
+                                 value="#{templateController.duplicateTemplate.templateName}"/>
                 </h:panelGrid>
 
                 <h:form id="form">

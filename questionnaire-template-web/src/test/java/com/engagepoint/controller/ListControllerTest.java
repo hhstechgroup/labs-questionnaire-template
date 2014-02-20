@@ -41,7 +41,7 @@ public class ListControllerTest {
         TemplateBean templateBean = new TemplateBean();
         templateBean.setId(5L);
         templateBean.setTemplateName("created");
-        testListController.addTemplate(templateBean);
+        testListController.addTemplateIfNotInList(templateBean);
 
         Assert.assertTrue("its exist because their id equals", testListController.getTemplates().get(5).getTemplateName().equals("exist"));
         // Variant 2: Add with new id
@@ -74,7 +74,7 @@ public class ListControllerTest {
         TemplateBean templateBean = new TemplateBean();
         templateBean.setId(5L);
         templateBean.setTemplateName("created");
-        testListController.addTemplateToFilteredList(templateBean);
+        testListController.addTemplateToFilteredListIfNeed(templateBean);
 
         Assert.assertTrue("its exist because their id equals", !testListController.getFilteredTemplates().get(5).getTemplateName().equals("created"));
 
@@ -82,7 +82,7 @@ public class ListControllerTest {
         testListController.setFilterValue("testing");
         TemplateBean templateBean1 =new TemplateBean();
          templateBean1.setTemplateName("testing");
-        testListController.addTemplateToFilteredList(templateBean1);
+        testListController.addTemplateToFilteredListIfNeed(templateBean1);
         Assert.assertTrue("templateName and FilterValue not equals",testListController.getFilteredTemplates().contains(templateBean1));
 
     }
@@ -93,9 +93,9 @@ public class ListControllerTest {
         testListController.setFilterValue("testing");
         TemplateBean templateBean1 =new TemplateBean();
         templateBean1.setTemplateName("testing");
-        testListController.addTemplateToFilteredList(templateBean1);
+        testListController.addTemplateToFilteredListIfNeed(templateBean1);
         templateBean1.setTemplateName("lol");
-        testListController.removeTemplateFromFilteredList(templateBean1);
+        testListController.removeTemplateFromFilteredListIfNeed(templateBean1);
         Assert.assertTrue("templateName and FilterValue not equals",!testListController.getFilteredTemplates().contains(templateBean1));
         //  if second list dont have this item , method  does work
 
@@ -103,8 +103,8 @@ public class ListControllerTest {
         TemplateBean templateBean =new TemplateBean();
         templateBean.setTemplateName("testing");
          secondTemplateBeanList.add(templateBean);
-        testListController.addTemplateToFilteredList(templateBean);
-        testListController.removeTemplateFromFilteredList(templateBean);
+        testListController.addTemplateToFilteredListIfNeed(templateBean);
+        testListController.removeTemplateFromFilteredListIfNeed(templateBean);
         Assert.assertTrue(" second list contains this template",testListController.getFilteredTemplates().contains(templateBean));
 
     }

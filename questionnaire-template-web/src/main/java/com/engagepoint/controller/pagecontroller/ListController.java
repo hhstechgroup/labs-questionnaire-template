@@ -88,34 +88,37 @@ public class ListController implements Serializable {
     //operations on both lists
 
     /**
-     * Add template.
+     * Add template to list if it is not already there.
      *
      * @param template template to be added
      */
-    public void addTemplate(TemplateBean template) {
+    public void addTemplateIfNotInList(TemplateBean template) {
         if (!list.contains(template)) {
             this.list.add(template);
         }
     }
 
     /**
-     * Add template and update lists.
+     * Add template to lists and update lists in UI.
      *
      * @param template template to be added
      */
     public void addTemplateAndUpdateLists(TemplateBean template) {
-        addTemplate(template);
-        addTemplateToFilteredList(template);
+        addTemplateIfNotInList(template);
+        addTemplateToFilteredListIfNeed(template);
         templatesModel = new ListOfTemplatesDataModel(list);
         sort();
     }
 
     /**
-     * Add template to filtered list.
+     * Add template to filtered list
+     * if filtered list is not empty
+     * and if template is not already there
+     * and if template satisfies current filter.
      *
      * @param template template to be added
      */
-    public void addTemplateToFilteredList(TemplateBean template) {
+    public void addTemplateToFilteredListIfNeed(TemplateBean template) {
         if (filteredList != null) {
             if (filteredList.contains(template)) {//check if template with the same id exists
                 return;
@@ -130,11 +133,14 @@ public class ListController implements Serializable {
     }
 
     /**
-     * Add template to filtered list.
+     * Remove template from filtered list
+     * if it is not empty
+     * and if template doesn't satisfy current filter
+     * or if main list doesn't contain this template anymore (it was removed).
      *
      * @param template template to be added
      */
-    public void removeTemplateFromFilteredList(TemplateBean template) {
+    public void removeTemplateFromFilteredListIfNeed(TemplateBean template) {
         if (filteredList != null) {
             if (!containsFilterValue(template.getTemplateName())) {
                 filteredList.remove(template);
@@ -148,14 +154,14 @@ public class ListController implements Serializable {
     }
 
     /**
-     * Add templates.
+     * Add templates from list to both lists and update UI.
      *
      * @param templateBeanList template list to be added
      */
     public void addAllTemplates(List<TemplateBean> templateBeanList) {
         for (TemplateBean templateBean : templateBeanList) {
-            addTemplate(templateBean);
-            addTemplateToFilteredList(templateBean);
+            addTemplateIfNotInList(templateBean);
+            addTemplateToFilteredListIfNeed(templateBean);
         }
         templatesModel = new ListOfTemplatesDataModel(list);
         sort();
@@ -163,7 +169,7 @@ public class ListController implements Serializable {
 
 
     /**
-     * Sort list of templates.
+     * Sort both lists of templates.
      */
     public void sort() {
         Collections.sort(list);
@@ -172,13 +178,13 @@ public class ListController implements Serializable {
     }
 
     /**
-     * Delete template from list.
+     * Delete template from lists.
      *
      * @param template template to be deleted
      */
     public void deleteTemplate(TemplateBean template) {
         list.remove(template);
-        removeTemplateFromFilteredList(template);
+        removeTemplateFromFilteredListIfNeed(template);
     }
 
     /**
@@ -257,10 +263,7 @@ public class ListController implements Serializable {
      * @return page name
      */
     public static String income() {
-        return "/index?faces-redirect=true";
+        return "/index?faces-redirect=true&includeViewParams=true";
     }
 
-    public String outcome() {
-        return "pages/questForm?faces-redirect=true";
-    }
 }

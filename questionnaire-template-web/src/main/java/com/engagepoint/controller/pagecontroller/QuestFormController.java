@@ -1,6 +1,5 @@
 package com.engagepoint.controller.pagecontroller;
 
-import com.engagepoint.bean.SectionBean;
 import com.engagepoint.bean.TemplateBean;
 import com.engagepoint.controller.QuestFormTreeController;
 
@@ -23,46 +22,15 @@ public class QuestFormController implements Serializable {
     @Inject
     private QuestFormTreeController questFormTreeController;
 
-    private TemplateBean currentTemplate;
-    private String templateName;
-    private Long currentTemplateId;
-    private int pageNumber;
+    private TemplateBean currentTemplate; //real template
+    private TemplateBean duplicateTemplate; //copy of real template, contains all unsaved changes
 
-    private TemplateBean duplicateTemplate;
-
-    public Long getCurrentTemplateId() {
-        return currentTemplateId;
+    public TemplateBean getDuplicateTemplate() {
+        return duplicateTemplate;
     }
 
-    /**
-     * Setting id happens when enter a page.
-     * If this is existing template, we have to set up current
-     * template and name.
-     * If this is new template, these actions are done in
-     * newTemplate() method.
-     *
-     * @return index page
-     */
-    public void setCurrentTemplateId(Long currentTemplateId) {
-        this.currentTemplateId = currentTemplateId;
-        if (!isNew())
-        {
-            setCurrentTemplate(listController.getTemplatesModel().getRowData(currentTemplateId.toString()));
-        }
-        TemplateBean templateBean = listController.getTemplatesModel().getRowData(currentTemplateId.toString());
-        if (templateBean!=null)
-        {
-            setCurrentTemplate(templateBean);
-            setTemplateName(templateBean.getTemplateName());
-        }
-    }
-
-    public String getTemplateName() {
-        return templateName;
-    }
-
-    public void setTemplateName(String templateName) {
-        this.templateName = templateName;
+    public void setDuplicateTemplate(TemplateBean duplicateTemplate) {
+        this.duplicateTemplate = duplicateTemplate;
     }
 
     public TemplateBean getCurrentTemplate() {
@@ -71,16 +39,27 @@ public class QuestFormController implements Serializable {
 
     public void setCurrentTemplate(TemplateBean currentTemplate) {
         this.currentTemplate = currentTemplate;
-        questFormTreeController.setTemplateBean(currentTemplate);
         try {
             duplicateTemplate = currentTemplate.duplicate();
+            questFormTreeController.setTemplateBean(duplicateTemplate);
         } catch (CloneNotSupportedException e) {
             //NOP
         }
     }
 
     /**
-     * Check if the template already exists (searching by id, because equals-method is by id).
+     * Create new template.
+     *
+     * @return next page name
+     */
+    public String newTemplate() {
+        setCurrentTemplate(new TemplateBean());
+        return income();
+    }
+
+    /**
+     * Check if the template already exists
+     * (searching by id, because equals-method is by id).
      *
      * @return true - this template already exists.
      */
@@ -90,44 +69,23 @@ public class QuestFormController implements Serializable {
 
     /**
      * Save template.
+     * If it is new, it needs to be added to list.
+     * If not - maybe it needs to be removed from filtered list.
      *
      * @return next page name.
      */
     public String saveTemplate() {
-        currentTemplate.setTemplateName(templateName);
+        currentTemplate.setTemplateName(duplicateTemplate.getTemplateName());
+        currentTemplate.setSectionsList(duplicateTemplate.getSectionsList());
         if (isNew()) {
             listController.addTemplateAndUpdateLists(currentTemplate);
         }else
         {
-            listController.removeTemplateFromFilteredList(currentTemplate);
+            listController.removeTemplateFromFilteredListIfNeed(currentTemplate);
             listController.sort();
         }
         return listController.income();
     }
-
-
-    /**
-     * Create new template.
-     *
-     * @return next page name
-     */
-    public String newTemplate() {
-        TemplateBean newTemplate = new TemplateBean();
-        setCurrentTemplate(newTemplate);
-        setCurrentTemplateId(newTemplate.getId());
-        setTemplateName(newTemplate.getTemplateName());
-        return income();
-    }
-    /**
-     * Get page name and perform redirect.
-     *
-     * @return page name
-     */
-    public String income() {
-    return "pages/questForm?faces-redirect=true&includeViewParams=true";
-    }
-
-
 
     /**
      * duplicateTemplate - is old template before editing( same ID, etc).
@@ -139,14 +97,16 @@ public class QuestFormController implements Serializable {
      * @return index page
      */
     public String cancel() {
-        boolean isNew = isNew();
-        listController.deleteTemplate(currentTemplate);
-        if (!isNew) {
-            setCurrentTemplate(duplicateTemplate);
-            setTemplateName(duplicateTemplate.getTemplateName());
-            saveTemplate();
-        }
         return ListController.income();
+    }
+
+    /**
+     * Get page name and perform redirect.
+     *
+     * @return page name
+     */
+    public String income() {
+        return "pages/questForm?faces-redirect=true&includeViewParams=true";
     }
 
 }
