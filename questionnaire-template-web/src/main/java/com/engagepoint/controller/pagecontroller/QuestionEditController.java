@@ -11,6 +11,10 @@ import javax.enterprise.context.SessionScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
+/**
+ * Used for controlling questionedit.xhtml
+ */
+
 @Named("questionController")
 @SessionScoped
 public class QuestionEditController implements Serializable {
@@ -34,11 +38,15 @@ public class QuestionEditController implements Serializable {
 	}
 
 	public QuestionBean getCurrentQuestion() {
-		return currentQuestion;
+		return questFormTreeController.getCurrentQuestion();
 	}
 
 	public void setCurrentQuestion(QuestionBean currentQuestion) {
-		this.currentQuestion = currentQuestion;
+		/*this.currentQuestion = currentQuestion;
+        questionText = currentQuestion.getQuestionText();
+        requiredAnswer = currentQuestion.isRequiredAnswer();
+        helpText = currentQuestion.getHelpText(); */
+        questFormTreeController.setCurrentQuestion(currentQuestion);
         questionText = currentQuestion.getQuestionText();
         requiredAnswer = currentQuestion.isRequiredAnswer();
         helpText = currentQuestion.getHelpText();
@@ -93,8 +101,9 @@ public class QuestionEditController implements Serializable {
         case PARAGRAPHTEXT:
             return "/question-pages/paragraphQuestion?faces-redirect=true";
         case CHOOSEFROMLIST:
-            setCurrentQuestion(new OptionsQuestionBean());
-            currentQuestion.setQuestionType(QuestionType.CHOOSEFROMLIST);
+            OptionsQuestionBean question = new OptionsQuestionBean();
+            question.setQuestionType(QuestionType.CHOOSEFROMLIST);
+            setCurrentQuestion(question);
             return "/question-pages/chooseFromList?faces-redirect=true";
         case FILEUPLOAD:
             return "/question-pages/fileUploadQuestion?faces-redirect=true";
@@ -106,10 +115,11 @@ public class QuestionEditController implements Serializable {
     }
 
     public void addQuestionToTree() {
-        currentQuestion.setHelpText(helpText);
-        currentQuestion.setRequiredAnswer(requiredAnswer);
-        currentQuestion.setQuestionText(questionText);
-        questFormTreeController.addQuestionToCurrentGroup(currentQuestion);
+        QuestionBean question = getCurrentQuestion();
+        question.setHelpText(helpText);
+        question.setRequiredAnswer(requiredAnswer);
+        question.setQuestionText(questionText);
+        questFormTreeController.addQuestionToCurrentGroup(question);
     }
 
     public String income() {

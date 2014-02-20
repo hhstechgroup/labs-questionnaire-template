@@ -10,7 +10,9 @@ import javax.inject.Named;
 
 import java.io.Serializable;
 
-
+/**
+ * Used for controlling questform.xhtml
+ */
 
 @Named("templateController")
 @SessionScoped
@@ -25,6 +27,8 @@ public class QuestFormController implements Serializable {
     private String templateName;
     private Long currentTemplateId;
     private int pageNumber;
+
+    private TemplateBean duplicateTemplate;
 
     public Long getCurrentTemplateId() {
         return currentTemplateId;
@@ -67,6 +71,12 @@ public class QuestFormController implements Serializable {
 
     public void setCurrentTemplate(TemplateBean currentTemplate) {
         this.currentTemplate = currentTemplate;
+        questFormTreeController.setTemplateBean(currentTemplate);
+        try {
+            duplicateTemplate = currentTemplate.duplicate();
+        } catch (CloneNotSupportedException e) {
+            //NOP
+        }
     }
 
     /**
@@ -106,7 +116,6 @@ public class QuestFormController implements Serializable {
         setCurrentTemplate(newTemplate);
         setCurrentTemplateId(newTemplate.getId());
         setTemplateName(newTemplate.getTemplateName());
-        questFormTreeController.setTemplateBean(newTemplate);
         return income();
     }
     /**
@@ -118,11 +127,26 @@ public class QuestFormController implements Serializable {
     return "pages/questForm?faces-redirect=true&includeViewParams=true";
     }
 
-    public void addSection() {
-        SectionBean sectionBean = new SectionBean();
-        sectionBean.setPageNumber(currentTemplate.getSectionsList().size()+1);
-        currentTemplate.getSectionsList().add(sectionBean);
-        questFormTreeController.setNodes();
+
+
+    /**
+     * duplicateTemplate - is old template before editing( same ID, etc).
+     * But the address in memory is differ(two instance that match each other via equals).
+     * So, in case, if this is existing template, there is need to delete edited templateBean
+     * in ListControler, in order not to have them both, ot other kind of ambiguity.
+     * And if this is new, not yet saved template, just skip saving.
+     *
+     * @return index page
+     */
+    public String cancel() {
+        boolean isNew = isNew();
+        listController.deleteTemplate(currentTemplate);
+        if (!isNew) {
+            setCurrentTemplate(duplicateTemplate);
+            setTemplateName(duplicateTemplate.getTemplateName());
+            saveTemplate();
+        }
+        return ListController.income();
     }
 
 }

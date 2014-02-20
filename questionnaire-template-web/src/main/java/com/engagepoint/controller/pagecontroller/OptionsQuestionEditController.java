@@ -30,8 +30,7 @@ public class OptionsQuestionEditController implements Serializable {
     }
 
     public void init() {
-        OptionsQuestionBean optionsQuestionBean = getCurrentQuestion();
-        optionsQuestionModel = new OptionQuestionModel(optionsQuestionBean);
+        optionsQuestionModel.setPropertiesFromBean(getCurrentQuestion());
     }
 
 

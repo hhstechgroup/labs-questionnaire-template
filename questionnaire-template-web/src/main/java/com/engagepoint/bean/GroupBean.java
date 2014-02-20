@@ -80,7 +80,7 @@ public class GroupBean implements Cloneable, BasicOperationWithBean, BasicBeanPr
 
     @Override
     public void deleteFromInnerList(Object o) {
-        ((GroupBean) o).questionsList.remove(o);
+        questionsList.remove(o);
     }
 
     @Override

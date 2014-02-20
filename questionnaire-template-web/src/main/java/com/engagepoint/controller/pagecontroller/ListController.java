@@ -15,6 +15,10 @@ import javax.inject.Named;
 import java.io.*;
 import java.util.*;
 
+/**
+ * Used for controlling index.xhtml
+ */
+
 @Named
 @SessionScoped
 public class ListController implements Serializable {

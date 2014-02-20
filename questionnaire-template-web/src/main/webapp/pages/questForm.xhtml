@@ -46,7 +46,7 @@
 
                         <p:ajax event="expand" update=":formTemplate:form:buttonPanel"/>
                         <p:ajax event="collapse" update=":formTemplate:form:buttonPanel"/>
-                        <p:ajax event="select" update=":formTemplate:form:buttonPanel,treeMultiple" listener="#{questFormTreeController.onSelect}"/>
+                        <p:ajax event="select" update=":formTemplate:form:buttonPanel, :formTemplate:form:treeMultiple" listener="#{questFormTreeController.onSelect}"/>
                         <p:ajax event="unselect" update=":formTemplate:form:buttonPanel"/>
 
                         <p:column style="#{questFormTreeController.getStyle(node)}">
@@ -59,7 +59,7 @@
                         <p:commandButton value="Add section"
                                          title="Add section"
                                          id="addSection"
-                                         action="#{templateController.addSection()}"
+                                         action="#{questFormTreeController.addSection()}"
                                          styleClass="secondary"
                                          icon="ui-icon-add-v2"
                                          update="treeMultiple,messages">
@@ -101,7 +101,7 @@
                         <p:commandButton value="Yes"
                                          id="yes"
                                          immediate="#{templateController.new}"
-                                         action="#{questFormTreeController.cancel}"/>
+                                         action="#{templateController.cancel}"/>
                         <p:commandButton value="No" id="no" onclick="dlgCancel.hide()"/>
 
                     </p:dialog>
