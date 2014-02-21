@@ -4,6 +4,10 @@ As a template author
 I want to export questionnaire templates LQE-26
 
 Scenario:
+Narrative:
+User can export the selected template(s).
+Templates are exported as XML
+files.
 Given saved 'http://localhost:8080/questionnaire-template-web-1.0-SNAPSHOT/' link
 When the user opens saved link
 Then wait for element 'form1:AddTemplate' is visible
