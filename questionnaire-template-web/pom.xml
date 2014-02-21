@@ -8,7 +8,6 @@
         <version>1.0-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
-
     <artifactId>questionnaire-template-web</artifactId>
     <packaging>war</packaging>
 
@@ -22,6 +21,13 @@
     </repositories>
 
     <dependencies>
+
+        <!-- CDI Conversaton Scope-->
+        <dependency>
+            <groupId>org.jboss.weld.servlet</groupId>
+            <artifactId>weld-servlet</artifactId>
+            <version>2.1.0.CR1</version>
+        </dependency>
 
         <dependency>
             <groupId>com.engagepoint</groupId>
@@ -50,12 +56,6 @@
         </dependency>
 
         <dependency>
-            <groupId>com.sun.faces</groupId>
-            <artifactId>jsf-impl</artifactId>
-            <version>2.1.11</version>
-        </dependency>
-
-        <dependency>
             <groupId>javax.servlet</groupId>
             <artifactId>jstl</artifactId>
             <version>1.2</version>
@@ -66,7 +66,6 @@
             <artifactId>servlet-api</artifactId>
             <version>2.5</version>
         </dependency>
-
 
         <dependency>
             <groupId>javax.servlet.jsp</groupId>
@@ -87,32 +86,18 @@
             <version>1.1-PRD</version>
         </dependency>
 
+        <dependency>
+            <groupId>commons-io</groupId>
+            <artifactId>commons-io</artifactId>
+            <version>2.4</version>
+        </dependency>
+
         <!-- JUnit 4 -->
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
             <version>4.8.2</version>
             <scope>test</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>org.seleniumhq.selenium</groupId>
-            <artifactId>selenium-firefox-driver</artifactId>
-            <version>2.39.0</version>
-            <scope>test</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>org.seleniumhq.selenium</groupId>
-            <artifactId>selenium-java</artifactId>
-            <version>2.39.0</version>
-            <scope>test</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>commons-io</groupId>
-            <artifactId>commons-io</artifactId>
-            <version>2.4</version>
         </dependency>
 
     </dependencies>
@@ -131,6 +116,5 @@
 
         </plugins>
     </build>
-
 
 </project>
