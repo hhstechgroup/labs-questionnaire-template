@@ -1,7 +1,7 @@
 package com.engagepoint.controller.pagecontroller;
 
 import com.engagepoint.bean.TemplateBean;
-import com.engagepoint.controller.QuestFormTreeController;
+import com.engagepoint.controller.TemplateTreeController;
 
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Inject;
@@ -15,12 +15,12 @@ import java.io.Serializable;
 
 @Named("templateController")
 @SessionScoped
-public class QuestFormController implements Serializable {
+public class TemplateEditController implements Serializable {
 
     @Inject
     private ListController listController;
     @Inject
-    private QuestFormTreeController questFormTreeController;
+    private TemplateTreeController templateTreeController;
 
     private TemplateBean currentTemplate; //real template
     private TemplateBean duplicateTemplate; //copy of real template, contains all unsaved changes
@@ -41,7 +41,7 @@ public class QuestFormController implements Serializable {
         this.currentTemplate = currentTemplate;
         try {
             duplicateTemplate = currentTemplate.duplicate();
-            questFormTreeController.setTemplateBean(duplicateTemplate);
+            templateTreeController.setTemplateBean(duplicateTemplate);
         } catch (CloneNotSupportedException e) {
             //NOP
         }
@@ -106,7 +106,7 @@ public class QuestFormController implements Serializable {
      * @return page name
      */
     public static String income() {
-        return "/pages/questForm?faces-redirect=true&includeViewParams=true";
+        return "/pages/templateEdit?faces-redirect=true&includeViewParams=true";
     }
 
 }

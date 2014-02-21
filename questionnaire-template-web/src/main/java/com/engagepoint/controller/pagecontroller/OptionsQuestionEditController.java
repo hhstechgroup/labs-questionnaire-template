@@ -58,14 +58,14 @@ public class OptionsQuestionEditController implements Serializable {
         optionsQuestionBean.setOptions(optionsQuestionModel.getOptions());
         optionsQuestionBean.setDefaultOption(optionsQuestionModel.getDefaultOption());
         questionController.addQuestionToTree();
-        return QuestFormController.income();
+        return TemplateEditController.income();
     }
 
     public String actionCancel() {
-        return QuestFormController.income();
+        return TemplateEditController.income();
     }
 
     public static String income() {
-        return "/question-pages/chooseFromList?faces-redirect=true&includeViewParams=true";
+        return "/question-pages/chooseFromListQuestion?faces-redirect=true&includeViewParams=true";
     }
 }

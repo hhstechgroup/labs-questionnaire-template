@@ -17,12 +17,12 @@ import org.primefaces.model.TreeNode;
 
 
 /**
- * Used for controlling tree on questForm.xhtml
+ * Used for controlling tree on templateEdit.xhtml
  */
 
 @Named
 @SessionScoped
-public class QuestFormTreeController implements Serializable {
+public class TemplateTreeController implements Serializable {
 
     private static final long serialVersionUID = 1L;
     private TreeNode root = new DefaultTreeNode("Root", null);
@@ -190,7 +190,7 @@ public class QuestFormTreeController implements Serializable {
     }
 
     /**
-     * Redirect to questionedit.xhtml page where new QuestionBean
+     * Redirect to questionEdit1.xhtml page where new QuestionBean
      * will be created and edited
      */
     private String addQuestion() {
@@ -202,7 +202,7 @@ public class QuestFormTreeController implements Serializable {
     }
 
     /**
-     * Redirect to questionedit.xhtml page where new QuestionBean
+     * Redirect to questionEdit1.xhtml page where new QuestionBean
      * will be edited
      */
     private String editQuestion() {

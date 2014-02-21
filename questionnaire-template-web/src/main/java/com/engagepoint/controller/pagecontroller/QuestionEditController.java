@@ -5,7 +5,7 @@ import java.io.Serializable;
 import com.engagepoint.bean.QuestionBeans.OptionsQuestionBean;
 import com.engagepoint.bean.QuestionBeans.QuestionBean;
 import com.engagepoint.bean.QuestionType;
-import com.engagepoint.controller.QuestFormTreeController;
+import com.engagepoint.controller.TemplateTreeController;
 
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.RequestScoped;
@@ -13,7 +13,7 @@ import javax.inject.Inject;
 import javax.inject.Named;
 
 /**
- * Used for controlling questionedit.xhtml
+ * Used for controlling questionEdit1.xhtml
  */
 
 @Named("questionController")
@@ -33,7 +33,7 @@ public class QuestionEditController implements Serializable {
     //...temp properties
 
     @Inject
-    private QuestFormTreeController questFormTreeController;
+    private TemplateTreeController templateTreeController;
 
     @PostConstruct
     private void postConstruct() {
@@ -41,11 +41,11 @@ public class QuestionEditController implements Serializable {
     }
 
 	public QuestionBean getCurrentQuestion() {
-        return questFormTreeController.getCurrentQuestion();
+        return templateTreeController.getCurrentQuestion();
 	}
 
 	public void setCurrentQuestion(QuestionBean currentQuestion) {
-        questFormTreeController.setCurrentQuestion(currentQuestion);
+        templateTreeController.setCurrentQuestion(currentQuestion);
 	}
 
 	public QuestionType getSelectedQuestionType() {
@@ -87,9 +87,9 @@ public class QuestionEditController implements Serializable {
 	public String changeQuestionType() {
 		switch (selectedQuestionType) {
 		case TEXT:
-			return "/question-pages/textquestion?faces-redirect=true";
+			return "/question-pages/textQuestion?faces-redirect=true";
         case DATE:
-            return "/question-pages/datequestion?faces-redirect=true";
+            return "/question-pages/dateQuestion?faces-redirect=true";
         case RANGE:
             return "/question-pages/rangeQuestion?faces-redirect=true";
         case TIME:
@@ -115,7 +115,7 @@ public class QuestionEditController implements Serializable {
      */
     public void addQuestionToTree() {
         changeCurrentQuestionDueToTempProperties();
-        questFormTreeController.addQuestionToCurrentGroup(getCurrentQuestion());
+        templateTreeController.addQuestionToCurrentGroup(getCurrentQuestion());
     }
 
     /**
@@ -165,7 +165,7 @@ public class QuestionEditController implements Serializable {
     }
 
     public static String income() {
-        return "/pages/questionedit?faces-redirect=true&includeViewParams=true";
+        return "/pages/questionEdit?faces-redirect=true&includeViewParams=true";
     }
 
 }

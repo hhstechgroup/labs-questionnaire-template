@@ -5,12 +5,12 @@
                 xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:f="http://java.sun.com/jsf/core"
                 xmlns:uib="http://engagepoint.com/uib"
-                template="/pages/questionedit.xhtml"
+                template="/pages/questionEdit1.xhtml"
                 xmlns:ago="http://java.sun.com/jsf/composite/questiontemplate">
 
     <f:metadata>
         <f:viewParam name="template" value="#{templateController.currentTemplate.id}"/>
-        <f:viewParam name="question" value="#{questFormTreeController.currentQuestion.id}"/>
+        <f:viewParam name="question" value="#{templateTreeController.currentQuestion.id}"/>
     </f:metadata>
 
     <ui:define name="question">

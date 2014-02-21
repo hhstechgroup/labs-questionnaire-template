@@ -6,7 +6,7 @@
                 xmlns:f="http://java.sun.com/jsf/core"
                 xmlns:uib="http://engagepoint.com/uib"
                 xmlns:ago="http://java.sun.com/jsf/composite/questiontemplate"
-                template="/pages/questionedit.xhtml">
+                template="/pages/questionEdit1.xhtml">
 
 
 <ui:define name="question">
@@ -23,7 +23,7 @@
                 <p:commandButton id="savequestion" value="Save question"
                                  action="/pages/questForm?faces-redirect=true">
                     <f:setPropertyActionListener value="#{textquestion}"
-                                                 target="#{questFormTreeController.addedquestion}"/>
+                                                 target="#{templateTreeController.addedquestion}"/>
                 </p:commandButton>
                 <p:commandButton id="cancel" value="Cancel" immediate="true"
                                  action="/pages/questForm?faces-redirect=true"/>
