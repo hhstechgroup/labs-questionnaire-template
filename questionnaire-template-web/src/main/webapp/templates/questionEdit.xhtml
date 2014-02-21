@@ -1,0 +1,35 @@
+<uib:page xmlns="http://www.w3.org/1999/xhtml"
+          xmlns:h="http://java.sun.com/jsf/html"
+          xmlns:f="http://java.sun.com/jsf/core"
+          xmlns:uib="http://engagepoint.com/uib"
+          xmlns:ui="http://java.sun.com/jsf/facelets"
+          xmlns:ui-headerUtilityBar="http://java.sun.com/jsf/composite/uibootstrap/components/headerUtilityBar"
+          xmlns:p="http://primefaces.org/ui"
+          markupType="html5"
+          contentType="text/html"
+          showFooter="true"
+          pageTitle="Question Editor"
+          project="notify">
+
+    <uib:pageLayout>
+
+        <uib:pageHeaderFacet hideHelpMenu="true"
+                             linkLogo="http://google.com/">
+            <ui:include src="topMenu.xhtml"/>
+        </uib:pageHeaderFacet>
+
+        <uib:pageHeaderUtilityBarFacet>
+            <ui:insert name="headerBar"/>
+        </uib:pageHeaderUtilityBarFacet>
+
+        <uib:pageMenuFacet id="pageMenu">
+            <ui:include src="leftMenu.xhtml"/>
+        </uib:pageMenuFacet>
+
+        <uib:pageBodyFacet>
+            <ui:insert name="page"/>
+        </uib:pageBodyFacet>
+
+    </uib:pageLayout>
+
+</uib:page>
