@@ -13,7 +13,7 @@ import javax.inject.Inject;
 import javax.inject.Named;
 
 /**
- * Used for controlling questionEdit1.xhtml
+ * Used for controlling questionEdit.xhtml
  */
 
 @Named("questionController")

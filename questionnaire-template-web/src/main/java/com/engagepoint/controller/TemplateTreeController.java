@@ -190,7 +190,7 @@ public class TemplateTreeController implements Serializable {
     }
 
     /**
-     * Redirect to questionEdit1.xhtml page where new QuestionBean
+     * Redirect to questionEdit.xhtml page where new QuestionBean
      * will be created and edited
      */
     private String addQuestion() {
@@ -202,7 +202,7 @@ public class TemplateTreeController implements Serializable {
     }
 
     /**
-     * Redirect to questionEdit1.xhtml page where new QuestionBean
+     * Redirect to questionEdit.xhtml page where new QuestionBean
      * will be edited
      */
     private String editQuestion() {
