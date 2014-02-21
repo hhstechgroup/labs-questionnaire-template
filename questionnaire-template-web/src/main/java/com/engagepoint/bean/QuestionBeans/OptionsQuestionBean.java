@@ -85,7 +85,7 @@ public class OptionsQuestionBean extends QuestionBean implements Serializable {
     public void initConversation() {
         if (!FacesContext.getCurrentInstance().isPostback()
                 && conversation.isTransient()) {
-            conversation.begin(String.valueOf(this.getId()));
+            conversation.begin();
         }
     }
 }
