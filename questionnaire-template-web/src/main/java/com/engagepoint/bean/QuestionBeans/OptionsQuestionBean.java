@@ -4,6 +4,7 @@ import com.engagepoint.model.TableModels.ListOfOptionsDataModel;
 import com.engagepoint.model.VariantItem;
 
 import javax.enterprise.context.RequestScoped;
+import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -11,7 +12,7 @@ import java.util.List;
 
 
 @Named("optionsQuestionModel")
-@RequestScoped
+@SessionScoped
 public class OptionsQuestionBean extends QuestionBean implements Serializable {
     //dataModel for table
     private ListOfOptionsDataModel dataModel;

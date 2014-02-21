@@ -1,10 +1,8 @@
 package com.engagepoint.controller.pagecontroller;
 
 import com.engagepoint.bean.QuestionBeans.OptionsQuestionBean;
-import com.engagepoint.model.OptionQuestionModel;
 import com.engagepoint.model.VariantItem;
 
-import javax.annotation.PostConstruct;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -18,50 +16,35 @@ import java.io.Serializable;
 public class OptionsQuestionEditController implements Serializable {
 
     @Inject
-    private QuestionEditController questionController;
+    private QuestionEditController questionEditController;
     @Inject
-    private OptionQuestionModel optionsQuestionModel;
+    private OptionsQuestionBean optionQuestionBean;
 
-    @PostConstruct
-    public void postCostruct() {
-        init();
-    }
-
-    public void init() {
-        optionsQuestionModel.setPropertiesFromBean(getCurrentQuestion());
-    }
-
-
-    public OptionsQuestionBean getCurrentQuestion() {
-        return (OptionsQuestionBean) questionController.getCurrentQuestion();
-    }
-
-
-    public OptionQuestionModel getOptionQuestionModel() {
-        return optionsQuestionModel;
-    }
-
-    public void setOptionQuestionModel(OptionQuestionModel optionQuestionModel) {
-        this.optionsQuestionModel = optionQuestionModel;
+    public OptionsQuestionBean getOptionQuestionBean() {
+        return optionQuestionBean;
     }
 
     public void addOption(String option) {
-        optionsQuestionModel.addOption(new VariantItem(option));
+        optionQuestionBean.getOptions().add(new VariantItem(option));
+        updateModel();
     }
 
     public void removeOption(VariantItem option) {
-        optionsQuestionModel.removeOption(option);
+        optionQuestionBean.getOptions().remove(option);
+        updateModel();
     }
 
-    public String actionSave() {
-        OptionsQuestionBean optionsQuestionBean = getCurrentQuestion();
-        optionsQuestionBean.setOptions(optionsQuestionModel.getOptions());
-        optionsQuestionBean.setDefaultOption(optionsQuestionModel.getDefaultOption());
-        questionController.addQuestionToTree();
-        return TemplateEditController.income();
+    //adding variants to dataModel
+    private void updateModel() {
+        optionQuestionBean.getDataModel().setWrappedData(optionQuestionBean.getOptions());
     }
 
     public String actionCancel() {
+        return TemplateEditController.income();
+    }
+
+    public String actionSave() {
+        questionEditController.addQuestionToTree();
         return TemplateEditController.income();
     }
 
