@@ -24,31 +24,59 @@ public class OptionsQuestionEditController implements Serializable {
         return optionQuestionBean;
     }
 
+    /**
+     * Add variant to a question.
+     *
+     * @param option VariantItem object
+     */
     public void addOption(String option) {
         optionQuestionBean.getOptions().add(new VariantItem(option));
         updateModel();
     }
 
+    /**
+     * Remove variant from a question.
+     *
+     * @param option VariantItem object
+     */
     public void removeOption(VariantItem option) {
         optionQuestionBean.getOptions().remove(option);
         updateModel();
     }
 
-    //adding variants to dataModel
+    /**
+     * Update options in ListOfOptionsDataModel.
+     */
     private void updateModel() {
         optionQuestionBean.getDataModel().setWrappedData(optionQuestionBean.getOptions());
     }
 
+    /**
+     * Cancel question additing or edditing.
+     *
+     * @return next page to display.
+     */
     public String actionCancel() {
         return TemplateEditController.income();
     }
 
+    /**
+     * Save question.
+     *
+     * @return next page to display.
+     */
     public String actionSave() {
+        //TODO
         questionEditController.addQuestionToTree();
         optionQuestionBean.removeQuestionBean();
         return TemplateEditController.income();
     }
 
+    /**
+     * Get chooseFromListQuestion page.
+     *
+     * @return chooseFromListQuestion page
+     */
     public static String income() {
         return "/question-pages/chooseFromListQuestion?faces-redirect=true&includeViewParams=true";
     }
