@@ -3,7 +3,6 @@ package com.engagepoint.bean.QuestionBeans;
 import com.engagepoint.model.TableModels.ListOfOptionsDataModel;
 import com.engagepoint.model.VariantItem;
 
-import javax.annotation.PostConstruct;
 import javax.enterprise.context.Conversation;
 import javax.enterprise.context.ConversationScoped;
 import javax.faces.context.FacesContext;
@@ -17,8 +16,6 @@ import java.util.List;
 @Named("optionsQuestionModel")
 @ConversationScoped
 public class OptionsQuestionBean extends QuestionBean implements Serializable {
-    private static final long serialVersionUID = 4771270804699990999L;
-
     //dataModel for table
     private ListOfOptionsDataModel dataModel;
     //list of variants
@@ -30,11 +27,9 @@ public class OptionsQuestionBean extends QuestionBean implements Serializable {
     @Inject
     private Conversation conversation;
 
-    @PostConstruct
-    public void init() {
+    public OptionsQuestionBean() {
         this.options = new ArrayList<VariantItem>();
         dataModel = new ListOfOptionsDataModel(options);
-        //conversation.begin();
     }
 
     public List<VariantItem> getOptions() {
@@ -77,19 +72,20 @@ public class OptionsQuestionBean extends QuestionBean implements Serializable {
         return copy;
     }
 
-
+    /**
+     * End conversation. After this bean will be destroyed.
+     */
     public void removeQuestionBean() {
         conversation.end();
     }
 
-    public void initConversation(){
+    /**
+     * Start conversation.Expands bean's scope over Request Scope.
+     */
+    public void initConversation() {
         if (!FacesContext.getCurrentInstance().isPostback()
                 && conversation.isTransient()) {
-
-            System.out.println("sdfsdfs");
             conversation.begin(String.valueOf(this.getId()));
-            //conversation
         }
     }
-
 }
