@@ -45,6 +45,7 @@ public class OptionsQuestionEditController implements Serializable {
 
     public String actionSave() {
         questionEditController.addQuestionToTree();
+        optionQuestionBean.removeQuestionBean();
         return TemplateEditController.income();
     }
 
