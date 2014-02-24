@@ -6,6 +6,7 @@ import com.engagepoint.bean.QuestionBeans.OptionsQuestionBean;
 import com.engagepoint.bean.QuestionBeans.QuestionBean;
 import com.engagepoint.bean.QuestionType;
 import com.engagepoint.controller.TemplateTreeController;
+import org.omg.CosNaming.NamingContextExtPackage.StringNameHelper;
 
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.RequestScoped;
@@ -20,16 +21,16 @@ import javax.inject.Named;
 @RequestScoped
 public class QuestionEditController implements Serializable {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
+    /**
+     *
+     */
+    private static final long serialVersionUID = 1L;
 
     //temp properties
-	private QuestionType selectedQuestionType;
-    private String questionText="";		//questiontext
-    private boolean requiredAnswer;		//is answer required or not
-    private String helpText="";			//Help texts for questions
+    private QuestionType selectedQuestionType;
+    private String questionText = "";        //question text
+    private boolean requiredAnswer;          //is answer required or not
+    private String helpText = "";            //Help texts for questions
     //...temp properties
 
     @Inject
@@ -40,21 +41,21 @@ public class QuestionEditController implements Serializable {
         changeTempPropertiesDueToCurrentQuestion();
     }
 
-	public QuestionBean getCurrentQuestion() {
+    public QuestionBean getCurrentQuestion() {
         return templateTreeController.getCurrentQuestion();
-	}
+    }
 
-	public void setCurrentQuestion(QuestionBean currentQuestion) {
+    public void setCurrentQuestion(QuestionBean currentQuestion) {
         templateTreeController.setCurrentQuestion(currentQuestion);
-	}
+    }
 
-	public QuestionType getSelectedQuestionType() {
-		return selectedQuestionType;
-	}
+    public QuestionType getSelectedQuestionType() {
+        return selectedQuestionType;
+    }
 
-	public void setSelectedQuestionType(QuestionType selectedQuestionType) {
-		this.selectedQuestionType = selectedQuestionType;
-	}
+    public void setSelectedQuestionType(QuestionType selectedQuestionType) {
+        this.selectedQuestionType = selectedQuestionType;
+    }
 
     public String getQuestionText() {
         return questionText;
@@ -81,32 +82,34 @@ public class QuestionEditController implements Serializable {
     }
 
     public QuestionType[] getQuestionTypes() {
-		return QuestionType.values();
-	}
+        return QuestionType.values();
+    }
 
-	public String changeQuestionType() {
-		switch (selectedQuestionType) {
-		case TEXT:
-			return "/question-pages/textQuestion?faces-redirect=true";
-        case DATE:
-            return "/question-pages/dateQuestion?faces-redirect=true";
-        case RANGE:
-            return "/question-pages/rangeQuestion?faces-redirect=true";
-        case TIME:
-            return "/question-pages/timeQuestion?faces-redirect=true";
-        case PARAGRAPHTEXT:
-            return "/question-pages/paragraphQuestion?faces-redirect=true";
-        case CHOOSEFROMLIST:
-            newChooseFromListQuestion();
-            return OptionsQuestionEditController.income();
-        case FILEUPLOAD:
-            return "/question-pages/fileUploadQuestion?faces-redirect=true";
-        case MULTIPLECHOICE:
-            newMultipleChoiceQuestion();
-            return OptionsQuestionEditController.income();
-		default:
-			return null;
-		}
+    public String getChangeQuestionType() {
+        String notChoose = "/question-pages/notChooseQuestion.xhtml";
+        if (selectedQuestionType == null) return notChoose;
+        switch (selectedQuestionType) {
+            case TEXT:
+                return "/question-pages/textQuestion.xhtml";
+            case DATE:
+                return "/question-pages/dateQuestion.xhtml";
+            case RANGE:
+                return "/question-pages/rangeQuestion.xhtml";
+            case TIME:
+                return "/question-pages/timeQuestion.xhtml";
+            case PARAGRAPHTEXT:
+                return "/question-pages/paragraphQuestion.xhtml";
+            case CHOOSEFROMLIST:
+                newChooseFromListQuestion();
+                return "/question-pages/chooseFromListQuestion.xhtml";
+            case FILEUPLOAD:
+                return "/question-pages/fileUploadQuestion.xhtml";
+            case MULTIPLECHOICE:
+                newMultipleChoiceQuestion();
+                return "/question-pages/stab.xhtml";
+            default:
+                return notChoose;
+        }
     }
 
     /**
@@ -124,7 +127,7 @@ public class QuestionEditController implements Serializable {
      */
     public void changeTempPropertiesDueToCurrentQuestion() {
         QuestionBean question = getCurrentQuestion();
-        if (question!=null) {
+        if (question != null) {
             selectedQuestionType = question.getQuestionType();
             questionText = question.getQuestionText();
             requiredAnswer = question.isRequiredAnswer();
@@ -137,7 +140,8 @@ public class QuestionEditController implements Serializable {
      * temp properties to current question
      */
     public void changeCurrentQuestionDueToTempProperties() {
-        QuestionBean question = getCurrentQuestion();
+
+       QuestionBean question = getCurrentQuestion();
         question.setQuestionType(selectedQuestionType);
         question.setHelpText(helpText);
         question.setRequiredAnswer(requiredAnswer);
@@ -167,5 +171,6 @@ public class QuestionEditController implements Serializable {
     public static String income() {
         return "/pages/questionEdit?faces-redirect=true&includeViewParams=true";
     }
+
 
 }

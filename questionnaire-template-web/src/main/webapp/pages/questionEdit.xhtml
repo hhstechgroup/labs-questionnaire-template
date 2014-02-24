@@ -4,7 +4,7 @@
                 xmlns:p="http://primefaces.org/ui"
                 xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:f="http://java.sun.com/jsf/core"
-                xmlns:uib="http://engagepoint.com/uib"
+
                 template="/templates/questionEdit.xhtml">
 
     <f:metadata>
@@ -20,19 +20,17 @@
             <br/>
             <p:selectOneMenu value="#{questionController.selectedQuestionType}"
                              required="true">
+
+                <p:ajax event="valueChange" update=":questionForm"/>
+
                 <f:selectItem itemLabel="Select One" itemValue="#{null}"/>
                 <f:selectItems value="#{questionController.questionTypes}"/>
             </p:selectOneMenu>
-            <br/>
-            <p:commandButton id="go" value="Choose selected type"
-                             action="#{questionController.changeQuestionType}"/>
-            <br/>
         </h:form>
 
-        <uib:pageBodyFacet>
-            <ui:insert name="question"/>
-            <ui:insert name="buttons"/>
-        </uib:pageBodyFacet>
+        <h:form id="questionForm">
+            <ui:include src="#{questionController.changeQuestionType}"/>
+        </h:form>
 
     </ui:define>
 </ui:composition>
