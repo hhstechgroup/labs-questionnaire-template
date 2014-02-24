@@ -3,19 +3,11 @@ package com.engagepoint.bean.QuestionBeans;
 import com.engagepoint.model.TableModels.ListOfOptionsDataModel;
 import com.engagepoint.model.VariantItem;
 
-import javax.enterprise.context.Conversation;
-import javax.enterprise.context.ConversationScoped;
-import javax.faces.context.FacesContext;
-import javax.inject.Inject;
-import javax.inject.Named;
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 
-@Named("optionsQuestionModel")
-@ConversationScoped
-public class OptionsQuestionBean extends QuestionBean implements Serializable {
+public class OptionsQuestionBean extends QuestionBean {
     //dataModel for table
     private ListOfOptionsDataModel dataModel;
     //list of variants
@@ -24,8 +16,6 @@ public class OptionsQuestionBean extends QuestionBean implements Serializable {
     private List<VariantItem> defaultOptions;
     //selected variant
     private VariantItem defaultOption;
-    @Inject
-    private Conversation conversation;
 
     public OptionsQuestionBean() {
         this.options = new ArrayList<VariantItem>();
@@ -70,22 +60,5 @@ public class OptionsQuestionBean extends QuestionBean implements Serializable {
         copy.setOptions(this.options);
         copy.setDefaultOption(this.defaultOption);
         return copy;
-    }
-
-    /**
-     * End conversation. After this bean will be destroyed.
-     */
-    public void removeQuestionBean() {
-        conversation.end();
-    }
-
-    /**
-     * Start conversation.Expands bean's scope over Request Scope.
-     */
-    public void initConversation() {
-        if (!FacesContext.getCurrentInstance().isPostback()
-                && conversation.isTransient()) {
-            conversation.begin();
-        }
     }
 }
