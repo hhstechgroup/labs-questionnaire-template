@@ -34,6 +34,8 @@ public class QuestionEditController implements Serializable {
 
     @Inject
     private TemplateTreeController templateTreeController;
+    @Inject
+    OptionsQuestionEditController optionsQuestionEditController;
 
     @PostConstruct
     private void postConstruct() {
@@ -98,6 +100,7 @@ public class QuestionEditController implements Serializable {
             return "/question-pages/paragraphQuestion?faces-redirect=true";
         case CHOOSEFROMLIST:
             newChooseFromListQuestion();
+            optionsQuestionEditController.setOptionQuestionBean((OptionsQuestionBean)getCurrentQuestion());
             return OptionsQuestionEditController.income();
         case FILEUPLOAD:
             return "/question-pages/fileUploadQuestion?faces-redirect=true";
