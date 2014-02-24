@@ -140,7 +140,8 @@ public class QuestionEditController implements Serializable {
      * temp properties to current question
      */
     public void changeCurrentQuestionDueToTempProperties() {
-        QuestionBean question = getCurrentQuestion();
+
+       QuestionBean question = getCurrentQuestion();
         question.setQuestionType(selectedQuestionType);
         question.setHelpText(helpText);
         question.setRequiredAnswer(requiredAnswer);
@@ -170,5 +171,6 @@ public class QuestionEditController implements Serializable {
     public static String income() {
         return "/pages/questionEdit?faces-redirect=true&includeViewParams=true";
     }
+
 
 }
