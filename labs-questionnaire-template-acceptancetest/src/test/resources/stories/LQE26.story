@@ -8,8 +8,7 @@ Narrative:
 User can export the selected template(s).
 Templates are exported as XML
 files.
-Given saved 'http://localhost:8080/questionnaire-template-web-1.0-SNAPSHOT/' link
-When the user opens saved link
+When the user opens the default page
 Then wait for element 'form1:AddTemplate' is visible
 When clicks on element with id/name/className 'form1:AddTemplate'
 Then should open page with 'Template Editor' title

@@ -6,8 +6,7 @@ Scenario:
 Narrative:
 User can access the application with the
 Questionnaire Templates page displayed by default.
-Given saved 'http://localhost:8080/questionnaire-template-web-1.0-SNAPSHOT/' link
-When the user opens saved link
+When the user opens the default page
 Then should open page with 'Questionnaire Editor' title
 Then wait for element 'form1:table' is visible
 
