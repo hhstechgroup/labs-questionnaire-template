@@ -34,17 +34,24 @@ public class JBehaveSteps {
         uIBootstrapBasePage.selectFromDropdown(rppSelect, number);
     }
 
-    @When("in tree '$tableId' user chooses node with '$text'")
-     public void whenInTreeChoosesNodeWithText(String tableId, String rowText) {
-        WebElement tableElement = getTableElement(tableId);
-        WebElement row = tableElement.findElement(By.xpath(".//*[contains(@class,'ui-treetable-selectable-node')]//*[contains(text(),'"+rowText+"')]"));
+    @When("in tree '$treeId' user chooses node with '$text'")
+     public void whenInTreeChoosesNodeWithText(String treeId, String nodeText) {
+        WebElement tableElement = getTableElement(treeId);
+        WebElement row = tableElement.findElement(By.xpath(".//*[contains(@class,'ui-treetable-selectable-node')]//*[contains(text(),'"+nodeText+"')]"));
         row.click();
     }
 
     @When("in table '$tableId' user presses '$buttonText' in row with '$text'")
-    public void whenInTreeChoosesRowWithText(String tableId, String buttonText, String rowText) {
+    public void whenInTableChoosesRowWithText(String tableId, String buttonText, String rowText) {
         WebElement tableElement = getTableElement(tableId);
-        WebElement row = tableElement.findElement(By.xpath("//*[.//td[contains(text(),'"+rowText+"')]]//*[@title='"+buttonText+"']"));
+        WebElement row = tableElement.findElement(By.xpath("//*[.//td[contains(text(),'"+rowText+"')]]//*[@title='"+buttonText+"']")); //TODO: bind path to table
+        row.click();
+    }
+
+    @When("in tree '$treeId' user opens node with '$text'")
+    public void whenInTreeOpensNodeWithText(String treeId, String nodeText) {
+        WebElement tableElement = getTableElement(treeId);
+        WebElement row = tableElement.findElement(By.xpath(".//td[.//*[contains(text(),'"+nodeText+"')]]/span[1]"));
         row.click();
     }
 }
