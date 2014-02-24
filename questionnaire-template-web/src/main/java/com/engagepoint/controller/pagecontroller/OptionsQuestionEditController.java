@@ -3,9 +3,8 @@ package com.engagepoint.controller.pagecontroller;
 import com.engagepoint.bean.QuestionBeans.OptionsQuestionBean;
 import com.engagepoint.model.VariantItem;
 
-import javax.enterprise.context.Conversation;
-import javax.enterprise.context.ConversationScoped;
-import javax.faces.context.FacesContext;
+
+import javax.enterprise.context.SessionScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 import java.io.Serializable;
@@ -14,18 +13,13 @@ import java.io.Serializable;
  * Controller for multiplechoice,checkboxes and choose from a list question types.
  */
 @Named
-@ConversationScoped
+@SessionScoped
 public class OptionsQuestionEditController implements Serializable {
 
     @Inject
     private QuestionEditController questionEditController;
-    @Inject
-    private Conversation conversation;
+    //options question object
     private OptionsQuestionBean optionQuestionBean;
-
-    public OptionsQuestionEditController() {
-        this.optionQuestionBean = new OptionsQuestionBean();
-    }
 
     public OptionsQuestionBean getOptionQuestionBean() {
         return optionQuestionBean;
@@ -33,6 +27,13 @@ public class OptionsQuestionEditController implements Serializable {
 
     public void setOptionQuestionBean(OptionsQuestionBean optionQuestionBean) {
         this.optionQuestionBean = optionQuestionBean;
+    }
+
+    /**
+     * Update options in ListOfOptionsDataModel.
+     */
+    private void updateModel() {
+        optionQuestionBean.getDataModel().setWrappedData(optionQuestionBean.getOptions());
     }
 
     /**
@@ -56,13 +57,6 @@ public class OptionsQuestionEditController implements Serializable {
     }
 
     /**
-     * Update options in ListOfOptionsDataModel.
-     */
-    private void updateModel() {
-        optionQuestionBean.getDataModel().setWrappedData(optionQuestionBean.getOptions());
-    }
-
-    /**
      * Cancel question additing or edditing.
      *
      * @return next page to display.
@@ -77,10 +71,7 @@ public class OptionsQuestionEditController implements Serializable {
      * @return next page to display.
      */
     public String actionSave() {
-        //TODO
         questionEditController.addQuestionToTree();
-        //end conversation
-        endConversation();
         return TemplateEditController.income();
     }
 
@@ -91,22 +82,5 @@ public class OptionsQuestionEditController implements Serializable {
      */
     public static String income() {
         return "/question-pages/chooseFromListQuestion?faces-redirect=true&includeViewParams=true";
-    }
-
-    /**
-     * End conversation. After this bean will be destroyed.
-     */
-    public void endConversation() {
-        conversation.end();
-    }
-
-    /**
-     * Start conversation.Expands bean's scope over Request Scope.
-     */
-    public void initConversation() {
-        if (!FacesContext.getCurrentInstance().isPostback()
-                && conversation.isTransient()) {
-            conversation.begin();
-        }
     }
 }
