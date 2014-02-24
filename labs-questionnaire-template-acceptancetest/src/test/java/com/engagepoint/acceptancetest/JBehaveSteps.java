@@ -8,11 +8,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
 /**
- * Created with IntelliJ IDEA.
- * User: Анка
- * Date: 21.02.14
- * Time: 20:20
- * To change this template use File | Settings | File Templates.
+ * Special steps for this project.
  */
 public class JBehaveSteps {
 
@@ -36,5 +32,19 @@ public class JBehaveSteps {
         /*not worked: WebElement rppSelect = getTableElement(tableId).findElement(By.cssSelector(".ui-paginator-rpp-options"));*/
         WebElement rppSelect = getTableElement(tableId).findElement(By.xpath("//select[contains(@class, 'ui-paginator-rpp-options')]"));
         uIBootstrapBasePage.selectFromDropdown(rppSelect, number);
+    }
+
+    @When("in tree '$tableId' user chooses node with '$text'")
+     public void whenInTreeChoosesNodeWithText(String tableId, String rowText) {
+        WebElement tableElement = getTableElement(tableId);
+        WebElement row = tableElement.findElement(By.xpath(".//*[contains(@class,'ui-treetable-selectable-node')]//*[contains(text(),'"+rowText+"')]"));
+        row.click();
+    }
+
+    @When("in table '$tableId' user presses '$buttonText' in row with '$text'")
+    public void whenInTreeChoosesRowWithText(String tableId, String buttonText, String rowText) {
+        WebElement tableElement = getTableElement(tableId);
+        WebElement row = tableElement.findElement(By.xpath("//*[.//td[contains(text(),'"+rowText+"')]]//*[@title='"+buttonText+"']"));
+        row.click();
     }
 }

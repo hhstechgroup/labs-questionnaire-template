@@ -94,7 +94,7 @@ public class QuestionEditController implements Serializable {
             case DATE:
                 return "/question-pages/dateQuestion.xhtml";
             case RANGE:
-                return "/question-pages/stab.xhtml";
+                return "/question-pages/rangeQuestion.xhtml";
             case TIME:
                 return "/question-pages/timeQuestion.xhtml";
             case PARAGRAPHTEXT:
