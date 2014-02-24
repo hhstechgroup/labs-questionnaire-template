@@ -14,7 +14,7 @@
     <h:panelGrid id="buttons" columns="3" style="margin-bottom:10px"
                  cellpadding="5">
         <p:commandButton id="savequestion" value="Save question"
-                         action="#{cc.attrs.controller.actionSave}">
+                         action="#{cc.attrs.controller.actionSave}" update="@form">
         </p:commandButton>
         <p:commandButton id="cancel" value="Cancel" immediate="true"
                          action="#{cc.attrs.controller.actionCancel}"/>
