@@ -27,19 +27,11 @@ public class QuestionEditController implements Serializable {
 
     //temp properties
     private QuestionType selectedQuestionType;
-    private QuestionBean currentQuestion;
-    private String questionText = "";        //question text
-    private boolean requiredAnswer;          //is answer required or not
-    private String helpText = "";            //Help texts for questions
+    private QuestionBean currentQuestion = new QuestionBean();
     //...temp properties
 
     @Inject
     private TemplateTreeController templateTreeController;
-
-    @PostConstruct
-    private void postConstruct() {
-        changeTempPropertiesDueToCurrentQuestion();
-    }
 
     public QuestionBean getCurrentQuestion() {
         return currentQuestion;
@@ -58,27 +50,27 @@ public class QuestionEditController implements Serializable {
     }
 
     public String getQuestionText() {
-        return questionText;
+        return "";
     }
 
     public void setQuestionText(String questionText) {
-        this.questionText = questionText;
+        currentQuestion.setQuestionText(questionText);
     }
 
     public boolean isRequiredAnswer() {
-        return requiredAnswer;
+        return false;
     }
 
     public void setRequiredAnswer(boolean requiredAnswer) {
-        this.requiredAnswer = requiredAnswer;
+        currentQuestion.setRequiredAnswer(requiredAnswer);
     }
 
     public String getHelpText() {
-        return helpText;
+        return "";
     }
 
     public void setHelpText(String helpText) {
-        this.helpText = helpText;
+        currentQuestion.setHelpText(helpText);
     }
 
     public QuestionType[] getQuestionTypes() {
@@ -118,61 +110,6 @@ public class QuestionEditController implements Serializable {
         }
     }
 
-    /**
-     * Saving common properties of question
-     * and adding question to group (if new)
-     */
-    public void addQuestionToTree() {
-        changeCurrentQuestionDueToTempProperties();
-        templateTreeController.addQuestionToCurrentGroup(getCurrentQuestion());
-    }
-
-    /**
-     * Pulling values of common properties of
-     * current question to temp properties
-     */
-    public void changeTempPropertiesDueToCurrentQuestion() {
-        QuestionBean question = getCurrentQuestion();
-        if (question != null) {
-            selectedQuestionType = question.getQuestionType();
-            questionText = question.getQuestionText();
-            requiredAnswer = question.isRequiredAnswer();
-            helpText = question.getHelpText();
-        }
-    }
-
-    /**
-     * Pushing values of common properties from
-     * temp properties to current question
-     */
-    public void changeCurrentQuestionDueToTempProperties() {
-        QuestionBean question = getCurrentQuestion();
-        question.setQuestionType(selectedQuestionType);
-        question.setHelpText(helpText);
-        question.setRequiredAnswer(requiredAnswer);
-        question.setQuestionText(questionText);
-    }
-
-    /**
-     * Creating a new question with type CHOOSEFROMLIST
-     */
-    public void newChooseFromListQuestion() {
-        OptionsQuestionBean question = new OptionsQuestionBean();
-        setCurrentQuestion(question);
-        question.setQuestionType(QuestionType.CHOOSEFROMLIST);
-        changeTempPropertiesDueToCurrentQuestion();
-    }
-
-    /**
-     * Creating a new question with type MULTIPLECHOICE
-     */
-    public void newMultipleChoiceQuestion() {
-        OptionsQuestionBean question = new OptionsQuestionBean();
-        setCurrentQuestion(question);
-        question.setQuestionType(QuestionType.MULTIPLECHOICE);
-        changeTempPropertiesDueToCurrentQuestion();
-    }
-
     public static String income() {
         return "/pages/questionEdit?faces-redirect=true&includeViewParams=true";
     }
@@ -180,6 +117,7 @@ public class QuestionEditController implements Serializable {
     public String actionSave() {
         // This controller must be available when selected node is GroupBean
         ((GroupBean) templateTreeController.getSelectedNode().getData()).addToInnerList(currentQuestion);
+        templateTreeController.setNodes();
         return TemplateEditController.income();
     }
 

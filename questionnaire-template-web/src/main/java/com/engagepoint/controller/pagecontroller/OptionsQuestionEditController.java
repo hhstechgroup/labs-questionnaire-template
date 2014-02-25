@@ -66,16 +66,6 @@ public class OptionsQuestionEditController implements Serializable {
     }
 
     /**
-     * Save question.
-     *
-     * @return next page to display.
-     */
-    public String actionSave() {
-        questionEditController.addQuestionToTree();
-        return TemplateEditController.income();
-    }
-
-    /**
      * Get chooseFromListQuestion page.
      *
      * @return chooseFromListQuestion page
