@@ -27,6 +27,7 @@ public class QuestionEditController implements Serializable {
 
     //temp properties
     private QuestionType selectedQuestionType;
+    private QuestionBean currentQuestion;
     private String questionText = "";        //question text
     private boolean requiredAnswer;          //is answer required or not
     private String helpText = "";            //Help texts for questions
@@ -43,11 +44,11 @@ public class QuestionEditController implements Serializable {
     }
 
     public QuestionBean getCurrentQuestion() {
-        return templateTreeController.getCurrentQuestion();
+        return currentQuestion;
     }
 
     public void setCurrentQuestion(QuestionBean currentQuestion) {
-        templateTreeController.setCurrentQuestion(currentQuestion);
+        this.currentQuestion = currentQuestion;
     }
 
     public QuestionType getSelectedQuestionType() {
@@ -91,6 +92,7 @@ public class QuestionEditController implements Serializable {
         if (selectedQuestionType == null) return notChoose;
         switch (selectedQuestionType) {
             case TEXT:
+                currentQuestion = new
                 return "/question-pages/textQuestion.xhtml";
             case DATE:
                 return "/question-pages/dateQuestion.xhtml";
