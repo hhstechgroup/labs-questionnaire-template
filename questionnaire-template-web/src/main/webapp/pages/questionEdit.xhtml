@@ -4,6 +4,7 @@
                 xmlns:p="http://primefaces.org/ui"
                 xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ago="http://java.sun.com/jsf/composite/questiontemplate"
 
                 template="/templates/questionEdit.xhtml">
 
@@ -31,6 +32,8 @@
         <h:form id="questionForm">
             <ui:include src="#{questionController.changeQuestionType}"/>
         </h:form>
+
+        <ago:questionbuttons controller="#{questionController}"/>
 
     </ui:define>
 </ui:composition>
