@@ -4,11 +4,13 @@ Scenario:
 Narrative:
 User can copy the existing template.
 
-Given saved 'http://localhost:8080/questionnaire-template-web-1.0-SNAPSHOT/' link
-When the user opens saved link
+When the user opens the default page
 Then wait for element 'form1:table:0:Clone' is visible
 When clicks on element with id/name/className 'form1:table:0:Clone'
+When the user fills 'form1:table:globalFilter' field with 'clone'
+Then verify that in table 'form1:table' is displayed less than or equal '1' elements per page
 Then wait until all animations on page completed
+When the user fills 'form1:table:globalFilter' field with ''
 Then should open page with 'Questionnaire Editor' title
 
 Scenario:
@@ -23,6 +25,7 @@ When clicks on element with id/name/className 'formTemplate:yes'
 Then wait until all animations on page completed
 When clicks on element with id/name/className 'form1:table:1:btnEdit'
 Then wait until all animations on page completed
+Then element 'formTemplate:name' has attribute value that contains 'clone'
 When clicks on element with id/name/className 'formTemplate:cancel'
 Then wait until all animations on page completed
 When clicks on element with id/name/className 'formTemplate:yes'
