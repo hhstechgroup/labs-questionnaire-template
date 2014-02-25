@@ -2,8 +2,10 @@ package com.engagepoint.controller.pagecontroller;
 
 import java.io.Serializable;
 
+import com.engagepoint.bean.QuestionBeans.DateQuestionBean;
 import com.engagepoint.bean.QuestionBeans.OptionsQuestionBean;
 import com.engagepoint.bean.QuestionBeans.QuestionBean;
+import com.engagepoint.bean.QuestionBeans.TextQuestionBean;
 import com.engagepoint.bean.QuestionType;
 import com.engagepoint.controller.TemplateTreeController;
 
@@ -92,25 +94,28 @@ public class QuestionEditController implements Serializable {
         if (selectedQuestionType == null) return notChoose;
         switch (selectedQuestionType) {
             case TEXT:
-                currentQuestion = new
+                currentQuestion = new TextQuestionBean();
                 return "/question-pages/textQuestion.xhtml";
             case DATE:
+                currentQuestion = new DateQuestionBean();
                 return "/question-pages/dateQuestion.xhtml";
             case RANGE:
+                currentQuestion = new OptionsQuestionBean();
                 return "/question-pages/rangeQuestion.xhtml";
             case TIME:
+                currentQuestion = new DateQuestionBean();
                 return "/question-pages/timeQuestion.xhtml";
             case PARAGRAPHTEXT:
+                currentQuestion = new TextQuestionBean();
                 return "/question-pages/paragraphQuestion.xhtml";
             case CHOOSEFROMLIST:
-                newChooseFromListQuestion();
-                optionsQuestionEditController.setOptionQuestionBean((OptionsQuestionBean)getCurrentQuestion());
+                currentQuestion = new OptionsQuestionBean();
                 return "/question-pages/chooseFromListQuestion.xhtml";
             case FILEUPLOAD:
+                currentQuestion = new TextQuestionBean();
                 return "/question-pages/fileUploadQuestion.xhtml";
             case MULTIPLECHOICE:
-                newMultipleChoiceQuestion();
-                optionsQuestionEditController.setOptionQuestionBean((OptionsQuestionBean)getCurrentQuestion());
+                currentQuestion = new OptionsQuestionBean();
                 return "/question-pages/stab.xhtml";
             default:
                 return notChoose;
