@@ -1,14 +1,11 @@
 package com.engagepoint.controller.pagecontroller;
 
 
-
-
 import com.engagepoint.bean.QuestionBeans.OptionsQuestionBean;
-import com.engagepoint.model.TableModels.ListOfOptionsDataModel;
 import com.engagepoint.model.VariantItem;
 
+import javax.annotation.PostConstruct;
 import javax.enterprise.context.SessionScoped;
-import javax.faces.bean.RequestScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 import java.io.Serializable;
@@ -17,21 +14,28 @@ import java.io.Serializable;
  * Controller for multiplechoice,checkboxes and choose from a list question types.
  */
 @Named
-@RequestScoped
+@SessionScoped
 public class OptionsQuestionEditController implements Serializable {
 
     @Inject
-    private QuestionEditController questionController;
+    private QuestionEditController questionEditController;
+    //options question object
+    private OptionsQuestionBean optionQuestionBean;
 
-    public OptionsQuestionBean getCurrentQuestion() {
-        return (OptionsQuestionBean)this.questionController.getCurrentQuestion();
+    @PostConstruct
+    private void setOptionQuestionBean() {
+        optionQuestionBean = (OptionsQuestionBean) questionEditController.getCurrentQuestion();
+    }
+
+    public OptionsQuestionBean getOptionQuestionBean() {
+        return optionQuestionBean;
     }
 
     /**
      * Update options in ListOfOptionsDataModel.
      */
     private void updateModel() {
-        getCurrentQuestion().getDataModel().setWrappedData(getCurrentQuestion().getOptions());
+        optionQuestionBean.getDataModel().setWrappedData(optionQuestionBean.getOptions());
     }
 
     /**
@@ -40,7 +44,7 @@ public class OptionsQuestionEditController implements Serializable {
      * @param option VariantItem object
      */
     public void addOption(String option) {
-        getCurrentQuestion().getOptions().add(new VariantItem(option));
+        optionQuestionBean.getOptions().add(new VariantItem(option));
         updateModel();
     }
 
@@ -50,7 +54,7 @@ public class OptionsQuestionEditController implements Serializable {
      * @param option VariantItem object
      */
     public void removeOption(VariantItem option) {
-        getCurrentQuestion().getOptions().remove(option);
+        optionQuestionBean.getOptions().remove(option);
         updateModel();
     }
 

@@ -18,7 +18,6 @@ public class OptionsQuestionBean extends QuestionBean {
     private VariantItem defaultOption;
 
     public OptionsQuestionBean() {
-        super();
         this.options = new ArrayList<VariantItem>();
         dataModel = new ListOfOptionsDataModel(options);
     }

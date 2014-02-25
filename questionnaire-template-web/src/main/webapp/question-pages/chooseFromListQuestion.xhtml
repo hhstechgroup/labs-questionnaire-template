@@ -11,13 +11,15 @@
 
     <f:metadata>
         <f:viewParam name="template" value="#{templateController.currentTemplate.id}"/>
-        <f:viewParam name="question" value="#{optionsQuestionEditController.currentQuestion.id}"/>
+        <f:viewParam name="question" value="#{templateTreeController.currentQuestion.id}"/>
     </f:metadata>
 
     <ui:define name="question">
 
         <h:form id="form3">
-            <ago:questioncommon qb="#{optionsQuestionEditController.currentQuestion}"/>
+
+            <ago:questioncommon qb="#{questionController}"/>
+
             <br/>
 
             <p:commandButton value="Add option"
@@ -30,8 +32,8 @@
             <uib:dataTable id="tableOptions"
                            widgetVar="tableOptions"
                            var="option"
-                           value="#{optionsQuestionEditController.currentQuestion.dataModel}"
-                           selection="#{optionsQuestionEditController.currentQuestion.defaultOption}"
+                           value="#{optionsQuestionEditController.optionQuestionBean.dataModel}"
+                           selection="#{optionsQuestionEditController.optionQuestionBean.defaultOption}"
                            editable="true"
                            editMode="cell">
 
@@ -52,12 +54,13 @@
                     <p:commandButton value="Delete"
                                      id="DeleteOption"
                                      action="#{optionsQuestionEditController.removeOption(option)}"
-                                     update="@parent"
+                                     update="tableOptions"
                                      styleClass="fl-right">
                     </p:commandButton>
                 </uib:column>
 
             </uib:dataTable>
+
 
         </h:form>
     </ui:define>
