@@ -2,6 +2,7 @@ package com.engagepoint.controller.pagecontroller;
 
 import java.io.Serializable;
 
+import com.engagepoint.bean.GroupBean;
 import com.engagepoint.bean.QuestionBeans.*;
 import com.engagepoint.bean.QuestionType;
 import com.engagepoint.controller.TemplateTreeController;
@@ -34,8 +35,6 @@ public class QuestionEditController implements Serializable {
 
     @Inject
     private TemplateTreeController templateTreeController;
-    @Inject
-    OptionsQuestionEditController optionsQuestionEditController;
 
     @PostConstruct
     private void postConstruct() {
@@ -178,4 +177,12 @@ public class QuestionEditController implements Serializable {
         return "/pages/questionEdit?faces-redirect=true&includeViewParams=true";
     }
 
+    public String actionSave() {
+        ((GroupBean) templateTreeController.getSelectedNode().getData()).addToInnerList(currentQuestion);
+        return TemplateEditController.income();
+    }
+
+    public String actionCancel() {
+        return TemplateEditController.income();
+    }
 }
