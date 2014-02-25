@@ -106,6 +106,7 @@ public class QuestionEditController implements Serializable {
             return "/question-pages/fileUploadQuestion?faces-redirect=true";
         case MULTIPLECHOICE:
             newMultipleChoiceQuestion();
+            optionsQuestionEditController.setOptionQuestionBean((OptionsQuestionBean)getCurrentQuestion());
             return OptionsQuestionEditController.income();
 		default:
 			return null;
