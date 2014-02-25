@@ -1,7 +1,5 @@
 package com.engagepoint.controller.pagecontroller;
 
-
-import com.engagepoint.bean.QuestionBeans.QuestionBean;
 import com.engagepoint.bean.QuestionBeans.TextQuestionBean;
 
 import javax.enterprise.context.RequestScoped;
