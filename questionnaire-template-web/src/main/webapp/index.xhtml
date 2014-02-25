@@ -4,9 +4,7 @@
                 xmlns:p="http://primefaces.org/ui"
                 xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:f="http://java.sun.com/jsf/core"
-                xmlns:fn="http://java.sun.com/jsp/jstl/functions"
                 xmlns:uib="http://engagepoint.com/uib"
-                xmlns:ui-paginator="http://java.sun.com/jsf/composite/uibootstrap/components/paginator"
 
                 template="templates/index.xhtml">
 
@@ -20,9 +18,7 @@
                              styleClass="fl-right">
             </p:commandButton>
 
-            <br/>
-
-            <p/>
+            <br/><p/>
             <uib:dataTable id="table" var="template" paginator="true" rows="10" value="#{listController.templatesModel}"
                            paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                            rowsPerPageTemplate="#{config.pagescount},10"
