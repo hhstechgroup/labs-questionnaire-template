@@ -9,6 +9,7 @@ import com.engagepoint.controller.TemplateTreeController;
 
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.RequestScoped;
+import javax.enterprise.context.SessionScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
@@ -17,7 +18,7 @@ import javax.inject.Named;
  */
 
 @Named("questionController")
-@RequestScoped
+@SessionScoped // Temporary
 public class QuestionEditController implements Serializable {
 
     /**
@@ -27,7 +28,7 @@ public class QuestionEditController implements Serializable {
 
     //temp properties
     private QuestionType selectedQuestionType;
-    private QuestionBean currentQuestion = new QuestionBean();
+    private QuestionBean currentQuestion;
     //...temp properties
 
     @Inject
@@ -118,6 +119,8 @@ public class QuestionEditController implements Serializable {
         // This controller must be available when selected node is GroupBean
         ((GroupBean) templateTreeController.getSelectedNode().getData()).addToInnerList(currentQuestion);
         templateTreeController.setNodes();
+        currentQuestion = null; // Temporary
+        selectedQuestionType = null; // Temporary
         return TemplateEditController.income();
     }
 
