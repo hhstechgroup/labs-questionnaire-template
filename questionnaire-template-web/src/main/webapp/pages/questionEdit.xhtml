@@ -31,8 +31,14 @@
 
         <h:form id="questionForm">
             <ui:include src="#{questionController.changeQuestionType}"/>
-            <ago:questionbuttons controller="#{questionController}"/>
         </h:form>
+
+        <p:commandButton id="savequestion" value="Save question"
+                         action="#{questionController.actionSave}"/>
+
+        <h:outputText value=" "/>
+        <p:commandButton id="cancel" value="Cancel" immediate="true"
+                         action="#{questionController.actionCancel}"/>
 
     </ui:define>
 </ui:composition>
