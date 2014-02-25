@@ -6,7 +6,6 @@ import com.engagepoint.bean.QuestionBeans.OptionsQuestionBean;
 import com.engagepoint.bean.QuestionBeans.QuestionBean;
 import com.engagepoint.bean.QuestionType;
 import com.engagepoint.controller.TemplateTreeController;
-import org.omg.CosNaming.NamingContextExtPackage.StringNameHelper;
 
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.RequestScoped;
@@ -35,6 +34,8 @@ public class QuestionEditController implements Serializable {
 
     @Inject
     private TemplateTreeController templateTreeController;
+    @Inject
+    OptionsQuestionEditController optionsQuestionEditController;
 
     @PostConstruct
     private void postConstruct() {
@@ -101,11 +102,13 @@ public class QuestionEditController implements Serializable {
                 return "/question-pages/paragraphQuestion.xhtml";
             case CHOOSEFROMLIST:
                 newChooseFromListQuestion();
+                optionsQuestionEditController.setOptionQuestionBean((OptionsQuestionBean)getCurrentQuestion());
                 return "/question-pages/chooseFromListQuestion.xhtml";
             case FILEUPLOAD:
                 return "/question-pages/fileUploadQuestion.xhtml";
             case MULTIPLECHOICE:
                 newMultipleChoiceQuestion();
+                optionsQuestionEditController.setOptionQuestionBean((OptionsQuestionBean)getCurrentQuestion());
                 return "/question-pages/stab.xhtml";
             default:
                 return notChoose;
@@ -140,8 +143,7 @@ public class QuestionEditController implements Serializable {
      * temp properties to current question
      */
     public void changeCurrentQuestionDueToTempProperties() {
-
-       QuestionBean question = getCurrentQuestion();
+        QuestionBean question = getCurrentQuestion();
         question.setQuestionType(selectedQuestionType);
         question.setHelpText(helpText);
         question.setRequiredAnswer(requiredAnswer);
@@ -171,6 +173,5 @@ public class QuestionEditController implements Serializable {
     public static String income() {
         return "/pages/questionEdit?faces-redirect=true&includeViewParams=true";
     }
-
 
 }

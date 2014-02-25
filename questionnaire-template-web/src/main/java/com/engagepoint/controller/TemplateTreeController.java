@@ -7,8 +7,10 @@ import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
 import java.util.ArrayList;
 
+import javax.inject.Inject;
 import javax.inject.Named;
 
+import com.engagepoint.bean.QuestionBeans.OptionsQuestionBean;
 import com.engagepoint.bean.QuestionBeans.QuestionBean;
 import com.engagepoint.controller.pagecontroller.OptionsQuestionEditController;
 import com.engagepoint.controller.pagecontroller.QuestionEditController;
@@ -34,6 +36,8 @@ public class TemplateTreeController implements Serializable {
     private SectionBean currentSection;
     private GroupBean currentGroup;
     private QuestionBean currentQuestion;
+    @Inject
+    private OptionsQuestionEditController optionsQuestionEditController;
 
     public TreeNode getRoot() {
         return root;
@@ -206,6 +210,7 @@ public class TemplateTreeController implements Serializable {
      * will be edited
      */
     private String editQuestion() {
+        optionsQuestionEditController.setOptionQuestionBean((OptionsQuestionBean)getCurrentQuestion());
         return OptionsQuestionEditController.income();
     }
 

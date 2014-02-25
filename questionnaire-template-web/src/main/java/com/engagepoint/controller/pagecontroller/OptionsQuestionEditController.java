@@ -1,11 +1,10 @@
 package com.engagepoint.controller.pagecontroller;
 
 import com.engagepoint.bean.QuestionBeans.OptionsQuestionBean;
-import com.engagepoint.model.OptionQuestionModel;
 import com.engagepoint.model.VariantItem;
 
-import javax.annotation.PostConstruct;
-import javax.enterprise.context.RequestScoped;
+
+import javax.enterprise.context.SessionScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 import java.io.Serializable;
@@ -14,57 +13,73 @@ import java.io.Serializable;
  * Controller for multiplechoice,checkboxes and choose from a list question types.
  */
 @Named
-@RequestScoped
+@SessionScoped
 public class OptionsQuestionEditController implements Serializable {
 
     @Inject
-    private QuestionEditController questionController;
-    @Inject
-    private OptionQuestionModel optionsQuestionModel;
+    private QuestionEditController questionEditController;
+    //options question object
+    private OptionsQuestionBean optionQuestionBean;
 
-    @PostConstruct
-    public void postCostruct() {
-        init();
+    public OptionsQuestionBean getOptionQuestionBean() {
+        return optionQuestionBean;
     }
 
-    public void init() {
-        optionsQuestionModel.setPropertiesFromBean(getCurrentQuestion());
+    public void setOptionQuestionBean(OptionsQuestionBean optionQuestionBean) {
+        this.optionQuestionBean = optionQuestionBean;
     }
 
-
-    public OptionsQuestionBean getCurrentQuestion() {
-        return (OptionsQuestionBean) questionController.getCurrentQuestion();
+    /**
+     * Update options in ListOfOptionsDataModel.
+     */
+    private void updateModel() {
+        optionQuestionBean.getDataModel().setWrappedData(optionQuestionBean.getOptions());
     }
 
-
-    public OptionQuestionModel getOptionQuestionModel() {
-        return optionsQuestionModel;
-    }
-
-    public void setOptionQuestionModel(OptionQuestionModel optionQuestionModel) {
-        this.optionsQuestionModel = optionQuestionModel;
-    }
-
+    /**
+     * Add variant to a question.
+     *
+     * @param option VariantItem object
+     */
     public void addOption(String option) {
-        optionsQuestionModel.addOption(new VariantItem(option));
+        optionQuestionBean.getOptions().add(new VariantItem(option));
+        updateModel();
     }
 
+    /**
+     * Remove variant from a question.
+     *
+     * @param option VariantItem object
+     */
     public void removeOption(VariantItem option) {
-        optionsQuestionModel.removeOption(option);
+        optionQuestionBean.getOptions().remove(option);
+        updateModel();
     }
 
-    public String actionSave() {
-        OptionsQuestionBean optionsQuestionBean = getCurrentQuestion();
-        optionsQuestionBean.setOptions(optionsQuestionModel.getOptions());
-        optionsQuestionBean.setDefaultOption(optionsQuestionModel.getDefaultOption());
-        questionController.addQuestionToTree();
-        return TemplateEditController.income();
-    }
-
+    /**
+     * Cancel question additing or edditing.
+     *
+     * @return next page to display.
+     */
     public String actionCancel() {
         return TemplateEditController.income();
     }
 
+    /**
+     * Save question.
+     *
+     * @return next page to display.
+     */
+    public String actionSave() {
+        questionEditController.addQuestionToTree();
+        return TemplateEditController.income();
+    }
+
+    /**
+     * Get chooseFromListQuestion page.
+     *
+     * @return chooseFromListQuestion page
+     */
     public static String income() {
         return "/question-pages/chooseFromListQuestion?faces-redirect=true&includeViewParams=true";
     }

@@ -1,23 +1,25 @@
 package com.engagepoint.bean.QuestionBeans;
 
+import com.engagepoint.model.TableModels.ListOfOptionsDataModel;
 import com.engagepoint.model.VariantItem;
-import javax.enterprise.context.RequestScoped;
-import javax.inject.Named;
-import java.io.Serializable;
+
 import java.util.ArrayList;
 import java.util.List;
 
 
-@Named("optionsQuestionBean")
-@RequestScoped
-public class OptionsQuestionBean extends QuestionBean implements Serializable {
+public class OptionsQuestionBean extends QuestionBean {
+    //dataModel for table
+    private ListOfOptionsDataModel dataModel;
+    //list of variants
     private List<VariantItem> options;
+    //selected variants
+    private List<VariantItem> defaultOptions;
+    //selected variant
     private VariantItem defaultOption;
 
     public OptionsQuestionBean() {
-        options = new ArrayList<VariantItem>();
-        options.add(new VariantItem("1 option"));
-        options.add(new VariantItem("2 option"));
+        this.options = new ArrayList<VariantItem>();
+        dataModel = new ListOfOptionsDataModel(options);
     }
 
     public List<VariantItem> getOptions() {
@@ -28,12 +30,28 @@ public class OptionsQuestionBean extends QuestionBean implements Serializable {
         this.options = options;
     }
 
+    public List<VariantItem> getDefaultOptions() {
+        return defaultOptions;
+    }
+
+    public void setDefaultOptions(List<VariantItem> defaultOptions) {
+        this.defaultOptions = defaultOptions;
+    }
+
     public VariantItem getDefaultOption() {
         return defaultOption;
     }
 
     public void setDefaultOption(VariantItem defaultOption) {
         this.defaultOption = defaultOption;
+    }
+
+    public ListOfOptionsDataModel getDataModel() {
+        return dataModel;
+    }
+
+    public void setDataModel(ListOfOptionsDataModel dataModel) {
+        this.dataModel = dataModel;
     }
 
     @Override
@@ -43,5 +61,4 @@ public class OptionsQuestionBean extends QuestionBean implements Serializable {
         copy.setDefaultOption(this.defaultOption);
         return copy;
     }
-
 }
