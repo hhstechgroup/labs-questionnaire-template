@@ -2,11 +2,10 @@ package com.engagepoint.controller.pagecontroller;
 
 import java.io.Serializable;
 
-import com.engagepoint.bean.QuestionBeans.OptionsQuestionBean;
-import com.engagepoint.bean.QuestionBeans.QuestionBean;
+import com.engagepoint.bean.GroupBean;
+import com.engagepoint.bean.QuestionBeans.*;
 import com.engagepoint.bean.QuestionType;
 import com.engagepoint.controller.TemplateTreeController;
-import org.omg.CosNaming.NamingContextExtPackage.StringNameHelper;
 
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.RequestScoped;
@@ -28,6 +27,7 @@ public class QuestionEditController implements Serializable {
 
     //temp properties
     private QuestionType selectedQuestionType;
+    private QuestionBean currentQuestion;
     private String questionText = "";        //question text
     private boolean requiredAnswer;          //is answer required or not
     private String helpText = "";            //Help texts for questions
@@ -42,11 +42,11 @@ public class QuestionEditController implements Serializable {
     }
 
     public QuestionBean getCurrentQuestion() {
-        return templateTreeController.getCurrentQuestion();
+        return currentQuestion;
     }
 
     public void setCurrentQuestion(QuestionBean currentQuestion) {
-        templateTreeController.setCurrentQuestion(currentQuestion);
+        this.currentQuestion = currentQuestion;
     }
 
     public QuestionType getSelectedQuestionType() {
@@ -90,22 +90,28 @@ public class QuestionEditController implements Serializable {
         if (selectedQuestionType == null) return notChoose;
         switch (selectedQuestionType) {
             case TEXT:
+                currentQuestion = new TextQuestionBean();
                 return "/question-pages/textQuestion.xhtml";
             case DATE:
+                currentQuestion = new DateQuestionBean();
                 return "/question-pages/dateQuestion.xhtml";
             case RANGE:
+                currentQuestion = new RangeQuestionBean();
                 return "/question-pages/rangeQuestion.xhtml";
             case TIME:
+                currentQuestion = new DateQuestionBean();
                 return "/question-pages/timeQuestion.xhtml";
             case PARAGRAPHTEXT:
+                currentQuestion = new TextQuestionBean();
                 return "/question-pages/paragraphQuestion.xhtml";
             case CHOOSEFROMLIST:
-                newChooseFromListQuestion();
+                currentQuestion = new OptionsQuestionBean();
                 return "/question-pages/chooseFromListQuestion.xhtml";
             case FILEUPLOAD:
+                currentQuestion = new TextQuestionBean();
                 return "/question-pages/fileUploadQuestion.xhtml";
             case MULTIPLECHOICE:
-                newMultipleChoiceQuestion();
+                currentQuestion = new OptionsQuestionBean();
                 return "/question-pages/stab.xhtml";
             default:
                 return notChoose;
@@ -140,8 +146,7 @@ public class QuestionEditController implements Serializable {
      * temp properties to current question
      */
     public void changeCurrentQuestionDueToTempProperties() {
-
-       QuestionBean question = getCurrentQuestion();
+        QuestionBean question = getCurrentQuestion();
         question.setQuestionType(selectedQuestionType);
         question.setHelpText(helpText);
         question.setRequiredAnswer(requiredAnswer);
@@ -172,5 +177,13 @@ public class QuestionEditController implements Serializable {
         return "/pages/questionEdit?faces-redirect=true&includeViewParams=true";
     }
 
+    public String actionSave() {
+        // This controller must be available when selected node is GroupBean
+        ((GroupBean) templateTreeController.getSelectedNode().getData()).addToInnerList(currentQuestion);
+        return TemplateEditController.income();
+    }
 
+    public String actionCancel() {
+        return TemplateEditController.income();
+    }
 }

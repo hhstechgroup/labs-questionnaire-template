@@ -19,19 +19,6 @@
                 <h:outputText value="Default answer: " />
                 <p:calendar title="calendar" id="calendar" pattern="HH:mm" showOn="button" timeOnly="true" />
 
-            </h:panelGrid>
-            <h:panelGrid id="buttons" columns="3" style="margin-bottom:10px"
-                         cellpadding="5">
-                <p:commandButton id="savequestion" value="Save question"
-                                 action="/pages/questForm?faces-redirect=true">
-                    <f:setPropertyActionListener
-                            value="#{datequestion}"
-                            target="#{templateTreeController.addedquestion}" />
-                </p:commandButton>
-                <p:commandButton id="cancel" value="Cancel" immediate="true"
-                                 action="/pages/questForm?faces-redirect=true" />
-
-            </h:panelGrid>
 
         </h:form>
 

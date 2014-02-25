@@ -36,8 +36,8 @@
             <uib:dataTable id="tableOptions"
                            widgetVar="tableOptions"
                            var="option"
-                           value="#{optionsQuestionEditController.optionQuestionModel.dataModel}"
-                           selection="#{optionsQuestionEditController.optionQuestionModel.defaultOption}"
+                           value="#{optionsQuestionEditController.optionQuestionBean.dataModel}"
+                           selection="#{optionsQuestionEditController.optionQuestionBean.defaultOption}"
                            editable="true"
                            editMode="cell">
 
@@ -65,7 +65,7 @@
 
             </uib:dataTable>
 
-            <ago:questionbuttons2 controller="#{optionsQuestionEditController}"/>
+            <ago:questionbuttons controller="#{optionsQuestionEditController}"/>
 
         </h:form>
     </ui:define>

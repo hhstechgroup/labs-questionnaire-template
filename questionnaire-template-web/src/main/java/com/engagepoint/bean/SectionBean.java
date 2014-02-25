@@ -1,7 +1,5 @@
 package com.engagepoint.bean;
 
-import javax.enterprise.context.SessionScoped;
-import javax.inject.Named;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElementWrapper;
 
@@ -12,8 +10,6 @@ import java.util.List;
 /**
  * Class represents page tag.
  */
-@Named
-@SessionScoped
 public class SectionBean implements Cloneable, Serializable, BasicOperationWithBean,
                                     BasicBeanProperty {
     private int pageNumber;
