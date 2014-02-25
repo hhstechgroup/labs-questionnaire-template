@@ -210,7 +210,7 @@ public class TemplateTreeController implements Serializable {
      * will be edited
      */
     private String editQuestion() {
-        optionsQuestionEditController.setOptionQuestionBean((OptionsQuestionBean)getCurrentQuestion());
+        //optionsQuestionEditController.setOptionQuestionBean((OptionsQuestionBean)getCurrentQuestion());
         return OptionsQuestionEditController.income();
     }
 

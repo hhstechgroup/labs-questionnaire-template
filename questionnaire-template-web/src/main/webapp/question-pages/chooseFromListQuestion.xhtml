@@ -11,33 +11,27 @@
 
     <f:metadata>
         <f:viewParam name="template" value="#{templateController.currentTemplate.id}"/>
-        <f:viewParam name="question" value="#{templateTreeController.currentQuestion.id}"/>
+        <f:viewParam name="question" value="#{optionsQuestionEditController.currentQuestion.id}"/>
     </f:metadata>
 
     <ui:define name="question">
 
-        <h:form id="form2">
-
-        </h:form>
-
         <h:form id="form3">
-
-            <ago:questioncommon qb="#{questionController}"/>
-
+            <ago:questioncommon qb="#{optionsQuestionEditController.currentQuestion}"/>
             <br/>
 
             <p:commandButton value="Add option"
                              id="AddOption"
                              action="#{optionsQuestionEditController.addOption('New')}"
-                             update=":form3:tableOptions"
+                             update="tableOptions"
                              styleClass="fl-right">
             </p:commandButton>
 
             <uib:dataTable id="tableOptions"
                            widgetVar="tableOptions"
                            var="option"
-                           value="#{optionsQuestionEditController.optionQuestionBean.dataModel}"
-                           selection="#{optionsQuestionEditController.optionQuestionBean.defaultOption}"
+                           value="#{optionsQuestionEditController.currentQuestion.dataModel}"
+                           selection="#{optionsQuestionEditController.currentQuestion.defaultOption}"
                            editable="true"
                            editMode="cell">
 
@@ -58,12 +52,13 @@
                     <p:commandButton value="Delete"
                                      id="DeleteOption"
                                      action="#{optionsQuestionEditController.removeOption(option)}"
-                                     update=":form3:tableOptions"
+                                     update="@parent"
                                      styleClass="fl-right">
                     </p:commandButton>
                 </uib:column>
 
             </uib:dataTable>
+
         </h:form>
     </ui:define>
 </ui:composition>
