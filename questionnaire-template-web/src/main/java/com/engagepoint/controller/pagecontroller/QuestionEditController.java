@@ -178,6 +178,7 @@ public class QuestionEditController implements Serializable {
     }
 
     public String actionSave() {
+        // This controller must be available when selected node is GroupBean
         ((GroupBean) templateTreeController.getSelectedNode().getData()).addToInnerList(currentQuestion);
         return TemplateEditController.income();
     }
