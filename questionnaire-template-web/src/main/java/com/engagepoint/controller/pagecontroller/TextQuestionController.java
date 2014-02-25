@@ -18,7 +18,7 @@ public class TextQuestionController {
     }
 
     public void setDefaultAnswer(String defaultAnswer) {
-        ((TextQuestionBean)this.questionController.getCurrentQuestion()).setDefaultAnswer(defaultAnswer);
+        ((TextQuestionBean) this.questionController.getCurrentQuestion()).setDefaultAnswer(defaultAnswer);
     }
 
 }

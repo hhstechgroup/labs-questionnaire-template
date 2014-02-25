@@ -23,7 +23,4 @@ public class TextQuestionBean extends QuestionBean {
 	public void setDefaultAnswer(String defaultAnswer) {
 		this.defaultAnswer = defaultAnswer;
 	}
-	
-	
-
 }
