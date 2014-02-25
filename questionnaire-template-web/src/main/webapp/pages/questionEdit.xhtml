@@ -1,43 +1,48 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
-                xmlns:ui="http://java.sun.com/jsf/facelets"
-                xmlns:p="http://primefaces.org/ui"
-                xmlns:h="http://java.sun.com/jsf/html"
-                xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	template="/templates/questionEdit.xhtml">
 
-                template="/templates/questionEdit.xhtml">
+	<f:metadata>
+		<f:viewParam name="template"
+			value="#{templateController.currentTemplate.id}" />
+		<f:viewParam name="question"
+			value="#{templateTreeController.currentQuestion.id}" />
+	</f:metadata>
 
-    <f:metadata>
-        <f:viewParam name="template" value="#{templateController.currentTemplate.id}"/>
-        <f:viewParam name="question" value="#{templateTreeController.currentQuestion.id}"/>
-    </f:metadata>
+	<ui:define name="page">
 
-    <ui:define name="page">
+		<h:messages style="color:red" />
+		<h:form id="form">
+			<h:outputText value="Please choose a question type" />
+			<br />
+			<p:selectOneMenu value="#{questionController.selectedQuestionType}">
 
-        <h:messages style="color:red"/>
-        <h:form id="form">
-            <h:outputText value="Please choose a question type"/>
-            <br/>
-            <p:selectOneMenu value="#{questionController.selectedQuestionType}">
+				<p:ajax event="valueChange" update=":questionForm,:savequestion" />
 
-                <p:ajax event="valueChange" update=":questionForm,:savequestion"/>
+				<f:selectItem itemLabel="Select One" itemValue="#{null}" />
+				<f:selectItems value="#{questionController.questionTypes}" />
+			</p:selectOneMenu>
+		</h:form>
 
-                <f:selectItem itemLabel="Select One" itemValue="#{null}"/>
-                <f:selectItems value="#{questionController.questionTypes}"/>
-            </p:selectOneMenu>
-        </h:form>
+		<h:form id="questionForm">
+			<ui:include src="#{questionController.changeQuestionType}" />
+		</h:form>
 
-        <h:form id="questionForm">
-            <ui:include src="#{questionController.changeQuestionType}"/>
-        </h:form>
+		
 
-        <p:commandButton id="savequestion" value="Save question"
-                         action="#{questionController.actionSave}"
-                         disabled="#{questionController.selectedQuestionType == null}"/>
+			<p:commandButton id="savequestion" value="Save question"
+				action="#{questionController.actionSave}"
+				disabled="#{questionController.selectedQuestionType == null}"
+				update=":form" />
 
-        <h:outputText value=" "/>
-        <p:commandButton id="cancel" value="Cancel" immediate="true"
-                         action="#{questionController.actionCancel}"/>
+			<h:outputText value=" " />
+			<p:commandButton id="cancel" value="Cancel" immediate="true"
+				action="#{questionController.actionCancel}" />
+		
 
-    </ui:define>
+	</ui:define>
 </ui:composition>

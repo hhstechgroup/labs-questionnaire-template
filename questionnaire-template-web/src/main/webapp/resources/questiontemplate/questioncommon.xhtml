@@ -3,7 +3,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:p="http://primefaces.org/ui"
-	xmlns:composite="http://java.sun.com/jsf/composite">
+	xmlns:composite="http://java.sun.com/jsf/composite"
+      xmlns:f="http://java.sun.com/jsf/core">
 <composite:interface>
 	<composite:attribute name="qb" required="true" />
 </composite:interface>
@@ -12,7 +13,9 @@
 		cellpadding="5">
 		<h:outputText value="Question text: * " />
 		<h:panelGroup>
-			<p:inputText size="50" id="qtext" required="true" value="#{cc.attrs.qb.questionText}" />
+			<p:inputText size="50" id="qtext" required="true" value="#{cc.attrs.qb.questionText}" >
+				<f:validateLength minimum="1" />  
+            </p:inputText>  
 			<br></br>
 			<p:message for="qtext" /> 
 		</h:panelGroup>
