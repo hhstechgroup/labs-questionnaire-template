@@ -8,23 +8,23 @@
 <composite:interface>
 	<composite:attribute name="qb" required="true" />
 </composite:interface>
+
 <composite:implementation>
 	<h:panelGrid id="common" columns="2" style="margin-bottom:10px"
 		cellpadding="5">
-		<h:outputText value="Question text: * " />
+		<h:outputText value="Question text: *" for="qtext" style="white-space:nowrap;"/>
 		<h:panelGroup>
 			<p:inputText size="50" id="qtext" required="true" value="#{cc.attrs.qb.questionText}" >
 				<f:validateLength minimum="1" />  
             </p:inputText>  
-			<br></br>
+			<br/>
 			<p:message for="qtext" /> 
 		</h:panelGroup>
-		<h:outputText value="Help text: " />
+		<h:outputText value="Help text: "/>
 		<p:inputText size="50" value="#{cc.attrs.qb.helpText}" />
 		<h:outputText value="Required? " />
 		<p:selectBooleanCheckbox value="#{cc.attrs.qb.requiredAnswer}" />
 	</h:panelGrid>
-
 
 </composite:implementation>
 </html>
