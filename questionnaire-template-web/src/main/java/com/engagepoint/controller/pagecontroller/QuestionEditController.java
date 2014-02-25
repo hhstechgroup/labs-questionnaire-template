@@ -2,10 +2,7 @@ package com.engagepoint.controller.pagecontroller;
 
 import java.io.Serializable;
 
-import com.engagepoint.bean.QuestionBeans.DateQuestionBean;
-import com.engagepoint.bean.QuestionBeans.OptionsQuestionBean;
-import com.engagepoint.bean.QuestionBeans.QuestionBean;
-import com.engagepoint.bean.QuestionBeans.TextQuestionBean;
+import com.engagepoint.bean.QuestionBeans.*;
 import com.engagepoint.bean.QuestionType;
 import com.engagepoint.controller.TemplateTreeController;
 
@@ -100,7 +97,7 @@ public class QuestionEditController implements Serializable {
                 currentQuestion = new DateQuestionBean();
                 return "/question-pages/dateQuestion.xhtml";
             case RANGE:
-                currentQuestion = new OptionsQuestionBean();
+                currentQuestion = new RangeQuestionBean();
                 return "/question-pages/rangeQuestion.xhtml";
             case TIME:
                 currentQuestion = new DateQuestionBean();
