@@ -17,3 +17,6 @@ Narrative:
 Add section to new template
 When in table 'form1:table' user presses 'Edit' in row with 'LQE-9 test'
 Then should open page with 'Template Editor' title
+When clicks on element with id/name/className 'formTemplate:form:addSection'
+When clicks on element with id/name/className 'formTemplate:form:addSection'
+
