@@ -80,16 +80,28 @@ public class QuestionEditController implements Serializable {
         if (currentQuestion == null) {
             createQuestion();
         }
-        if (selectedQuestionType.equals(QuestionType.MULTIPLECHOICE) ||
-            selectedQuestionType.equals(QuestionType.CHECKBOX) ||
-            selectedQuestionType.equals(QuestionType.CHOOSEFROMLIST) ||
-            selectedQuestionType.equals(QuestionType.GRID)) {
-            return "/question-pages/stab.xhtml";
+        switch (selectedQuestionType) {
+            case TEXT:
+                return "/question-pages/textQuestion.xhtml";
+            case DATE:
+                return "/question-pages/dateQuestion.xhtml";
+            case RANGE:
+                return "/question-pages/rangeQuestion.xhtml";
+            case TIME:
+                return "/question-pages/timeQuestion.xhtml";
+            case PARAGRAPHTEXT:
+                return "/question-pages/paragraphQuestion.xhtml";
+            case CHOOSEFROMLIST:
+                return "/question-pages/chooseFromListQuestion.xhtml";
+            case FILEUPLOAD:
+                return "/question-pages/fileUploadQuestion.xhtml";
+            case MULTIPLECHOICE:
+                return "/question-pages/chooseFromListQuestion.xhtml";
+            case CHECKBOX:
+                return "/question-pages/checkBoxQuestion.xhtml";
         }
-        String s = "/question-pages/" +
-                   selectedQuestionType.toString().toLowerCase() +
-                   "Question.xhtml";
-        return s;
+
+        return null;
     }
 
     public void createQuestion() {
@@ -116,6 +128,9 @@ public class QuestionEditController implements Serializable {
                 currentQuestion = new TextQuestionBean();
                 break;
             case MULTIPLECHOICE:
+                currentQuestion = new OptionsQuestionBean();
+                break;
+            case CHECKBOX:
                 currentQuestion = new OptionsQuestionBean();
                 break;
         }
