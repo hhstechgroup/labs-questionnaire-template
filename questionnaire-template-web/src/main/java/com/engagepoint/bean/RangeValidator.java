@@ -24,7 +24,7 @@ public class RangeValidator implements Validator {
     public void validate(final FacesContext context,final UIComponent component,final Object value) throws ValidatorException {
 
             if(0==0) {
-                FacesMessage msg = new FacesMessage("ВОМБАТ КАКАЕТ КУБИКАМИ");
+                FacesMessage msg = new FacesMessage("Wrong range values. Please type correct numbers.");
                 msg.setSeverity(FacesMessage.SEVERITY_ERROR);
                 throw new ValidatorException(msg);
             }

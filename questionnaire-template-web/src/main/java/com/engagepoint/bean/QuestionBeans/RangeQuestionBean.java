@@ -15,20 +15,16 @@ public class RangeQuestionBean extends QuestionBean {
     private String minValue;
     private String maxValue;
 
-    public RangeQuestionBean(){
-        super();
-    }
-
-    public int getMinValue() {
-        return Integer.parseInt(minValue);
+    public String getMinValue() {
+        return minValue;
     }
 
     public void setMinValue(String minValue) {
         this.minValue = minValue;
     }
 
-    public int getMaxValue() {
-        return Integer.parseInt(maxValue);
+    public String getMaxValue() {
+        return maxValue;
     }
 
     public void setMaxValue(String maxValue) {
