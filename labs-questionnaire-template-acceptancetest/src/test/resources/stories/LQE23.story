@@ -1,9 +1,11 @@
-As a template author I want to clone questionnaire templates so that I can
-quickly create new forms based on the existing ones.
-Scenario:
 Narrative:
-User can copy the existing template.
+In order to have an ability to edit template 
+As a template author
+I want to clone questionnaire templates (LQE-23)
 
+
+Scenario:
+User can copy the existing template.
 When the user opens the default page
 Then wait for element 'form1:table:0:Clone' is visible
 When clicks on element with id/name/className 'form1:table:0:Clone'
@@ -14,9 +16,9 @@ When the user fills 'form1:table:globalFilter' field with ''
 Then should open page with 'Questionnaire Editor' title
 
 Scenario:
-Narrative:
 Copy of the template is created with all
 template content and displayed in the list.
+
 When clicks on element with id/name/className 'form1:table:0:btnEdit'
 Then wait until all animations on page completed
 When clicks on element with id/name/className 'formTemplate:cancel'
