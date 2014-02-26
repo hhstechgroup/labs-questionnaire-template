@@ -54,4 +54,5 @@ public class JBehaveSteps {
         WebElement row = tableElement.findElement(By.xpath(".//td[.//*[contains(text(),'"+nodeText+"')]]/span[1]"));
         row.click();
     }
+    //@When("in selectOneMenu user chooses '$text' question")
 }
