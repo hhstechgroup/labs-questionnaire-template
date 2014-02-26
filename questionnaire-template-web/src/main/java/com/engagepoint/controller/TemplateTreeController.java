@@ -7,6 +7,8 @@ import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
 import java.util.ArrayList;
 
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
 
@@ -175,6 +177,8 @@ public class TemplateTreeController implements Serializable {
      * @return next page
      */
     public void addSection() {
+        FacesMessage msg = new FacesMessage("Selected");
+        FacesContext.getCurrentInstance().addMessage(null, msg);
         SectionBean sectionBean = new SectionBean();
         sectionBean.setPageNumber(templateBean.getSectionsList().size()+1);
         templateBean.getSectionsList().add(sectionBean);
