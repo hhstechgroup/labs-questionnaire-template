@@ -2,7 +2,10 @@ package com.engagepoint.acceptancetest;
 
 import com.engagepoint.acceptancetest.base.pages.UIBootstrapBasePage;
 import com.engagepoint.acceptancetest.base.steps.JbehaveBaseSteps;
+
 import net.thucydides.core.annotations.Steps;
+
+import org.jbehave.core.annotations.Then;
 import org.jbehave.core.annotations.When;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
@@ -54,4 +57,15 @@ public class JBehaveSteps {
         WebElement row = tableElement.findElement(By.xpath(".//td[.//*[contains(text(),'"+nodeText+"')]]/span[1]"));
         row.click();
     }
+    
+    @Then("verify that in table '$tableId' present element '$elementName' in column '$columnName'")
+    public boolean thenVerifyInTablePresentElementinColumn(String tableId, String elementName, String columnName) {
+        WebElement tableElement = getTableElement(tableId);
+        
+        //TODO find out does the element in the column present or not
+        /*WebElement row = tableElement.findElement(By.xpath("//*[.//td[contains(text(),'"+rowText+"')]]//*[@title='"+buttonText+"']")); 
+        row.click();*/
+        return true;
+    }
+    
 }
