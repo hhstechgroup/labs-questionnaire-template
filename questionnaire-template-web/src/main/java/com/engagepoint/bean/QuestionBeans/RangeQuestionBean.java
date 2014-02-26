@@ -7,9 +7,6 @@ import javax.inject.Named;
 /**
  * Created by stanislav.sobolev on 2/17/14.
  */
-
-@Named("rangeQuestion")
-@RequestScoped
 public class RangeQuestionBean extends QuestionBean {
 
     private String minValue="0";
