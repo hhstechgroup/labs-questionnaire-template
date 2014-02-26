@@ -1,10 +1,13 @@
 Narrative:
-As a template author I want to add “Choose
+
+In order to
+As a template author 
+I want to add “Choose
 from a list" questions to question groups so that
 the template meets my needs.
 
 Scenario:
-Narrative:
+
 User can add questions on the
 template creation/editing form.
 When the user opens the default page
