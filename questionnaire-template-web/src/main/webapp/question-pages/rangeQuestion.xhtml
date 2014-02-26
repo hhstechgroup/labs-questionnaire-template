@@ -2,22 +2,28 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
                 xmlns:ago="http://java.sun.com/jsf/composite/questiontemplate"
 
                 template="/templates/questionTemplate.xhtml">
 
     <ui:define name="question">
         <h:form id="form2">
-            <ago:questioncommon qb="#{questionController}"/>
+            <ago:questioncommon qb="#{questionController}" id="range"/>
 
             <h:panelGrid columns="2" style="margin-bottom:10px" cellpadding="5">
                 <h:outputText value="Set minimum value"/>
-                <h:inputText value="#{rangeQuestionController.minValue}"/>
+                <h:inputText id="minRangeValue" value="#{rangeQuestionController.minValue}"/>
 
                 <h:outputText value="Set maximum value"/>
-                <h:inputText value="#{rangeQuestionController.maxValue}"/>
-            </h:panelGrid>
+                <h:inputText id="maxRangeValue" value="#{rangeQuestionController.maxValue}">
+                <f:validator validatorId="com.engagepoint.bean.RangeValidator"/>
+                </h:inputText>
 
+
+                <h:commandButton id="validation" value="CHECK VALIDATION" action="textQuestion">
+                </h:commandButton>
+            </h:panelGrid>
 
         </h:form>
     </ui:define>

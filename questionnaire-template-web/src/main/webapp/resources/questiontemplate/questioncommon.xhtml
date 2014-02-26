@@ -4,7 +4,8 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:composite="http://java.sun.com/jsf/composite"
-      xmlns:f="http://java.sun.com/jsf/core">
+    xmlns:f="http://java.sun.com/jsf/core">
+
 <composite:interface>
 	<composite:attribute name="qb" required="true" />
 </composite:interface>
@@ -15,13 +16,13 @@
 		<h:outputText value="Question text: *" for="qtext" style="white-space:nowrap;"/>
 		<h:panelGroup>
 			<p:inputText size="50" id="qtext" required="true" value="#{cc.attrs.qb.questionText}" >
-				<f:validateLength minimum="1" />  
+				<f:validateLength minimum="1" />
             </p:inputText>  
 			<br/>
 			<p:message for="qtext" /> 
 		</h:panelGroup>
 		<h:outputText value="Help text: "/>
-		<p:inputText size="50" value="#{cc.attrs.qb.helpText}" />
+		<p:inputText  id="helpText" size="50" value="#{cc.attrs.qb.helpText}" />
 		<h:outputText value="Required? " />
 		<p:selectBooleanCheckbox value="#{cc.attrs.qb.requiredAnswer}" />
 	</h:panelGrid>

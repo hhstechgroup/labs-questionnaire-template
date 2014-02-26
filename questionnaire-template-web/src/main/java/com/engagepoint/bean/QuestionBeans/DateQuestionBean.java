@@ -14,13 +14,7 @@ import java.util.Date;
  * Time: 3:34 PM
  * To change this template use File | Settings | File Templates.
  */
-@Named("datequestion")
-@RequestScoped
 public class DateQuestionBean extends QuestionBean {
-    public DateQuestionBean(){
-        super();
-    }
-
     private Calendar defaultAnswer;
 
     public Calendar getDefaultAnswer() {

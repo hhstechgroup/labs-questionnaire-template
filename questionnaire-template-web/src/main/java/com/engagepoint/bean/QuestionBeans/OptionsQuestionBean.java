@@ -6,7 +6,6 @@ import com.engagepoint.model.VariantItem;
 import java.util.ArrayList;
 import java.util.List;
 
-
 public class OptionsQuestionBean extends QuestionBean {
     //dataModel for table
     private ListOfOptionsDataModel dataModel;

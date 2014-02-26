@@ -1,7 +1,7 @@
 package com.engagepoint.controller.pagecontroller;
 
 import com.engagepoint.bean.QuestionBeans.RangeQuestionBean;
-import com.engagepoint.bean.QuestionType;
+import com.sun.istack.internal.NotNull;
 
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
@@ -14,22 +14,27 @@ import javax.inject.Named;
 @RequestScoped
 public class RangeQuestionController {
 
+    private String minValue = "0";
+    private String maxValue = "0";
+
     @Inject
     private QuestionEditController questionEditController;
 
     public String getMinValue() {
-        return "";
+        return ((RangeQuestionBean) questionEditController.getCurrentQuestion()).getMinValue();
     }
 
     public void setMinValue(String minValue) {
         ((RangeQuestionBean) questionEditController.getCurrentQuestion()).setMinValue(minValue);
+        this.minValue=minValue;
     }
 
     public String getMaxValue() {
-        return "";
+        return ((RangeQuestionBean) questionEditController.getCurrentQuestion()).getMaxValue();
     }
 
     public void setMaxValue(String maxValue) {
         ((RangeQuestionBean) questionEditController.getCurrentQuestion()).setMaxValue(maxValue);
+        this.maxValue=maxValue;
     }
 }
