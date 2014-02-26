@@ -12,8 +12,8 @@ import javax.inject.Named;
 @RequestScoped
 public class RangeQuestionBean extends QuestionBean {
 
-    private String minValue;
-    private String maxValue;
+    private String minValue="0";
+    private String maxValue="0";
 
     public String getMinValue() {
         return minValue;

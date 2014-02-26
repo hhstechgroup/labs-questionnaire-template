@@ -21,7 +21,7 @@ public class RangeQuestionController {
     private QuestionEditController questionEditController;
 
     public String getMinValue() {
-        return minValue;
+        return ((RangeQuestionBean) questionEditController.getCurrentQuestion()).getMinValue();
     }
 
     public void setMinValue(String minValue) {
@@ -30,7 +30,7 @@ public class RangeQuestionController {
     }
 
     public String getMaxValue() {
-        return maxValue;
+        return ((RangeQuestionBean) questionEditController.getCurrentQuestion()).getMaxValue();
     }
 
     public void setMaxValue(String maxValue) {
