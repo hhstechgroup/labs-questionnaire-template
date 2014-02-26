@@ -1,6 +1,7 @@
 package com.engagepoint.bean;
 
 import com.engagepoint.bean.QuestionBeans.RangeQuestionBean;
+import com.engagepoint.controller.pagecontroller.QuestionEditController;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
@@ -18,12 +19,18 @@ import javax.inject.Inject;
 public class RangeValidator implements Validator {
 
     @Inject
-    private RangeQuestionBean rangeQuestionBean;
+    private QuestionEditController questionEditController;
 
     @Override
     public void validate(final FacesContext context,final UIComponent component,final Object value) throws ValidatorException {
 
-            if(0==0) {
+        String minValue = ((RangeQuestionBean) questionEditController.getCurrentQuestion()).getMinValue();
+        String maxValue = ((RangeQuestionBean) questionEditController.getCurrentQuestion()).getMaxValue();
+
+        int minIntValue = Integer.parseInt(minValue);
+        int maxIntValue = Integer.parseInt(maxValue);
+
+            if(minIntValue>maxIntValue) {
                 FacesMessage msg = new FacesMessage("Wrong range values. Please type correct numbers.");
                 msg.setSeverity(FacesMessage.SEVERITY_ERROR);
                 throw new ValidatorException(msg);
