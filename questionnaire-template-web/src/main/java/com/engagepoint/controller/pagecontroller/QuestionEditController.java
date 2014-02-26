@@ -38,16 +38,13 @@ public class QuestionEditController implements Serializable {
         return currentQuestion;
     }
 
-    public void setCurrentQuestion(QuestionBean currentQuestion) {
-        this.currentQuestion = currentQuestion;
-    }
-
     public QuestionType getSelectedQuestionType() {
         return selectedQuestionType;
     }
 
     public void setSelectedQuestionType(QuestionType selectedQuestionType) {
         this.selectedQuestionType = selectedQuestionType;
+        currentQuestion = null;
     }
 
     public String getQuestionText() {
@@ -79,38 +76,48 @@ public class QuestionEditController implements Serializable {
     }
 
     public String getChangeQuestionType() {
-        String notChoose = "/question-pages/notChooseQuestion.xhtml";
-        if (selectedQuestionType == null) return notChoose;
+        if (selectedQuestionType == null) return "/question-pages/notChooseQuestion.xhtml";
+        if (currentQuestion == null) {
+            createQuestion();
+        }
+        if (selectedQuestionType.equals(QuestionType.MULTIPLECHOICE) ||
+            selectedQuestionType.equals(QuestionType.CHECKBOX) ||
+            selectedQuestionType.equals(QuestionType.CHOOSEFROMLIST) ||
+            selectedQuestionType.equals(QuestionType.GRID)) {
+            return "/question-pages/stab.xhtml";
+        }
+        String s = "/question-pages/" +
+                   selectedQuestionType.toString().toLowerCase() +
+                   "Question.xhtml";
+        return s;
+    }
+
+    public void createQuestion() {
         switch (selectedQuestionType) {
             case TEXT:
                 currentQuestion = new TextQuestionBean();
-                return "/question-pages/textQuestion.xhtml";
+                break;
             case DATE:
                 currentQuestion = new DateQuestionBean();
-                return "/question-pages/dateQuestion.xhtml";
+                break;
             case RANGE:
                 currentQuestion = new RangeQuestionBean();
-                return "/question-pages/rangeQuestion.xhtml";
+                break;
             case TIME:
                 currentQuestion = new DateQuestionBean();
-                return "/question-pages/timeQuestion.xhtml";
+                break;
             case PARAGRAPHTEXT:
                 currentQuestion = new TextQuestionBean();
-                return "/question-pages/paragraphQuestion.xhtml";
+                break;
             case CHOOSEFROMLIST:
                 currentQuestion = new OptionsQuestionBean();
-                return "/question-pages/chooseFromListQuestion.xhtml";
+                break;
             case FILEUPLOAD:
                 currentQuestion = new TextQuestionBean();
-                return "/question-pages/fileUploadQuestion.xhtml";
+                break;
             case MULTIPLECHOICE:
                 currentQuestion = new OptionsQuestionBean();
-                return "/question-pages/chooseFromListQuestion.xhtml";
-            case CHECKBOX:
-                currentQuestion = new OptionsQuestionBean();
-                return "/question-pages/checkBoxQuestion.xhtml";
-            default:
-                return notChoose;
+                break;
         }
     }
 

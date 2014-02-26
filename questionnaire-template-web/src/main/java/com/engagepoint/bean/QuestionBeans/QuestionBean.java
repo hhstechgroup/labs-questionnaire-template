@@ -14,11 +14,8 @@ import javax.xml.bind.annotation.XmlElement;
 /**
  * Class represents question tag.
  */
-@Named("question")
-@RequestScoped
 public class QuestionBean implements Cloneable, BasicBeanProperty {
     private Long id;					//id of the question
-    
     protected String questionText="";		//questiontext
     private boolean requiredAnswer;		//is answer required or not
     private QuestionType questionType;	//questiontype from ENUM of questiontypes

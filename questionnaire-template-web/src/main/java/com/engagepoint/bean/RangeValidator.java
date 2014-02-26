@@ -1,6 +1,7 @@
 package com.engagepoint.bean;
 
 import com.engagepoint.bean.QuestionBeans.RangeQuestionBean;
+import com.engagepoint.controller.pagecontroller.QuestionEditController;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
@@ -18,13 +19,26 @@ import javax.inject.Inject;
 public class RangeValidator implements Validator {
 
     @Inject
-    private RangeQuestionBean rangeQuestionBean;
+    private QuestionEditController questionEditController;
 
+    //This method is standart for validator. Name and incoming parameters may not be changed. NEVER.
     @Override
     public void validate(final FacesContext context,final UIComponent component,final Object value) throws ValidatorException {
 
-            if(0==0) {
-                FacesMessage msg = new FacesMessage("ВОМБАТ КАКАЕТ КУБИКАМИ");
+        //We are getting min and max values to compare them. First of all we need to parse them from String to Integer
+        String minValue = ((RangeQuestionBean) questionEditController.getCurrentQuestion()).getMinValue();
+        String maxValue = ((RangeQuestionBean) questionEditController.getCurrentQuestion()).getMaxValue();
+
+        //This is the parser. Now two values are ready to be compared.
+        int minIntValue = Integer.parseInt(minValue);
+        int maxIntValue = Integer.parseInt(maxValue);
+
+        //Minimum value have to be less or equal to max value. Now we are checking that.
+            if(minIntValue>maxIntValue) {
+
+                //If TRUE, this method throw ValidatorException so that JSF can catch it and display on page
+                //Working in JSF 2.0 or later versions
+                FacesMessage msg = new FacesMessage("Wrong range values. Please type correct numbers.");
                 msg.setSeverity(FacesMessage.SEVERITY_ERROR);
                 throw new ValidatorException(msg);
             }
