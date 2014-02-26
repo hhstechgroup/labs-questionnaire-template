@@ -14,9 +14,6 @@ import javax.inject.Named;
 @RequestScoped
 public class RangeQuestionController {
 
-    private String minValue = "0";
-    private String maxValue = "0";
-
     @Inject
     private QuestionEditController questionEditController;
 
@@ -26,7 +23,6 @@ public class RangeQuestionController {
 
     public void setMinValue(String minValue) {
         ((RangeQuestionBean) questionEditController.getCurrentQuestion()).setMinValue(minValue);
-        this.minValue=minValue;
     }
 
     public String getMaxValue() {
@@ -35,6 +31,5 @@ public class RangeQuestionController {
 
     public void setMaxValue(String maxValue) {
         ((RangeQuestionBean) questionEditController.getCurrentQuestion()).setMaxValue(maxValue);
-        this.maxValue=maxValue;
     }
 }
