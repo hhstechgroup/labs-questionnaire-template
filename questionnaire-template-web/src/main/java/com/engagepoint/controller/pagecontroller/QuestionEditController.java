@@ -90,7 +90,7 @@ public class QuestionEditController implements Serializable {
             case TIME:
                 return "/question-pages/timeQuestion.xhtml";
             case PARAGRAPHTEXT:
-                return "/question-pages/paragraphQuestion.xhtml";
+                return "/question-pages/paragraphtextQuestion.xhtml";
             case CHOOSEFROMLIST:
                 return "/question-pages/chooseFromListQuestion.xhtml";
             case FILEUPLOAD:
