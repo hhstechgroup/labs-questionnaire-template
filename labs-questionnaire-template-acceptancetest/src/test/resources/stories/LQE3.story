@@ -11,7 +11,9 @@ Then wait for element 'form1:AddTemplate' is visible
 When clicks on element with id/name/className 'form1:AddTemplate'
 Then should open page with 'Template Editor' title
 When the user fills 'formTemplate:name' field with 'LQE-3 test'
+Then wait until all animations on page completed
 When clicks on element with id/name/className 'formTemplate:save'
+Then in table 'form1:table' there is a row with 'LQE-3 test'
 
 
 Scenario:

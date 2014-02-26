@@ -2,7 +2,6 @@ package com.engagepoint.acceptancetest;
 
 import com.engagepoint.acceptancetest.base.pages.UIBootstrapBasePage;
 import com.engagepoint.acceptancetest.base.steps.JbehaveBaseSteps;
-
 import net.thucydides.core.annotations.Steps;
 
 import org.jbehave.core.annotations.Then;
@@ -11,6 +10,8 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
+
+import static org.junit.Assert.*;
 
 /**
  * Special steps for this project.
@@ -40,7 +41,7 @@ public class JBehaveSteps {
     }
 
     @When("in tree '$treeId' user chooses node with '$text'")
-     public void whenInTreeChoosesNodeWithText(String treeId, String nodeText) {
+    public void whenInTreeChoosesNodeWithText(String treeId, String nodeText) {
         WebElement tableElement = getTableElement(treeId);
         WebElement row = tableElement.findElement(By.xpath(".//*[contains(@class,'ui-treetable-selectable-node')]//*[contains(text(),'"+nodeText+"')]"));
         row.click();
@@ -56,11 +57,11 @@ public class JBehaveSteps {
     @When("in tree '$treeId' user opens node with '$text'")
     public void whenInTreeOpensNodeWithText(String treeId, String nodeText) {
         WebElement tableElement = getTableElement(treeId);
-        WebElement row = tableElement.findElement(By.xpath(".//td[.//*[contains(text(),'"+nodeText+"')]]/span[1]"));
+        WebElement row = tableElement.findElement(By.xpath(".//td[.//*[contains(text(),'"+nodeText+"')]]/span[contains(@class,'ui-treetable-toggler')]"));
         row.click();
     }
-    
-     @When("choose '$type' from drop-down")
+
+    @When("choose '$type' from drop-down")
     public void whenChooseTypeFromDropDown(String type) {
         Actions builder = new Actions(uIBootstrapBasePage.getDriver());
 
@@ -71,15 +72,23 @@ public class JBehaveSteps {
         }
         elementOfDropDown.click();
     }
-    
-    @Then("verify that in table '$tableId' present element '$elementName' in column '$columnName'")
-    public boolean thenVerifyInTablePresentElementinColumn(String tableId, String elementName, String columnName) {
+
+    @Then("in table '$tableId' there is a row with '$text'")
+    public void thenInTableThereIsARowWithText(String tableId, String rowText) {
         WebElement tableElement = getTableElement(tableId);
-        
-        //TODO find out does the element in the column present or not
-        /*WebElement row = tableElement.findElement(By.xpath("//*[.//td[contains(text(),'"+rowText+"')]]//*[@title='"+buttonText+"']")); 
-        row.click();*/
-        return true;
+        WebElement row = tableElement.findElement(By.xpath("//*[.//td[contains(text(),'"+rowText+"')]]")); //TODO: bind path to table
+        assertTrue(row.isDisplayed());
     }
-    
+
+    @Then("in table '$tableId' there is not a row with '$text'")
+    public void thenInTableThereIsNotARowWithText(String tableId, String rowText) {
+        WebElement tableElement = getTableElement(tableId);
+        WebElement row = null;
+        try {
+            row = tableElement.findElement(By.xpath("//*[.//td[contains(text(),'"+rowText+"')]]")); //TODO: bind path to table
+        }
+        catch(Exception e) {
+        }
+        assertNull(row);
+    }
 }

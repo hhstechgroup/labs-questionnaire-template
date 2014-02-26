@@ -10,6 +10,9 @@ Scenario:
 
 User can add questions on the
 template creation/editing form.
+User can specify the name for the
+template (alphanumeric
+symbols, spaces, dashes).
 When the user opens the default page
 When clicks on element with id/name/className 'form1:AddTemplate'
 Then should open page with 'Template Editor' title
@@ -30,6 +33,19 @@ Then should open page with 'Question Editor' title
 When clicks on element with id/name/className 'form:selectOneMenu'
 Then wait until all animations on page completed
 When choose 'CHOOSEFROMLIST' from drop-down
+Then wait for element 'questionForm:form3:formWithCommonProps:qtext' is visible
+When the user fills 'questionForm:form3:formWithCommonProps:qtext' field with 'Test text'
 Then wait until all animations on page completed
-When the user fills 'questionForm:form3:formWithCommonProps:common' field with 'Test text'
-Then wait until all animations on page completed
+When clicks on element with id/name/className 'buttons:savequestion'
+Then should open page with 'Template Editor' title
+
+When in tree 'formTemplate:form:treeMultiple' user opens node with 'Page 1'
+Then verify that in table 'formTemplate:form:treeMultiple' is displayed '2' elements per page
+When in tree 'formTemplate:form:treeMultiple' user opens node with 'GROUP_1'
+Then verify that in table 'formTemplate:form:treeMultiple' is displayed '3' elements per page
+
+Scenario:
+Narrative:
+User can save the template, or cancel
+saving.
+
