@@ -76,6 +76,7 @@ public class QuestionEditController implements Serializable {
     }
 
     public String getChangeQuestionType() {
+        String stab="/question-pages/stab.xhtml";
         if (selectedQuestionType == null) return "/question-pages/notChooseQuestion.xhtml";
         if (currentQuestion == null) {
             createQuestion();
@@ -90,7 +91,7 @@ public class QuestionEditController implements Serializable {
             case TIME:
                 return "/question-pages/timeQuestion.xhtml";
             case PARAGRAPHTEXT:
-                return "/question-pages/paragraphQuestion.xhtml";
+                return "/question-pages/paragraphtextQuestion.xhtml";
             case CHOOSEFROMLIST:
                 return "/question-pages/chooseFromListQuestion.xhtml";
             case FILEUPLOAD:
@@ -101,7 +102,7 @@ public class QuestionEditController implements Serializable {
                 return "/question-pages/checkBoxQuestion.xhtml";
         }
 
-        return null;
+        return stab;
     }
 
     public void createQuestion() {
