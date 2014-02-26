@@ -74,7 +74,7 @@
                                          icon="ui-icon-remove"/>
                         <h:outputText value=" "/>
                         <p:commandButton value="#{templateTreeController.editTitle}"
-                                         rendered="#{templateTreeController.haveSelected()}"
+                                         rendered="#{templateTreeController.haveSelected() and templateTreeController.selectedType ne 'question'}"
                                          action="#{templateTreeController.edit()}"
                                          icon="#{templateTreeController.editPicture}"
                                          update="treeMultiple,messages"
