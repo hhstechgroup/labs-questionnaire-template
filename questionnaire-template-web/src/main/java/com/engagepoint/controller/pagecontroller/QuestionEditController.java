@@ -105,7 +105,10 @@ public class QuestionEditController implements Serializable {
                 return "/question-pages/fileUploadQuestion.xhtml";
             case MULTIPLECHOICE:
                 currentQuestion = new OptionsQuestionBean();
-                return "/question-pages/stab.xhtml";
+                return "/question-pages/chooseFromListQuestion.xhtml";
+            case CHECKBOX:
+                currentQuestion = new OptionsQuestionBean();
+                return "/question-pages/checkBoxQuestion.xhtml";
             default:
                 return notChoose;
         }
