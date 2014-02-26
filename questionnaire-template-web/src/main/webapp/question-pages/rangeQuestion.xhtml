@@ -9,7 +9,7 @@
 
     <ui:define name="question">
         <h:form id="form2">
-            <ago:questioncommon qb="#{questionController}"/>
+            <ago:questioncommon qb="#{questionController}" id="range"/>
 
             <h:panelGrid columns="2" style="margin-bottom:10px" cellpadding="5">
                 <h:outputText value="Set minimum value"/>
@@ -21,7 +21,7 @@
                 </h:inputText>
 
 
-                <h:commandButton value="CHECK VALIDATION" action="textQuestion">
+                <h:commandButton id="validation" value="CHECK VALIDATION" action="textQuestion">
                 </h:commandButton>
             </h:panelGrid>
 

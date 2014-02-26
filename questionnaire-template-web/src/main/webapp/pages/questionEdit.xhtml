@@ -19,12 +19,12 @@
             <h:outputText value="Please choose a question type"/>
             <br/>
             <p:selectOneMenu
-                    id="selectOneMenu" value="#{questionController.selectedQuestionType}">
-                id="selectOneMenu"
+                     value="#{questionController.selectedQuestionType}">
+
 
                 <p:ajax event="valueChange" update=":questionForm,:buttons:savequestion"/>
 
-                <f:selectItem itemLabel="Select One" itemValue="#{null}"/>
+                <f:selectItem itemLabel="Select One" itemValue="#{null}" />
                 <f:selectItems value="#{questionController.questionTypes}"/>
             </p:selectOneMenu>
         </h:form>

@@ -22,7 +22,7 @@
 			<p:message for="qtext" /> 
 		</h:panelGroup>
 		<h:outputText value="Help text: "/>
-		<p:inputText size="50" value="#{cc.attrs.qb.helpText}" />
+		<p:inputText  id="helpText" size="50" value="#{cc.attrs.qb.helpText}" />
 		<h:outputText value="Required? " />
 		<p:selectBooleanCheckbox value="#{cc.attrs.qb.requiredAnswer}" />
 	</h:panelGrid>
