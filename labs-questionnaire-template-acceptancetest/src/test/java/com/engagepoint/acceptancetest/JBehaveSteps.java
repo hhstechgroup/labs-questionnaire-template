@@ -5,7 +5,9 @@ import com.engagepoint.acceptancetest.base.steps.JbehaveBaseSteps;
 import net.thucydides.core.annotations.Steps;
 import org.jbehave.core.annotations.When;
 import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 
 /**
  * Special steps for this project.
@@ -54,5 +56,16 @@ public class JBehaveSteps {
         WebElement row = tableElement.findElement(By.xpath(".//td[.//*[contains(text(),'"+nodeText+"')]]/span[1]"));
         row.click();
     }
-    //@When("in selectOneMenu user chooses '$text' question")
+
+    @When("choose '$type' from drop-down")
+    public void whenChooseTypeFromDropDown(String type) {
+        Actions builder = new Actions(uIBootstrapBasePage.getDriver());
+
+        WebElement elementOfDropDown = uIBootstrapBasePage.getDriver().findElement(By.xpath("//li[@data-label='" + type + "']"));
+        while (!elementOfDropDown.isDisplayed()) {
+            builder.sendKeys(Keys.ARROW_DOWN).perform();
+            elementOfDropDown = uIBootstrapBasePage.getDriver().findElement(By.xpath("//li[@data-label='"+type+"']"));
+        }
+        elementOfDropDown.click();
+    }
 }
