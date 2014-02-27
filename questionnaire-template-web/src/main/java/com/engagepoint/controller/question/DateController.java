@@ -1,6 +1,7 @@
-package com.engagepoint.controller.pagecontroller;
+package com.engagepoint.controller.question;
 
-import com.engagepoint.bean.QuestionBeans.DateQuestionBean;
+import com.engagepoint.model.question.DateQuestionBean;
+import com.engagepoint.controller.page.QuestionEditController;
 
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;

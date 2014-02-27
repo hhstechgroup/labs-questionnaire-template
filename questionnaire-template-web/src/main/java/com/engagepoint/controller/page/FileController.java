@@ -1,6 +1,6 @@
-package com.engagepoint.controller;
+package com.engagepoint.controller.page;
 
-import com.engagepoint.bean.TemplateBean;
+import com.engagepoint.model.questionnaire.TemplateBean;
 import com.engagepoint.utils.XmlImportExport;
 import org.primefaces.model.DefaultStreamedContent;
 import org.primefaces.model.StreamedContent;

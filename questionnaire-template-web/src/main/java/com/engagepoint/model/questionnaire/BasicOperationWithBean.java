@@ -1,4 +1,4 @@
-package com.engagepoint.bean;
+package com.engagepoint.model.questionnaire;
 
 /**
  * Basic operation with beans

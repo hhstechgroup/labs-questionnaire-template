@@ -1,8 +1,9 @@
-package com.engagepoint.controller.pagecontroller;
+package com.engagepoint.controller.question;
 
 
-import com.engagepoint.bean.QuestionBeans.OptionsQuestionBean;
-import com.engagepoint.model.VariantItem;
+import com.engagepoint.model.question.OptionsQuestionBean;
+import com.engagepoint.controller.page.QuestionEditController;
+import com.engagepoint.model.question.utils.VariantItem;
 
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Inject;

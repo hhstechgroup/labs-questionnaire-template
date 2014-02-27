@@ -1,10 +1,10 @@
 package com.engagepoint.mock;
 
-import com.engagepoint.bean.GroupBean;
-import com.engagepoint.bean.QuestionBeans.*;
-import com.engagepoint.bean.QuestionType;
-import com.engagepoint.bean.SectionBean;
-import com.engagepoint.bean.TemplateBean;
+import com.engagepoint.model.questionnaire.GroupBean;
+import com.engagepoint.model.questionnaire.QuestionType;
+import com.engagepoint.model.questionnaire.SectionBean;
+import com.engagepoint.model.questionnaire.TemplateBean;
+import com.engagepoint.model.question.*;
 
 import java.util.ArrayList;
 import java.util.List;

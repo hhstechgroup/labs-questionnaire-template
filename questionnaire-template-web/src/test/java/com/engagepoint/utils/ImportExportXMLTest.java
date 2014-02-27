@@ -1,17 +1,5 @@
 package com.engagepoint.utils;
 
-import com.engagepoint.bean.*;
-import com.engagepoint.controller.FileController;
-import junit.framework.Assert;
-import org.junit.Test;
-
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-
 /**
  * Created with IntelliJ IDEA.
  * User: anton.kovunov

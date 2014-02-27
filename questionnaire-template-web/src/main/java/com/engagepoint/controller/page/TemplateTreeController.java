@@ -1,6 +1,4 @@
-package com.engagepoint.controller;
-
-import com.engagepoint.bean.*;
+package com.engagepoint.controller.page;
 
 import javax.enterprise.context.SessionScoped;
 
@@ -12,10 +10,12 @@ import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-import com.engagepoint.bean.QuestionBeans.OptionsQuestionBean;
-import com.engagepoint.bean.QuestionBeans.QuestionBean;
-import com.engagepoint.controller.pagecontroller.OptionsQuestionEditController;
-import com.engagepoint.controller.pagecontroller.QuestionEditController;
+import com.engagepoint.model.question.QuestionBean;
+import com.engagepoint.controller.question.OptionsQuestionEditController;
+import com.engagepoint.model.questionnaire.BasicBeanProperty;
+import com.engagepoint.model.questionnaire.GroupBean;
+import com.engagepoint.model.questionnaire.SectionBean;
+import com.engagepoint.model.questionnaire.TemplateBean;
 import org.primefaces.model.DefaultTreeNode;
 import org.primefaces.model.TreeNode;
 

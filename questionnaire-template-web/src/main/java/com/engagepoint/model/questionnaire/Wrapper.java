@@ -1,4 +1,4 @@
-package com.engagepoint.bean;
+package com.engagepoint.model.questionnaire;
 
 import javax.xml.bind.annotation.XmlAnyElement;
 import java.util.ArrayList;

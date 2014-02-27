@@ -1,7 +1,7 @@
-package com.engagepoint.controller.pagecontroller;
+package com.engagepoint.controller.question;
 
-import com.engagepoint.bean.QuestionBeans.RangeQuestionBean;
-import com.sun.istack.internal.NotNull;
+import com.engagepoint.model.question.RangeQuestionBean;
+import com.engagepoint.controller.page.QuestionEditController;
 
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;

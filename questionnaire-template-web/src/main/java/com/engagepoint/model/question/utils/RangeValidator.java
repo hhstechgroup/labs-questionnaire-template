@@ -1,7 +1,7 @@
-package com.engagepoint.bean;
+package com.engagepoint.model.question.utils;
 
-import com.engagepoint.bean.QuestionBeans.RangeQuestionBean;
-import com.engagepoint.controller.pagecontroller.QuestionEditController;
+import com.engagepoint.model.question.RangeQuestionBean;
+import com.engagepoint.controller.page.QuestionEditController;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
@@ -15,7 +15,7 @@ import javax.inject.Inject;
  * Created by stanislav.sobolev on 2/25/14.
  */
 
-@FacesValidator(value = "com.engagepoint.bean.RangeValidator")
+@FacesValidator(value = "com.engagepoint.model.question.utils.RangeValidator")
 public class RangeValidator implements Validator {
 
     @Inject

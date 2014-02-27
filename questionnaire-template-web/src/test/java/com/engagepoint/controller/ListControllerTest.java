@@ -1,7 +1,7 @@
 package com.engagepoint.controller;
 
-import com.engagepoint.bean.TemplateBean;
-import com.engagepoint.controller.pagecontroller.ListController;
+import com.engagepoint.model.questionnaire.TemplateBean;
+import com.engagepoint.controller.page.ListController;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
