@@ -10,7 +10,7 @@
 
     <ui:define name="question">
         <h:form id="form2">
-        <ago:questioncommon qb="#{questionController}"/>
+        <ago:questioncommon qb="#{questionController}" id="formWithCommonProps"/>
             <h:panelGrid columns="2" style="margin-bottom:10px" cellpadding="5">
                 <h:outputText value="Default answer: "/>
                 <p:inputText size="50" value="#{textQuestionController.defaultAnswer}"/>

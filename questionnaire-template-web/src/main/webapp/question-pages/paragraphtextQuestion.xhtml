@@ -12,7 +12,7 @@
 
 
         <h:form id="form4">
-            <ago:questioncommon qb="#{questionController}"/>
+            <ago:questioncommon qb="#{questionController}" id="formWithCommonProps"/>
             <h:panelGrid columns="1" style="margin-bottom:10px" cellpadding="5">
                 <h:outputText value="Default answer: " />
                 <p:inputTextarea rows="8" cols="5555" value="#{textQuestionController.defaultAnswer}" />
