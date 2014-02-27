@@ -12,7 +12,7 @@
     <ui:define name="question">
 
         <h:form id="form2">
-            <ago:questioncommon qb="#{questionController}" id="formWithCommonProps"/>
+            <ago:questioncommon qb="#{questionController}" id="time"/>
             <h:panelGrid columns="2" style="margin-bottom:10px" cellpadding="5">
                 <h:outputText value="Default answer: " />
                 <p:calendar title="calendar" id="calendar" pattern="HH:mm" showOn="button" timeOnly="true" />
