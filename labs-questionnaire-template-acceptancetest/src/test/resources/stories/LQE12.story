@@ -30,7 +30,7 @@ Then wait until all animations on page completed
 When clicks on element with id/name/className 'formTemplate:form:btnDisplayEdit'
 Then should open page with 'Question Editor' title
 
-When clicks on element with id/name/className 'form:selectOneMenu'
+When clicks on element with id/name/className 'form:selectOneMenu_label'
 Then wait until all animations on page completed
 When choose 'CHOOSEFROMLIST' from drop-down
 Then wait for element 'questionForm:form3:formWithCommonProps:qtext' is visible
@@ -44,8 +44,4 @@ Then verify that in table 'formTemplate:form:treeMultiple' is displayed '2' elem
 When in tree 'formTemplate:form:treeMultiple' user opens node with 'GROUP_1'
 Then verify that in table 'formTemplate:form:treeMultiple' is displayed '3' elements per page
 
-Scenario:
-Narrative:
-User can save the template, or cancel
-saving.
 
