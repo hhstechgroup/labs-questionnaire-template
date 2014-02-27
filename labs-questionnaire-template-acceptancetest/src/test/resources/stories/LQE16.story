@@ -1,4 +1,4 @@
-As a template author I want to add “Range"
+As a template author I want to add “Date"
 questions to question groups so that the
 template meets my needs.
 Scenario:
@@ -22,29 +22,22 @@ When clicks on element with id/name/className 'formTemplate:form:btnDisplayEdit'
 Then wait until all animations on page completed
 Scenario:
 Narrative:
-User can select "Range" in the Question
+User can select "Date" in the Question
 Type drop-down list.
 
 When clicks on element with id/name/className 'form:selectOneMenu_label'
 Then wait until all animations on page completed
-When choose 'RANGE' from drop-down
+When choose 'DATE' from drop-down
 Then wait until all animations on page completed
 Scenario:
 Narrative:
-User can enter some text for the question
+User can enter some text and default date answer for the question
 in the Question Text field
 
-When the user fills 'questionForm:form2:range:qtext' field with 'Test text'
+When the user fills 'questionForm:form2:date:qtext' field with 'Test text'
 Then wait until all animations on page completed
-When the user fills 'questionForm:form2:range:helpText' field with 'Test text'
-
-
-Scenario:
-Narrative:
-User can define min
-and max values for the range.
-When the user fills 'questionForm:form2:minRangeValue' field with '1'
-When the user fills 'questionForm:form2:maxRangeValue' field with '7'
+When the user fills 'questionForm:form2:date:helpText' field with 'Test text'
+When the user fills 'questionForm:form2:calendar_input' field with '02/11/2014'
 
 Scenario:
 Narrative:
