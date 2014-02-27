@@ -17,12 +17,10 @@
 
                 <h:outputText value="Set maximum value"/>
                 <h:inputText id="maxRangeValue" value="#{rangeQuestionController.maxValue}">
-                <f:validator validatorId="com.engagepoint.bean.RangeValidator"/>
+                    <f:validateLongRange minimum="#{rangeQuestionController.minValue}"/>
+                <!--<f:validator validatorId="com.engagepoint.bean.RangeValidator"/>-->
                 </h:inputText>
 
-
-                <h:commandButton id="validation" value="CHECK VALIDATION" action="textQuestion">
-                </h:commandButton>
             </h:panelGrid>
 
         </h:form>
