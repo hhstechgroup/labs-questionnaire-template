@@ -20,5 +20,13 @@ Then verify that in table 'formTemplate:form:treeMultiple' is displayed '2' elem
 When in tree 'formTemplate:form:treeMultiple' user chooses node with 'GROUP_1'
 When clicks on element with id/name/className 'formTemplate:form:btnDisplayEdit'
 Then wait until all animations on page completed
-When ch
+When clicks on element with id/name/className 'form:selectOneMenu'
+Then wait until all animations on page completed
+When choose 'RANGE' from drop-down
+Then wait until all animations on page completed
+When the user fills 'questionForm:form2:range:qtext' field with 'Test text'
+Then wait until all animations on page completed
+When the user fills 'questionForm:form2:range:helpText' field with 'Test text'
+When the user fills '$id' field with '$value'
+
 
