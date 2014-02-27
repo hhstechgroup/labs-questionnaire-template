@@ -100,6 +100,8 @@ public class QuestionEditController implements Serializable {
                 return "/question-pages/chooseFromListQuestion.xhtml";
             case CHECKBOX:
                 return "/question-pages/checkBoxQuestion.xhtml";
+            case GRID:
+                return "/question-pages/gridQuestion.xhtml";
         }
 
         return stab;
