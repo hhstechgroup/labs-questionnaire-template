@@ -9,7 +9,7 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>questionnaire-template-web</artifactId>
+    <artifactId>labs-questionnaire-template-web</artifactId>
     <packaging>war</packaging>
 
 
