@@ -74,30 +74,30 @@ public class QuestionEditController implements Serializable {
     }
 
     public String getChangeQuestionType() {
-        String stab = "/question-pages/stab.xhtml";
-        if (selectedQuestionType == null) return "/question-pages/notChooseQuestion.xhtml";
+        String stab = PageNavigator.STAB_PAGE;
+        if (selectedQuestionType == null) return PageNavigator.NOT_CHOOSE_QUESTION_PAGE;
         if (currentQuestion == null) {
             createQuestion();
         }
         switch (selectedQuestionType) {
             case TEXT:
-                return "/question-pages/textQuestion.xhtml";
+                return PageNavigator.TEXT_QUESTION_PAGE;
             case DATE:
-                return "/question-pages/dateQuestion.xhtml";
+                return PageNavigator.DATE_QUESTION_PAGE;
             case RANGE:
-                return "/question-pages/rangeQuestion.xhtml";
+                return PageNavigator.RANGE_QUESTION_PAGE;
             case TIME:
-                return "/question-pages/timeQuestion.xhtml";
+                return PageNavigator.TIME_QUESTION_PAGE;
             case PARAGRAPHTEXT:
-                return "/question-pages/paragraphtextQuestion.xhtml";
+                return PageNavigator.PARAGRAPH_TEXT_QUESTION_PAGE;
             case CHOOSEFROMLIST:
-                return "/question-pages/chooseFromListQuestion.xhtml";
+                return PageNavigator.CHOOSE_FROM_LIST_QUESTION_PAGE;
             case FILEUPLOAD:
-                return "/question-pages/fileUploadQuestion.xhtml";
+                return PageNavigator.FILE_UPLOAD_QUESTION_PAGE;
             case MULTIPLECHOICE:
-                return "/question-pages/chooseFromListQuestion.xhtml";
+                return PageNavigator.CHOOSE_FROM_LIST_QUESTION_PAGE;
             case CHECKBOX:
-                return "/question-pages/checkBoxQuestion.xhtml";
+                return PageNavigator.CHECKBOX_QUESTION_PAGE;
         }
 
         return stab;
