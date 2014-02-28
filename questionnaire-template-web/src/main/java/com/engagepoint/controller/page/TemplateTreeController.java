@@ -32,7 +32,7 @@ public class TemplateTreeController implements Serializable {
     private TreeNode root = new DefaultTreeNode("Root", null);
     private TreeNode selectedNode;
     private String selectedType; //instead of method getSelectedType() to make code more clear
-                                 //it is initialized in method onSelect
+    //it is initialized in method onSelect
 
     private TemplateBean templateBean;
     private SectionBean currentSection;
@@ -87,20 +87,20 @@ public class TemplateTreeController implements Serializable {
             currentQuestion = questionBean;
             //check if current group has not been changed
             GroupBean groupBean = (GroupBean) selectedNode.getParent().getData();
-            if (currentGroup!=groupBean) {
-                currentGroup=groupBean;
+            if (currentGroup != groupBean) {
+                currentGroup = groupBean;
             }
             //check if current section has not been changed
             SectionBean sectionBean = (SectionBean) selectedNode.getParent().getParent().getData();
-            if (currentSection!=sectionBean) {
-                currentSection=sectionBean;
+            if (currentSection != sectionBean) {
+                currentSection = sectionBean;
             }
         } else if (selectedType.equals("group")) {
             currentGroup = (GroupBean) selectedNode.getData();
             //check if current section has not been changed
             SectionBean sectionBean = (SectionBean) selectedNode.getParent().getData();
-            if (currentSection!=sectionBean) {
-                currentSection=sectionBean;
+            if (currentSection != sectionBean) {
+                currentSection = sectionBean;
             }
         } else {
             currentSection = (SectionBean) selectedNode.getData();
@@ -125,7 +125,9 @@ public class TemplateTreeController implements Serializable {
         }
     }
 
-    /** Style of selected node */
+    /**
+     * Style of selected node
+     */
     public String getStyle(Object node) {
         if (selectedNode != null) {
             if (selectedNode.getData() == node) {
@@ -180,7 +182,7 @@ public class TemplateTreeController implements Serializable {
         FacesMessage msg = new FacesMessage("Selected");
         FacesContext.getCurrentInstance().addMessage(null, msg);
         SectionBean sectionBean = new SectionBean();
-        sectionBean.setPageNumber(templateBean.getSectionsList().size()+1);
+        sectionBean.setPageNumber(templateBean.getSectionsList().size() + 1);
         templateBean.getSectionsList().add(sectionBean);
         setNodes();
     }
@@ -214,8 +216,7 @@ public class TemplateTreeController implements Serializable {
      * will be edited
      */
     private String editQuestion() {
-        //optionsQuestionEditController.setOptionQuestionBean((OptionsQuestionBean)getCurrentQuestion());
-        return OptionsQuestionEditController.income();
+        return null;
     }
 
     /**
@@ -235,10 +236,11 @@ public class TemplateTreeController implements Serializable {
 
     /**
      * Add group to current section bean
+     *
      * @param groupBean
      */
     public void addGroupToCurrentSection(GroupBean groupBean) {
-        if (currentSection!=null && !currentSection.getGroupsList().contains(groupBean)) {
+        if (currentSection != null && !currentSection.getGroupsList().contains(groupBean)) {
             currentSection.addToInnerList(groupBean);
             setNodes();
         }
@@ -246,17 +248,15 @@ public class TemplateTreeController implements Serializable {
 
     /**
      * Add question to current group bean
+     *
      * @param questionbean
      */
     public void addQuestionToCurrentGroup(QuestionBean questionbean) {
-        if (currentGroup!=null && !currentGroup.getQuestionsList().contains(questionbean)) {
+        if (currentGroup != null && !currentGroup.getQuestionsList().contains(questionbean)) {
             currentGroup.addToInnerList(questionbean);
             setNodes();
         }
     }
-
-
-
 
 
 }
