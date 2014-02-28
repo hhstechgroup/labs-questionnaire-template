@@ -20,16 +20,15 @@ public class OptionsQuestionEditController implements Serializable {
     @Inject
     private QuestionEditController questionEditController;
 
-    public OptionsQuestionBean getBeanItem()
-    {
-        return ((OptionsQuestionBean)questionEditController.getCurrentQuestion());
+    public OptionsQuestionBean getBeanItem() {
+        return ((OptionsQuestionBean) questionEditController.getCurrentQuestion());
     }
 
     /**
      * Update options in ListOfOptionsDataModel.
      */
     private void updateModel() {
-        ((OptionsQuestionBean)questionEditController.getCurrentQuestion()).getDataModel().setWrappedData(((OptionsQuestionBean)questionEditController.getCurrentQuestion()).getOptions());
+        ((OptionsQuestionBean) questionEditController.getCurrentQuestion()).getDataModel().setWrappedData(((OptionsQuestionBean) questionEditController.getCurrentQuestion()).getOptions());
     }
 
     /**
@@ -38,7 +37,7 @@ public class OptionsQuestionEditController implements Serializable {
      * @param option VariantItem object
      */
     public void addOption(String option) {
-        ((OptionsQuestionBean)questionEditController.getCurrentQuestion()).getOptions().add(new VariantItem(option));
+        ((OptionsQuestionBean) questionEditController.getCurrentQuestion()).getOptions().add(new VariantItem(option));
         updateModel();
     }
 
@@ -48,16 +47,7 @@ public class OptionsQuestionEditController implements Serializable {
      * @param option VariantItem object
      */
     public void removeOption(VariantItem option) {
-        ((OptionsQuestionBean)questionEditController.getCurrentQuestion()).getOptions().remove(option);
+        ((OptionsQuestionBean) questionEditController.getCurrentQuestion()).getOptions().remove(option);
         updateModel();
-    }
-
-    /**
-     * Get chooseFromListQuestion page.
-     *
-     * @return chooseFromListQuestion page
-     */
-    public static String income() {
-        return "/question-pages/chooseFromListQuestion?faces-redirect=true&includeViewParams=true";
     }
 }
