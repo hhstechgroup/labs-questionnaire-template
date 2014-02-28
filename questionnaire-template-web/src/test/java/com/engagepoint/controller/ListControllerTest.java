@@ -17,7 +17,7 @@ import java.util.List;
  * To change this template use File | Settings | File Templates.
  */
 public class ListControllerTest {
-    private ListController testListController = new ListController();
+    /*private ListController testListController = new ListController();
     private List<TemplateBean> templateBeanList = new ArrayList<TemplateBean>();
     private List<TemplateBean>secondTemplateBeanList = new ArrayList<TemplateBean>();
     @Before
@@ -109,5 +109,5 @@ public class ListControllerTest {
 
     }
 
-
+*/
 }
