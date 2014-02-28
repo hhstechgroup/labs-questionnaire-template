@@ -105,7 +105,7 @@ public class TemplateEditController implements Serializable {
      * @return page name
      */
     public static String income() {
-        return PageNavigator.TEMPLATE_EDIT;
+        return PageNavigator.TEMPLATE_EDIT_PAGE;
     }
 
 }
