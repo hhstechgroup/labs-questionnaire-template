@@ -1,6 +1,7 @@
 package com.engagepoint.model.questionnaire;
 
 
+import com.engagepoint.model.question.OptionsQuestionBean;
 import com.engagepoint.model.question.QuestionBean;
 import com.engagepoint.model.question.RangeQuestionBean;
 import com.engagepoint.model.question.TextQuestionBean;
@@ -38,7 +39,9 @@ public class GroupBean implements Cloneable, BasicOperationWithBean, BasicBeanPr
     @XmlElementWrapper(name = "questions")
     @XmlElements({
             @XmlElement(name = "text-question", type = TextQuestionBean.class),
-            @XmlElement(name = "paragraph-text", type = TextQuestionBean.class)
+            @XmlElement(name = "paragraph-text", type = TextQuestionBean.class),
+            @XmlElement(name="range-question",type=RangeQuestionBean.class),
+            @XmlElement(name="multiple-choice-question",type= OptionsQuestionBean.class)
     })
     public List<QuestionBean> getQuestionsList() {
         return questionsList;
