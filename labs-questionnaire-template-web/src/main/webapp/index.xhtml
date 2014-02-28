@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:uib="http://engagepoint.com/uib"
+                xmlns:ui-paginator="http://java.sun.com/jsf/composite/uibootstrap/components/paginator"
+
+                template="templates/index.xhtml">
+
+    <ui:define name="page">
+
+        <h:form id="form1">
+
+            <uib:dataTable id="table" var="template" rows="5" value="#{listController.templatesModel}"
+                           filteredValue="#{listController.filteredTemplates}"
+                           widgetVar="templatesList"
+                           selection="#{listController.selectedTemplates}"
+                           summary="Table with pagination">
+
+                <f:facet name="header">
+                    <h:panelGrid columns="3">
+                        <p:outputLabel for="globalFilter" value="Search: "/>
+                        <p:inputText id="globalFilter"
+                                     onkeyup="templatesList.filter()"
+                                     value="#{listController.filterValue}"/>
+                    </h:panelGrid>
+
+                </f:facet>
+
+                <uib:column selectionMode="multiple" style="width:2%"/>
+
+                <uib:column headerText="Id">
+                    <h:outputText value="#{template.id}"/>
+                </uib:column>
+
+                <uib:column filterBy="#{template.templateName}"
+                            filterMatchMode="contains"
+                            filterStyle="visibility:hidden; height:0px" headerText="Name">
+                    <h:outputText value="#{template.templateName}"/>
+                </uib:column>
+
+                <uib:column style="width:260px;">
+                    <uib:buttonGroup>
+                        <p:commandButton id="btnEdit"
+                                         value="Edit"
+                                         title="Edit"
+                                         action="#{templateController.income}"
+                                         styleClass="secondary small"
+                                         icon="ui-icon-edit-small">
+                            <f:setPropertyActionListener value="#{template}"
+                                                         target="#{templateController.currentTemplate}"/>
+                        </p:commandButton>
+
+                        <p:commandButton value="Clone"
+                                         id="Clone"
+                                         title="Clone"
+                                         action="#{listController.clone(template)}"
+                                         update=":form1:table,:form1:paginator"
+                                         styleClass="secondary small"
+                                         icon="ui-icon-add-v2"/>
+
+                        <p:commandButton id="DeleteDialogButton" value="Delete"
+                                         title="Delete"
+                                         update="modalDialogDelete" oncomplete="dlg2.show();"
+                                         styleClass="secondary small"
+                                         icon="ui-icon-remove">
+                        </p:commandButton>
+                    </uib:buttonGroup>
+
+                    <p:dialog id="modalDialogDelete" widgetVar="dlg2"
+                              modal="true" height="100" closable="false" resizeable="false">
+                        <h:outputFormat value="#{msgs.msgOnDelete}">
+                            <f:param value="#{template.templateName}"/>
+                        </h:outputFormat>
+                        <br/>
+                        <p:commandButton value="Yes, delete it"
+                                         id="yes"
+                                         action="#{listController.deleteTemplate(template)}"
+                                         update=":form1:table,:form1:paginator" onclick="dlg2.hide()"/>
+                        <p:commandButton value="No, cancel" onclick="dlg2.hide()"/>
+                    </p:dialog>
+
+                </uib:column>
+
+            </uib:dataTable>
+
+            <ui-paginator:paginator id="paginator"
+                                    selectedStyleClass="current"
+                                    tableId="table"
+                                    jumpToPageBackward="3" jumpToPageForward="3">
+            </ui-paginator:paginator>
+
+            <br/>
+            <p:growl id="messages"/>
+
+            <p:menuButton value="Options" id="Options">
+                <p:menuitem value="Export" id="export"
+                            icon="ui-icon-disk"
+                            ajax="false"
+                            actionListener="#{listController.onExportXML}">
+                    <p:fileDownload value="#{fileController.downloadFile}"/>
+                </p:menuitem>
+                <p:menuitem value="Import"
+                            name="Import"
+                            update="ImportDialog"
+                            icon="ui-icon-arrowrefresh-1-w"
+                            oncomplete="uploadXML.show()"/>
+            </p:menuButton>
+
+            <p:commandButton value="Add new template"
+                             id="AddTemplate"
+                             action="#{templateController.newTemplate}"
+                             styleClass="fl-right">
+            </p:commandButton>
+
+            <p:dialog id="ImportDialog"
+                      header="Import Dialog"
+                      widgetVar="uploadXML"
+                      modal="true" height="200" width="800">
+                <p:fileUpload value="#{fileController.uploadFile}"
+                              fileUploadListener="#{listController.importFromXML}"
+                              multiple="true"
+                              oncomplete="uploadXML.hide()"
+                              update=":form1:table, :form1:paginator"/>
+            </p:dialog>
+
+        </h:form>
+    </ui:define>
+
+</ui:composition>

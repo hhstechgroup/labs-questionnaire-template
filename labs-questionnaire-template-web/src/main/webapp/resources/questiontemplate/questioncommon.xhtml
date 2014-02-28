@@ -1,0 +1,31 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:composite="http://java.sun.com/jsf/composite"
+    xmlns:f="http://java.sun.com/jsf/core">
+
+<composite:interface>
+	<composite:attribute name="qb" required="true" />
+</composite:interface>
+
+<composite:implementation>
+	<h:panelGrid id="common" columns="2" style="margin-bottom:10px"
+		cellpadding="5">
+		<h:outputText value="Question text: *" for="qtext" style="white-space:nowrap;"/>
+		<h:panelGroup>
+			<p:inputText size="50" id="qtext" required="true" value="#{cc.attrs.qb.questionText}" >
+				<f:validateLength minimum="1" />
+            </p:inputText>  
+			<br/>
+			<p:message for="qtext" /> 
+		</h:panelGroup>
+		<h:outputText value="Help text: "/>
+		<p:inputText  id="helpText" size="50" value="#{cc.attrs.qb.helpText}" />
+		<h:outputText value="Required? " />
+		<p:selectBooleanCheckbox value="#{cc.attrs.qb.requiredAnswer}" />
+	</h:panelGrid>
+
+</composite:implementation>
+</html>
