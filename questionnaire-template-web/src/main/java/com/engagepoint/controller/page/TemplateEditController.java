@@ -83,7 +83,7 @@ public class TemplateEditController implements Serializable {
             listController.removeTemplateFromFilteredListIfNeed(currentTemplate);
             listController.sort();
         }
-        return listController.income();
+        return ListController.income();
     }
 
     /**
