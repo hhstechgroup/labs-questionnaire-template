@@ -38,7 +38,7 @@ public class GroupBean implements Cloneable, BasicOperationWithBean, BasicBeanPr
     @XmlElementWrapper(name = "questions")
     @XmlElements({
             @XmlElement(name = "text-question", type = TextQuestionBean.class),
-            @XmlElement(name = "paragraph-text", type = TextQuestionBean.class),
+            @XmlElement(name = "paragraph-text", type = TextQuestionBean.class)
     })
     public List<QuestionBean> getQuestionsList() {
         return questionsList;
