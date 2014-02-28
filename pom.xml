@@ -10,6 +10,6 @@
     <packaging>pom</packaging>
     <modules>
         <module>questionnaire-template-web</module>
-        <!--<module>labs-questionnaire-template-acceptancetest</module>-->
+        <module>labs-questionnaire-template-acceptancetest</module>
     </modules>
 </project>
