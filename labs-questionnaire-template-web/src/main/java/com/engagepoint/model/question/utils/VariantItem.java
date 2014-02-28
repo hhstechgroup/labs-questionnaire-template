@@ -6,6 +6,9 @@ package com.engagepoint.model.question.utils;
 public class VariantItem {
     private String value;
 
+    public VariantItem() {
+    }
+
     public VariantItem(String value) {
         this.value = value;
     }
