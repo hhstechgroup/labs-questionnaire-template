@@ -20,7 +20,7 @@
             <br/>
             <p:selectOneMenu
                    id="selectOneMenu" value="#{questionController.selectedQuestionType}">
-                <p:ajax event="valueChange" update=":questionForm,:buttons:savequestion"/>
+                <p:ajax event="valueChange" update=":questionForm"/>
 
                 <f:selectItem itemLabel="Select One" itemValue="#{null}" />
                 <f:selectItems value="#{questionController.questionTypes}"/>
@@ -31,15 +31,7 @@
             <ui:include src="#{questionController.changeQuestionType}"/>
         </h:form>
 
-        <h:form id="buttons">
-            <p:commandButton id="savequestion" value="Save question"
-                             action="#{questionController.actionSave}"
-                             disabled="#{questionController.selectedQuestionType == null}"/>
 
-            <h:outputText value=" "/>
-            <p:commandButton id="cancel" value="Cancel" immediate="true"
-                             action="#{questionController.actionCancel}"/>
-        </h:form>
 
     </ui:define>
 </ui:composition>

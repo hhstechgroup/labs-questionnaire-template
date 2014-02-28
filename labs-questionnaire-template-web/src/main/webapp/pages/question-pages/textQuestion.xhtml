@@ -5,6 +5,7 @@
                 xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:ago="http://java.sun.com/jsf/composite/questiontemplate"
 
+
                 template="/templates/questionTemplate.xhtml">
 
 
@@ -15,6 +16,9 @@
                 <h:outputText value="Default answer: "/>
                 <p:inputText size="50" value="#{textQuestionController.defaultAnswer}"/>
             </h:panelGrid>
+
+            <ago:buttonsCommon qbuttons="#{questionController}" id="formWithsSaveButtons"/>
+
 
         </h:form>
     </ui:define>
