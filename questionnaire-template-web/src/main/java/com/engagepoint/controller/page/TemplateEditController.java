@@ -1,5 +1,6 @@
 package com.engagepoint.controller.page;
 
+import com.engagepoint.controller.utils.PageNavigator;
 import com.engagepoint.model.questionnaire.TemplateBean;
 
 import javax.enterprise.context.SessionScoped;
@@ -78,8 +79,7 @@ public class TemplateEditController implements Serializable {
         currentTemplate.setSectionsList(duplicateTemplate.getSectionsList());
         if (isNew()) {
             listController.addTemplateAndUpdateLists(currentTemplate);
-        }else
-        {
+        } else {
             listController.removeTemplateFromFilteredListIfNeed(currentTemplate);
             listController.sort();
         }
@@ -105,7 +105,7 @@ public class TemplateEditController implements Serializable {
      * @return page name
      */
     public static String income() {
-        return "/pages/templateEdit?faces-redirect=true&includeViewParams=true";
+        return PageNavigator.TEMPLATE_EDIT;
     }
 
 }

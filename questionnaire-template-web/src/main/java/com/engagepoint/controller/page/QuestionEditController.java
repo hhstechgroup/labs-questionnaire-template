@@ -2,6 +2,7 @@ package com.engagepoint.controller.page;
 
 import java.io.Serializable;
 
+import com.engagepoint.controller.utils.PageNavigator;
 import com.engagepoint.model.questionnaire.GroupBean;
 import com.engagepoint.model.questionnaire.QuestionType;
 import com.engagepoint.model.question.*;
@@ -73,7 +74,7 @@ public class QuestionEditController implements Serializable {
     }
 
     public String getChangeQuestionType() {
-        String stab="/question-pages/stab.xhtml";
+        String stab = "/question-pages/stab.xhtml";
         if (selectedQuestionType == null) return "/question-pages/notChooseQuestion.xhtml";
         if (currentQuestion == null) {
             createQuestion();
@@ -135,7 +136,7 @@ public class QuestionEditController implements Serializable {
     }
 
     public static String income() {
-        return "/pages/questionEdit?faces-redirect=true&includeViewParams=true";
+        return PageNavigator.QUESTION_EDIT_PAGE;
     }
 
     public String actionSave() {

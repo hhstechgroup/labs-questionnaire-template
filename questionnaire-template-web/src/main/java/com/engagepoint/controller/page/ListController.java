@@ -1,6 +1,7 @@
 package com.engagepoint.controller.page;
 
 
+import com.engagepoint.controller.utils.PageNavigator;
 import com.engagepoint.model.questionnaire.TemplateBean;
 import com.engagepoint.model.table.ListOfTemplatesDataModel;
 import com.engagepoint.utils.XmlImportExport;
@@ -262,7 +263,7 @@ public class ListController implements Serializable {
      * @return page name
      */
     public static String income() {
-        return "/index?faces-redirect=true&includeViewParams=true";
+        return PageNavigator.INDEX_PAGE;
     }
 
 }
