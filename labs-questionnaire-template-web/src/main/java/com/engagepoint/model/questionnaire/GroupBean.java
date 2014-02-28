@@ -2,9 +2,12 @@ package com.engagepoint.model.questionnaire;
 
 
 import com.engagepoint.model.question.QuestionBean;
+import com.engagepoint.model.question.RangeQuestionBean;
+import com.engagepoint.model.question.TextQuestionBean;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElementWrapper;
+import javax.xml.bind.annotation.XmlElements;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -33,7 +36,10 @@ public class GroupBean implements Cloneable, BasicOperationWithBean, BasicBeanPr
     }
 
     @XmlElementWrapper(name = "questions")
-    @XmlElement(name = "question")
+    @XmlElements({
+            @XmlElement(name = "text-question", type = TextQuestionBean.class),
+            @XmlElement(name = "paragraph-text", type = TextQuestionBean.class),
+    })
     public List<QuestionBean> getQuestionsList() {
         return questionsList;
     }
@@ -46,11 +52,11 @@ public class GroupBean implements Cloneable, BasicOperationWithBean, BasicBeanPr
     public Object clone() throws CloneNotSupportedException {
         GroupBean copy = (GroupBean) super.clone();
         copy.setGroupName(this.groupName);
-        List<QuestionBean> copyQuestionsList =null;
-        if(questionsList!=null){
+        List<QuestionBean> copyQuestionsList = null;
+        if (questionsList != null) {
             copyQuestionsList = new ArrayList<QuestionBean>();
             for (QuestionBean questionBean : questionsList) {
-             copyQuestionsList.add((QuestionBean) questionBean.clone());
+                copyQuestionsList.add((QuestionBean) questionBean.clone());
             }
         }
         copy.setQuestionsList(copyQuestionsList);

@@ -12,7 +12,7 @@ import javax.xml.bind.annotation.XmlElement;
 /**
  * Class represents question tag.
  */
-public class QuestionBean implements Cloneable, BasicBeanProperty {
+public abstract class QuestionBean implements Cloneable, BasicBeanProperty {
     private Long id;					//id of the question
     protected String questionText="";		//questiontext
     private boolean requiredAnswer;		//is answer required or not
