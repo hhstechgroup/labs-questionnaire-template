@@ -14,6 +14,22 @@
                                 <help-text>Test Help Text</help-text>
                                 <default-answer>Test Default Answer</default-answer>
                             </text-question>
+
+                            <range-question required-answer="true" question-id="2">
+                                <question-title>Test 2</question-title>
+                                <help-text>s</help-text>
+                                <min>1</min>
+                                <max>2</max>
+                                 </range-question>
+
+                            <multiple-choice-question required-answer="true" question-id="3">
+                                <question-title></question-title>
+                                <help-text></help-text>
+                                <options>
+                                    <option></option>
+                                </options>
+                                <default-answer></default-answer>
+                            </multiple-choice-question>
                         </questions>
                     </group>
                 </groups-of-questions>
