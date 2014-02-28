@@ -1,68 +1,102 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
-                xmlns:ui="http://java.sun.com/jsf/facelets"
-                xmlns:p="http://primefaces.org/ui"
-                xmlns:h="http://java.sun.com/jsf/html"
-                xmlns:f="http://java.sun.com/jsf/core"
-                xmlns:uib="http://engagepoint.com/uib"
-                xmlns:ago="http://java.sun.com/jsf/composite/questiontemplate"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:uib="http://engagepoint.com/uib"
+	xmlns:ago="http://java.sun.com/jsf/composite/questiontemplate"
+	template="/templates/questionTemplate.xhtml">
 
-                template="/templates/questionTemplate.xhtml">
+	<f:metadata>
+		<f:viewParam name="template"
+			value="#{templateController.currentTemplate.id}" />
+		<f:viewParam name="question"
+			value="#{templateTreeController.currentQuestion.id}" />
+	</f:metadata>
 
-    <f:metadata>
-        <f:viewParam name="template" value="#{templateController.currentTemplate.id}"/>
-        <f:viewParam name="question" value="#{templateTreeController.currentQuestion.id}"/>
-    </f:metadata>
+	<ui:define name="question">
 
-    <ui:define name="question">
+		<h:form id="form3">
 
-        <h:form id="form3">
+			<ago:questioncommon qb="#{questionController}"
+				id="formWithCommonProps" />
 
-            <ago:questioncommon qb="#{questionController}" id="formWithCommonProps"/>
+			<br />
+			<h:outputText value="EDIT COLUMNS" for="tableColumns" />
 
-            <br/>
+			<br />
 
-            <p:commandButton value="Add option"
-                             id="AddOption"
-                             action="#{optionsQuestionEditController.addOption('New')}"
-                             update="tableOptions"
-                             immediate="true"
-                             styleClass="fl-right">
-            </p:commandButton>
+			<p:commandButton value="Add Column" id="AddColumn"
+				action="#{optionsQuestionEditController.addOption('New')}"
+				update="tableColumns" immediate="true" styleClass="fl-right">
+			</p:commandButton>
 
-            <uib:dataTable id="tableOptions"
-                           widgetVar="tableOptions"
-                           var="option"
-                           value="#{optionsQuestionEditController.beanItem.dataModel}"
-                           selection="#{optionsQuestionEditController.beanItem.defaultOption}"
-                           editable="true"
-                           editMode="cell">
+			<uib:dataTable id="tableColumns" widgetVar="tableColumns"
+				var="option"
+				value="#{optionsQuestionEditController.beanItem.dataModel}"
+				selection="#{optionsQuestionEditController.beanItem.defaultOption}"
+				editable="true" editMode="cell">
 
-                <uib:column headerText="Default"
-                            selectionMode="single"/>
-                <uib:column headerText="Options">
-                    <p:cellEditor>
-                        <f:facet name="output">
-                            <h:outputText value="#{option.value}"/>
-                        </f:facet>
-                        <f:facet name="input">
-                            <p:inputText value="#{option.value}" style="width:100%"/>
-                        </f:facet>
-                    </p:cellEditor>
-                </uib:column>
+				<uib:column headerText="Default" selectionMode="single" />
+				<uib:column headerText="Options">
+					<p:cellEditor>
+						<f:facet name="output">
+							<h:outputText value="#{option.value}" />
+						</f:facet>
+						<f:facet name="input">
+							<p:inputText value="#{option.value}" style="width:100%" />
+						</f:facet>
+					</p:cellEditor>
+				</uib:column>
 
-                <uib:column>
-                    <p:commandButton value="Delete"
-                                     id="DeleteOption"
-                                     action="#{optionsQuestionEditController.removeOption(option)}"
-                                     update="tableOptions"
-                                     styleClass="fl-right">
-                    </p:commandButton>
-                </uib:column>
+				<uib:column>
+					<p:commandButton value="Delete" id="DeleteOption"
+						action="#{optionsQuestionEditController.removeOption(option)}"
+						update="tableColumns" styleClass="fl-right">
+					</p:commandButton>
+				</uib:column>
 
-            </uib:dataTable>
+			</uib:dataTable>
+
+			<br />
+			<br />
+			<h:outputText value="EDIT ROWS" for="tableRows" />
+			<br />
+
+			<p:commandButton value="Add row" id="AddOption"
+				action="#{optionsQuestionEditController.addOption('New')}"
+				update="tableRows" immediate="true" styleClass="fl-right">
+			</p:commandButton>
+
+			<uib:dataTable id="tableRows" widgetVar="tableRows" var="option"
+				value="#{optionsQuestionEditController.beanItem.dataModel}"
+				selection="#{optionsQuestionEditController.beanItem.defaultOption}"
+				editable="true" editMode="cell">
+
+				<uib:column headerText="Default" selectionMode="single" />
+				<uib:column headerText="Options">
+					<p:cellEditor>
+						<f:facet name="output">
+							<h:outputText value="#{option.value}" />
+						</f:facet>
+						<f:facet name="input">
+							<p:inputText value="#{option.value}" style="width:100%" />
+						</f:facet>
+					</p:cellEditor>
+				</uib:column>
+
+				<uib:column>
+					<p:commandButton value="Delete" id="DeleteOption"
+						action="#{optionsQuestionEditController.removeOption(option)}"
+						update="tableRows" styleClass="fl-right">
+					</p:commandButton>
+				</uib:column>
+
+			</uib:dataTable>
 
 
-        </h:form>
-    </ui:define>
+
+		</h:form>
+	</ui:define>
 </ui:composition>

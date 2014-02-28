@@ -98,6 +98,8 @@ public class QuestionEditController implements Serializable {
                 return PageNavigator.CHOOSE_FROM_LIST_QUESTION_PAGE;
             case CHECKBOX:
                 return PageNavigator.CHECKBOX_QUESTION_PAGE;
+            case GRID:
+                return PageNavigator.GRID_QUESTION_PAGE;
         }
 
         return stab;

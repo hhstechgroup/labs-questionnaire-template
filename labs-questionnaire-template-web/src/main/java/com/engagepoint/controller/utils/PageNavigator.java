@@ -16,4 +16,5 @@ public class PageNavigator {
     public static final String CHOOSE_FROM_LIST_QUESTION_PAGE = "/pages/question-pages/chooseFromListQuestion.xhtml";
     public static final String FILE_UPLOAD_QUESTION_PAGE = "/pages/question-pages/fileUploadQuestion.xhtml";
     public static final String CHECKBOX_QUESTION_PAGE = "/pages/question-pages/checkBoxQuestion.xhtml";
+    public static final String GRID_QUESTION_PAGE = "/pages/question-pages/gridQuestion.xhtml";
 }
