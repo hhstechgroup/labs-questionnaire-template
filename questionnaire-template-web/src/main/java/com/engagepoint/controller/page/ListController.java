@@ -22,14 +22,11 @@ import java.util.*;
 @Named
 @SessionScoped
 public class ListController implements Serializable {
-
     private static final long serialVersionUID = 1L;
     private List<TemplateBean> list;
     private List<TemplateBean> filteredList;
     private List<TemplateBean> selectedTemplates;
-
     private ListOfTemplatesDataModel templatesModel;
-
     private String filterValue = "";
 
     public ListController() {
@@ -39,7 +36,6 @@ public class ListController implements Serializable {
         String xmlPath = classLoader.getResource("Questionnaire.xml").getPath();
         //adding Templates from XML file
         addAllTemplates(XmlImportExport.importXmlTemplate(xmlPath));
-
         templatesModel = new ListOfTemplatesDataModel(list);
     }
 
@@ -120,13 +116,11 @@ public class ListController implements Serializable {
      */
     public void addTemplateToFilteredListIfNeed(TemplateBean template) {
         if (filteredList != null) {
-            if (filteredList.contains(template)) {//check if template with the same id exists
-                return;
-            } else {
-                if (containsFilterValue(template.getTemplateName())) //check if template satisfies current filter
+            if (!filteredList.contains(template)) {
+                //check if template with the same id exists
+                if (containsFilterValue(template.getTemplateName())) {
+                    //check if template satisfies current filter
                     filteredList.add(template);
-                else {
-                    //addMessage("changesDontSatisfyFilter");
                 }
             }
         }
@@ -144,7 +138,6 @@ public class ListController implements Serializable {
         if (filteredList != null) {
             if (!containsFilterValue(template.getTemplateName())) {
                 filteredList.remove(template);
-                //addMessage("changesDontSatisfyFilter");
             } else {
                 if (!list.contains(template)) {
                     filteredList.remove(template);

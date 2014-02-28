@@ -5,6 +5,7 @@
                 xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:f="http://java.sun.com/jsf/core"
                 xmlns:uib="http://engagepoint.com/uib"
+                xmlns:ui-paginator="http://java.sun.com/jsf/composite/uibootstrap/components/paginator"
 
                 template="templates/index.xhtml">
 
@@ -12,22 +13,11 @@
 
         <h:form id="form1">
 
-            <p:commandButton value="Add new template"
-                             id="AddTemplate"
-                             action="#{templateController.newTemplate}"
-                             styleClass="fl-right">
-            </p:commandButton>
-
-            <br/><p/>
-            <uib:dataTable id="table" var="template" paginator="true" rows="10" value="#{listController.templatesModel}"
-                           paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-                           rowsPerPageTemplate="#{config.pagescount},10"
-                           paginatorPosition="bottom"
+            <uib:dataTable id="table" var="template" rows="5" value="#{listController.templatesModel}"
                            filteredValue="#{listController.filteredTemplates}"
                            widgetVar="templatesList"
                            selection="#{listController.selectedTemplates}"
                            summary="Table with pagination">
-                <!--p:column width="400"  style="table-layout:fixed"-->
 
                 <f:facet name="header">
                     <h:panelGrid columns="3">
@@ -67,7 +57,7 @@
                                          id="Clone"
                                          title="Clone"
                                          action="#{listController.clone(template)}"
-                                         update=":form1:table"
+                                         update=":form1:table,:form1:paginator"
                                          styleClass="secondary small"
                                          icon="ui-icon-add-v2"/>
 
@@ -88,7 +78,7 @@
                         <p:commandButton value="Yes, delete it"
                                          id="yes"
                                          action="#{listController.deleteTemplate(template)}"
-                                         update=":form1:table" onclick="dlg2.hide()"/>
+                                         update=":form1:table,:form1:paginator" onclick="dlg2.hide()"/>
                         <p:commandButton value="No, cancel" onclick="dlg2.hide()"/>
                     </p:dialog>
 
@@ -96,8 +86,15 @@
 
             </uib:dataTable>
 
+            <ui-paginator:paginator id="paginator"
+                                    selectedStyleClass="current"
+                                    tableId="table"
+                                    jumpToPageBackward="3" jumpToPageForward="3">
+            </ui-paginator:paginator>
+
             <br/>
             <p:growl id="messages"/>
+
             <p:menuButton value="Options" id="Options">
                 <p:menuitem value="Export" id="export"
                             icon="ui-icon-disk"
@@ -106,12 +103,17 @@
                     <p:fileDownload value="#{fileController.downloadFile}"/>
                 </p:menuitem>
                 <p:menuitem value="Import"
-                            name ="Import"
+                            name="Import"
                             update="ImportDialog"
                             icon="ui-icon-arrowrefresh-1-w"
                             oncomplete="uploadXML.show()"/>
             </p:menuButton>
 
+            <p:commandButton value="Add new template"
+                             id="AddTemplate"
+                             action="#{templateController.newTemplate}"
+                             styleClass="fl-right">
+            </p:commandButton>
 
             <p:dialog id="ImportDialog"
                       header="Import Dialog"
@@ -121,8 +123,9 @@
                               fileUploadListener="#{listController.importFromXML}"
                               multiple="true"
                               oncomplete="uploadXML.hide()"
-                              update=":form1:table"/>
+                              update=":form1:table, :form1:paginator"/>
             </p:dialog>
+
         </h:form>
     </ui:define>
 
