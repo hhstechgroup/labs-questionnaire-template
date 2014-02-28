@@ -1,52 +1,89 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <questionnaire-forms>
-	<questionnaire-form>
-		<form-name></form-name>
-		<pages>
-			<page>
-				<page-number></page-number>
-				<groups-of-questions>
-					<group>
-						<group-name></group-name>
-						<questions>
-							<question required-answer="required" question-id="2">
-								<question-title></question-title>
-									<question-type></question-type>
-									<help-text></help-text>
-									<dependent-questions>
-										<dependent-question>
-											<question-id></question-id>
-											<required-answer></required-answer>
-										</dependent-question>
-									</dependent-questions>
-									
-									<multiple-choice-options>
-										<option></option>
-									</multiple-choice-options>
-									
-									<checkboxes-options>
-										<option></option>
-									</checkboxes-options>
+    <questionnaire-form>
+        <form-name></form-name>
+        <pages>
+            <page>
+                <page-number></page-number>
+                <groups-of-questions>
+                    <group>
+                        <group-name></group-name>
+                        <questions>
 
-									<choose-from-list-options>
-										<option></option>
-									</choose-from-list-options>
+                            <text-question required-answer="" question-id="">
+                                <question-title></question-title>
+                                <help-text></help-text>
+                                <default-answer></default-answer>
+                            </text-question>
 
-									<range range-begin="0" range-end="1"></range>
-								
-									<grid>
-										<columns>
-											<column></column>
-										</columns>
-										<rows>
-											<row></row>
-										</rows>
-									</grid>                          
-							</question>
-						</questions>
-					</group>
-				</groups-of-questions>
-			</page>
-		</pages>
-	</questionnaire-form>
+                            <paragraph-text>
+                                <question-title></question-title>
+                                <help-text></help-text>
+                                <default-answer></default-answer>
+                            </paragraph-text>
+
+                            <multiple-choice-question required-answer="" question-id="">
+                                <question-title></question-title>
+                                <help-text></help-text>
+                                <options>
+                                    <option></option>
+                                </options>
+                                <default-answer></default-answer>
+                            </multiple-choice-question>
+
+                            <checkboxes-options-question required-answer="" question-id="">
+                                <question-title></question-title>
+                                <help-text></help-text>
+                                <default-answers>
+                                    <default-answer></default-answer>
+                                </default-answers>
+                            </checkboxes-options-question>
+
+
+                            <choose-from-list-options-question required-answer="" question-id="">
+                                <question-title></question-title>
+                                <help-text></help-text>
+                                <options>
+                                    <option></option>
+                                </options>
+                                <default-answer></default-answer>
+                            </choose-from-list-options-question>
+
+                            <range-question required-answer="" question-id="">
+                                <question-title></question-title>
+                                <help-text></help-text>
+                                <min></min>
+                                <max></max>
+                                <default-answer>
+                                    <min></min>
+                                    <max></max>
+                                </default-answer>
+                            </range-question>
+
+
+
+                            <grid>
+                                <columns>
+                                    <column></column>
+                                </columns>
+                                <rows>
+                                    <row></row>
+                                </rows>
+                            </grid>
+
+
+                            <dependent-questions>
+                                <dependent-question>
+                                    <question-id></question-id>
+                                    <required-answer></required-answer>
+                                </dependent-question>
+                            </dependent-questions>
+
+
+                        </questions>
+                    </group>
+                </groups-of-questions>
+            </page>
+        </pages>
+    </questionnaire-form>
 </questionnaire-forms>
