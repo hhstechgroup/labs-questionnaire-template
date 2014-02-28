@@ -6,7 +6,6 @@
 <artifactId>labs-questionnaire-template-acceptancetest</artifactId>
 <version>1.0-SNAPSHOT</version>
 <packaging>jar</packaging>
-<name>LQE - Acceptance Test</name>
 
 <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
