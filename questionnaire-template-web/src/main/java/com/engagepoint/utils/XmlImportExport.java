@@ -1,8 +1,8 @@
 package com.engagepoint.utils;
 
 
-import com.engagepoint.bean.TemplateBean;
-import com.engagepoint.bean.Wrapper;
+import com.engagepoint.model.questionnaire.TemplateBean;
+import com.engagepoint.model.questionnaire.Wrapper;
 
 import javax.xml.bind.*;
 import javax.xml.namespace.QName;
