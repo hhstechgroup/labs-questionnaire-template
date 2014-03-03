@@ -85,7 +85,7 @@
                         <p:commandButton value="Add question"
                                          rendered="#{templateTreeController.selectedNode!=null and templateTreeController.selectedType eq 'group'}"
                                          icon="ui-icon-add-v2"
-                                         action="#{templateController.addQuestion()}"
+                                         oncomplete="dlgSelectType.show();"
                                          styleClass="secondary"
                                          id="btnDisplayAddQuestion">
                         </p:commandButton>
@@ -96,14 +96,22 @@
                                          styleClass="secondary"
                                          id="btnDisplayEditQuestion">
                         </p:commandButton>
+                        <p:dialog id="modalDialogSelectType" widgetVar="dlgSelectType"
+                                  modal="true" height="100" closable="false" resizeable="false">
+                            <h:outputText value="Please choose a question type"/>
                             <br/>
                             <p:selectOneMenu id="selectOneMenu"
-                                             value="#{templateController.selectedQuestionType}"
-                                             rendered="#{templateTreeController.selectedType eq 'group'}">
-
+                                             value="#{templateController.selectedQuestionType}">
+                                <f:selectItem itemLabel="Select One" itemValue="#{null}" />
                                 <f:selectItems value="#{templateController.questionTypes}"/>
                             </p:selectOneMenu>
-
+                            <p:commandButton value="Create"
+                                             id="create"
+                                             action="#{templateController.addQuestion()}"/>
+                            <p:commandButton value="Cancel"
+                                             id="cancel"
+                                             onclick="dlgSelectType.hide()"/>
+                        </p:dialog>
                     </p:panel>
                 </h:form>
 
