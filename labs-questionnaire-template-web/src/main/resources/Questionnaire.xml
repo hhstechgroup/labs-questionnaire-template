@@ -1,45 +1,49 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <questionnaire-forms>
     <questionnaire-form>
-        <form-name>Template A</form-name>
+        <form-name>Test_template</form-name>
         <pages>
             <page>
-                <page-number>11</page-number>
+                <page-number>1</page-number>
                 <groups-of-questions>
                     <group>
-                        <group-name>Group 1</group-name>
+                        <group-name>GROUP_1</group-name>
                         <questions>
-                            <text-question required-answer="true" question-id="1">
-                                <question-title>Test Question</question-title>
-                                <help-text>Test Help Text</help-text>
-                                <default-answer>Test Default Answer</default-answer>
-                            </text-question>
-
-                            <range-question required-answer="true" question-id="2">
-                                <question-title>Test 2</question-title>
-                                <help-text>s</help-text>
-                                <min>1</min>
-                                <max>2</max>
-                                 </range-question>
-
-                            <multiple-choice-question required-answer="true" question-id="3">
-                                <question-title></question-title>
-                                <help-text></help-text>
-                                <options>
-                                    <option></option>
-                                </options>
-                                <default-answer></default-answer>
-                            </multiple-choice-question>
+                            <question required-answer="required" question-id="2">
+                                <question-title>SOME_TEXT_1</question-title>
+                            </question>
+                            <question required-answer="required" question-id="2">
+                                <question-title>SOME_TEXT_2</question-title>
+                            </question>
+                            <question required-answer="required" question-id="2">
+                                <question-title>SOME_TEXT_3</question-title>
+                            </question>
                         </questions>
+                    </group>
+                    <group>
+                        <group-name>GROUP_2</group-name>
+                        <questions>
+                            <question required-answer="required" question-id="2">
+                                <question-title>SOME_TEXT_OF_OTHER_GROUP_1</question-title>
+                            </question>
+                            <question required-answer="required" question-id="2">
+                                <question-title>SOME_TEXT_OF_OTHER_GROUP_2</question-title>
+                            </question>
+                            <question required-answer="required" question-id="2">
+                                <question-title>SOME_TEXT_OF_OTHER_GROUP_3</question-title>
+                            </question>
+                        </questions>
+                    </group>
+                    <group>
+                        <group-name>GROUP_3</group-name>
                     </group>
                 </groups-of-questions>
             </page>
-
             <page>
-                <page-number>22</page-number>
+                <page-number>2</page-number>
             </page>
             <page>
-                <page-number>33</page-number>
+                <page-number>3</page-number>
             </page>
         </pages>
     </questionnaire-form>
@@ -48,32 +52,6 @@
         <pages>
             <page>
                 <page-number>11</page-number>
-                <groups-of-questions>
-                    <group>
-                        <group-name>Group 1</group-name>
-                        <questions></questions>
-                    </group>
-                </groups-of-questions>
-            </page>
-            <page>
-                <page-number>22</page-number>
-            </page>
-            <page>
-                <page-number>33</page-number>
-            </page>
-        </pages>
-    </questionnaire-form>
-    <questionnaire-form>
-        <form-name>Template C</form-name>
-        <pages>
-            <page>
-                <page-number>11</page-number>
-                <groups-of-questions>
-                    <group>
-                        <group-name>Group 1</group-name>
-                        <questions></questions>
-                    </group>
-                </groups-of-questions>
             </page>
             <page>
                 <page-number>22</page-number>

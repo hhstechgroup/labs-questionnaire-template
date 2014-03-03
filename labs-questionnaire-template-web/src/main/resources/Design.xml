@@ -9,77 +9,40 @@
                     <group>
                         <group-name></group-name>
                         <questions>
-
-                            <text-question required-answer="" question-id="">
+                            <question required-answer="required" question-id="2">
                                 <question-title></question-title>
+                                <question-type></question-type>
                                 <help-text></help-text>
-                                <default-answer></default-answer>
-                            </text-question>
+                                <dependent-questions>
+                                    <dependent-question>
+                                        <question-id></question-id>
+                                        <required-answer></required-answer>
+                                    </dependent-question>
+                                </dependent-questions>
 
-                            <paragraph-text>
-                                <question-title></question-title>
-                                <help-text></help-text>
-                                <default-answer></default-answer>
-                            </paragraph-text>
-
-                            <multiple-choice-question required-answer="" question-id="">
-                                <question-title></question-title>
-                                <help-text></help-text>
-                                <options>
+                                <multiple-choice-options>
                                     <option></option>
-                                </options>
-                                <default-answer></default-answer>
-                            </multiple-choice-question>
+                                </multiple-choice-options>
 
-                            <checkboxes-options-question required-answer="" question-id="">
-                                <question-title></question-title>
-                                <help-text></help-text>
-                                <default-answers>
-                                    <default-answer></default-answer>
-                                </default-answers>
-                            </checkboxes-options-question>
-
-
-                            <choose-from-list-options-question required-answer="" question-id="">
-                                <question-title></question-title>
-                                <help-text></help-text>
-                                <options>
+                                <checkboxes-options>
                                     <option></option>
-                                </options>
-                                <default-answer></default-answer>
-                            </choose-from-list-options-question>
+                                </checkboxes-options>
 
-                            <range-question required-answer="" question-id="">
-                                <question-title></question-title>
-                                <help-text></help-text>
-                                <min></min>
-                                <max></max>
-                                <default-answer>
-                                    <min></min>
-                                    <max></max>
-                                </default-answer>
-                            </range-question>
+                                <choose-from-list-options>
+                                    <option></option>
+                                </choose-from-list-options>
 
+                                <range range-begin="0" range-end="1"></range>
 
-
-                            <grid>
-                                <columns>
-                                    <column></column>
-                                </columns>
-                                <rows>
-                                    <row></row>
-                                </rows>
-                            </grid>
-
-
-                            <dependent-questions>
-                                <dependent-question>
-                                    <question-id></question-id>
-                                    <required-answer></required-answer>
-                                </dependent-question>
-                            </dependent-questions>
-
-
+                                <grid>
+                                    <columns>
+                                        <column></column>
+                                    </columns>
+                                    <rows>
+                                        <row></row>
+                                    </rows>
+                                </grid>
+                            </question>
                         </questions>
                     </group>
                 </groups-of-questions>
