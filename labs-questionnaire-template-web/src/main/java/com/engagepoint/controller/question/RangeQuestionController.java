@@ -1,8 +1,12 @@
 package com.engagepoint.controller.question;
 
+import com.engagepoint.model.question.QuestionBean;
 import com.engagepoint.model.question.RangeQuestionBean;
 import com.engagepoint.controller.page.QuestionEditController;
+import com.engagepoint.model.question.TextQuestionBean;
+import com.engagepoint.model.questionnaire.QuestionType;
 
+import javax.annotation.PostConstruct;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -10,28 +14,37 @@ import javax.inject.Named;
 /**
  * Created by stanislav.sobolev on 2/25/14.
  */
-@Named
+@Named("rangeQuestion")
 @RequestScoped
-public class RangeQuestionController {
+public class RangeQuestionController extends QuestionEditController {
 
-    /*@Inject
-    private QuestionEditController questionEditController;*/
+    private RangeQuestionBean currentQuestion;
 
-    public String getMinValue() {
-        //return ((RangeQuestionBean) questionEditController.getCurrentQuestion()).getMinValue();
-        return "";
+    @PostConstruct
+    public void postConstruct() {
+        QuestionBean questionBean = getTemplateTreeController().getCurrentQuestion(); //TODO duble edit
+        if (questionBean==null) {
+            setNew(true);
+            currentQuestion = new RangeQuestionBean();
+            currentQuestion.setQuestionType(QuestionType.RANGE);
+        }
+        else {
+            currentQuestion = (RangeQuestionBean) questionBean;
+        }
     }
 
-    public void setMinValue(String minValue) {
-        //((RangeQuestionBean) questionEditController.getCurrentQuestion()).setMinValue(minValue);
+    public RangeQuestionBean getCurrentQuestion() {
+        return currentQuestion;
     }
 
-    public String getMaxValue() {
-        //return ((RangeQuestionBean) questionEditController.getCurrentQuestion()).getMaxValue();
-        return "";
+    public void setCurrentQuestion(RangeQuestionBean currentQuestion) {
+        this.currentQuestion = currentQuestion;
     }
 
-    public void setMaxValue(String maxValue) {
-        //((RangeQuestionBean) questionEditController.getCurrentQuestion()).setMaxValue(maxValue);
+    @Override
+    public String actionSave() {
+        getTemplateTreeController().setCurrentQuestion(currentQuestion);
+        return super.actionSave();
     }
+
 }
