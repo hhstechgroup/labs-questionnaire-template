@@ -3,33 +3,84 @@ package com.engagepoint.controller.question;
 
 import com.engagepoint.model.question.OptionsQuestionBean;
 import com.engagepoint.controller.page.QuestionEditController;
+import com.engagepoint.model.question.QuestionBean;
 import com.engagepoint.model.question.utils.VariantItem;
+import com.engagepoint.model.questionnaire.QuestionType;
+import com.engagepoint.model.table.ListOfOptionsDataModel;
 
-import javax.enterprise.context.SessionScoped;
+import javax.annotation.PostConstruct;
+import javax.enterprise.context.Conversation;
+import javax.enterprise.context.ConversationScoped;
+import javax.enterprise.context.RequestScoped;
+import javax.faces.bean.SessionScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
-import java.io.Serializable;
+import java.util.ArrayList;
 
 /**
  * Controller for multiplechoice,checkboxes and choose from a list question types.
  */
 @Named
-@SessionScoped
-public class OptionsQuestionEditController implements Serializable {
+@ConversationScoped
+public class OptionsQuestionEditController extends QuestionEditController {
 
-    /*@Inject
-    private QuestionEditController questionEditController; */
+    //dataModel for table
+    private ListOfOptionsDataModel dataModel;
 
-    public OptionsQuestionBean getBeanItem() {
-        //return ((OptionsQuestionBean) questionEditController.getCurrentQuestion());
-        return new OptionsQuestionBean();
+    private OptionsQuestionBean currentQuestion;
+
+    @Inject
+    Conversation conversation;
+
+    public void beginConversation() {
+        if (conversation.isTransient()) {
+            conversation.begin();
+        }
+    }
+
+    public void endConversation() {
+        if (!conversation.isTransient()) {
+            conversation.end();
+        }
+    }
+
+    @PostConstruct
+    public void postConstruct() {
+        beginConversation();
+        QuestionBean questionBean = getTemplateTreeController().getCurrentQuestion(); //TODO duble edit
+        if (questionBean==null) {
+            setNew(true);
+            currentQuestion = new OptionsQuestionBean();
+            currentQuestion.setQuestionType(QuestionType.CHOOSEFROMLIST);
+            dataModel = new ListOfOptionsDataModel();
+        }
+        else {
+            currentQuestion = (OptionsQuestionBean) questionBean;
+            dataModel = new ListOfOptionsDataModel(currentQuestion.getOptions());
+        }
+    }
+
+    public ListOfOptionsDataModel getDataModel() {
+        return dataModel;
+    }
+
+    public void setDataModel(ListOfOptionsDataModel dataModel) {
+        this.dataModel = dataModel;
+    }
+
+    public OptionsQuestionBean getCurrentQuestion() {
+        return currentQuestion;
+    }
+
+    public void setCurrentQuestion(OptionsQuestionBean currentQuestion) {
+        this.currentQuestion = currentQuestion;
     }
 
     /**
      * Update options in ListOfOptionsDataModel.
      */
     private void updateModel() {
-        //((OptionsQuestionBean) questionEditController.getCurrentQuestion()).getDataModel().setWrappedData(((OptionsQuestionBean) questionEditController.getCurrentQuestion()).getOptions());
+        getDataModel().setWrappedData(getCurrentQuestion().getOptions());
     }
 
     /**
@@ -38,8 +89,8 @@ public class OptionsQuestionEditController implements Serializable {
      * @param option VariantItem object
      */
     public void addOption(String option) {
-        /*((OptionsQuestionBean) questionEditController.getCurrentQuestion()).getOptions().add(new VariantItem(option));
-        updateModel(); */
+        getCurrentQuestion().getOptions().add(new VariantItem("New"));
+        updateModel();
     }
 
     /**
@@ -48,7 +99,26 @@ public class OptionsQuestionEditController implements Serializable {
      * @param option VariantItem object
      */
     public void removeOption(VariantItem option) {
-        /*((OptionsQuestionBean) questionEditController.getCurrentQuestion()).getOptions().remove(option);
-        updateModel();*/
+        getCurrentQuestion().getOptions().remove(option);
+        updateModel();
+    }
+
+    @Override
+    public String actionSave() {
+        try {
+            currentQuestion.setOptions((ArrayList<VariantItem>) dataModel.getWrappedData());
+        }
+        catch (ClassCastException e) {
+            //TODO
+        }
+        getTemplateTreeController().setCurrentQuestion(currentQuestion);
+        endConversation();
+        return super.actionSave();
+    }
+
+    @Override
+    public String actionCancel() {
+        endConversation();
+        return super.actionCancel();
     }
 }

@@ -13,7 +13,7 @@ import javax.inject.Named;
 @RequestScoped
 public class TextQuestionController extends QuestionEditController {
 
-    TextQuestionBean currentQuestion;
+    private TextQuestionBean currentQuestion;
 
     @PostConstruct
     public void postConstruct() {

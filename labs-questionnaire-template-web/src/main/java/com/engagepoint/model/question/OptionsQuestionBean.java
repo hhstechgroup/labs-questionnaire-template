@@ -7,8 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class OptionsQuestionBean extends QuestionBean {
-    //dataModel for table
-    private ListOfOptionsDataModel dataModel;
+
     //list of variants
     private List<VariantItem> options;
     //selected variants
@@ -18,7 +17,6 @@ public class OptionsQuestionBean extends QuestionBean {
 
     public OptionsQuestionBean() {
         this.options = new ArrayList<VariantItem>();
-        dataModel = new ListOfOptionsDataModel(options);
     }
 
     public List<VariantItem> getOptions() {
@@ -43,14 +41,6 @@ public class OptionsQuestionBean extends QuestionBean {
 
     public void setDefaultOption(VariantItem defaultOption) {
         this.defaultOption = defaultOption;
-    }
-
-    public ListOfOptionsDataModel getDataModel() {
-        return dataModel;
-    }
-
-    public void setDataModel(ListOfOptionsDataModel dataModel) {
-        this.dataModel = dataModel;
     }
 
     @Override
