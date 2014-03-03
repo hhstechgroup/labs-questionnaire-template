@@ -1,6 +1,7 @@
 package com.engagepoint.controller.question;
 
 
+import com.engagepoint.controller.page.TemplateEditController;
 import com.engagepoint.model.question.OptionsQuestionBean;
 import com.engagepoint.controller.page.QuestionEditController;
 import com.engagepoint.model.question.QuestionBean;
@@ -11,8 +12,6 @@ import com.engagepoint.model.table.ListOfOptionsDataModel;
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.Conversation;
 import javax.enterprise.context.ConversationScoped;
-import javax.enterprise.context.RequestScoped;
-import javax.faces.bean.SessionScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 import java.util.ArrayList;
@@ -28,6 +27,9 @@ public class OptionsQuestionEditController extends QuestionEditController {
     private ListOfOptionsDataModel dataModel;
 
     private OptionsQuestionBean currentQuestion;
+
+    @Inject
+    TemplateEditController templateEditController;
 
     @Inject
     Conversation conversation;
@@ -51,7 +53,7 @@ public class OptionsQuestionEditController extends QuestionEditController {
         if (questionBean==null) {
             setNew(true);
             currentQuestion = new OptionsQuestionBean();
-            currentQuestion.setQuestionType(QuestionType.CHOOSEFROMLIST);
+            currentQuestion.setQuestionType(templateEditController.getSelectedQuestionType());
             dataModel = new ListOfOptionsDataModel();
         }
         else {
