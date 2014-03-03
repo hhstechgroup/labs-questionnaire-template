@@ -4,7 +4,6 @@ As a template author
 I want to add new sections to questionnaire templates (LQE-4)
 
 Scenario:
-Narrative:
 User can add a new section to the
 template on the template
 creation form.
@@ -26,7 +25,6 @@ When clicks on element with id/name/className 'formTemplate:yes'
 Then should open page with 'Questionnaire Editor' title
 
 Scenario:
-Narrative:
 User can add a new section to the
 template on the template
 editing form.
@@ -47,12 +45,10 @@ When clicks on element with id/name/className 'formTemplate:yes'
 Then should open page with 'Questionnaire Editor' title
 
 Scenario:
-Narrative:
 User can enter some alphanumeric text for
 the section name.
 
 Scenario:
-Narrative:
 Adding new section to template and canceling
 When clicks on element with id/name/className 'form1:AddTemplate'
 Then should open page with 'Template Editor' title
