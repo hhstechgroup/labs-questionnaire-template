@@ -14,13 +14,13 @@ import java.util.Calendar;
 @Named
 @RequestScoped
 public class DateController {
-    @Inject
-    private QuestionEditController questionEditController;
+    /*@Inject
+    private QuestionEditController questionEditController; */
     public Calendar getDefaultAnswer() {
         return Calendar.getInstance();
     }
 
     public void setDefaultAnswer(Calendar defaultAnswer) {
-        ((DateQuestionBean) this.questionEditController.getCurrentQuestion()).setDefaultAnswer(defaultAnswer);
+        //((DateQuestionBean) this.questionEditController.getCurrentQuestion()).setDefaultAnswer(defaultAnswer);
     }
 }

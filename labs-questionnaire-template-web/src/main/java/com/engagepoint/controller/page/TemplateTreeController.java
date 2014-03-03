@@ -7,11 +7,9 @@ import java.util.ArrayList;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
-import javax.inject.Inject;
 import javax.inject.Named;
 
 import com.engagepoint.model.question.QuestionBean;
-import com.engagepoint.controller.question.OptionsQuestionEditController;
 import com.engagepoint.model.questionnaire.BasicBeanProperty;
 import com.engagepoint.model.questionnaire.GroupBean;
 import com.engagepoint.model.questionnaire.SectionBean;
@@ -38,8 +36,6 @@ public class TemplateTreeController implements Serializable {
     private SectionBean currentSection;
     private GroupBean currentGroup;
     private QuestionBean currentQuestion;
-    @Inject
-    private OptionsQuestionEditController optionsQuestionEditController;
 
     public TreeNode getRoot() {
         return root;
@@ -110,24 +106,6 @@ public class TemplateTreeController implements Serializable {
         }
     }
 
-    public String getEditTitle() {
-        if (selectedType.equals("question")) {
-            return "Edit question";
-        } else if (selectedType.equals("group")) {
-            return "Add question";
-        } else {
-            return "Add group";
-        }
-    }
-
-    public String getEditPicture() {
-        if (selectedType.equals("question")) {
-            return "ui-icon-edit";
-        } else {
-            return "ui-icon-add-v2";
-        }
-    }
-
     /**
      * Style of selected node
      */
@@ -138,10 +116,6 @@ public class TemplateTreeController implements Serializable {
             }
         }
         return "";
-    }
-
-    public boolean haveSelected() {
-        return selectedNode != null;
     }
 
     public void setNodes() {
@@ -165,17 +139,6 @@ public class TemplateTreeController implements Serializable {
 
     } // END of setNodes() METHOD
 
-    public String edit() {
-        if (selectedType.equals("question")) {
-            return editQuestion();
-        } else if (selectedType.equals("group")) {
-            return addQuestion();
-        } else {
-            return addGroup();
-        }
-
-    }
-
     /**
      * Create new section and add it to current template.
      *
@@ -195,32 +158,14 @@ public class TemplateTreeController implements Serializable {
      *
      * @return next page
      */
-    private String addGroup() {
+    public String addGroup() {
         GroupBean groupBean = new GroupBean();
         groupBean.setGroupName("GROUP_" + (currentSection.getGroupsList().size() + 1));
         addGroupToCurrentSection(groupBean);
         return null;
     }
 
-    /**
-     * Redirect to questionEdit.xhtml page where new QuestionBean
-     * will be created and edited
-     */
-    private String addQuestion() {
-        if (selectedType.equals("group")) {
-            return QuestionEditController.income();
-        }
-        //TODO ????
-        return null;
-    }
 
-    /**
-     * Redirect to questionEdit.xhtml page where new QuestionBean
-     * will be edited
-     */
-    private String editQuestion() {
-        return null;
-    }
 
     /**
      * Delete selected section, group or question
@@ -237,11 +182,6 @@ public class TemplateTreeController implements Serializable {
         selectedNode = null;
     }
 
-    public void saveQuestion(QuestionBean question){
-        ((GroupBean) this.getSelectedNode().getData()).addToInnerList(question);
-        this.setNodes();
-    }
-
     /**
      * Add group to current section bean
      *
@@ -255,14 +195,26 @@ public class TemplateTreeController implements Serializable {
     }
 
     /**
-     * Add question to current group bean
-     *
-     * @param questionbean
+     * Add current question to current group bean
      */
-    public void addQuestionToCurrentGroup(QuestionBean questionbean) {
-        if (currentGroup != null && !currentGroup.getQuestionsList().contains(questionbean)) {
-            currentGroup.addToInnerList(questionbean);
+    public void addQuestionToCurrentGroup() {
+        if (currentGroup != null) {
+            currentQuestion.setId(getNextQuestionIdInCurrentGroup());
+            currentGroup.addToInnerList(currentQuestion);
             setNodes();
+        }
+    }
+
+    /**
+     * Gets next id for current group
+     * @return QuestionId
+     */
+    public long getNextQuestionIdInCurrentGroup() {
+        if (currentGroup.getQuestionsList().isEmpty()) {
+            return 1L;
+        }
+        else {
+            return ((currentGroup.getQuestionsList().get(currentGroup.getQuestionsList().size()-1)).getId()+1);
         }
     }
 

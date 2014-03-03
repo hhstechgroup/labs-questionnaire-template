@@ -14,22 +14,24 @@ import javax.inject.Named;
 @RequestScoped
 public class RangeQuestionController {
 
-    @Inject
-    private QuestionEditController questionEditController;
+    /*@Inject
+    private QuestionEditController questionEditController;*/
 
     public String getMinValue() {
-        return ((RangeQuestionBean) questionEditController.getCurrentQuestion()).getMinValue();
+        //return ((RangeQuestionBean) questionEditController.getCurrentQuestion()).getMinValue();
+        return "";
     }
 
     public void setMinValue(String minValue) {
-        ((RangeQuestionBean) questionEditController.getCurrentQuestion()).setMinValue(minValue);
+        //((RangeQuestionBean) questionEditController.getCurrentQuestion()).setMinValue(minValue);
     }
 
     public String getMaxValue() {
-        return ((RangeQuestionBean) questionEditController.getCurrentQuestion()).getMaxValue();
+        //return ((RangeQuestionBean) questionEditController.getCurrentQuestion()).getMaxValue();
+        return "";
     }
 
     public void setMaxValue(String maxValue) {
-        ((RangeQuestionBean) questionEditController.getCurrentQuestion()).setMaxValue(maxValue);
+        //((RangeQuestionBean) questionEditController.getCurrentQuestion()).setMaxValue(maxValue);
     }
 }

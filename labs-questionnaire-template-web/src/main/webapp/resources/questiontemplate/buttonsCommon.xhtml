@@ -12,15 +12,12 @@
 
 <composite:implementation>
 
-    <h:form id="buttons">
         <p:commandButton id="savequestion" value="Save question"
                          action="#{cc.attrs.qbuttons.actionSave}"
                          />
-
         <h:outputText value=" "/>
         <p:commandButton id="cancel" value="Cancel" immediate="true"
                          action="#{cc.attrs.qbuttons.actionCancel}"/>
-    </h:form>
 
 </composite:implementation>
 </html>

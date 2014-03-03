@@ -3,22 +3,24 @@
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:p="http://primefaces.org/ui"
                 xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
                 xmlns:ago="http://java.sun.com/jsf/composite/questiontemplate"
+                template="/templates/questionEdit.xhtml">
 
+    <f:metadata>
+        <f:viewParam name="template" value="#{templateController.currentTemplate.id}"/>
+        <f:viewParam name="question" value="#{textQuestion.currentQuestion.id}"/>
+    </f:metadata>
 
-                template="/templates/questionTemplate.xhtml">
-
-
-    <ui:define name="question">
+    <ui:define name="page">
         <h:form id="form2">
-        <ago:questioncommon qb="#{questionController}" id="formWithCommonProps"/>
+            <ago:questioncommon qb="#{textQuestion.currentQuestion}" id="formWithCommonProps"/>
             <h:panelGrid columns="2" style="margin-bottom:10px" cellpadding="5">
                 <h:outputText value="Default answer: "/>
-                <p:inputText size="50" value="#{textQuestionController.defaultAnswer}"/>
+                <p:inputText size="50" value="#{textQuestion.currentQuestion.defaultAnswer}"/>
             </h:panelGrid>
 
-            <ago:buttonsCommon qbuttons="#{questionController}" id="formWithsSaveButtons"/>
-
+            <ago:buttonsCommon qbuttons="#{textQuestion}"/>
 
         </h:form>
     </ui:define>

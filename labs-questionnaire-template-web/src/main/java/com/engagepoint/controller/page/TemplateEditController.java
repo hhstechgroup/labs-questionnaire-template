@@ -1,6 +1,7 @@
 package com.engagepoint.controller.page;
 
 import com.engagepoint.controller.utils.PageNavigator;
+import com.engagepoint.model.questionnaire.QuestionType;
 import com.engagepoint.model.questionnaire.TemplateBean;
 
 import javax.enterprise.context.SessionScoped;
@@ -25,6 +26,8 @@ public class TemplateEditController implements Serializable {
     private TemplateBean currentTemplate; //real template
     private TemplateBean duplicateTemplate; //copy of real template, contains all unsaved changes
 
+    private QuestionType selectedQuestionType;
+
     public TemplateBean getDuplicateTemplate() {
         return duplicateTemplate;
     }
@@ -47,6 +50,15 @@ public class TemplateEditController implements Serializable {
         }
     }
 
+    public QuestionType getSelectedQuestionType() {
+        return selectedQuestionType;
+    }
+
+    public void setSelectedQuestionType(QuestionType selectedQuestionType) {
+        this.selectedQuestionType = selectedQuestionType;
+    }
+
+
     /**
      * Create new template.
      *
@@ -65,6 +77,63 @@ public class TemplateEditController implements Serializable {
      */
     public boolean isNew() {
         return (!listController.getTemplates().contains(currentTemplate));
+    }
+
+    public QuestionType[] getQuestionTypes() {
+        return QuestionType.values();
+    }
+
+    /**
+     * Returns page of current question in dependent
+     * of selected question type
+     *
+     * @return path to page
+     */
+    public String getPageForSelectedQuestionType() {
+        String stab = PageNavigator.STAB_PAGE;
+        if (selectedQuestionType == null) return PageNavigator.NOT_CHOOSE_QUESTION_PAGE;
+        switch (selectedQuestionType) {
+            case TEXT:
+                return PageNavigator.TEXT_QUESTION_PAGE;
+            case DATE:
+                return PageNavigator.DATE_QUESTION_PAGE;
+            case RANGE:
+                return PageNavigator.RANGE_QUESTION_PAGE;
+            case TIME:
+                return PageNavigator.TIME_QUESTION_PAGE;
+            case PARAGRAPHTEXT:
+                return PageNavigator.PARAGRAPH_TEXT_QUESTION_PAGE;
+            case CHOOSEFROMLIST:
+                return PageNavigator.CHOOSE_FROM_LIST_QUESTION_PAGE;
+            case FILEUPLOAD:
+                return PageNavigator.FILE_UPLOAD_QUESTION_PAGE;
+            case MULTIPLECHOICE:
+                return PageNavigator.CHOOSE_FROM_LIST_QUESTION_PAGE;
+            case CHECKBOX:
+                return PageNavigator.CHECKBOX_QUESTION_PAGE;
+            case GRID:
+                return PageNavigator.GRID_QUESTION_PAGE;
+        }
+
+        return stab;
+    }
+
+    /**
+     * Redirect to page of concrete question where new QuestionBean
+     * will be created and edited
+     */
+    public String addQuestion() {
+        templateTreeController.setCurrentQuestion(null);
+        return getPageForSelectedQuestionType();
+    }
+
+    /**
+     * Redirect to page of concrete question where new QuestionBean
+     * will be edited
+     */
+    public String editQuestion() {
+        setSelectedQuestionType(templateTreeController.getCurrentQuestion().getQuestionType());
+        return getPageForSelectedQuestionType();
     }
 
     /**

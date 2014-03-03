@@ -8,7 +8,7 @@ public class PageNavigator {
     //question pages
     public static final String STAB_PAGE = "/pages/question-pages/stab.xhtml";
     public static final String NOT_CHOOSE_QUESTION_PAGE = "/pages/question-pages/notChooseQuestion.xhtml";
-    public static final String TEXT_QUESTION_PAGE = "/pages/question-pages/textQuestion.xhtml";
+    public static final String TEXT_QUESTION_PAGE = "/pages/question-pages/textQuestion.xhtml?faces-redirect=true&includeViewParams=true";
     public static final String DATE_QUESTION_PAGE = "/pages/question-pages/dateQuestion.xhtml";
     public static final String RANGE_QUESTION_PAGE = "/pages/question-pages/rangeQuestion.xhtml";
     public static final String TIME_QUESTION_PAGE = "/pages/question-pages/timeQuestion.xhtml";

@@ -17,18 +17,19 @@ import java.io.Serializable;
 @SessionScoped
 public class OptionsQuestionEditController implements Serializable {
 
-    @Inject
-    private QuestionEditController questionEditController;
+    /*@Inject
+    private QuestionEditController questionEditController; */
 
     public OptionsQuestionBean getBeanItem() {
-        return ((OptionsQuestionBean) questionEditController.getCurrentQuestion());
+        //return ((OptionsQuestionBean) questionEditController.getCurrentQuestion());
+        return new OptionsQuestionBean();
     }
 
     /**
      * Update options in ListOfOptionsDataModel.
      */
     private void updateModel() {
-        ((OptionsQuestionBean) questionEditController.getCurrentQuestion()).getDataModel().setWrappedData(((OptionsQuestionBean) questionEditController.getCurrentQuestion()).getOptions());
+        //((OptionsQuestionBean) questionEditController.getCurrentQuestion()).getDataModel().setWrappedData(((OptionsQuestionBean) questionEditController.getCurrentQuestion()).getOptions());
     }
 
     /**
@@ -37,8 +38,8 @@ public class OptionsQuestionEditController implements Serializable {
      * @param option VariantItem object
      */
     public void addOption(String option) {
-        ((OptionsQuestionBean) questionEditController.getCurrentQuestion()).getOptions().add(new VariantItem(option));
-        updateModel();
+        /*((OptionsQuestionBean) questionEditController.getCurrentQuestion()).getOptions().add(new VariantItem(option));
+        updateModel(); */
     }
 
     /**
@@ -47,7 +48,7 @@ public class OptionsQuestionEditController implements Serializable {
      * @param option VariantItem object
      */
     public void removeOption(VariantItem option) {
-        ((OptionsQuestionBean) questionEditController.getCurrentQuestion()).getOptions().remove(option);
-        updateModel();
+        /*((OptionsQuestionBean) questionEditController.getCurrentQuestion()).getOptions().remove(option);
+        updateModel();*/
     }
 }
