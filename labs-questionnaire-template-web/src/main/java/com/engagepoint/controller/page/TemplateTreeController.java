@@ -96,6 +96,7 @@ public class TemplateTreeController implements Serializable {
                 currentSection = sectionBean;
             }
         } else if (selectedType.equals("group")) {
+            currentQuestion = null;
             currentGroup = (GroupBean) selectedNode.getData();
             //check if current section has not been changed
             SectionBean sectionBean = (SectionBean) selectedNode.getParent().getData();
@@ -103,6 +104,8 @@ public class TemplateTreeController implements Serializable {
                 currentSection = sectionBean;
             }
         } else {
+            currentQuestion = null;
+            currentGroup = null;
             currentSection = (SectionBean) selectedNode.getData();
         }
     }
@@ -232,6 +235,11 @@ public class TemplateTreeController implements Serializable {
         }
         setNodes();
         selectedNode = null;
+    }
+
+    public void saveQuestion(QuestionBean question){
+        ((GroupBean) this.getSelectedNode().getData()).addToInnerList(question);
+        this.setNodes();
     }
 
     /**
