@@ -6,19 +6,18 @@
                 xmlns:f="http://java.sun.com/jsf/core"
                 xmlns:uib="http://engagepoint.com/uib"
                 xmlns:ago="http://java.sun.com/jsf/composite/questiontemplate"
-
-                template="/templates/questionTemplate.xhtml">
+                template="/templates/questionEdit.xhtml">
 
     <f:metadata>
         <f:viewParam name="template" value="#{templateController.currentTemplate.id}"/>
-        <f:viewParam name="question" value="#{templateTreeController.currentQuestion.id}"/>
+        <f:viewParam name="question" value="#{optionsQuestionEditController.currentQuestion.id}"/>
     </f:metadata>
 
-    <ui:define name="question">
+    <ui:define name="page">
 
         <h:form id="form3">
 
-            <ago:questioncommon qb="#{questionController}" id="formWithCommonProps"/>
+            <ago:questioncommon qb="#{optionsQuestionEditController.currentQuestion}" id="formWithCommonProps"/>
 
             <br/>
 
@@ -33,8 +32,8 @@
             <uib:dataTable id="tableOptions"
                            widgetVar="tableOptions"
                            var="option"
-                           value="#{optionsQuestionEditController.beanItem.dataModel}"
-                           selection="#{optionsQuestionEditController.beanItem.defaultOption}"
+                           value="#{optionsQuestionEditController.dataModel}"
+                           selection="#{optionsQuestionEditController.currentQuestion.defaultOption}"
                            editable="true"
                            editMode="cell">
 
@@ -62,7 +61,7 @@
 
             </uib:dataTable>
 
-            <ago:buttonsCommon qbuttons="#{questionController}" id="formWithsSaveButtons"/>
+            <ago:buttonsCommon qbuttons="#{optionsQuestionEditController}" id="formWithsSaveButtons"/>
 
 
         </h:form>

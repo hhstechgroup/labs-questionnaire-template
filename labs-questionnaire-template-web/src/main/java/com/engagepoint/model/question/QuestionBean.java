@@ -1,10 +1,12 @@
 package com.engagepoint.model.question;
 
 
+import com.engagepoint.controller.page.TemplateTreeController;
 import com.engagepoint.model.questionnaire.BasicBeanProperty;
 import com.engagepoint.model.questionnaire.QuestionType;
 import com.engagepoint.model.questionnaire.TemplateBean;
 
+import javax.inject.Inject;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 
@@ -12,19 +14,19 @@ import javax.xml.bind.annotation.XmlElement;
 /**
  * Class represents question tag.
  */
-public abstract class QuestionBean implements Cloneable, BasicBeanProperty {
+public class QuestionBean implements Cloneable, BasicBeanProperty {
     private Long id;					//id of the question
     protected String questionText="";		//questiontext
     private boolean requiredAnswer;		//is answer required or not
     private QuestionType questionType;	//questiontype from ENUM of questiontypes
     private String helpText="";			//Help texts for questions
-    
+
+    @Inject
+    TemplateTreeController templateTreeController;
+
     //Dependent questions
-    
-    private static Long idgenerator = 1L;
-    
+
     public QuestionBean() {
-		id=idgenerator++;
 	}
 
     @XmlElement(name = "question-title")
@@ -82,8 +84,6 @@ public abstract class QuestionBean implements Cloneable, BasicBeanProperty {
         QuestionBean copy = (QuestionBean) super.clone();
         if(TemplateBean.duplicate)
             copy.setId(this.id);
-        else
-            copy.setId(idgenerator++);
         copy.setQuestionType(this.questionType);
         copy.setQuestionText(this.questionText);
         copy.setRequiredAnswer(this.requiredAnswer);

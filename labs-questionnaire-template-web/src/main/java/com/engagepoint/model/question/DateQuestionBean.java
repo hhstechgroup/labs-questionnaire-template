@@ -1,6 +1,7 @@
 package com.engagepoint.model.question;
 
-import java.util.Calendar;
+
+import java.util.Date;
 
 /**
  * Created with IntelliJ IDEA.
@@ -10,13 +11,13 @@ import java.util.Calendar;
  * To change this template use File | Settings | File Templates.
  */
 public class DateQuestionBean extends QuestionBean {
-    private Calendar defaultAnswer;
+    private Date defaultAnswer;
 
-    public Calendar getDefaultAnswer() {
+    public Date getDefaultAnswer() {
         return defaultAnswer;
     }
 
-    public void setDefaultAnswer(Calendar defaultAnswer) {
+    public void setDefaultAnswer(Date defaultAnswer) {
         this.defaultAnswer = defaultAnswer;
     }
 }

@@ -11,15 +11,14 @@
 </composite:interface>
 
 <composite:implementation>
-	<h:panelGrid id="common" columns="2" style="margin-bottom:10px"
-		cellpadding="5">
+    <p:messages id="messages" showDetail="true" autoUpdate="true" closable="true"/>
+	<h:panelGrid id="common" columns="2" style="margin-bottom:10px" cellpadding="5">
 		<h:outputText value="Question text: *" for="qtext" style="white-space:nowrap;"/>
 		<h:panelGroup>
-			<p:inputText size="50" id="qtext" required="true" value="#{cc.attrs.qb.questionText}" >
-				<f:validateLength minimum="1" />
-            </p:inputText>  
+			<p:inputText size="50" id="qtext" value="#{cc.attrs.qb.questionText}" validatorMessage="Fill question text filed !!!">
+				<f:validateLength minimum="1"/>
+            </p:inputText>
 			<br/>
-			<p:message for="qtext" /> 
 		</h:panelGroup>
 		<h:outputText value="Help text: "/>
 		<p:inputText  id="helpText" size="50" value="#{cc.attrs.qb.helpText}" />

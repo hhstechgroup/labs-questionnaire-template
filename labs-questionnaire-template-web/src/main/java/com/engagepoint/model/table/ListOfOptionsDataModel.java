@@ -4,6 +4,7 @@ import com.engagepoint.model.question.utils.VariantItem;
 import org.primefaces.model.SelectableDataModel;
 
 import javax.faces.model.ListDataModel;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -14,6 +15,10 @@ public class ListOfOptionsDataModel extends ListDataModel<VariantItem> implement
 
     public ListOfOptionsDataModel(List<VariantItem> data) {
         super(data);
+    }
+
+    public ListOfOptionsDataModel() {
+        super(new ArrayList<VariantItem>());
     }
 
     @Override

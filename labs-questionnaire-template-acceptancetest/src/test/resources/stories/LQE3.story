@@ -4,7 +4,6 @@ As a template author
 I want to edit questionnaire templates
 
 Scenario:
-Narrative:
 Creating new template
 When the user opens the default page
 Then wait for element 'form1:AddTemplate' is visible
@@ -17,7 +16,6 @@ Then in table 'form1:table' there is a row with 'LQE-3 test'
 
 
 Scenario:
-Narrative:
 User can edit the template and save
 changes.
 When in table 'form1:table' user presses 'Edit' in row with 'LQE-3 test'

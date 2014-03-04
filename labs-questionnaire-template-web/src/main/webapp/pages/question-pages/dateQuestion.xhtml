@@ -5,23 +5,26 @@
                 xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:f="http://java.sun.com/jsf/core"
                 xmlns:ago="http://java.sun.com/jsf/composite/questiontemplate"
+                template="/templates/questionEdit.xhtml">
 
-                template="/templates/questionTemplate.xhtml">
+    <f:metadata>
+        <f:viewParam name="template" value="#{templateController.currentTemplate.id}"/>
+        <f:viewParam name="question" value="#{dateQuestion.currentQuestion.id}"/>
+    </f:metadata>
 
-
-    <ui:define name="question">
+    <ui:define name="page">
 
         <h:form id="form2">
-            <ago:questioncommon qb="#{questionController}" id="date" />
+            <ago:questioncommon qb="#{dateQuestion.currentQuestion}" id="date" />
             <h:panelGrid columns="2" style="margin-bottom:10px" cellpadding="5">
 
 
                 <h:outputText value="Default answer: " />
-                <p:calendar title="calendar" id="calendar" pattern="MM/dd/yyyy" showOn="button" />
+                <p:calendar title="calendar" id="calendar" pattern="MM/dd/yyyy" showOn="button" value="#{dateQuestion.currentQuestion.defaultAnswer}"/>
 
             </h:panelGrid>
 
-            <ago:buttonsCommon qbuttons="#{questionController}" id="formWithsSaveButtons"/>
+            <ago:buttonsCommon qbuttons="#{dateQuestion}" id="formWithsSaveButtons"/>
 
 
         </h:form>

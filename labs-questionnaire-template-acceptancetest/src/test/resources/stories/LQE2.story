@@ -3,7 +3,6 @@ As a template author I want to create new questi
 onnaire templates so that I can use them.
 
 Scenario:
-Narrative:
 User can create a new template by
 clicking Add New Template.
 User can specify the name for the
@@ -22,7 +21,6 @@ Then in table 'form1:table' there is a row with 'LQE-2 test'
 
 
 Scenario:
-Narrative:
 User can save the template, or cancel
 saving.
 When the user opens the default page

@@ -18,15 +18,15 @@ import javax.inject.Inject;
 @FacesValidator(value = "com.engagepoint.model.question.utils.RangeValidator")
 public class RangeValidator implements Validator {
 
-    @Inject
-    private QuestionEditController questionEditController;
+    /*@Inject
+    private QuestionEditController questionEditController;*/
 
     //This method is standart for validator. Name and incoming parameters may not be changed. NEVER.
     @Override
     public void validate(final FacesContext context,final UIComponent component,final Object value) throws ValidatorException {
 
         //We are getting min and max values to compare them. First of all we need to parse them from String to Integer
-        String minValue = ((RangeQuestionBean) questionEditController.getCurrentQuestion()).getMinValue();
+        /*String minValue = ((RangeQuestionBean) questionEditController.getCurrentQuestion()).getMinValue();
         String maxValue = ((RangeQuestionBean) questionEditController.getCurrentQuestion()).getMaxValue();
 
         //This is the parser. Now two values are ready to be compared.
@@ -41,7 +41,7 @@ public class RangeValidator implements Validator {
                 FacesMessage msg = new FacesMessage("Wrong range values. Please type correct numbers.");
                 msg.setSeverity(FacesMessage.SEVERITY_ERROR);
                 throw new ValidatorException(msg);
-            }
+            }  */
 
         }
 

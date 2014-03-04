@@ -1,8 +1,13 @@
 package com.engagepoint.controller.question;
 
+import com.engagepoint.controller.page.TemplateEditController;
 import com.engagepoint.model.question.DateQuestionBean;
 import com.engagepoint.controller.page.QuestionEditController;
+import com.engagepoint.model.question.QuestionBean;
+import com.engagepoint.model.question.TextQuestionBean;
+import com.engagepoint.model.questionnaire.QuestionType;
 
+import javax.annotation.PostConstruct;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -11,16 +16,37 @@ import java.util.Calendar;
 /**
  * Created by anton.kovunov on 2/25/14.
  */
-@Named
+@Named("dateQuestion")
 @RequestScoped
-public class DateController {
+public class DateController extends QuestionEditController {
     @Inject
-    private QuestionEditController questionEditController;
-    public Calendar getDefaultAnswer() {
-        return Calendar.getInstance();
+    TemplateEditController templateEditController;
+    private DateQuestionBean currentQuestion;
+
+    @PostConstruct
+    public void postConstruct() {
+        QuestionBean questionBean = getTemplateTreeController().getCurrentQuestion(); //TODO duble edit
+        if (questionBean==null) {
+            setNew(true);
+            currentQuestion = new DateQuestionBean();
+            currentQuestion.setQuestionType(templateEditController.getSelectedQuestionType());
+        }
+        else {
+            currentQuestion = (DateQuestionBean) questionBean;
+        }
     }
 
-    public void setDefaultAnswer(Calendar defaultAnswer) {
-        ((DateQuestionBean) this.questionEditController.getCurrentQuestion()).setDefaultAnswer(defaultAnswer);
+    public DateQuestionBean getCurrentQuestion() {
+        return currentQuestion;
+    }
+
+    public void setCurrentQuestion(DateQuestionBean currentQuestion) {
+        this.currentQuestion = currentQuestion;
+    }
+
+    @Override
+    public String actionSave() {
+        getTemplateTreeController().setCurrentQuestion(currentQuestion);
+        return super.actionSave();
     }
 }
