@@ -91,4 +91,48 @@ public class JBehaveSteps {
         }
         assertNull(row);
     }
+
+    @Then("the checkbox id/name/className '$id' is checked")
+    public void thenTheCheckBoxIsOn(String id) {
+        try {
+            WebElement checkedCheckBox = uIBootstrapBasePage.getDriver().findElement(By.xpath("//*[@id='"+id+"']//*[contains(@class,'ui-icon-check')]"));
+            assertTrue(true);
+        }
+        catch(Exception e) {
+            assertTrue(false);
+        }
+
+    }
+
+    @Then("the checkbox id/name/className '$id' is unchecked")
+    public void thenTheCheckBoxIsOff(String id) {
+        try {
+            WebElement checkedCheckBox = uIBootstrapBasePage.getDriver().findElement(By.xpath("//*[@id='"+id+"']//*[contains(@class,'ui-icon-check')]"));
+            assertTrue(false);
+        }
+        catch(Exception e) {
+            assertTrue(true);
+        }
+    }
+
+    @When("the checkbox id/name/className '$id' is checked uncheck it")
+    public void whenTheCheckBoxIsOnMakeItUnchecked(String id) {
+        try {
+            WebElement checkedCheckBox = uIBootstrapBasePage.getDriver().findElement(By.xpath("//*[@id='"+id+"']//*[contains(@class,'ui-icon-check')]"));
+            checkedCheckBox.click();
+        }
+        catch(Exception e) {
+        }
+    }
+
+    @When("the checkbox id/name/className '$id' is unchecked check it")
+    public void whenTheCheckBoxIsOffMakeItChecked(String id) {
+        try {
+            WebElement checkedCheckBox = uIBootstrapBasePage.getDriver().findElement(By.xpath("//*[@id='"+id+"']//*[contains(@class,'ui-icon-check')]"));
+        }
+        catch(Exception e) {
+            WebElement uncheckedCheckBox = uIBootstrapBasePage.getDriver().findElement(By.xpath("//*[@id='"+id+"']"));
+            uncheckedCheckBox.click();
+        }
+    }
 }
