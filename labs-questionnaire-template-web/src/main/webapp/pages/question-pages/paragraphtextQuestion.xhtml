@@ -3,24 +3,26 @@
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:p="http://primefaces.org/ui"
                 xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
                 xmlns:ago="http://java.sun.com/jsf/composite/questiontemplate"
+                template="/templates/questionEdit.xhtml">
 
-                template="/templates/questionTemplate.xhtml">
+    <f:metadata>
+        <f:viewParam name="template" value="#{templateController.currentTemplate.id}"/>
+        <f:viewParam name="question" value="#{textQuestion.currentQuestion.id}"/>
+    </f:metadata>
 
-
-<ui:define name="question">
-
-
-        <h:form id="form4">
-            <ago:questioncommon qb="#{questionController}" id="formWithCommonProps"/>
-            <h:panelGrid columns="1" style="margin-bottom:10px" cellpadding="5">
-                <h:outputText value="Default answer: " />
-                <p:inputTextarea rows="8" cols="5555" value="#{textQuestionController.defaultAnswer}" />
+    <ui:define name="page">
+        <h:form id="form2">
+            <ago:questioncommon qb="#{textQuestion.currentQuestion}" id="formWithCommonProps"/>
+            <h:panelGrid columns="2" style="margin-bottom:10px" cellpadding="5">
+                <h:outputText value="Default answer: "/>
+                <p:inputTextarea rows="8" cols="555" value="#{textQuestion.currentQuestion.defaultAnswer}" />
             </h:panelGrid>
 
-            <ago:buttonsCommon qbuttons="#{questionController}" id="formWithsSaveButtons"/>
+            <ago:buttonsCommon qbuttons="#{textQuestion}" id="formWithSaveButtons"/>
 
         </h:form>
-
     </ui:define>
+
 </ui:composition>
