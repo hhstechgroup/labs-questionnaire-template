@@ -1,4 +1,4 @@
-As a template author I want to add “Date"
+As a template author I want to add “TIME"
 questions to question groups so that the
 template meets my needs.
 Scenario:
@@ -13,38 +13,39 @@ When clicks on element with id/name/className 'formTemplate:form:addSection'
 Then verify that in table 'formTemplate:form:treeMultiple' is displayed '1' elements per page
 When in tree 'formTemplate:form:treeMultiple' user chooses node with 'Page 1'
 Then wait until all animations on page completed
-When clicks on element with id/name/className 'formTemplate:form:btnDisplayEdit'
+When clicks on element with id/name/className 'formTemplate:form:btnDisplayAddGroup'
 Then wait until all animations on page completed
 When in tree 'formTemplate:form:treeMultiple' user opens node with 'Page 1'
 Then verify that in table 'formTemplate:form:treeMultiple' is displayed '2' elements per page
 When in tree 'formTemplate:form:treeMultiple' user chooses node with 'GROUP_1'
-When clicks on element with id/name/className 'formTemplate:form:btnDisplayEdit'
+When clicks on element with id/name/className 'formTemplate:form:btnDisplayAddQuestion'
 Then wait until all animations on page completed
 Scenario:
 Narrative:
-User can select "Date" in the Question
+User can select "TIME" in the Question
 Type drop-down list.
 
 When clicks on element with id/name/className 'form:selectOneMenu_label'
 Then wait until all animations on page completed
 When choose 'TIME' from drop-down
+When clicks on element with id/name/className 'formTemplate:form:create'
 Then wait until all animations on page completed
 Scenario:
 Narrative:
 User can enter some text and default date answer for the question
 in the Question Text field
 
-When the user fills 'questionForm:form2:time:qtext' field with 'Test text'
+When the user fills 'form2:time:qtext' field with 'Test text'
 Then wait until all animations on page completed
-When the user fills 'questionForm:form2:time:helpText' field with 'Test text'
-When the user fills 'questionForm:form2:calendar_input' field with '09:14'
+When the user fills 'form2:time:helpText' field with 'Test text'
+When the user fills 'form2:calendar_input' field with '09:14'
 
 Scenario:
 Narrative:
 User can save the
 template with added
 questions.
-When the user clicks on element with id/name/className 'buttons:savequestion'
+When the user clicks on element with id/name/className 'form2:formWithsSaveButtons:savequestion'
 Then wait until all animations on page completed
 When in tree 'formTemplate:form:treeMultiple' user opens node with 'Page 1'
 When in tree 'formTemplate:form:treeMultiple' user opens node with 'GROUP_1'
