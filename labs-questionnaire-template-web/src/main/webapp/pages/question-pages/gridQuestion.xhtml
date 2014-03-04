@@ -6,40 +6,39 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:uib="http://engagepoint.com/uib"
 	xmlns:ago="http://java.sun.com/jsf/composite/questiontemplate"
-	template="/templates/questionTemplate.xhtml">
+	template="/templates/questionEdit.xhtml">
 
 	<f:metadata>
 		<f:viewParam name="template"
 			value="#{templateController.currentTemplate.id}" />
 		<f:viewParam name="question"
-			value="#{templateTreeController.currentQuestion.id}" />
+			value="#{optionsQuestionEditController.currentQuestion.id}" />
 	</f:metadata>
 
-	<ui:define name="question">
+	<ui:define name="page">
 
 		<h:form id="form3">
 
-			<ago:questioncommon qb="#{questionController}"
+			<ago:questioncommon qb="#{gridQuestionController.currentQuestion}"
 				id="formWithCommonProps" />
 
 			<br />
-			<h:outputText value="EDIT COLUMNS" for="tableColumns" />
 
+			
+
+			<h:outputText value="PLEASE FILL IN THE COLUMNS" />
 			<br />
-
-			<p:commandButton value="Add Column" id="AddColumn"
-				action="#{optionsQuestionEditController.addOption('New')}"
-				update="tableColumns" immediate="true" styleClass="fl-right">
+			<p:commandButton value="Add Column" id="AddOption"
+				action="#{gridQuestionController.addOption('New')}"
+				update="tableOptions" immediate="true" styleClass="fl-right">
 			</p:commandButton>
-
-			<uib:dataTable id="tableColumns" widgetVar="tableColumns"
-				var="option"
-				value="#{optionsQuestionEditController.beanItem.dataModel}"
-				selection="#{optionsQuestionEditController.beanItem.defaultOption}"
+			<uib:dataTable id="tableOptions" widgetVar="tableOptions"
+				var="option" value="#{gridQuestionController.dataModel}"
+				selection="#{gridQuestionController.currentQuestion.defaultOption}"
 				editable="true" editMode="cell">
 
 				<uib:column headerText="Default" selectionMode="single" />
-				<uib:column headerText="Options">
+				<uib:column headerText="Columns">
 					<p:cellEditor>
 						<f:facet name="output">
 							<h:outputText value="#{option.value}" />
@@ -52,49 +51,47 @@
 
 				<uib:column>
 					<p:commandButton value="Delete" id="DeleteOption"
-						action="#{optionsQuestionEditController.removeOption(option)}"
-						update="tableColumns" styleClass="fl-right">
+						action="#{gridQuestionController.removeOption(option)}"
+						update="tableOptions" styleClass="fl-right">
 					</p:commandButton>
 				</uib:column>
 
 			</uib:dataTable>
-
 			<br />
+			<h:outputText value="PLEASE FILL IN THE ROWS" />
 			<br />
-			<h:outputText value="EDIT ROWS" for="tableRows" />
-			<br />
-
-			<p:commandButton value="Add row" id="AddOption"
-				action="#{optionsQuestionEditController.addOption('New')}"
-				update="tableRows" immediate="true" styleClass="fl-right">
+			<p:commandButton value="Add Row" id="AddOption2"
+				action="#{gridQuestionController.addOption2('New')}"
+				update="tableOptions2" immediate="true" styleClass="fl-right">
 			</p:commandButton>
-
-			<uib:dataTable id="tableRows" widgetVar="tableRows" var="option"
-				value="#{optionsQuestionEditController.beanItem.dataModel}"
-				selection="#{optionsQuestionEditController.beanItem.defaultOption}"
+			<uib:dataTable id="tableOptions2" widgetVar="tableOptions2"
+				var="option2" value="#{gridQuestionController.dataModel2}"
+				selection="#{gridQuestionController.currentQuestion.defaultOption2}"
 				editable="true" editMode="cell">
 
 				<uib:column headerText="Default" selectionMode="single" />
-				<uib:column headerText="Options">
+				<uib:column headerText="Rows">
 					<p:cellEditor>
 						<f:facet name="output">
-							<h:outputText value="#{option.value}" />
+							<h:outputText value="#{option2.value}" />
 						</f:facet>
 						<f:facet name="input">
-							<p:inputText value="#{option.value}" style="width:100%" />
+							<p:inputText value="#{option2.value}" style="width:100%" />
 						</f:facet>
 					</p:cellEditor>
 				</uib:column>
 
 				<uib:column>
-					<p:commandButton value="Delete" id="DeleteOption"
-						action="#{optionsQuestionEditController.removeOption(option)}"
-						update="tableRows" styleClass="fl-right">
+					<p:commandButton value="Delete" id="DeleteOption2"
+						action="#{gridQuestionController.removeOption2(option2)}"
+						update="tableOptions2" styleClass="fl-right">
 					</p:commandButton>
 				</uib:column>
 
 			</uib:dataTable>
 
+			<ago:buttonsCommon qbuttons="#{gridQuestionController}"
+				id="formWithsSaveButtons" />
 
 
 		</h:form>

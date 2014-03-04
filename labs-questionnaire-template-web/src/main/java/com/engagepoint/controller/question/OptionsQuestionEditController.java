@@ -29,10 +29,10 @@ public class OptionsQuestionEditController extends QuestionEditController {
     private OptionsQuestionBean currentQuestion;
 
     @Inject
-    TemplateEditController templateEditController;
+    private TemplateEditController templateEditController;
 
     @Inject
-    Conversation conversation;
+    private Conversation conversation;
 
     public void beginConversation() {
         if (conversation.isTransient()) {

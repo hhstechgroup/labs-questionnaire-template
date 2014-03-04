@@ -14,11 +14,7 @@ import javax.inject.Named;
 @Named("questionController")
 public abstract class QuestionEditController implements Serializable {
 
-    /**
-     *
-     */
-    private static final long serialVersionUID = 1L;
-
+   
     boolean isNew=false;
 
     public boolean isNew() {
