@@ -1,4 +1,4 @@
-GivenStories: base_stories/createGroupInNewTemplate.story
+GivenStories: base_stories/template/tree/createGroupInNewTemplate.story
 Scenario:
 Create question in new group of new section of new template
 Given question type
