@@ -14,7 +14,7 @@ GivenStories: base_stories/template/addTemplate.story,
               base_stories/template/tree/deleteSection.story
 Then verify that in table 'formTemplate:form:treeMultiple' is displayed '1' elements per page
 
-Scenario: Create new template, add 2 sections and delete 1 section
+Scenario: Save template and delete 1 section
 Meta: @testName         LQE-5 test
       @sectionName      Page 2
 GivenStories: base_stories/template/saveTemplate.story,
