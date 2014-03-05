@@ -6,7 +6,7 @@ import com.engagepoint.model.question.utils.VariantItem;
 import java.util.ArrayList;
 import java.util.List;
 
-public class OptionsQuestionBean extends QuestionBean {
+public class OptionsQuestionBean extends QuestionBean implements Cloneable {
 
     //list of variants
     private List<VariantItem> options;
@@ -44,10 +44,35 @@ public class OptionsQuestionBean extends QuestionBean {
     }
 
     @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof OptionsQuestionBean)) return false;
+        if (!super.equals(o)) return false;
+
+        OptionsQuestionBean that = (OptionsQuestionBean) o;
+
+        if (!defaultOption.equals(that.defaultOption)) return false;
+        if (!defaultOptions.equals(that.defaultOptions)) return false;
+        if (!options.equals(that.options)) return false;
+
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = super.hashCode();
+        result = 31 * result + options.hashCode();
+        result = 31 * result + defaultOptions.hashCode();
+        result = 31 * result + defaultOption.hashCode();
+        return result;
+    }
+
+    @Override
     public Object clone() throws CloneNotSupportedException {
         OptionsQuestionBean copy = (OptionsQuestionBean) super.clone();
         copy.setOptions(this.options);
         copy.setDefaultOption(this.defaultOption);
+        copy.setDefaultOptions(this.defaultOptions);
         return copy;
     }
 }

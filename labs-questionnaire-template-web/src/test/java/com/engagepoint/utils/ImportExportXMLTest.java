@@ -1,5 +1,21 @@
 package com.engagepoint.utils;
 
+import com.engagepoint.controller.page.FileController;
+import com.engagepoint.model.question.QuestionBean;
+import com.engagepoint.model.questionnaire.GroupBean;
+import com.engagepoint.model.questionnaire.QuestionType;
+import com.engagepoint.model.questionnaire.SectionBean;
+import com.engagepoint.model.questionnaire.TemplateBean;
+import org.junit.Assert;
+import org.junit.Test;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created with IntelliJ IDEA.
  * User: anton.kovunov
@@ -8,8 +24,8 @@ package com.engagepoint.utils;
  * To change this template use File | Settings | File Templates.
  */
 public class ImportExportXMLTest {
-   /* @Test
-    public void testEqualityXML() throws FileNotFoundException {
+    @Test
+    public void testEqualityXML() throws FileNotFoundException, FileNotFoundException {
         QuestionBean bean = new QuestionBean("blah",false, QuestionType.CHECKBOX);
         QuestionBean eqBean = new QuestionBean("blah",true, QuestionType.CHECKBOX);
         //---------------------------------1---------------------------------------
@@ -86,5 +102,5 @@ public class ImportExportXMLTest {
         List<TemplateBean> newTempsList = new ArrayList<TemplateBean>();
         newTempsList.addAll(XmlImportExport.importXmlTemplate(stream));
         Assert.assertTrue(tempList.equals(newTempsList));
-    }*/
+    }
 }

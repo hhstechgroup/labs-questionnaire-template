@@ -2,6 +2,7 @@ package com.engagepoint.controller;
 
 import com.engagepoint.model.questionnaire.TemplateBean;
 import com.engagepoint.controller.page.ListController;
+import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -17,9 +18,9 @@ import java.util.List;
  * To change this template use File | Settings | File Templates.
  */
 public class ListControllerTest {
-    /*private ListController testListController = new ListController();
+    private ListController testListController = new ListController();
     private List<TemplateBean> templateBeanList = new ArrayList<TemplateBean>();
-    private List<TemplateBean>secondTemplateBeanList = new ArrayList<TemplateBean>();
+    private List<TemplateBean> secondTemplateBeanList = new ArrayList<TemplateBean>();
     @Before
    public void creator(){
         for (long i = 0; i < 10; i++) {
@@ -55,14 +56,18 @@ public class ListControllerTest {
     @Test
     public void shouldDeleteTemplate(){
 
-        TemplateBean templateBean =new TemplateBean();
-        templateBean.setId(15L);
-        templateBeanList.add(templateBean);
+        TemplateBean template1 =new TemplateBean();
+        template1.setId(15L);
+        template1.setTemplateName("blahblah");
+        templateBeanList.add(template1);
 
-        System.out.println(templateBeanList.size());
+        for (int i = 0; i < templateBeanList.size() ; i++) {
+            if (templateBeanList.get(i).getTemplateName().equals("blahblah")){
+                templateBeanList.remove(i);
+            }
 
-        templateBeanList.remove(10);
-        Assert.assertTrue("", !testListController.getTemplates().contains(templateBean));
+        }
+        Assert.assertTrue("Pacan, test zahodit norm", !templateBeanList.contains(template1));
 
     }
     @Test
@@ -109,5 +114,5 @@ public class ListControllerTest {
 
     }
 
-*/
+
 }

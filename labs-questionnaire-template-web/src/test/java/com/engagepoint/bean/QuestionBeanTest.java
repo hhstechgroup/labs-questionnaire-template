@@ -1,6 +1,8 @@
 package com.engagepoint.bean;
 
 
+import com.engagepoint.model.question.QuestionBean;
+import com.engagepoint.model.questionnaire.QuestionType;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -9,7 +11,7 @@ import org.junit.Test;
  */
 public class QuestionBeanTest {
 
-   /* @Test
+    @Test
     public void testCloneQuestionBean() throws CloneNotSupportedException {
         QuestionBean bean = new QuestionBean("blah",true,QuestionType.CHOOSEFROMLIST);
 
@@ -21,6 +23,6 @@ public class QuestionBeanTest {
         QuestionBean eqBean = new QuestionBean("blah",true, QuestionType.CHECKBOX);
         Assert.assertTrue(bean.equals(eqBean));
 
-    }*/
+    }
 
 }
