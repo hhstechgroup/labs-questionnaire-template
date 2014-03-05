@@ -18,8 +18,6 @@ When the user fills 'form2:formWithCommonProps:qtext' field with 'Test text LQE-
 Then element 'form2:formWithCommonProps:qtext' has attribute value 'Test text LQE-8'
 When the user fills 'form2:formWithCommonProps:helpText' field with 'Help text LQE-8'
 Then element 'form2:formWithCommonProps:helpText' has attribute value 'Help text LQE-8'
-When the checkbox id/name/className 'form2:formWithCommonProps:required' is unchecked check it
-Then the checkbox id/name/className 'form2:formWithCommonProps:required' is checked
 
 Scenario:
 User can save the template with added questions.
@@ -38,13 +36,11 @@ When clicks on element with id/name/className 'formTemplate:form:btnDisplayEditQ
 Then should open page with 'Question Editor' title
 Then element 'form2:formWithCommonProps:qtext' has attribute value 'Test text LQE-8'
 Then element 'form2:formWithCommonProps:helpText' has attribute value 'Help text LQE-8'
-Then the checkbox id/name/className 'form2:formWithCommonProps:required' is checked
 When the user fills 'form2:formWithCommonProps:qtext' field with 'Test text LQE-8 edit'
 Then element 'form2:formWithCommonProps:qtext' has attribute value 'Test text LQE-8 edit'
 When the user fills 'form2:formWithCommonProps:helpText' field with 'Help text LQE-8 edit'
 Then element 'form2:formWithCommonProps:helpText' has attribute value 'Help text LQE-8 edit'
-When the checkbox id/name/className 'form2:formWithCommonProps:required' is checked uncheck it
-Then the checkbox id/name/className 'form2:formWithCommonProps:required' is unchecked
+
 When clicks on element with id/name/className 'form2:formWithSaveButtons:savequestion'
 
 Then should open page with 'Template Editor' title
