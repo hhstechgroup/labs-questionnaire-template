@@ -27,6 +27,7 @@ public class JBehaveSteps {
     private String sectionName;
     private String groupName;
     private String questionName;
+    private String optionName;
 
     @Steps
     private JbehaveBaseSteps jbehaveBase;
@@ -225,6 +226,11 @@ public class JBehaveSteps {
         this.questionName = questionName;
     }
 
+    @Given("name of option")
+    public void givenOptionName(@Named("optionName") String optionName) {
+        this.optionName = optionName;
+    }
+
     @When("in tree '$treeId' user chooses section")
     public void whenInTreeChoosesSection(String treeId) {
         WebElement tableElement = getTableElement(treeId);
@@ -266,6 +272,27 @@ public class JBehaveSteps {
         }
         catch (Exception e) {
         }
+    }
+
+    @When("in table '$tableId' user chooses option name New")
+    public void whenInTableChoosesRowWithOptionName(String tableId) {
+        WebElement tableElement = getTableElement(tableId);
+        WebElement option = tableElement.findElement(By.xpath(".//td[.//*[contains(text(),'New')]]")); //TODO: bind path to table
+        option.click();
+    }
+
+    @When("in table '$tableId' user fills option name")
+    public void whenInTableChoosesRowWithText(String tableId) {
+        WebElement tableElement = getTableElement(tableId);
+        WebElement optionInput = tableElement.findElement(By.xpath(".//*[.//*[contains(text(),'New')]]/div/div/input")); //TODO: bind path to table
+        uIBootstrapBasePage.enter(optionName).into(optionInput);
+    }
+
+    @Then("in table '$tableId' there is a row with option name")
+    public void thenInTableThereIsOptionName(String tableId) {
+        WebElement tableElement = getTableElement(tableId);
+        WebElement row = tableElement.findElement(By.xpath(".//td[.//*[contains(text(),'"+optionName+"')]]")); //TODO: bind path to table
+        assertTrue(row.isDisplayed());
     }
 
 }
