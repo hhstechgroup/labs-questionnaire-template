@@ -2,58 +2,27 @@ Narrative:
 As a template author I want to access the system
 so that I can view the list of existing questionnaire templates.
 
-Scenario:
-User can access the application with the
-Questionnaire Templates page displayed by default.
-When the user opens the default page
-Then should open page with 'Questionnaire Editor' title
-Then wait for element 'form1:table' is visible
+GivenStories: base_stories/openDefaultPage.story
+Scenario: create templates and check if page lists
+          questionnaire templates by name and sorted alphabetically.
 
-Scenario:
-Following actions are available on the list
-records: Add New Template
-Then wait for element 'form1:AddTemplate' is visible
-
-Scenario:
-The page lists questionnaire templates by
-Name and sorted alphabetically.
+Given name of current test
 When clicks on element with id/name/className 'form1:AddTemplate'
 Then should open page with 'Template Editor' title
-When the user fills 'formTemplate:name' field with 'LQE-1 test 5'
+When the user fills 'formTemplate:name' field with testName
+Then wait until all animations on page completed
 When clicks on element with id/name/className 'formTemplate:save'
 Then should open page with 'Questionnaire Editor' title
-
-When clicks on element with id/name/className 'form1:AddTemplate'
-Then should open page with 'Template Editor' title
-When the user fills 'formTemplate:name' field with 'LQE-1 test 2'
-When clicks on element with id/name/className 'formTemplate:save'
-Then should open page with 'Questionnaire Editor' title
-
-When clicks on element with id/name/className 'form1:AddTemplate'
-Then should open page with 'Template Editor' title
-When the user fills 'formTemplate:name' field with 'LQE-1 test 4'
-When clicks on element with id/name/className 'formTemplate:save'
-Then should open page with 'Questionnaire Editor' title
-
-When clicks on element with id/name/className 'form1:AddTemplate'
-Then should open page with 'Template Editor' title
-When the user fills 'formTemplate:name' field with 'LQE-1 test 3'
-When clicks on element with id/name/className 'formTemplate:save'
-Then should open page with 'Questionnaire Editor' title
-
-When clicks on element with id/name/className 'form1:AddTemplate'
-Then should open page with 'Template Editor' title
-When the user fills 'formTemplate:name' field with 'LQE-1 test 6'
-When clicks on element with id/name/className 'formTemplate:save'
-Then should open page with 'Questionnaire Editor' title
-
-When clicks on element with id/name/className 'form1:AddTemplate'
-Then should open page with 'Template Editor' title
-When the user fills 'formTemplate:name' field with 'LQE-1 test 1'
-When clicks on element with id/name/className 'formTemplate:save'
-Then should open page with 'Questionnaire Editor' title
-
 Then verify that in table 'form1:table' elements in column 'Name' is sorted by 'Ascending'
+
+Examples:
+|testName    |
+|LQE-1 test 5|
+|LQE-1 test 2|
+|LQE-1 test 4|
+|LQE-1 test 3|
+|LQE-1 test 6|
+|LQE-1 test 1|
 
 Scenario:
 Following actions are available on the list

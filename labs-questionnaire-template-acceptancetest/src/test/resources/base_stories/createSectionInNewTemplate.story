@@ -1,4 +1,4 @@
-GivenStories: stories/createAndStartEditTemplateForStory.story
+GivenStories: base_stories/createAndStartEditTemplateForStory.story
 
 Scenario: Create section in new template
 
