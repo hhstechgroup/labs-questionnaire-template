@@ -8,7 +8,7 @@ Meta: @testName         LQE-8
       @questionType     TEXT
       @questionText     Question text LQE-8
       @helpText         Help text LQE-8
-GivenStories: base_stories/template/tree/createQuestionInNewTemplate.story,
+GivenStories: base_stories/template/tree/addQuestion.story,
               base_stories/question/fillCommonPropertiesInQuestion.story
 When the checkbox id/name/className 'form2:formWithCommonProps:required' is unchecked make it checked
 When the user fills 'form2:defaultAnswer' field with 'Default answer LQE-8'

@@ -1,6 +1,5 @@
-GivenStories: base_stories/template/tree/createSectionInNewTemplate.story
 Scenario:
-Create group in new section of new template
+Create group in section
 When clicks on element with id/name/className 'formTemplate:form:btnDisplayAddGroup'
 Then wait until all animations on page completed
 When in tree 'formTemplate:form:treeMultiple' user opens node with 'Page 1'

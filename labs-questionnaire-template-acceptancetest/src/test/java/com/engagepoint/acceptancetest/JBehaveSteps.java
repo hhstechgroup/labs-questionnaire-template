@@ -24,6 +24,7 @@ public class JBehaveSteps {
     private String questionType;
     private String questionText;
     private String helpText;
+    private String sectionName;
 
     @Steps
     private JbehaveBaseSteps jbehaveBase;
@@ -206,4 +207,17 @@ public class JBehaveSteps {
     public void verifyThatElementHasValueOfHelpText(String id) {
         assertThat(uIBootstrapBasePage.element(jbehaveBase.findVisibleElementAndGetSelector(id)).getValue(), is(equalTo(helpText)));
     }
+
+    @Given("name of section")
+    public void givenSectionName(@Named("sectionName") String sectionName) {
+        this.sectionName = sectionName;
+    }
+
+    @When("in tree '$treeId' user chooses section")
+    public void whenInTreeChoosesNodeWithText(String treeId) {
+        WebElement tableElement = getTableElement(treeId);
+        WebElement row = tableElement.findElement(By.xpath(".//*[contains(@class,'ui-treetable-selectable-node')]//*[contains(text(),'"+sectionName+"')]"));
+        row.click();
+    }
+
 }
