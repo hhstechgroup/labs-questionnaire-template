@@ -59,6 +59,13 @@ public class JBehaveSteps {
         row.click();
     }
 
+    @When("in table '$tableId' user presses '$buttonText' in row with <testName>")
+    public void whenInTableChoosesRowWithTestName(String tableId, String buttonText) {
+        WebElement tableElement = getTableElement(tableId);
+        WebElement row = tableElement.findElement(By.xpath("//*[.//td[contains(text(),'"+testName+"')]]//*[@title='"+buttonText+"']")); //TODO: bind path to table
+        row.click();
+    }
+
     @When("in tree '$treeId' user opens node with '$text'")
     public void whenInTreeOpensNodeWithText(String treeId, String nodeText) {
         WebElement tableElement = getTableElement(treeId);

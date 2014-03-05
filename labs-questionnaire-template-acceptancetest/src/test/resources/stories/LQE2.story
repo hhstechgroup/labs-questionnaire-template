@@ -1,7 +1,8 @@
 Narrative:
-As a template author I want to create new questi
-onnaire templates so that I can use them.
+As a template author I want to create new
+questionnaire templates so that I can use them.
 
+GivenStories: base_stories/openDefaultPage.story
 Scenario:
 Create and save template.
 Meta: @testName         LQE-2 test

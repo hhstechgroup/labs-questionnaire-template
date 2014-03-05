@@ -1,4 +1,3 @@
-GivenStories: base_stories/openDefaultPage.story
 Scenario:
 Create template
 Given name of current test
