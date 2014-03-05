@@ -1,5 +1,6 @@
 package com.engagepoint.mock;
 
+import com.engagepoint.model.question.utils.VariantItem;
 import com.engagepoint.model.questionnaire.GroupBean;
 import com.engagepoint.model.questionnaire.QuestionType;
 import com.engagepoint.model.questionnaire.SectionBean;
@@ -8,6 +9,7 @@ import com.engagepoint.model.question.*;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 
@@ -41,24 +43,31 @@ public class MockTemplate {
 
         switch (selectedQuestionType) {
             case TEXT:
+                question =  new TextQuestionBean();
                 TextQuestionBean tb =(TextQuestionBean)question;
                 tb.setDefaultAnswer("i don't know");
                 creator(question);
                 return question;
             case DATE:
+                question = new DateQuestionBean();
                 DateQuestionBean dateQuestionBean = (DateQuestionBean)question;
 
+                dateQuestionBean.setDefaultAnswer(new Date());
                 creator(question);
 
                 return question;
             case RANGE:
                 question = new RangeQuestionBean();
+                RangeQuestionBean rangeQuestionBean = (RangeQuestionBean)question;
+                rangeQuestionBean.setMaxValue("do not need");
+                rangeQuestionBean.setMinValue("help");
                 creator(question);
 
                 return question;
             case TIME:
+                question = new DateQuestionBean();
                 DateQuestionBean timeQuestionBean = (DateQuestionBean)question;
-
+                timeQuestionBean.setDefaultAnswer(new Date());
                 creator(question);
                 return question;
             case PARAGRAPHTEXT:
@@ -69,18 +78,32 @@ public class MockTemplate {
 
             case CHOOSEFROMLIST:
                 question = new OptionsQuestionBean();
+                OptionsQuestionBean choose = (OptionsQuestionBean)question;
+                VariantItem variantItem = new  VariantItem();
+                variantItem.setValue("nice");
+                choose.setDefaultOption(variantItem);
+                List<VariantItem>variantItemList = new ArrayList<VariantItem>();
+                variantItemList.add(variantItem);
+                choose.setOptions(variantItemList);
                 creator(question);
 
                 return question;
             case FILEUPLOAD:
-                TextQuestionBean temp =(TextQuestionBean)question;
-                temp.setDefaultAnswer("i don't know");
+                question = new TextQuestionBean();
                 creator(question);
                 return question;
 
             case MULTIPLECHOICE:
                 question = new OptionsQuestionBean();
                 creator(question);
+                OptionsQuestionBean multiple = (OptionsQuestionBean)question;
+                VariantItem variant = new  VariantItem();
+                variant.setValue("nice");
+
+                List<VariantItem>variantList = new ArrayList<VariantItem>();
+                variantList.add(variant);
+                multiple.setOptions(variantList);
+                multiple.setDefaultOptions(variantList);
 
                 return question;
 
