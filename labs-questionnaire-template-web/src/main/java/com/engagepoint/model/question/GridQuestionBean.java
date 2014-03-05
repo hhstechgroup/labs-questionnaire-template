@@ -9,9 +9,10 @@ public class GridQuestionBean extends OptionsQuestionBean {
 	
 	//list of variants for second table
 	private List<VariantItem> options2;
-	//selected variants for second table
+	/*//selected variants for second table
     private List<VariantItem> defaultOptions2; 	//TODO maybe only defaultOption2 is necessary
-    //selected variant for second table
+	 */    
+	//selected variant for second table
     private VariantItem defaultOption2; 		//TODO maybe only defaultOptions2 is necessary
 
     public GridQuestionBean() {
@@ -26,13 +27,13 @@ public class GridQuestionBean extends OptionsQuestionBean {
 		this.options2 = options2;
 	}
 
-	public List<VariantItem> getDefaultOptions2() {
+	/*public List<VariantItem> getDefaultOptions2() {
 		return defaultOptions2;
 	}
 
 	public void setDefaultOptions2(List<VariantItem> defaultOptions2) {
 		this.defaultOptions2 = defaultOptions2;
-	}
+	}*/
 
 	public VariantItem getDefaultOption2() {
 		return defaultOption2;

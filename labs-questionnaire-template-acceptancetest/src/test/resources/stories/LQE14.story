@@ -8,19 +8,14 @@ GivenStories: stories/createQuestionInNewTemplate.story
 Scenario: 
 User can add questions on the template creation/editing form.
 User can select "Grid" in the Question Type drop-down list.
-
-When choose 'GRID' from drop-down
-Then wait for element 'formTemplate:form:create' is visible
-When clicks on element with id/name/className 'formTemplate:form:create'
-Then should open page with 'Question Editor' title
-
-
-Scenario:
 User can enter some text for the question in the Question Text field.
-When the user fills 'form2:formWithCommonProps:qtext' field with 'Test text LQE-14'
-Then element 'form2:formWithCommonProps:qtext' has attribute value 'Test text LQE-14'
-When the user fills 'form2:formWithCommonProps:helpText' field with 'Help text LQE-14'
-Then element 'form2:formWithCommonProps:helpText' has attribute value 'Help text LQE-14'
+Meta: @testName         LQE-14
+      @questionType     GRID
+      @questionText     Question text LQE-14
+      @helpText         Help text LQE-14
+GivenStories: base_stories/template/tree/createQuestionInNewTemplate.story,
+              base_stories/question/fillCommonPropertiesInQuestion.story
+When the checkbox id/name/className 'form2:formWithCommonProps:required' is unchecked make it checked
 
 Scenario:
 User can define row and column names for the grid..
@@ -28,17 +23,20 @@ User can define row and column names for the grid..
 
 Scenario:
 User can save the template with added questions.
-When clicks on element with id/name/className 'form2:formWithSaveButtons:savequestion'
-Then should open page with 'Template Editor' title
-When in tree 'formTemplate:form:treeMultiple' user opens node with 'Page 1'
-Then verify that in table 'formTemplate:form:treeMultiple' is displayed '2' elements per page
-When in tree 'formTemplate:form:treeMultiple' user opens node with 'GROUP_1'
-Then verify that in table 'formTemplate:form:treeMultiple' is displayed '3' elements per page
-When in tree 'formTemplate:form:treeMultiple' user chooses node with 'Question 1'
-Then wait for element 'formTemplate:form:btnDisplayEditQuestion' is visible
+Meta: @questionText     Question text LQE-14
+      @helpText         Help text LQE-14
+GivenStories: base_stories/question/saveQuestion.story,
+              base_stories/template/tree/findQuestionInTree.story,
+              base_stories/template/tree/clickEditQuestion.story,
+              base_stories/question/checkSavedCommonPropertiesInQuestion.story
+Then the checkbox id/name/className 'form2:formWithCommonProps:required' is checked
 
 Scenario:
 User can edit question.
+Meta: @questionText     Question text LQE-14 edit
+      @helpText         Help text LQE-14 edit
+GivenStories: base_stories/question/fillCommonPropertiesInQuestion.story
+
 When clicks on element with id/name/className 'formTemplate:form:btnDisplayEditQuestion'
 Then should open page with 'Question Editor' title
 Then element 'form2:formWithCommonProps:qtext' has attribute value 'Test text LQE-8'
