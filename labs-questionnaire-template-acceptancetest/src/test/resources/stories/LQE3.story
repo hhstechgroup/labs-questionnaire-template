@@ -3,28 +3,19 @@ In order to have an ability to edit template
 As a template author
 I want to edit questionnaire templates
 
-Scenario:
-Creating new template
-When the user opens the default page
-Then wait for element 'form1:AddTemplate' is visible
-When clicks on element with id/name/className 'form1:AddTemplate'
-Then should open page with 'Template Editor' title
-When the user fills 'formTemplate:name' field with 'LQE-3 test'
+GivenStories: base_stories/openDefaultPage.story
+Scenario: Creating new template
+Meta: @testName         LQE-3 test
+GivenStories: base_stories/template/createAndStartEditTemplateForStory.story,
+              base_stories/template/saveTemplate.story,
+              base_stories/template/editTemplate.story
 Then wait until all animations on page completed
-When clicks on element with id/name/className 'formTemplate:save'
-Then in table 'form1:table' there is a row with 'LQE-3 test'
 
-
-Scenario:
-User can edit the template and save
-changes.
-When in table 'form1:table' user presses 'Edit' in row with 'LQE-3 test'
-Then should open page with 'Template Editor' title
-When the user fills 'formTemplate:name' field with 'LQE-3 test edited'
-When clicks on element with id/name/className 'formTemplate:save'
-Then should open page with 'Questionnaire Editor' title
-When in table 'form1:table' user presses 'Edit' in row with 'LQE-3 test edited'
-Then should open page with 'Template Editor' title
+Scenario: Find template and open edit page
+Meta: @testName         LQE-3 test edited
+GivenStories: base_stories/template/fillNameInTemplate.story,
+              base_stories/template/saveTemplate.story,
+              base_stories/template/editTemplate.story
 Then element 'formTemplate:name' has attribute value 'LQE-3 test edited'
 
 

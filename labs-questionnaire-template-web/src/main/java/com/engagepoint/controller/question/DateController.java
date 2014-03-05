@@ -25,7 +25,7 @@ public class DateController extends QuestionEditController {
 
     @PostConstruct
     public void postConstruct() {
-        QuestionBean questionBean = getTemplateTreeController().getCurrentQuestion(); //TODO duble edit
+        QuestionBean questionBean = getTemplateTreeController().getCurrentQuestion();
         if (questionBean==null) {
             setNew(true);
             currentQuestion = new DateQuestionBean();

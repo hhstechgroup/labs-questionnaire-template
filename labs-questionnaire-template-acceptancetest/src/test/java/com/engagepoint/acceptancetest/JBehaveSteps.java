@@ -4,13 +4,14 @@ import com.engagepoint.acceptancetest.base.pages.UIBootstrapBasePage;
 import com.engagepoint.acceptancetest.base.steps.JbehaveBaseSteps;
 import net.thucydides.core.annotations.Steps;
 
-import org.jbehave.core.annotations.Then;
-import org.jbehave.core.annotations.When;
+import org.jbehave.core.annotations.*;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 
+import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.*;
 
 /**
@@ -19,6 +20,10 @@ import static org.junit.Assert.*;
 public class JBehaveSteps {
 
     private static final String TABLE_TAG = "table";
+    private String testName;
+    private String questionType;
+    private String questionText;
+    private String helpText;
 
     @Steps
     private JbehaveBaseSteps jbehaveBase;
@@ -54,11 +59,24 @@ public class JBehaveSteps {
         row.click();
     }
 
+    @When("in table '$tableId' user presses '$buttonText' in row with <testName>")
+    public void whenInTableChoosesRowWithTestName(String tableId, String buttonText) {
+        WebElement tableElement = getTableElement(tableId);
+        WebElement row = tableElement.findElement(By.xpath("//*[.//td[contains(text(),'"+testName+"')]]//*[@title='"+buttonText+"']")); //TODO: bind path to table
+        row.click();
+    }
+
     @When("in tree '$treeId' user opens node with '$text'")
     public void whenInTreeOpensNodeWithText(String treeId, String nodeText) {
         WebElement tableElement = getTableElement(treeId);
-        WebElement row = tableElement.findElement(By.xpath(".//td[.//*[contains(text(),'"+nodeText+"')]]/span[contains(@class,'ui-treetable-toggler')]"));
-        row.click();
+        try {
+            WebElement row = tableElement.findElement(By.xpath(".//td[.//*[contains(text(),'"+nodeText+"')]]/span[contains(@class,'ui-treetable-toggler') and contains(@class,'ui-icon-triangle-1-e')]"));
+            row.click();
+        }
+        catch (Exception e) {
+
+        }
+
     }
 
     @When("choose '$type' from drop-down")
@@ -134,5 +152,58 @@ public class JBehaveSteps {
             WebElement uncheckedCheckBox = uIBootstrapBasePage.getDriver().findElement(By.xpath("//*[@id='"+id+"']"));
             uncheckedCheckBox.click();
         }
+    }
+
+    @Given("name of current test")
+    public void givenNameOfCurrentTest(@Named("testName") String testName) {
+        this.testName = testName;
+    }
+
+    @Given("question type")
+    public void givenQuestionType(@Named("questionType") String questionType) {
+        this.questionType = questionType;
+    }
+
+    @Given("questionText and helpText")
+    public void givenQuestionTextAndHelpText(@Named("questionText") String questionText, @Named("helpText") String helpText) {
+        this.questionText = questionText;
+        this.helpText = helpText;
+    }
+
+    @When("the user fills '$id' field with testName")
+    public void fillFieldWithTestName(String id) {
+        uIBootstrapBasePage.enter(testName).intoField(jbehaveBase.findVisibleElementAndGetSelector(id));
+    }
+
+    @When("choose question type from drop-down")
+    public void whenChooseQuestionTypeFromDropDown() {
+        Actions builder = new Actions(uIBootstrapBasePage.getDriver());
+
+        WebElement elementOfDropDown = uIBootstrapBasePage.getDriver().findElement(By.xpath("//li[@data-label='" + questionType + "']"));
+        while (!elementOfDropDown.isDisplayed()) {
+            builder.sendKeys(Keys.ARROW_DOWN).perform();
+            elementOfDropDown = uIBootstrapBasePage.getDriver().findElement(By.xpath("//li[@data-label='"+questionType+"']"));
+        }
+        elementOfDropDown.click();
+    }
+
+    @When("the user fills '$id' field with question text")
+    public void fillFieldWithQuestionText(String id) {
+        uIBootstrapBasePage.enter(questionText).intoField(jbehaveBase.findVisibleElementAndGetSelector(id));
+    }
+
+    @When("the user fills '$id' field with help text")
+    public void fillFieldWithHelpText(String id) {
+        uIBootstrapBasePage.enter(helpText).intoField(jbehaveBase.findVisibleElementAndGetSelector(id));
+    }
+
+    @Then("element '$id' has attribute value of question text")
+    public void verifyThatElementHasValueOfQuestionText(String id) {
+        assertThat(uIBootstrapBasePage.element(jbehaveBase.findVisibleElementAndGetSelector(id)).getValue(), is(equalTo(questionText)));
+    }
+
+    @Then("element '$id' has attribute value of help text")
+    public void verifyThatElementHasValueOfHelpText(String id) {
+        assertThat(uIBootstrapBasePage.element(jbehaveBase.findVisibleElementAndGetSelector(id)).getValue(), is(equalTo(helpText)));
     }
 }

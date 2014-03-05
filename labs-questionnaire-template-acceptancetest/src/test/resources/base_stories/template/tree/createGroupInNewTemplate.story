@@ -1,4 +1,4 @@
-GivenStories: stories/createSectionInNewTemplate.story
+GivenStories: base_stories/template/tree/createSectionInNewTemplate.story
 Scenario:
 Create group in new section of new template
 When clicks on element with id/name/className 'formTemplate:form:btnDisplayAddGroup'
