@@ -36,7 +36,7 @@ public class GridQuestionController extends QuestionEditController {
 	public void postConstruct() {
 		beginConversation();
 		QuestionBean questionBean = getTemplateTreeController()
-				.getCurrentQuestion(); // TODO duble edit
+				.getCurrentQuestion();
 		if (questionBean == null) {
 			setNew(true);
 			currentQuestion = new GridQuestionBean();

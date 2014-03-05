@@ -22,13 +22,13 @@
 
             <h:outputText value="Set maximum value"/>
             <h:inputText id="maxRangeValue" value="#{rangeQuestion.currentQuestion.maxValue}">
-                <f:validateLongRange minimum="#{rangeQuestionController.minValue}"/>
+                <f:validateLongRange minimum="#{rangeQuestion.currentQuestion.minValue}"/>
                 <!--<f:validator validatorId="com.engagepoint.model.question.utils.RangeValidator"/>-->
             </h:inputText>
 
         </h:panelGrid>
 
-        <ago:buttonsCommon qbuttons="#{dateQuestion}" id="formWithsSaveButtons"/>
+        <ago:buttonsCommon qbuttons="#{rangeQuestion}" id="formWithsSaveButtons"/>
 
 
     </h:form>
