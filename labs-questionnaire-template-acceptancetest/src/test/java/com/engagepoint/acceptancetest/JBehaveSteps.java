@@ -25,6 +25,7 @@ public class JBehaveSteps {
     private String questionText;
     private String helpText;
     private String sectionName;
+    private String groupName;
 
     @Steps
     private JbehaveBaseSteps jbehaveBase;
@@ -213,11 +214,45 @@ public class JBehaveSteps {
         this.sectionName = sectionName;
     }
 
+    @Given("name of group")
+    public void givenGroupName(@Named("groupName") String groupName) {
+        this.groupName = groupName;
+    }
+
     @When("in tree '$treeId' user chooses section")
-    public void whenInTreeChoosesNodeWithText(String treeId) {
+    public void whenInTreeChoosesSection(String treeId) {
         WebElement tableElement = getTableElement(treeId);
         WebElement row = tableElement.findElement(By.xpath(".//*[contains(@class,'ui-treetable-selectable-node')]//*[contains(text(),'"+sectionName+"')]"));
         row.click();
+    }
+
+    @When("in tree '$treeId' user chooses group")
+    public void whenInTreeChoosesGroup(String treeId) {
+        WebElement tableElement = getTableElement(treeId);
+        WebElement row = tableElement.findElement(By.xpath(".//*[contains(@class,'ui-treetable-selectable-node')]//*[contains(text(),'"+groupName+"')]"));
+        row.click();
+    }
+
+    @When("in tree '$treeId' user opens node with sectionName")
+    public void whenInTreeOpensNodeWithSectionName(String treeId) {
+        WebElement tableElement = getTableElement(treeId);
+        try {
+            WebElement row = tableElement.findElement(By.xpath(".//td[.//*[contains(text(),'"+sectionName+"')]]/span[contains(@class,'ui-treetable-toggler') and contains(@class,'ui-icon-triangle-1-e')]"));
+            row.click();
+        }
+        catch (Exception e) {
+        }
+    }
+
+    @When("in tree '$treeId' user opens node with groupName")
+    public void whenInTreeOpensNodeWithGroupName(String treeId) {
+        WebElement tableElement = getTableElement(treeId);
+        try {
+            WebElement row = tableElement.findElement(By.xpath(".//td[.//*[contains(text(),'"+groupName+"')]]/span[contains(@class,'ui-treetable-toggler') and contains(@class,'ui-icon-triangle-1-e')]"));
+            row.click();
+        }
+        catch (Exception e) {
+        }
     }
 
 }
