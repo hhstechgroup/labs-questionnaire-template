@@ -3,6 +3,9 @@ package com.engagepoint.model.question;
 import com.engagepoint.model.table.ListOfOptionsDataModel;
 import com.engagepoint.model.question.utils.VariantItem;
 
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlElementWrapper;
+import javax.xml.bind.annotation.XmlTransient;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,8 +13,10 @@ public class OptionsQuestionBean extends QuestionBean implements Cloneable {
 
     //list of variants
     private List<VariantItem> options;
+
     //selected variants
     private List<VariantItem> defaultOptions;
+
     //selected variant
     private VariantItem defaultOption;
 
@@ -19,6 +24,8 @@ public class OptionsQuestionBean extends QuestionBean implements Cloneable {
         this.options = new ArrayList<VariantItem>();
     }
 
+    @XmlElementWrapper(name = "options")
+    @XmlElement(name = "option")
     public List<VariantItem> getOptions() {
         return options;
     }
@@ -27,20 +34,23 @@ public class OptionsQuestionBean extends QuestionBean implements Cloneable {
         this.options = options;
     }
 
-    public List<VariantItem> getDefaultOptions() {
-        return defaultOptions;
-    }
 
-    public void setDefaultOptions(List<VariantItem> defaultOptions) {
-        this.defaultOptions = defaultOptions;
-    }
 
+    @XmlElement(name = "default-option")
     public VariantItem getDefaultOption() {
         return defaultOption;
     }
 
     public void setDefaultOption(VariantItem defaultOption) {
         this.defaultOption = defaultOption;
+    }
+
+    public List<VariantItem> getDefaultOptions() {
+        return defaultOptions;
+    }
+
+    public void setDefaultOptions(List<VariantItem> defaultOptions) {
+        this.defaultOptions = defaultOptions;
     }
 
     @Override
@@ -75,4 +85,6 @@ public class OptionsQuestionBean extends QuestionBean implements Cloneable {
         copy.setDefaultOptions(this.defaultOptions);
         return copy;
     }
+
+
 }

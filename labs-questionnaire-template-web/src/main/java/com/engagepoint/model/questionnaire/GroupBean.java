@@ -6,9 +6,7 @@ import com.engagepoint.model.question.QuestionBean;
 import com.engagepoint.model.question.RangeQuestionBean;
 import com.engagepoint.model.question.TextQuestionBean;
 
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlElementWrapper;
-import javax.xml.bind.annotation.XmlElements;
+import javax.xml.bind.annotation.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,6 +15,7 @@ import java.util.List;
  */
 public class GroupBean implements Cloneable, BasicOperationWithBean, BasicBeanProperty {
     private String groupName;
+
     private List<QuestionBean> questionsList = new ArrayList<QuestionBean>();
 
     public GroupBean() {

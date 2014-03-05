@@ -9,12 +9,14 @@ import com.engagepoint.model.questionnaire.TemplateBean;
 import javax.inject.Inject;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlSeeAlso;
 
 
 /**
  * Class represents question tag.
  */
-public class QuestionBean implements Cloneable, BasicBeanProperty {
+@XmlSeeAlso({TextQuestionBean.class, DateQuestionBean.class, OptionsQuestionBean.class})
+public abstract class  QuestionBean implements Cloneable, BasicBeanProperty {
     private Long id;					//id of the question
     protected String questionText="";		//questiontext
     private boolean requiredAnswer;		//is answer required or not
@@ -34,10 +36,11 @@ public class QuestionBean implements Cloneable, BasicBeanProperty {
 		return questionText;
 	}
 
+
 	public void setQuestionText(String questionText) {
 		this.questionText = questionText;
 	}
-
+    @XmlElement(name = "help-text")
 	public String getHelpText() {
 		return helpText;
 	}
