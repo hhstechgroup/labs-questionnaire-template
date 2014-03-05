@@ -17,7 +17,7 @@
             <ago:questioncommon qb="#{textQuestion.currentQuestion}" id="formWithCommonProps"/>
             <h:panelGrid columns="2" style="margin-bottom:10px" cellpadding="5">
                 <h:outputText value="Default answer: "/>
-                <p:inputText size="50" value="#{textQuestion.currentQuestion.defaultAnswer}"/>
+                <p:inputText size="50" id="defaultAnswer" value="#{textQuestion.currentQuestion.defaultAnswer}"/>
             </h:panelGrid>
 
             <ago:buttonsCommon qbuttons="#{textQuestion}" id="formWithSaveButtons"/>
