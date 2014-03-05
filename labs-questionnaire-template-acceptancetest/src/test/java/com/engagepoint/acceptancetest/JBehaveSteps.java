@@ -26,6 +26,7 @@ public class JBehaveSteps {
     private String helpText;
     private String sectionName;
     private String groupName;
+    private String questionName;
 
     @Steps
     private JbehaveBaseSteps jbehaveBase;
@@ -219,6 +220,11 @@ public class JBehaveSteps {
         this.groupName = groupName;
     }
 
+    @Given("name of question")
+    public void givenQuestionName(@Named("questionName") String questionName) {
+        this.questionName = questionName;
+    }
+
     @When("in tree '$treeId' user chooses section")
     public void whenInTreeChoosesSection(String treeId) {
         WebElement tableElement = getTableElement(treeId);
@@ -230,6 +236,13 @@ public class JBehaveSteps {
     public void whenInTreeChoosesGroup(String treeId) {
         WebElement tableElement = getTableElement(treeId);
         WebElement row = tableElement.findElement(By.xpath(".//*[contains(@class,'ui-treetable-selectable-node')]//*[contains(text(),'"+groupName+"')]"));
+        row.click();
+    }
+
+    @When("in tree '$treeId' user chooses question")
+    public void whenInTreeChoosesQuestion(String treeId) {
+        WebElement tableElement = getTableElement(treeId);
+        WebElement row = tableElement.findElement(By.xpath(".//*[contains(@class,'ui-treetable-selectable-node')]//*[contains(text(),'"+questionName+"')]"));
         row.click();
     }
 
