@@ -3,15 +3,12 @@ package com.engagepoint.controller.question;
 import com.engagepoint.controller.page.TemplateEditController;
 import com.engagepoint.model.question.DateQuestionBean;
 import com.engagepoint.controller.page.QuestionEditController;
-import com.engagepoint.model.question.QuestionBean;
-import com.engagepoint.model.question.TextQuestionBean;
-import com.engagepoint.model.questionnaire.QuestionType;
+import com.engagepoint.model.question.Question;
 
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
-import java.util.Calendar;
 
 /**
  * Created by anton.kovunov on 2/25/14.
@@ -25,14 +22,14 @@ public class DateController extends QuestionEditController {
 
     @PostConstruct
     public void postConstruct() {
-        QuestionBean questionBean = getTemplateTreeController().getCurrentQuestion();
-        if (questionBean==null) {
+        Question question = getTemplateTreeController().getCurrentQuestion();
+        if (question ==null) {
             setNew(true);
             currentQuestion = new DateQuestionBean();
             currentQuestion.setQuestionType(templateEditController.getSelectedQuestionType());
         }
         else {
-            currentQuestion = (DateQuestionBean) questionBean;
+            currentQuestion = (DateQuestionBean) question;
         }
     }
 

@@ -9,7 +9,7 @@ import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.inject.Named;
 
-import com.engagepoint.model.question.QuestionBean;
+import com.engagepoint.model.question.Question;
 import com.engagepoint.model.questionnaire.BasicBeanProperty;
 import com.engagepoint.model.questionnaire.GroupBean;
 import com.engagepoint.model.questionnaire.SectionBean;
@@ -35,7 +35,7 @@ public class TemplateTreeController implements Serializable {
     private TemplateBean templateBean;
     private SectionBean currentSection;
     private GroupBean currentGroup;
-    private QuestionBean currentQuestion;
+    private Question currentQuestion;
 
     public TreeNode getRoot() {
         return root;
@@ -63,11 +63,11 @@ public class TemplateTreeController implements Serializable {
         setNodes();
     }
 
-    public QuestionBean getCurrentQuestion() {
+    public Question getCurrentQuestion() {
         return currentQuestion;
     }
 
-    public void setCurrentQuestion(QuestionBean currentQuestion) {
+    public void setCurrentQuestion(Question currentQuestion) {
         this.currentQuestion = currentQuestion;
     }
 
@@ -79,8 +79,8 @@ public class TemplateTreeController implements Serializable {
     public void onSelect() {
         selectedType = ((BasicBeanProperty) selectedNode.getData()).getType();
         if (selectedType.equals("question")) {
-            QuestionBean questionBean = (QuestionBean) selectedNode.getData();
-            currentQuestion = questionBean;
+            Question question = (Question) selectedNode.getData();
+            currentQuestion = question;
             //check if current group has not been changed
             GroupBean groupBean = (GroupBean) selectedNode.getParent().getData();
             if (currentGroup != groupBean) {
@@ -131,8 +131,8 @@ public class TemplateTreeController implements Serializable {
                 TreeNode group = new DefaultTreeNode(groupBean, section);
 
                 // Iterator LEVEL_2 for filling questions of choosed section
-                for (QuestionBean questionBean : groupBean.getQuestionsList()) {
-                    new DefaultTreeNode(questionBean, group);
+                for (Question question : groupBean.getQuestionsList()) {
+                    new DefaultTreeNode(question, group);
                 } // END of QUESTION Iterator
             } // END of GROUP Iterator
         } // END of SECTION Iterator

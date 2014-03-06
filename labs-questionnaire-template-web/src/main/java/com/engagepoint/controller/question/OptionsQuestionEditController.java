@@ -48,14 +48,14 @@ public class OptionsQuestionEditController extends QuestionEditController {
     @PostConstruct
     public void postConstruct() {
         beginConversation();
-        QuestionBean questionBean = getTemplateTreeController().getCurrentQuestion();
-        if (questionBean==null) {
+        Question question = getTemplateTreeController().getCurrentQuestion();
+        if (question ==null) {
             setNew(true);
             createCurrentQuestion();
             dataModel = new ListOfOptionsDataModel();
         }
         else {
-            currentQuestion = (OptionsQuestion) questionBean;
+            currentQuestion = (OptionsQuestion) question;
             dataModel = new ListOfOptionsDataModel(currentQuestion.getOptions());
         }
     }

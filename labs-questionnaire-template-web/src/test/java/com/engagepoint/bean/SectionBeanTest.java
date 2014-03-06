@@ -1,7 +1,7 @@
 //package com.engagepoint.bean;
 //
 //
-//import com.engagepoint.model.question.QuestionBean;
+//import com.engagepoint.model.question.Question;
 //import com.engagepoint.model.questionnaire.GroupBean;
 //import com.engagepoint.model.questionnaire.QuestionType;
 //import com.engagepoint.model.questionnaire.SectionBean;
@@ -18,9 +18,9 @@
 //
 //    @Test
 //    public void testCloneSectionBean() throws Exception {
-//        QuestionBean bean = new QuestionBean("blah",true, QuestionType.CHECKBOX);
-//        QuestionBean eqBean = new QuestionBean("blahn",true, QuestionType.CHECKBOX);
-//        List<QuestionBean> questionBeanList = new ArrayList<QuestionBean>();
+//        Question bean = new Question("blah",true, QuestionType.CHECKBOX);
+//        Question eqBean = new Question("blahn",true, QuestionType.CHECKBOX);
+//        List<Question> questionBeanList = new ArrayList<Question>();
 //        questionBeanList.add(bean);
 //        questionBeanList.add(eqBean);
 //        GroupBean testBean = new GroupBean("EqBeans",questionBeanList);
@@ -34,9 +34,9 @@
 //    }
 //    @Test
 //    public void testEqualsSectionBean() throws Exception {
-//        QuestionBean bean = new QuestionBean("blah",true, QuestionType.CHECKBOX);
-//        QuestionBean eqBean = new QuestionBean("blah",true, QuestionType.CHECKBOX);
-//        List<QuestionBean> questionBeanList = new ArrayList<QuestionBean>();
+//        Question bean = new Question("blah",true, QuestionType.CHECKBOX);
+//        Question eqBean = new Question("blah",true, QuestionType.CHECKBOX);
+//        List<Question> questionBeanList = new ArrayList<Question>();
 //        questionBeanList.add(bean);
 //        questionBeanList.add(eqBean);
 //        GroupBean testBean = new GroupBean("EqBeans",questionBeanList);

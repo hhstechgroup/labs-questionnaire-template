@@ -22,13 +22,13 @@
 //    TemplateBean templateBean;
 //    List<SectionBean> sectionBeans;
 //    List<GroupBean> groupBeans;
-//    List<QuestionBean> questionBeans;
-//    QuestionBean question;
+//    List<Question> questionBeans;
+//    Question question;
 //
 //    private QuestionType selectedQuestionType  ;
 //    public MockTemplate(QuestionType selectedQuestionType) {
 //        sectionBeans = new ArrayList<SectionBean>();
-//        questionBeans = new ArrayList<QuestionBean>();
+//        questionBeans = new ArrayList<Question>();
 //        groupBeans =new ArrayList<GroupBean>();
 //        sectionBeans.add(creatorSections());
 //        templateBean = new TemplateBean();
@@ -38,7 +38,7 @@
 //    }
 //
 //
-//    public QuestionBean typeOfQuestion(){
+//    public Question typeOfQuestion(){
 //
 //
 //        switch (selectedQuestionType) {
@@ -111,7 +111,7 @@
 //
 //        return question;
 //    }
-//    public void creator(QuestionBean question){
+//    public void creator(Question question){
 //        question.setHelpText("its my help");
 //        question.setQuestionText("WHY UYoA ArE SO SAD?");
 //        question.setId(1567L);

@@ -119,7 +119,7 @@ public class TemplateEditController implements Serializable {
     }
 
     /**
-     * Redirect to page of concrete question where new QuestionBean
+     * Redirect to page of concrete question where new Question
      * will be created and edited
      */
     public String addQuestion() {
@@ -128,7 +128,7 @@ public class TemplateEditController implements Serializable {
     }
 
     /**
-     * Redirect to page of concrete question where new QuestionBean
+     * Redirect to page of concrete question where new Question
      * will be edited
      */
     public String editQuestion() {

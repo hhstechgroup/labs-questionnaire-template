@@ -2,7 +2,7 @@ package com.engagepoint.model.question;
 
 import javax.xml.bind.annotation.XmlElement;
 
-public class TextQuestionBean extends QuestionBean {
+public class TextQuestionBean extends Question {
 	private String defaultAnswer;
 
     public TextQuestionBean(){}

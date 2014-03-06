@@ -1,7 +1,7 @@
 //package com.engagepoint.bean;
 //
 //import com.engagepoint.model.question.options.OptionsQuestion;
-//import com.engagepoint.model.question.QuestionBean;
+//import com.engagepoint.model.question.Question;
 //import com.engagepoint.model.question.utils.VariantItem;
 //import org.junit.Assert;
 //import org.junit.Test;

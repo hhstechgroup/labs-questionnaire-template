@@ -1,14 +1,12 @@
 package com.engagepoint.controller.question;
 
-import com.engagepoint.model.question.QuestionBean;
+import com.engagepoint.model.question.Question;
 import com.engagepoint.model.question.RangeQuestionBean;
 import com.engagepoint.controller.page.QuestionEditController;
-import com.engagepoint.model.question.TextQuestionBean;
 import com.engagepoint.model.questionnaire.QuestionType;
 
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.RequestScoped;
-import javax.inject.Inject;
 import javax.inject.Named;
 
 /**
@@ -22,14 +20,14 @@ public class RangeQuestionController extends QuestionEditController {
 
     @PostConstruct
     public void postConstruct() {
-        QuestionBean questionBean = getTemplateTreeController().getCurrentQuestion();
-        if (questionBean==null) {
+        Question question = getTemplateTreeController().getCurrentQuestion();
+        if (question ==null) {
             setNew(true);
             currentQuestion = new RangeQuestionBean();
             currentQuestion.setQuestionType(QuestionType.RANGE);
         }
         else {
-            currentQuestion = (RangeQuestionBean) questionBean;
+            currentQuestion = (RangeQuestionBean) question;
         }
     }
 
