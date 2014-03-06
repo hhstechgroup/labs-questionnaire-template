@@ -8,45 +8,85 @@
                     <group>
                         <group-name>GROUP_1</group-name>
                         <questions>
-                            <question xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="multipleChoiceQuestionBean" question-id="1" requiredAnswer="false">
+                            <question xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="textQuestionBean" question-id="1" requiredAnswer="false">
                                 <help-text>Help Text</help-text>
-                                <question-title>Question 1</question-title>
-                                <question-type>MULTIPLECHOICE</question-type>
-                                <default-option>
-                                    <value>3</value>
-                                </default-option>
-                                <multiple-choice-options>
-                                    <option>
-                                        <value>1</value>
-                                    </option>
-                                    <option>
-                                        <value>2</value>
-                                    </option>
-                                    <option>
-                                        <value>3</value>
-                                    </option>
-                                    <option>
-                                        <value>4</value>
-                                    </option>
-                                </multiple-choice-options>
-                            </question>
-                            <question xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="textQuestionBean" question-id="2" requiredAnswer="false">
-                                <help-text>Help text 2</help-text>
-                                <question-title>Question 2</question-title>
+                                <question-title>Text Question</question-title>
                                 <question-type>TEXT</question-type>
                                 <default-answer>Default answer</default-answer>
                             </question>
+                            <question xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="checkBoxQuestionBean" question-id="2" requiredAnswer="false">
+                                <help-text>Help Text</help-text>
+                                <question-title>Checkbox Question</question-title>
+                                <question-type>CHECKBOX</question-type>
+                                <default-options/>
+                                <checkboxes-options>
+                                    <option>1</option>
+                                    <option>2</option>
+                                    <option>3</option>
+                                    <option>4</option>
+                                </checkboxes-options>
+                            </question>
+                            <question xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="multipleChoiceQuestionBean" question-id="3" requiredAnswer="true">
+                                <help-text>Help text</help-text>
+                                <question-title>Multiplechoice</question-title>
+                                <question-type>MULTIPLECHOICE</question-type>
+                                <default-option>4</default-option>
+                                <multiple-choice-options>
+                                    <option>1</option>
+                                    <option>2</option>
+                                    <option>3</option>
+                                    <option>4</option>
+                                    <option>5</option>
+                                    <option>6</option>
+                                </multiple-choice-options>
+                            </question>
                         </questions>
+                    </group>
+                    <group>
+                        <group-name>GROUP_2</group-name>
+                        <questions/>
                     </group>
                 </groups-of-questions>
                 <page-number>1</page-number>
             </page>
             <page>
-                <groups-of-questions/>
+                <groups-of-questions>
+                    <group>
+                        <group-name>GROUP_1</group-name>
+                        <questions/>
+                    </group>
+                    <group>
+                        <group-name>GROUP_2</group-name>
+                        <questions/>
+                    </group>
+                </groups-of-questions>
                 <page-number>2</page-number>
             </page>
         </pages>
         <form-name>Template A</form-name>
     </questionnaire-form>
-
+    <questionnaire-form>
+        <id>5</id>
+        <pages>
+            <page>
+                <groups-of-questions>
+                    <group>
+                        <group-name>GROUP_1</group-name>
+                        <questions/>
+                    </group>
+                </groups-of-questions>
+                <page-number>1</page-number>
+            </page>
+            <page>
+                <groups-of-questions>
+                    <group>
+                        <group-name>GROUP_1</group-name>
+                        <questions/>
+                    </group>
+                </groups-of-questions>
+                <page-number>2</page-number>
+            </page>
+        </pages>
+        <form-name>Template B</form-name>
+    </questionnaire-form>
 </questionnaire-forms>
