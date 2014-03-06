@@ -1,10 +1,7 @@
 package com.engagepoint.model.questionnaire;
 
 
-import com.engagepoint.model.question.OptionsQuestionBean;
 import com.engagepoint.model.question.QuestionBean;
-import com.engagepoint.model.question.RangeQuestionBean;
-import com.engagepoint.model.question.TextQuestionBean;
 
 import javax.xml.bind.annotation.*;
 import java.util.ArrayList;

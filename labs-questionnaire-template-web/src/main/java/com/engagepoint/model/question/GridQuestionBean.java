@@ -3,6 +3,7 @@ package com.engagepoint.model.question;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.engagepoint.model.question.options.OptionsQuestionBean;
 import com.engagepoint.model.question.utils.VariantItem;
 
 public class GridQuestionBean extends OptionsQuestionBean {

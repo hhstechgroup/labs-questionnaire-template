@@ -1,4 +1,4 @@
-package com.engagepoint.model.question;
+package com.engagepoint.model.question.options;
 
 import com.engagepoint.model.question.utils.VariantItem;
 

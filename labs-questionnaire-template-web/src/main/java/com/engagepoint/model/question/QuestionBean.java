@@ -2,6 +2,7 @@ package com.engagepoint.model.question;
 
 
 import com.engagepoint.controller.page.TemplateTreeController;
+import com.engagepoint.model.question.options.OptionsQuestionBean;
 import com.engagepoint.model.questionnaire.BasicBeanProperty;
 import com.engagepoint.model.questionnaire.QuestionType;
 import com.engagepoint.model.questionnaire.TemplateBean;
