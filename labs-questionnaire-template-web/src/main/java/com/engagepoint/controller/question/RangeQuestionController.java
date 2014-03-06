@@ -3,15 +3,13 @@ package com.engagepoint.controller.question;
 import com.engagepoint.model.question.Question;
 import com.engagepoint.model.question.RangeQuestionBean;
 import com.engagepoint.controller.page.QuestionEditController;
+import com.engagepoint.model.question.utils.RangeItem;
 import com.engagepoint.model.questionnaire.QuestionType;
 
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Named;
 
-/**
- * Created by stanislav.sobolev on 2/25/14.
- */
 @Named("rangeQuestion")
 @RequestScoped
 public class RangeQuestionController extends QuestionEditController {
@@ -21,12 +19,12 @@ public class RangeQuestionController extends QuestionEditController {
     @PostConstruct
     public void postConstruct() {
         Question question = getTemplateTreeController().getCurrentQuestion();
-        if (question ==null) {
+        if (question == null) {
             setNew(true);
             currentQuestion = new RangeQuestionBean();
             currentQuestion.setQuestionType(QuestionType.RANGE);
-        }
-        else {
+            currentQuestion.setRangeItem(new RangeItem());
+        } else {
             currentQuestion = (RangeQuestionBean) question;
         }
     }
