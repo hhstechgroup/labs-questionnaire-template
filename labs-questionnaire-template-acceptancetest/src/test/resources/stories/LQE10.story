@@ -3,6 +3,7 @@ As a template author I want to add "Multiple
 Choice" questions to question groups so that
 the template meets my needs.
 
+
 GivenStories: base_stories/openDefaultPage.story
 Scenario: create and fill
 Meta: @testName         LQE-10
@@ -21,7 +22,7 @@ GivenStories: base_stories/template/addTemplate.story,
               base_stories/template/tree/addQuestion.story,
               base_stories/question/fillCommonPropertiesInQuestion.story,
               base_stories/question/addoption.story
-When the checkbox id/name/className 'form2:formWithCommonProps:required' is unchecked make it checked
+Then wait until all animations on page completed
 
 
 Scenario: save and check
@@ -39,7 +40,7 @@ GivenStories: base_stories/question/saveQuestion.story,
               base_stories/template/tree/clickEditQuestion.story,
               base_stories/question/checkSavedCommonPropertiesInQuestion.story,
               base_stories/question/checkOptions.story
-Then the checkbox id/name/className 'form2:formWithCommonProps:required' is checked
+Then wait until all animations on page completed
 
 
 Scenario: edit
@@ -48,7 +49,7 @@ Meta: @questionText     Question text LQE-10 edit
       @optionName       Test option 2
 GivenStories: base_stories/question/fillCommonPropertiesInQuestion.story,
               base_stories/question/addoption.story
-When the checkbox id/name/className 'form2:formWithCommonProps:required' is unchecked make it checked
+Then wait until all animations on page completed
 
 
 Scenario: check and save
@@ -66,7 +67,7 @@ GivenStories: base_stories/question/saveQuestion.story,
               base_stories/template/tree/clickEditQuestion.story,
               base_stories/question/checkSavedCommonPropertiesInQuestion.story,
               base_stories/question/checkOptions.story
-Then the checkbox id/name/className 'form2:formWithCommonProps:required' is unchecked
+Then wait until all animations on page completed
 
 
 
