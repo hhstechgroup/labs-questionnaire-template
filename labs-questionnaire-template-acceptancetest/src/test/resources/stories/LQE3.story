@@ -1,12 +1,12 @@
 Narrative:
 In order to have an ability to edit template 
-As a template author
-I want to edit questionnaire templates
+As a template author I want to
+edit questionnaire templates
 
 GivenStories: base_stories/openDefaultPage.story
 Scenario: Creating new template
 Meta: @testName         LQE-3 test
-GivenStories: base_stories/template/createAndStartEditTemplateForStory.story,
+GivenStories: base_stories/template/addTemplate.story,
               base_stories/template/saveTemplate.story,
               base_stories/template/editTemplate.story
 Then wait until all animations on page completed

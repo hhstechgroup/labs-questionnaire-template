@@ -2,6 +2,8 @@ package com.engagepoint.controller.question;
 
 
 import com.engagepoint.controller.page.TemplateEditController;
+import com.engagepoint.model.question.CheckBoxQuestionBean;
+import com.engagepoint.model.question.ChooseFromListQuestionBean;
 import com.engagepoint.model.question.OptionsQuestionBean;
 import com.engagepoint.controller.page.QuestionEditController;
 import com.engagepoint.model.question.QuestionBean;
@@ -52,8 +54,7 @@ public class OptionsQuestionEditController extends QuestionEditController {
         QuestionBean questionBean = getTemplateTreeController().getCurrentQuestion();
         if (questionBean==null) {
             setNew(true);
-            currentQuestion = new OptionsQuestionBean();
-            currentQuestion.setQuestionType(templateEditController.getSelectedQuestionType());
+            createCurrentQuestion();
             dataModel = new ListOfOptionsDataModel();
         }
         else {
@@ -122,5 +123,16 @@ public class OptionsQuestionEditController extends QuestionEditController {
     public String actionCancel() {
         endConversation();
         return super.actionCancel();
+    }
+
+    private void createCurrentQuestion(){
+        switch(templateEditController.getSelectedQuestionType()){
+            case CHECKBOX:
+                currentQuestion = new CheckBoxQuestionBean();
+                break;
+            case CHOOSEFROMLIST:
+                currentQuestion = new ChooseFromListQuestionBean();
+        }
+        currentQuestion.setQuestionType(templateEditController.getSelectedQuestionType());
     }
 }

@@ -1,6 +1,8 @@
 package com.engagepoint.model.question;
 
 
+
+import javax.xml.bind.annotation.XmlElement;
 import java.util.Date;
 
 /**
@@ -13,6 +15,7 @@ import java.util.Date;
 public class DateQuestionBean extends QuestionBean {
     private Date defaultAnswer;
 
+    @XmlElement(name = "default-answer")
     public Date getDefaultAnswer() {
         return defaultAnswer;
     }

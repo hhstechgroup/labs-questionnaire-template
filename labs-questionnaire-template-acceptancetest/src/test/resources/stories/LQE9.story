@@ -1,55 +1,58 @@
 Narrative:
-
 As a template author I want to add "Paragraph
 Text" questions to question groups so that
 the template meets my needs.
 
-Scenario:
-User can add questions on the
-template creation/editing form.
-When the user opens the default page
-When clicks on element with id/name/className 'form1:AddTemplate'
-Then should open page with 'Template Editor' title
-When the user fills 'formTemplate:name' field with 'LQE-9 test'
-When clicks on element with id/name/className 'formTemplate:form:addSection'
-Then verify that in table 'formTemplate:form:treeMultiple' is displayed '1' elements per page
-When in tree 'formTemplate:form:treeMultiple' user chooses node with 'Page 1'
-Then wait for element 'formTemplate:form:btnDisplayAddGroup' is visible
-When clicks on element with id/name/className 'formTemplate:form:btnDisplayAddGroup'
-Then wait until all animations on page completed
-When in tree 'formTemplate:form:treeMultiple' user opens node with 'Page 1'
-Then verify that in table 'formTemplate:form:treeMultiple' is displayed '2' elements per page
-When in tree 'formTemplate:form:treeMultiple' user chooses node with 'GROUP_1'
-Then wait for element 'formTemplate:form:btnDisplayAddQuestion' is visible
-When clicks on element with id/name/className 'formTemplate:form:btnDisplayAddQuestion'
-Then wait until all animations on page completed
-
-Scenario:
-User can select "Paragraph Text"
-in the Question Type drop-down list.
-When clicks on element with id/name/className 'formTemplate:form:selectOneMenu_label'
-Then wait until all animations on page completed
-When choose 'PARAGRAPHTEXT' from drop-down
-Then wait until all animations on page completed
-When clicks on element with id/name/className 'formTemplate:form:create'
-Scenario:
-//TODO: uncomment when fix paragraph text question
-//Then should open page with 'Question Editor' title
-
-Scenario:
-User can enter some text for the question in the Question Text field.
-//When the user fills 'form2:formWithCommonProps:qtext' field with 'Test text LQE8'
-//Then wait until all animations on page completed
-//When the user fills 'form2:formWithCommonProps:helpText' field with 'Help text LQE8'
-//Then wait until all animations on page completed
+GivenStories: base_stories/openDefaultPage.story
+Scenario: create and fill
+Meta: @testName         LQE-9
+      @sectionName      Page 1
+      @groupName        GROUP_1
+      @questionType     PARAGRAPHTEXT
+      @questionText     Question text LQE-9
+      @helpText         Help text LQE-9
+GivenStories: base_stories/template/addTemplate.story,
+              base_stories/template/tree/addSection.story,
+              base_stories/template/tree/findSectionInTree.story,
+              base_stories/template/tree/addGroup.story,
+              base_stories/template/tree/findGroupInTree.story,
+              base_stories/template/tree/addQuestion.story,
+              base_stories/question/fillCommonPropertiesInQuestion.story
+When the checkbox id/name/className 'form2:formWithCommonProps:required' is unchecked make it checked
+When the user fills 'form2:defaultAnswer' field with 'Default answer LQE-9'
 
 
-Scenario:
-User can save the template with added questions.
-//When clicks on element with id/name/className 'form2:formWithSaveButtons:savequestion'
-//Then should open page with 'Template Editor' title
-//When in tree 'formTemplate:form:treeMultiple' user opens node with 'Page 1'
-//Then verify that in table 'formTemplate:form:treeMultiple' is displayed '2' elements per page
-//When in tree 'formTemplate:form:treeMultiple' user opens node with 'GROUP_1'
-//Then verify that in table 'formTemplate:form:treeMultiple' is displayed '3' elements per page
+Scenario: save and check
+Meta: @sectionName      Page 1
+      @groupName        GROUP_1
+      @questionName     Question 1
+      @questionText     Question text LQE-9
+      @helpText         Help text LQE-9
+GivenStories: base_stories/question/saveQuestion.story,
+              base_stories/template/tree/findQuestionInTree.story,
+              base_stories/template/tree/clickEditQuestion.story,
+              base_stories/question/checkSavedCommonPropertiesInQuestion.story
+Then the checkbox id/name/className 'form2:formWithCommonProps:required' is checked
+Then element 'form2:defaultAnswer' has attribute value 'Default answer LQE-9'
 
+
+Scenario: edit
+Meta: @questionText     Question text LQE-9 edit
+      @helpText         Help text LQE-9 edit
+GivenStories: base_stories/question/fillCommonPropertiesInQuestion.story
+When the checkbox id/name/className 'form2:formWithCommonProps:required' is unchecked make it checked
+When the user fills 'form2:defaultAnswer' field with 'Default answer LQE-9 edit'
+
+
+Scenario: check and save
+Meta: @sectionName      Page 1
+      @groupName        GROUP_1
+      @questionName     Question 1
+      @questionText     Question text LQE-9 edit
+      @helpText         Help text LQE-9 edit
+GivenStories: base_stories/question/saveQuestion.story,
+              base_stories/template/tree/findQuestionInTree.story,
+              base_stories/template/tree/clickEditQuestion.story,
+              base_stories/question/checkSavedCommonPropertiesInQuestion.story
+Then the checkbox id/name/className 'form2:formWithCommonProps:required' is unchecked
+Then element 'form2:defaultAnswer' has attribute value 'Default answer LQE-9 edit'

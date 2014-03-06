@@ -24,6 +24,10 @@ public class JBehaveSteps {
     private String questionType;
     private String questionText;
     private String helpText;
+    private String sectionName;
+    private String groupName;
+    private String questionName;
+    private String optionName;
 
     @Steps
     private JbehaveBaseSteps jbehaveBase;
@@ -206,4 +210,89 @@ public class JBehaveSteps {
     public void verifyThatElementHasValueOfHelpText(String id) {
         assertThat(uIBootstrapBasePage.element(jbehaveBase.findVisibleElementAndGetSelector(id)).getValue(), is(equalTo(helpText)));
     }
+
+    @Given("name of section")
+    public void givenSectionName(@Named("sectionName") String sectionName) {
+        this.sectionName = sectionName;
+    }
+
+    @Given("name of group")
+    public void givenGroupName(@Named("groupName") String groupName) {
+        this.groupName = groupName;
+    }
+
+    @Given("name of question")
+    public void givenQuestionName(@Named("questionName") String questionName) {
+        this.questionName = questionName;
+    }
+
+    @Given("name of option")
+    public void givenOptionName(@Named("optionName") String optionName) {
+        this.optionName = optionName;
+    }
+
+    @When("in tree '$treeId' user chooses section")
+    public void whenInTreeChoosesSection(String treeId) {
+        WebElement tableElement = getTableElement(treeId);
+        WebElement row = tableElement.findElement(By.xpath(".//*[contains(@class,'ui-treetable-selectable-node')]//*[contains(text(),'"+sectionName+"')]"));
+        row.click();
+    }
+
+    @When("in tree '$treeId' user chooses group")
+    public void whenInTreeChoosesGroup(String treeId) {
+        WebElement tableElement = getTableElement(treeId);
+        WebElement row = tableElement.findElement(By.xpath(".//*[contains(@class,'ui-treetable-selectable-node')]//*[contains(text(),'"+groupName+"')]"));
+        row.click();
+    }
+
+    @When("in tree '$treeId' user chooses question")
+    public void whenInTreeChoosesQuestion(String treeId) {
+        WebElement tableElement = getTableElement(treeId);
+        WebElement row = tableElement.findElement(By.xpath(".//*[contains(@class,'ui-treetable-selectable-node')]//*[contains(text(),'"+questionName+"')]"));
+        row.click();
+    }
+
+    @When("in tree '$treeId' user opens node with sectionName")
+    public void whenInTreeOpensNodeWithSectionName(String treeId) {
+        WebElement tableElement = getTableElement(treeId);
+        try {
+            WebElement row = tableElement.findElement(By.xpath(".//td[.//*[contains(text(),'"+sectionName+"')]]/span[contains(@class,'ui-treetable-toggler') and contains(@class,'ui-icon-triangle-1-e')]"));
+            row.click();
+        }
+        catch (Exception e) {
+        }
+    }
+
+    @When("in tree '$treeId' user opens node with groupName")
+    public void whenInTreeOpensNodeWithGroupName(String treeId) {
+        WebElement tableElement = getTableElement(treeId);
+        try {
+            WebElement row = tableElement.findElement(By.xpath(".//td[.//*[contains(text(),'"+groupName+"')]]/span[contains(@class,'ui-treetable-toggler') and contains(@class,'ui-icon-triangle-1-e')]"));
+            row.click();
+        }
+        catch (Exception e) {
+        }
+    }
+
+    @When("in table '$tableId' user chooses option name New")
+    public void whenInTableChoosesRowWithOptionName(String tableId) {
+        WebElement tableElement = getTableElement(tableId);
+        WebElement option = tableElement.findElement(By.xpath(".//td[.//*[contains(text(),'New')]]")); //TODO: bind path to table
+        option.click();
+    }
+
+    @When("in table '$tableId' user fills option name")
+    public void whenInTableChoosesRowWithText(String tableId) {
+        WebElement tableElement = getTableElement(tableId);
+        WebElement optionInput = tableElement.findElement(By.xpath(".//*[.//*[contains(text(),'New')]]/div/div/input")); //TODO: bind path to table
+        uIBootstrapBasePage.enter(optionName).into(optionInput);
+    }
+
+    @Then("in table '$tableId' there is a row with option name")
+    public void thenInTableThereIsOptionName(String tableId) {
+        WebElement tableElement = getTableElement(tableId);
+        WebElement row = tableElement.findElement(By.xpath(".//td[.//*[contains(text(),'"+optionName+"')]]")); //TODO: bind path to table
+        assertTrue(row.isDisplayed());
+    }
+
 }
