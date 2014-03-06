@@ -16,13 +16,13 @@ import javax.xml.bind.annotation.XmlSeeAlso;
 /**
  * Class represents question tag.
  */
-@XmlSeeAlso({TextQuestionBean.class, DateQuestionBean.class, OptionsQuestionBean.class, GridQuestionBean.class})
-public abstract class  QuestionBean implements Cloneable, BasicBeanProperty {
-    private Long id;					//id of the question
-    protected String questionText="";		//questiontext
-    private boolean requiredAnswer;		//is answer required or not
-    private QuestionType questionType;	//questiontype from ENUM of questiontypes
-    private String helpText="";			//Help texts for questions
+@XmlSeeAlso({TextQuestionBean.class, DateQuestionBean.class, OptionsQuestionBean.class})
+public abstract class QuestionBean implements Cloneable, BasicBeanProperty {
+    private Long id;                    //id of the question
+    protected String questionText = "";        //questiontext
+    private boolean requiredAnswer;        //is answer required or not
+    private QuestionType questionType;    //questiontype from ENUM of questiontypes
+    private String helpText = "";            //Help texts for questions
 
     @Inject
     TemplateTreeController templateTreeController;
@@ -30,27 +30,28 @@ public abstract class  QuestionBean implements Cloneable, BasicBeanProperty {
     //Dependent questions
 
     public QuestionBean() {
-	}
+    }
 
     @XmlElement(name = "question-title")
     public String getQuestionText() {
-		return questionText;
-	}
+        return questionText;
+    }
 
 
-	public void setQuestionText(String questionText) {
-		this.questionText = questionText;
-	}
+    public void setQuestionText(String questionText) {
+        this.questionText = questionText;
+    }
+
     @XmlElement(name = "help-text")
-	public String getHelpText() {
-		return helpText;
-	}
+    public String getHelpText() {
+        return helpText;
+    }
 
-	public void setHelpText(String helpText) {
-		this.helpText = helpText;
-	}
+    public void setHelpText(String helpText) {
+        this.helpText = helpText;
+    }
 
-	@XmlAttribute(name = "question-id")
+    @XmlAttribute(name = "question-id")
     public Long getId() {
         return id;
     }
@@ -59,7 +60,7 @@ public abstract class  QuestionBean implements Cloneable, BasicBeanProperty {
         this.id = id;
     }
 
-	@XmlAttribute(required = true)
+    @XmlAttribute(required = true)
     public boolean isRequiredAnswer() {
         return requiredAnswer;
     }
@@ -86,7 +87,7 @@ public abstract class  QuestionBean implements Cloneable, BasicBeanProperty {
     @Override
     public Object clone() throws CloneNotSupportedException {
         QuestionBean copy = (QuestionBean) super.clone();
-        if(TemplateBean.duplicate)
+        if (TemplateBean.duplicate)
             copy.setId(this.id);
         copy.setQuestionType(this.questionType);
         copy.setQuestionText(this.questionText);

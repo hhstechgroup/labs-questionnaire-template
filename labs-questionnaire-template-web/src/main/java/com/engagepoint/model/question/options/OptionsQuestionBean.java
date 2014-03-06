@@ -3,12 +3,11 @@ package com.engagepoint.model.question.options;
 import com.engagepoint.model.question.QuestionBean;
 import com.engagepoint.model.question.utils.VariantItem;
 
-
 import javax.xml.bind.annotation.XmlSeeAlso;
 import java.util.ArrayList;
 import java.util.List;
 
-@XmlSeeAlso({CheckBoxQuestionBean.class, ChooseFromListQuestionBean.class,MultipleChoiceQuestionBean.class})
+@XmlSeeAlso({CheckBoxQuestionBean.class, ChooseFromListQuestionBean.class, MultipleChoiceQuestionBean.class, GridQuestionBean.class})
 public abstract class OptionsQuestionBean extends QuestionBean implements Cloneable {
     //list of variants
     protected List<VariantItem> options;

@@ -4,12 +4,8 @@ package com.engagepoint.controller.question;
 import com.engagepoint.controller.page.TemplateEditController;
 import com.engagepoint.model.question.*;
 import com.engagepoint.controller.page.QuestionEditController;
-import com.engagepoint.model.question.options.CheckBoxQuestionBean;
-import com.engagepoint.model.question.options.ChooseFromListQuestionBean;
-import com.engagepoint.model.question.options.MultipleChoiceQuestionBean;
-import com.engagepoint.model.question.options.OptionsQuestionBean;
+import com.engagepoint.model.question.options.*;
 import com.engagepoint.model.question.utils.VariantItem;
-import com.engagepoint.model.questionnaire.QuestionType;
 import com.engagepoint.model.table.ListOfOptionsDataModel;
 
 import javax.annotation.PostConstruct;

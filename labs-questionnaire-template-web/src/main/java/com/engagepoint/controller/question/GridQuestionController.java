@@ -10,7 +10,7 @@ import javax.inject.Named;
 
 import com.engagepoint.controller.page.QuestionEditController;
 import com.engagepoint.controller.page.TemplateEditController;
-import com.engagepoint.model.question.GridQuestionBean;
+import com.engagepoint.model.question.options.GridQuestionBean;
 import com.engagepoint.model.question.QuestionBean;
 import com.engagepoint.model.question.utils.VariantItem;
 import com.engagepoint.model.table.ListOfOptionsDataModel;
