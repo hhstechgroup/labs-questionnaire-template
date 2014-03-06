@@ -8,4 +8,5 @@ Then wait until all animations on page completed
 When chooses question type from 'formTemplate:form:selectOneMenu_input' drop-down
 Then wait for element 'formTemplate:form:create' is visible
 When clicks on element with id/name/className 'formTemplate:form:create'
+Then wait until all animations on page completed
 Then should open page with 'Question Editor' title

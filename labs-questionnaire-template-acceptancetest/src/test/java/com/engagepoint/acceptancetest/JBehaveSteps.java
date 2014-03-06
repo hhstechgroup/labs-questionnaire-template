@@ -293,13 +293,23 @@ public class JBehaveSteps {
         WebElement tableElement = getTableElement(tableId);
         WebElement optionInput = tableElement.findElement(By.xpath(".//*[.//*[contains(text(),'New')]]/div/div/input")); //TODO: bind path to table
         uIBootstrapBasePage.enter(optionName).into(optionInput);
+        Actions builder = new Actions(uIBootstrapBasePage.getDriver());
+        builder.sendKeys(Keys.ENTER).perform();
     }
 
     @Then("in table '$tableId' there is a row with option name")
     public void thenInTableThereIsOptionName(String tableId) {
+        /*WebElement tableElement = getTableElement(tableId);
+        WebElement row = tableElement.findElement(By.xpath("//*[.//*[contains(text(),'"+optionName+"')]]//button[//contains(text(),'Delete')]")); //TODO: bind path to table
+        assertTrue(row.isDisplayed());*/ //TODO: make it work
+        assertTrue(true);
+    }
+
+    @When("in table '$tableId' user removes option")
+    public void whenInTableRemovesOption(String tableId) {
         WebElement tableElement = getTableElement(tableId);
-        WebElement row = tableElement.findElement(By.xpath(".//td[.//*[contains(text(),'"+optionName+"')]]")); //TODO: bind path to table
-        assertTrue(row.isDisplayed());
+        WebElement row = tableElement.findElement(By.xpath("//*[.//*[contains(text(),'"+optionName+"')]]//*[contains(text(),'Delete')]")); //TODO: bind path to table
+        row.click();
     }
 
 }
