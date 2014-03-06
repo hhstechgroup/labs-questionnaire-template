@@ -9,16 +9,12 @@ import javax.xml.bind.annotation.XmlTransient;
 import java.util.ArrayList;
 import java.util.List;
 
-public class OptionsQuestionBean extends QuestionBean implements Cloneable {
+public abstract class OptionsQuestionBean extends QuestionBean implements Cloneable {
 
     //list of variants
-    private List<VariantItem> options;
+    protected List<VariantItem> options;
 
-    //selected variants
-    private List<VariantItem> defaultOptions;
 
-    //selected variant
-    private VariantItem defaultOption;
 
     public OptionsQuestionBean() {
         this.options = new ArrayList<VariantItem>();
@@ -35,45 +31,45 @@ public class OptionsQuestionBean extends QuestionBean implements Cloneable {
     }
 
 
-
-    @XmlElement(name = "default-option")
     public VariantItem getDefaultOption() {
-        return defaultOption;
+        //NOP
+        return null;
     }
 
     public void setDefaultOption(VariantItem defaultOption) {
-        this.defaultOption = defaultOption;
+        //NOP
     }
 
+
     public List<VariantItem> getDefaultOptions() {
-        return defaultOptions;
+        //NOP
+        return null;
     }
 
     public void setDefaultOptions(List<VariantItem> defaultOptions) {
-        this.defaultOptions = defaultOptions;
+        //NOP
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof OptionsQuestionBean)) return false;
-        if (!super.equals(o)) return false;
 
-        OptionsQuestionBean that = (OptionsQuestionBean) o;
-
-        if (!defaultOption.equals(that.defaultOption)) return false;
-        if (!defaultOptions.equals(that.defaultOptions)) return false;
-        if (!options.equals(that.options)) return false;
-
-        return true;
-    }
+//    @Override
+//    public boolean equals(Object o) {
+//        if (this == o) return true;
+//        if (!(o instanceof OptionsQuestionBean)) return false;
+//        if (!super.equals(o)) return false;
+//
+//        OptionsQuestionBean that = (OptionsQuestionBean) o;
+//
+//        if (!defaultOption.equals(that.defaultOption)) return false;
+//        if (!defaultOptions.equals(that.defaultOptions)) return false;
+//        if (!options.equals(that.options)) return false;
+//
+//        return true;
+//    }
 
     @Override
     public int hashCode() {
         int result = super.hashCode();
         result = 31 * result + options.hashCode();
-        result = 31 * result + defaultOptions.hashCode();
-        result = 31 * result + defaultOption.hashCode();
         return result;
     }
 
@@ -81,8 +77,6 @@ public class OptionsQuestionBean extends QuestionBean implements Cloneable {
     public Object clone() throws CloneNotSupportedException {
         OptionsQuestionBean copy = (OptionsQuestionBean) super.clone();
         copy.setOptions(this.options);
-        copy.setDefaultOption(this.defaultOption);
-        copy.setDefaultOptions(this.defaultOptions);
         return copy;
     }
 

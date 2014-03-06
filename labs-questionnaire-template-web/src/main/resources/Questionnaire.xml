@@ -8,7 +8,7 @@
                     <group>
                         <group-name>GROUP_1</group-name>
                         <questions>
-                            <question xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="optionsQuestionBean" question-id="1" requiredAnswer="true">
+                            <question xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="chooseFromListQuestionBean" question-id="1" requiredAnswer="true">
                                 <help-text>hellp</help-text>
                                 <question-title>Wue Title</question-title>
                                 <question-type>CHOOSEFROMLIST</question-type>

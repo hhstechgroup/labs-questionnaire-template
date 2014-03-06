@@ -15,7 +15,6 @@ public class VariantItem implements Cloneable{
         this.value = value;
     }
 
-    @XmlElement(name = "value")
     public String getValue() {
         return value;
     }
