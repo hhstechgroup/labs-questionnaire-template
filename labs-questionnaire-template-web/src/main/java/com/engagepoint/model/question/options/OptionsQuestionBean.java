@@ -8,7 +8,7 @@ import javax.xml.bind.annotation.XmlSeeAlso;
 import java.util.ArrayList;
 import java.util.List;
 
-@XmlSeeAlso({CheckBoxQuestionBean.class, ChooseFromListQuestionBean.class})
+@XmlSeeAlso({CheckBoxQuestionBean.class, ChooseFromListQuestionBean.class,MultipleChoiceQuestionBean.class})
 public abstract class OptionsQuestionBean extends QuestionBean implements Cloneable {
     //list of variants
     protected List<VariantItem> options;
