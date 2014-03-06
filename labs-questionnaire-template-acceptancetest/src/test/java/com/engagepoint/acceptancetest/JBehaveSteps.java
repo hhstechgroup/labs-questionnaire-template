@@ -191,6 +191,13 @@ public class JBehaveSteps {
         elementOfDropDown.click();
     }
 
+    //use if  whenChooseQuestionTypeFromDropDown doesn't work
+    //but in this case after selecting option, label is not updated
+    @When("chooses question type from '$id' drop-down")
+    public void selectListBoxValue(String id) {
+        uIBootstrapBasePage.element(jbehaveBase.findVisibleElementAndGetSelector(id)).selectByVisibleText(questionType);
+    }
+
     @When("the user fills '$id' field with question text")
     public void fillFieldWithQuestionText(String id) {
         uIBootstrapBasePage.enter(questionText).intoField(jbehaveBase.findVisibleElementAndGetSelector(id));
