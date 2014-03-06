@@ -1,58 +1,52 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <questionnaire-forms>
     <questionnaire-form>
-        <id>1</id>
+        <id>4</id>
         <pages>
             <page>
                 <groups-of-questions>
                     <group>
                         <group-name>GROUP_1</group-name>
                         <questions>
-                            <question xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="chooseFromListQuestionBean" question-id="1" requiredAnswer="true">
-                                <help-text>hellp</help-text>
-                                <question-title>Wue Title</question-title>
-                                <question-type>CHOOSEFROMLIST</question-type>
+                            <question xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="multipleChoiceQuestionBean" question-id="1" requiredAnswer="false">
+                                <help-text>Help Text</help-text>
+                                <question-title>Question 1</question-title>
+                                <question-type>MULTIPLECHOICE</question-type>
                                 <default-option>
-                                    <value>New2</value>
+                                    <value>3</value>
                                 </default-option>
-                                <options>
+                                <multiple-choice-options>
                                     <option>
-                                        <value>New</value>
+                                        <value>1</value>
                                     </option>
                                     <option>
-                                        <value>New2</value>
+                                        <value>2</value>
                                     </option>
                                     <option>
-                                        <value>New3</value>
+                                        <value>3</value>
                                     </option>
                                     <option>
-                                        <value>New4</value>
+                                        <value>4</value>
                                     </option>
-                                </options>
+                                </multiple-choice-options>
                             </question>
-                            <question xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="textQuestionBean" question-id="2" requiredAnswer="true">
-                                <help-text>help text</help-text>
-                                <question-title>Text quest</question-title>
+                            <question xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="textQuestionBean" question-id="2" requiredAnswer="false">
+                                <help-text>Help text 2</help-text>
+                                <question-title>Question 2</question-title>
                                 <question-type>TEXT</question-type>
-                                <default-answer>default answer</default-answer>
-                            </question>
-                        </questions>
-                    </group>
-                    <group>
-                        <group-name>GROUP_2</group-name>
-                        <questions>
-                            <question xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="dateQuestionBean" question-id="1" requiredAnswer="false">
-                                <help-text>helpo</help-text>
-                                <question-title>fisrst date</question-title>
-                                <question-type>DATE</question-type>
-                                <default-answer>2014-03-19T00:00:00+02:00</default-answer>
+                                <default-answer>Default answer</default-answer>
                             </question>
                         </questions>
                     </group>
                 </groups-of-questions>
                 <page-number>1</page-number>
             </page>
+            <page>
+                <groups-of-questions/>
+                <page-number>2</page-number>
+            </page>
         </pages>
         <form-name>Template A</form-name>
     </questionnaire-form>
+
 </questionnaire-forms>
