@@ -1,11 +1,11 @@
 package com.engagepoint.model.question.utils;
 
-import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlValue;
 
 /**
  * Representation of answer variant for a question.
  */
-public class VariantItem implements Cloneable{
+public class VariantItem implements Cloneable {
     private String value;
 
     public VariantItem() {
@@ -15,6 +15,7 @@ public class VariantItem implements Cloneable{
         this.value = value;
     }
 
+    @XmlValue
     public String getValue() {
         return value;
     }
