@@ -18,7 +18,6 @@ GivenStories: base_stories/template/addTemplate.story,
               base_stories/template/tree/findGroupInTree.story,
               base_stories/template/tree/addQuestion.story,
               base_stories/question/fillCommonPropertiesInQuestion.story
-When the checkbox id/name/className 'form2:formWithCommonProps:required' is unchecked make it checked
 When the user fills 'form2:defaultAnswer' field with 'Default answer LQE-8'
 
 
@@ -35,7 +34,6 @@ GivenStories: base_stories/question/saveQuestion.story,
               base_stories/template/tree/findQuestionInTree.story,
               base_stories/template/tree/clickEditQuestion.story,
               base_stories/question/checkSavedCommonPropertiesInQuestion.story
-Then the checkbox id/name/className 'form2:formWithCommonProps:required' is checked
 Then element 'form2:defaultAnswer' has attribute value 'Default answer LQE-8'
 
 
@@ -43,7 +41,6 @@ Scenario: edit
 Meta: @questionText     Question text LQE-8 edit
       @helpText         Help text LQE-8 edit
 GivenStories: base_stories/question/fillCommonPropertiesInQuestion.story
-When the checkbox id/name/className 'form2:formWithCommonProps:required' is unchecked make it checked
 When the user fills 'form2:defaultAnswer' field with 'Default answer LQE-8 edit'
 
 
@@ -60,5 +57,4 @@ GivenStories: base_stories/question/saveQuestion.story,
               base_stories/template/tree/findQuestionInTree.story,
               base_stories/template/tree/clickEditQuestion.story,
               base_stories/question/checkSavedCommonPropertiesInQuestion.story
-Then the checkbox id/name/className 'form2:formWithCommonProps:required' is unchecked
 Then element 'form2:defaultAnswer' has attribute value 'Default answer LQE-8 edit'
