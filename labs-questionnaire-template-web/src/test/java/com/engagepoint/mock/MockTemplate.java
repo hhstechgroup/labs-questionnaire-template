@@ -3,6 +3,7 @@ package com.engagepoint.mock;
 import com.engagepoint.model.question.options.CheckBoxQuestionBean;
 import com.engagepoint.model.question.options.ChooseFromListQuestionBean;
 import com.engagepoint.model.question.options.MultipleChoiceQuestionBean;
+import com.engagepoint.model.question.utils.RangeItem;
 import com.engagepoint.model.question.utils.VariantItem;
 import com.engagepoint.model.questionnaire.GroupBean;
 import com.engagepoint.model.questionnaire.QuestionType;
@@ -63,9 +64,11 @@ public class MockTemplate {
                 return question;
             case RANGE:
                 question = new RangeQuestionBean();
+                RangeItem rangeItem=new RangeItem();
                 RangeQuestionBean rangeQuestionBean = (RangeQuestionBean)question;
-                rangeQuestionBean.setMaxValue("do not need");
-                rangeQuestionBean.setMinValue("help");
+                rangeQuestionBean.setRangeItem(rangeItem);
+                rangeQuestionBean.getRangeItem().setMaxValue("do not need");
+                rangeQuestionBean.getRangeItem().setMinValue("help");
                 creator(question);
 
                 return question;
