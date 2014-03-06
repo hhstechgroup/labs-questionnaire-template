@@ -10,8 +10,8 @@ import javax.inject.Named;
 
 import com.engagepoint.controller.page.QuestionEditController;
 import com.engagepoint.controller.page.TemplateEditController;
+import com.engagepoint.model.question.Question;
 import com.engagepoint.model.question.options.GridQuestionBean;
-import com.engagepoint.model.question.QuestionBean;
 import com.engagepoint.model.question.utils.VariantItem;
 import com.engagepoint.model.table.ListOfOptionsDataModel;
 
@@ -35,9 +35,9 @@ public class GridQuestionController extends QuestionEditController {
 	@PostConstruct
 	public void postConstruct() {
 		beginConversation();
-		QuestionBean questionBean = getTemplateTreeController()
+		Question question = getTemplateTreeController()
 				.getCurrentQuestion();
-		if (questionBean == null) {
+		if (question == null) {
 			setNew(true);
 			currentQuestion = new GridQuestionBean();
 			currentQuestion.setQuestionType(templateEditController
@@ -45,7 +45,7 @@ public class GridQuestionController extends QuestionEditController {
 			dataModel = new ListOfOptionsDataModel();
 			dataModel2 = new ListOfOptionsDataModel();
 		} else {
-			currentQuestion = (GridQuestionBean) questionBean;
+			currentQuestion = (GridQuestionBean) question;
 			dataModel = new ListOfOptionsDataModel(currentQuestion.getOptions());
 			dataModel2 = new ListOfOptionsDataModel(
 					currentQuestion.getOptions2());

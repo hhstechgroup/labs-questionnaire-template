@@ -1,7 +1,7 @@
 //package com.engagepoint.bean;
 //
-//import com.engagepoint.model.question.options.OptionsQuestionBean;
-//import com.engagepoint.model.question.QuestionBean;
+//import com.engagepoint.model.question.options.OptionsQuestion;
+//import com.engagepoint.model.question.Question;
 //import com.engagepoint.model.question.utils.VariantItem;
 //import org.junit.Assert;
 //import org.junit.Test;
@@ -15,7 +15,7 @@
 //public class OptionsBeanTest {
 //    @Test
 //    public void testOptionsBeanClone() throws CloneNotSupportedException {
-//        OptionsQuestionBean testBean = new OptionsQuestionBean();
+//        OptionsQuestion testBean = new OptionsQuestion();
 //        VariantItem var1 = new VariantItem("blahblah");
 //        VariantItem var2 = new VariantItem("blahblahn");
 //        VariantItem var3 = new VariantItem("defiler");

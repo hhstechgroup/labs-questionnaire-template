@@ -1,7 +1,7 @@
 //package com.engagepoint.utils;
 //
 //import com.engagepoint.controller.page.FileController;
-//import com.engagepoint.model.question.QuestionBean;
+//import com.engagepoint.model.question.Question;
 //import com.engagepoint.model.questionnaire.GroupBean;
 //import com.engagepoint.model.questionnaire.QuestionType;
 //import com.engagepoint.model.questionnaire.SectionBean;
@@ -26,10 +26,10 @@
 //public class ImportExportXMLTest {
 //    @Test
 //    public void testEqualityXML() throws FileNotFoundException, FileNotFoundException {
-//        QuestionBean bean = new QuestionBean("blah",false, QuestionType.CHECKBOX);
-//        QuestionBean eqBean = new QuestionBean("blah",true, QuestionType.CHECKBOX);
+//        Question bean = new Question("blah",false, QuestionType.CHECKBOX);
+//        Question eqBean = new Question("blah",true, QuestionType.CHECKBOX);
 //        //---------------------------------1---------------------------------------
-//        List<QuestionBean> questionBeanList = new ArrayList<QuestionBean>();
+//        List<Question> questionBeanList = new ArrayList<Question>();
 //        questionBeanList.add(bean);
 //        questionBeanList.add(eqBean);
 //        //-----------------------------1----------------------------------------------
@@ -40,10 +40,10 @@
 //        groupBeans.add(testBean2);
 //        //--------------------------------1------------------------------------
 //        SectionBean section1 = new SectionBean(2,groupBeans);
-//        QuestionBean bean1 = new QuestionBean("blah",true, QuestionType.CHECKBOX);
-//        QuestionBean eqBean1 = new QuestionBean("blah",true, QuestionType.CHECKBOX);
+//        Question bean1 = new Question("blah",true, QuestionType.CHECKBOX);
+//        Question eqBean1 = new Question("blah",true, QuestionType.CHECKBOX);
 //        //-----------------------------------1-------------------------------
-//        List<QuestionBean> questionBeanList1 = new ArrayList<QuestionBean>();
+//        List<Question> questionBeanList1 = new ArrayList<Question>();
 //        questionBeanList1.add(bean1);
 //        questionBeanList1.add(eqBean1);
 //        //-------------------------------------------1------------------------------
@@ -60,9 +60,9 @@
 //        TemplateBean testTemplate = new TemplateBean(new Long(5),"Questionnaire",sectionsList);
 //        //end of first template
 //        //
-//        QuestionBean bean12 = new QuestionBean("blah",false, QuestionType.CHECKBOX);
-//        QuestionBean eqBean13 = new QuestionBean("blah",true, QuestionType.CHECKBOX);
-//        List<QuestionBean> questionBeanList13 = new ArrayList<QuestionBean>();
+//        Question bean12 = new Question("blah",false, QuestionType.CHECKBOX);
+//        Question eqBean13 = new Question("blah",true, QuestionType.CHECKBOX);
+//        List<Question> questionBeanList13 = new ArrayList<Question>();
 //        questionBeanList13.add(bean12);
 //        questionBeanList13.add(eqBean13);
 //        GroupBean testBean21 = new GroupBean("EqBeans",questionBeanList13);
@@ -72,9 +72,9 @@
 //        groupBeans12.add(testBean22);
 //        SectionBean section12 = new SectionBean(2,groupBeans12);
 //        ArrayList<GroupBean> groupBeans11 = new ArrayList<GroupBean>();
-//        QuestionBean bean18 = new QuestionBean("blah",true, QuestionType.CHECKBOX);
-//        QuestionBean eqBean19 = new QuestionBean("blah",true, QuestionType.CHECKBOX);
-//        List<QuestionBean> questionBeanList14 = new ArrayList<QuestionBean>();
+//        Question bean18 = new Question("blah",true, QuestionType.CHECKBOX);
+//        Question eqBean19 = new Question("blah",true, QuestionType.CHECKBOX);
+//        List<Question> questionBeanList14 = new ArrayList<Question>();
 //        questionBeanList14.add(bean18);
 //        questionBeanList14.add(eqBean19);
 //        GroupBean groupBean24 = new GroupBean("EqBeans",questionBeanList14);

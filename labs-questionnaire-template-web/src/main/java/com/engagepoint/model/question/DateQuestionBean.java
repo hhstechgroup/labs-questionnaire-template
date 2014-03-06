@@ -12,7 +12,7 @@ import java.util.Date;
  * Time: 3:34 PM
  * To change this template use File | Settings | File Templates.
  */
-public class DateQuestionBean extends QuestionBean {
+public class DateQuestionBean extends Question {
     private Date defaultAnswer;
 
     @XmlElement(name = "default-answer")

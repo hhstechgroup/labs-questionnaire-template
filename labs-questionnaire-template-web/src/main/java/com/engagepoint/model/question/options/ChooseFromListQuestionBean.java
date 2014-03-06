@@ -6,7 +6,7 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElementWrapper;
 import java.util.List;
 
-public class ChooseFromListQuestionBean extends OptionsQuestionBean {
+public class ChooseFromListQuestionBean extends OptionsQuestion {
     //selected variant
     private VariantItem defaultOption;
 

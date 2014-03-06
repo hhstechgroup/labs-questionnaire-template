@@ -9,7 +9,7 @@ import java.util.List;
 /**
  * Created by yaroslav on 3/5/14.
  */
-public class CheckBoxQuestionBean extends OptionsQuestionBean {
+public class CheckBoxQuestionBean extends OptionsQuestion {
     //selected variants
     private List<VariantItem> defaultOptions;
 

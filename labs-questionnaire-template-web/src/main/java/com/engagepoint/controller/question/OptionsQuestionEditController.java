@@ -25,7 +25,7 @@ public class OptionsQuestionEditController extends QuestionEditController {
     //dataModel for table
     private ListOfOptionsDataModel dataModel;
 
-    private OptionsQuestionBean currentQuestion;
+    private OptionsQuestion currentQuestion;
 
     @Inject
     private TemplateEditController templateEditController;
@@ -48,14 +48,14 @@ public class OptionsQuestionEditController extends QuestionEditController {
     @PostConstruct
     public void postConstruct() {
         beginConversation();
-        QuestionBean questionBean = getTemplateTreeController().getCurrentQuestion();
-        if (questionBean==null) {
+        Question question = getTemplateTreeController().getCurrentQuestion();
+        if (question ==null) {
             setNew(true);
             createCurrentQuestion();
             dataModel = new ListOfOptionsDataModel();
         }
         else {
-            currentQuestion = (OptionsQuestionBean) questionBean;
+            currentQuestion = (OptionsQuestion) question;
             dataModel = new ListOfOptionsDataModel(currentQuestion.getOptions());
         }
     }
@@ -68,11 +68,11 @@ public class OptionsQuestionEditController extends QuestionEditController {
         this.dataModel = dataModel;
     }
 
-    public OptionsQuestionBean getCurrentQuestion() {
+    public OptionsQuestion getCurrentQuestion() {
         return currentQuestion;
     }
 
-    public void setCurrentQuestion(OptionsQuestionBean currentQuestion) {
+    public void setCurrentQuestion(OptionsQuestion currentQuestion) {
         this.currentQuestion = currentQuestion;
     }
 
