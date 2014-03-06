@@ -2,13 +2,14 @@ package com.engagepoint.controller.question;
 
 
 import com.engagepoint.controller.page.TemplateEditController;
+import com.engagepoint.model.question.*;
+import com.engagepoint.controller.page.QuestionEditController;
 import com.engagepoint.model.question.options.CheckBoxQuestionBean;
 import com.engagepoint.model.question.options.ChooseFromListQuestionBean;
 import com.engagepoint.model.question.options.MultipleChoiceQuestionBean;
 import com.engagepoint.model.question.options.OptionsQuestionBean;
-import com.engagepoint.controller.page.QuestionEditController;
-import com.engagepoint.model.question.QuestionBean;
 import com.engagepoint.model.question.utils.VariantItem;
+import com.engagepoint.model.questionnaire.QuestionType;
 import com.engagepoint.model.table.ListOfOptionsDataModel;
 
 import javax.annotation.PostConstruct;
@@ -52,11 +53,12 @@ public class OptionsQuestionEditController extends QuestionEditController {
     public void postConstruct() {
         beginConversation();
         QuestionBean questionBean = getTemplateTreeController().getCurrentQuestion();
-        if (questionBean == null) {
+        if (questionBean==null) {
             setNew(true);
             createCurrentQuestion();
             dataModel = new ListOfOptionsDataModel();
-        } else {
+        }
+        else {
             currentQuestion = (OptionsQuestionBean) questionBean;
             dataModel = new ListOfOptionsDataModel(currentQuestion.getOptions());
         }
@@ -109,7 +111,8 @@ public class OptionsQuestionEditController extends QuestionEditController {
     public String actionSave() {
         try {
             currentQuestion.setOptions((ArrayList<VariantItem>) dataModel.getWrappedData());
-        } catch (ClassCastException e) {
+        }
+        catch (ClassCastException e) {
             //TODO
         }
         getTemplateTreeController().setCurrentQuestion(currentQuestion);
@@ -123,16 +126,20 @@ public class OptionsQuestionEditController extends QuestionEditController {
         return super.actionCancel();
     }
 
-    private void createCurrentQuestion() {
-        switch (templateEditController.getSelectedQuestionType()) {
+    private void createCurrentQuestion(){
+        switch(templateEditController.getSelectedQuestionType()){
             case CHECKBOX:
                 currentQuestion = new CheckBoxQuestionBean();
                 break;
             case CHOOSEFROMLIST:
                 currentQuestion = new ChooseFromListQuestionBean();
                 break;
+            case GRID:
+                currentQuestion = new GridQuestionBean();
+                break;
             case MULTIPLECHOICE:
                 currentQuestion = new MultipleChoiceQuestionBean();
+                break;
         }
         currentQuestion.setQuestionType(templateEditController.getSelectedQuestionType());
     }
