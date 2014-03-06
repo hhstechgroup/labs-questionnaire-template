@@ -22,12 +22,15 @@ When the user fills 'form2:defaultAnswer' field with 'Default answer LQE-8'
 
 
 Scenario: save and check
-Meta: @sectionName      Page 1
+Meta: @testName         LQE-8
+      @sectionName      Page 1
       @groupName        GROUP_1
       @questionName     Question 1
       @questionText     Question text LQE-8
       @helpText         Help text LQE-8
 GivenStories: base_stories/question/saveQuestion.story,
+              base_stories/template/saveTemplate.story,
+              base_stories/template/editTemplate.story,
               base_stories/template/tree/findQuestionInTree.story,
               base_stories/template/tree/clickEditQuestion.story,
               base_stories/question/checkSavedCommonPropertiesInQuestion.story
@@ -44,12 +47,15 @@ When the user fills 'form2:defaultAnswer' field with 'Default answer LQE-8 edit'
 
 
 Scenario: check and save
-Meta: @sectionName      Page 1
+Meta: @testName         LQE-8
+      @sectionName      Page 1
       @groupName        GROUP_1
       @questionName     Question 1
       @questionText     Question text LQE-8 edit
       @helpText         Help text LQE-8 edit
 GivenStories: base_stories/question/saveQuestion.story,
+              base_stories/template/saveTemplate.story,
+              base_stories/template/editTemplate.story,
               base_stories/template/tree/findQuestionInTree.story,
               base_stories/template/tree/clickEditQuestion.story,
               base_stories/question/checkSavedCommonPropertiesInQuestion.story
