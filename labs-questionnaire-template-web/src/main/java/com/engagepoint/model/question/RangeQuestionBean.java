@@ -1,14 +1,19 @@
 package com.engagepoint.model.question;
 
 
-/**
- * Created by stanislav.sobolev on 2/17/14.
- */
+import javax.xml.bind.annotation.XmlAttribute;
+
 public class RangeQuestionBean extends Question {
 
-    private String minValue="0";
-    private String maxValue="0";
+    private String minValue;
+    private String maxValue;
 
+    public RangeQuestionBean() {
+        minValue = "0";
+        maxValue = "0";
+    }
+
+    @XmlAttribute(name = "range-begin")
     public String getMinValue() {
         return minValue;
     }
@@ -17,6 +22,7 @@ public class RangeQuestionBean extends Question {
         this.minValue = minValue;
     }
 
+    @XmlAttribute(name = "range-end")
     public String getMaxValue() {
         return maxValue;
     }
