@@ -16,7 +16,7 @@ import javax.xml.bind.annotation.XmlSeeAlso;
 /**
  * Class represents question tag.
  */
-@XmlSeeAlso({TextQuestionBean.class, DateQuestionBean.class, OptionsQuestion.class})
+@XmlSeeAlso({TextQuestionBean.class, DateQuestionBean.class, OptionsQuestion.class,RangeQuestionBean.class})
 public abstract class Question implements Cloneable, BasicBeanProperty {
     private Long id;                    //id of the question
     protected String questionText = "";        //questiontext
