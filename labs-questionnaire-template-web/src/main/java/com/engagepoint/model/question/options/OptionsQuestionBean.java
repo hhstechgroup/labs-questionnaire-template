@@ -3,33 +3,23 @@ package com.engagepoint.model.question.options;
 import com.engagepoint.model.question.QuestionBean;
 import com.engagepoint.model.question.utils.VariantItem;
 
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlElementWrapper;
+
 import javax.xml.bind.annotation.XmlSeeAlso;
 import java.util.ArrayList;
 import java.util.List;
 
 @XmlSeeAlso({CheckBoxQuestionBean.class, ChooseFromListQuestionBean.class})
 public abstract class OptionsQuestionBean extends QuestionBean implements Cloneable {
-
     //list of variants
     protected List<VariantItem> options;
-
-
 
     public OptionsQuestionBean() {
         this.options = new ArrayList<VariantItem>();
     }
 
-    @XmlElementWrapper(name = "options")
-    @XmlElement(name = "option")
-    public List<VariantItem> getOptions() {
-        return options;
-    }
+    public abstract List<VariantItem> getOptions();
 
-    public void setOptions(List<VariantItem> options) {
-        this.options = options;
-    }
+    public abstract void setOptions(List<VariantItem> options);
 
 
     public VariantItem getDefaultOption() {
@@ -41,7 +31,6 @@ public abstract class OptionsQuestionBean extends QuestionBean implements Clonea
         //NOP
     }
 
-
     public List<VariantItem> getDefaultOptions() {
         //NOP
         return null;
@@ -50,22 +39,6 @@ public abstract class OptionsQuestionBean extends QuestionBean implements Clonea
     public void setDefaultOptions(List<VariantItem> defaultOptions) {
         //NOP
     }
-
-
-//    @Override
-//    public boolean equals(Object o) {
-//        if (this == o) return true;
-//        if (!(o instanceof OptionsQuestionBean)) return false;
-//        if (!super.equals(o)) return false;
-//
-//        OptionsQuestionBean that = (OptionsQuestionBean) o;
-//
-//        if (!defaultOption.equals(that.defaultOption)) return false;
-//        if (!defaultOptions.equals(that.defaultOptions)) return false;
-//        if (!options.equals(that.options)) return false;
-//
-//        return true;
-//    }
 
     @Override
     public int hashCode() {
@@ -80,6 +53,4 @@ public abstract class OptionsQuestionBean extends QuestionBean implements Clonea
         copy.setOptions(this.options);
         return copy;
     }
-
-
 }

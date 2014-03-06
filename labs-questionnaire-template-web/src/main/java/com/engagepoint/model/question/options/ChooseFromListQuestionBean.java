@@ -3,10 +3,9 @@ package com.engagepoint.model.question.options;
 import com.engagepoint.model.question.utils.VariantItem;
 
 import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlElementWrapper;
+import java.util.List;
 
-/**
- * Created by yaroslav on 3/5/14.
- */
 public class ChooseFromListQuestionBean extends OptionsQuestionBean {
     //selected variant
     private VariantItem defaultOption;
@@ -18,6 +17,18 @@ public class ChooseFromListQuestionBean extends OptionsQuestionBean {
 
     public void setDefaultOption(VariantItem defaultOption) {
         this.defaultOption = defaultOption;
+    }
+
+    @XmlElementWrapper(name = "choose-from-list-options")
+    @XmlElement(name = "option")
+    @Override
+    public List<VariantItem> getOptions() {
+        return this.options;
+    }
+
+    @Override
+    public void setOptions(List<VariantItem> options) {
+        this.options = options;
     }
 
     @Override
