@@ -25,13 +25,16 @@ When the checkbox id/name/className 'form2:formWithCommonProps:required' is unch
 
 
 Scenario: save and check
-Meta: @sectionName      Page 1
+Meta: @testName         LQE-10
+      @sectionName      Page 1
       @groupName        GROUP_1
       @questionName     Question 1
       @questionText     Question text LQE-10
       @helpText         Help text LQE-10
       @optionName       Test option 1
 GivenStories: base_stories/question/saveQuestion.story,
+              base_stories/template/saveTemplate.story,
+              base_stories/template/editTemplate.story,
               base_stories/template/tree/findQuestionInTree.story,
               base_stories/template/tree/clickEditQuestion.story,
               base_stories/question/checkSavedCommonPropertiesInQuestion.story,
@@ -49,13 +52,16 @@ When the checkbox id/name/className 'form2:formWithCommonProps:required' is unch
 
 
 Scenario: check and save
-Meta: @sectionName      Page 1
+Meta: @testName         LQE-10
+      @sectionName      Page 1
       @groupName        GROUP_1
       @questionName     Question 1
       @questionText     Question text LQE-10 edit
       @helpText         Help text LQE-10 edit
       @optionName       Test option 2
 GivenStories: base_stories/question/saveQuestion.story,
+              base_stories/template/saveTemplate.story,
+              base_stories/template/editTemplate.story,
               base_stories/template/tree/findQuestionInTree.story,
               base_stories/template/tree/clickEditQuestion.story,
               base_stories/question/checkSavedCommonPropertiesInQuestion.story,
