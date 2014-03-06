@@ -15,7 +15,7 @@
 <ui:define name="page">
 
     <h:form id="form2">
-        <ago:questioncommon qb="#{rangeQuestion.currentQuestion}" id="range" />
+        <ago:questioncommon qb="#{rangeQuestion.currentQuestion}" id="formWithCommonProps" />
         <h:panelGrid columns="2" style="margin-bottom:10px" cellpadding="5">
             <h:outputText value="Set minimum value"/>
             <h:inputText id="minRangeValue" value="#{rangeQuestion.currentQuestion.minValue}"/>

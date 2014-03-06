@@ -1,15 +1,15 @@
 Narrative:
-As a template author I want to add "Range" questions to question groups so that
+As a template author I want to add "Date" questions to question groups so that
 the template meets my needs.
 
 GivenStories: base_stories/openDefaultPage.story
 Scenario: create and fill
-Meta: @testName         LQE-13
+Meta: @testName         LQE-16
       @sectionName      Page 1
       @groupName        GROUP_1
-      @questionType     RANGE
-      @questionText     Question text LQE-13
-      @helpText         Help text LQE-13
+      @questionType     DATE
+      @questionText     Question text LQE-16
+      @helpText         Help text LQE-16
 
 GivenStories: base_stories/template/addTemplate.story,
               base_stories/template/tree/addSection.story,
@@ -18,8 +18,7 @@ GivenStories: base_stories/template/addTemplate.story,
               base_stories/template/tree/findGroupInTree.story,
               base_stories/template/tree/addQuestion.story,
               base_stories/question/fillCommonPropertiesInQuestion.story
-When the user fills 'form2:minRangeValue' field with '1'
-When the user fills 'form2:maxRangeValue' field with '7'
+When the user fills 'form2:calendar_input' field with '02/11/2014'
 
 
 Scenario: save and check
@@ -27,8 +26,8 @@ Scenario: save and check
 Meta: @sectionName      Page 1
       @groupName        GROUP_1
       @questionName     Question 1
-      @questionText     Question text LQE-13
-      @helpText         Help text LQE-13
+      @questionText     Question text LQE-16
+      @helpText         Help text LQE-16
 GivenStories: base_stories/question/saveQuestion.story,
               base_stories/template/tree/findQuestionInTree.story,
               base_stories/template/tree/clickEditQuestion.story,
@@ -36,12 +35,10 @@ GivenStories: base_stories/question/saveQuestion.story,
 
 
 Scenario: edit
-Meta: @questionText     Question text LQE-13 edit
-      @helpText         Help text LQE-13 edit
+Meta: @questionText     Question text LQE-16 edit
+      @helpText         Help text LQE-16 edit
 GivenStories: base_stories/question/fillCommonPropertiesInQuestion.story
-When the user fills 'form2:minRangeValue' field with '2'
-When the user fills 'form2:maxRangeValue' field with '6'
-
+When the user fills 'form2:calendar_input' field with '08/12/2013'
 
 
 
@@ -49,8 +46,8 @@ Scenario: check and save
 Meta: @sectionName      Page 1
       @groupName        GROUP_1
       @questionName     Question 1
-      @questionText     Question text LQE-13 edit
-      @helpText         Help text LQE-13 edit
+      @questionText     Question text LQE-16 edit
+      @helpText         Help text LQE-16 edit
 
 GivenStories: base_stories/question/saveQuestion.story,
               base_stories/template/tree/findQuestionInTree.story,
