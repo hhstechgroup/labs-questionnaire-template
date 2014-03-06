@@ -39,7 +39,17 @@ public class GridQuestionBean extends OptionsQuestionBean {
 		this.options2 = options2;
 	}
 
-	/*public List<VariantItem> getDefaultOptions2() {
+    @Override
+    public List<VariantItem> getOptions() {
+        return null;
+    }
+
+    @Override
+    public void setOptions(List<VariantItem> options) {
+
+    }
+
+    /*public List<VariantItem> getDefaultOptions2() {
 		return defaultOptions2;
 	}
 
