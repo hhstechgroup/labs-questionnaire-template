@@ -7,17 +7,6 @@ import javax.xml.bind.annotation.XmlElementWrapper;
 import java.util.List;
 
 public class ChooseFromListQuestionBean extends OptionsQuestion {
-    //selected variant
-    private VariantItem defaultOption;
-
-    @XmlElement(name = "default-option")
-    public VariantItem getDefaultOption() {
-        return defaultOption;
-    }
-
-    public void setDefaultOption(VariantItem defaultOption) {
-        this.defaultOption = defaultOption;
-    }
 
     @XmlElementWrapper(name = "choose-from-list-options")
     @XmlElement(name = "option")

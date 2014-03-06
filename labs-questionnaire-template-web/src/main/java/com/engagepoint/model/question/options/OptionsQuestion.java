@@ -3,6 +3,7 @@ package com.engagepoint.model.question.options;
 import com.engagepoint.model.question.Question;
 import com.engagepoint.model.question.utils.VariantItem;
 
+import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlSeeAlso;
 import java.util.ArrayList;
 import java.util.List;
@@ -11,6 +12,8 @@ import java.util.List;
 public abstract class OptionsQuestion extends Question implements Cloneable {
     //list of variants
     protected List<VariantItem> options;
+    //selected variant for multiple choice,grid,choose from list question.
+    protected VariantItem defaultOption;
 
     public OptionsQuestion() {
         this.options = new ArrayList<VariantItem>();
@@ -20,21 +23,26 @@ public abstract class OptionsQuestion extends Question implements Cloneable {
 
     public abstract void setOptions(List<VariantItem> options);
 
-
+    @XmlElement(name = "default-option")
     public VariantItem getDefaultOption() {
-        //NOP
-        return null;
+        return defaultOption;
     }
 
     public void setDefaultOption(VariantItem defaultOption) {
-        //NOP
+        this.defaultOption = defaultOption;
     }
 
+    /**
+     * For multiple choice,grid,choose from list question.
+     */
     public List<VariantItem> getDefaultOptions() {
         //NOP
         return null;
     }
 
+    /**
+     * For multiple choice,grid,choose from list question.
+     */
     public void setDefaultOptions(List<VariantItem> defaultOptions) {
         //NOP
     }
