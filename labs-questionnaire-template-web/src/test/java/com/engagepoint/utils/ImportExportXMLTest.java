@@ -1,33 +1,36 @@
-//package com.engagepoint.utils;
-//
-//import com.engagepoint.controller.page.FileController;
-//import com.engagepoint.model.question.Question;
-//import com.engagepoint.model.questionnaire.GroupBean;
-//import com.engagepoint.model.questionnaire.QuestionType;
-//import com.engagepoint.model.questionnaire.SectionBean;
-//import com.engagepoint.model.questionnaire.TemplateBean;
-//import org.junit.Assert;
-//import org.junit.Test;
-//
-//import java.io.File;
-//import java.io.FileInputStream;
-//import java.io.FileNotFoundException;
-//import java.io.IOException;
-//import java.util.ArrayList;
-//import java.util.List;
-//
-///**
-// * Created with IntelliJ IDEA.
-// * User: anton.kovunov
-// * Date: 2/10/14
-// * Time: 11:53 AM
-// * To change this template use File | Settings | File Templates.
-// */
-//public class ImportExportXMLTest {
-//    @Test
-//    public void testEqualityXML() throws FileNotFoundException, FileNotFoundException {
-//        Question bean = new Question("blah",false, QuestionType.CHECKBOX);
-//        Question eqBean = new Question("blah",true, QuestionType.CHECKBOX);
+package com.engagepoint.utils;
+
+import com.engagepoint.controller.page.FileController;
+import com.engagepoint.mock.MockTemplate;
+import com.engagepoint.model.question.Question;
+import com.engagepoint.model.question.options.CheckBoxQuestionBean;
+import com.engagepoint.model.questionnaire.GroupBean;
+import com.engagepoint.model.questionnaire.QuestionType;
+import com.engagepoint.model.questionnaire.SectionBean;
+import com.engagepoint.model.questionnaire.TemplateBean;
+import org.junit.Assert;
+import org.junit.Test;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
+/**
+* Created with IntelliJ IDEA.
+* User: anton.kovunov
+* Date: 2/10/14
+* Time: 11:53 AM
+* To change this template use File | Settings | File Templates.
+*/
+public class ImportExportXMLTest {
+    MockTemplate mock = new MockTemplate(QuestionType.CHECKBOX);
+    @Test
+    public void testEqualityXML() throws FileNotFoundException, FileNotFoundException {
+//        Question bean = new CheckBoxQuestionBean("blah",false, QuestionType.CHECKBOX);
+//        Question eqBean = new CheckBoxQuestionBean("blah",true, QuestionType.CHECKBOX);
 //        //---------------------------------1---------------------------------------
 //        List<Question> questionBeanList = new ArrayList<Question>();
 //        questionBeanList.add(bean);
@@ -40,8 +43,8 @@
 //        groupBeans.add(testBean2);
 //        //--------------------------------1------------------------------------
 //        SectionBean section1 = new SectionBean(2,groupBeans);
-//        Question bean1 = new Question("blah",true, QuestionType.CHECKBOX);
-//        Question eqBean1 = new Question("blah",true, QuestionType.CHECKBOX);
+//        Question bean1 = new CheckBoxQuestionBean("blah",true, QuestionType.CHECKBOX);
+//        Question eqBean1 = new CheckBoxQuestionBean("blah",true, QuestionType.CHECKBOX);
 //        //-----------------------------------1-------------------------------
 //        List<Question> questionBeanList1 = new ArrayList<Question>();
 //        questionBeanList1.add(bean1);
@@ -60,8 +63,8 @@
 //        TemplateBean testTemplate = new TemplateBean(new Long(5),"Questionnaire",sectionsList);
 //        //end of first template
 //        //
-//        Question bean12 = new Question("blah",false, QuestionType.CHECKBOX);
-//        Question eqBean13 = new Question("blah",true, QuestionType.CHECKBOX);
+//        Question bean12 = new CheckBoxQuestionBean("blah",false, QuestionType.CHECKBOX);
+//        Question eqBean13 = new CheckBoxQuestionBean("blah",true, QuestionType.CHECKBOX);
 //        List<Question> questionBeanList13 = new ArrayList<Question>();
 //        questionBeanList13.add(bean12);
 //        questionBeanList13.add(eqBean13);
@@ -72,8 +75,8 @@
 //        groupBeans12.add(testBean22);
 //        SectionBean section12 = new SectionBean(2,groupBeans12);
 //        ArrayList<GroupBean> groupBeans11 = new ArrayList<GroupBean>();
-//        Question bean18 = new Question("blah",true, QuestionType.CHECKBOX);
-//        Question eqBean19 = new Question("blah",true, QuestionType.CHECKBOX);
+//        Question bean18 = new CheckBoxQuestionBean("blah",true, QuestionType.CHECKBOX);
+//        Question eqBean19 = new CheckBoxQuestionBean("blah",true, QuestionType.CHECKBOX);
 //        List<Question> questionBeanList14 = new ArrayList<Question>();
 //        questionBeanList14.add(bean18);
 //        questionBeanList14.add(eqBean19);
@@ -89,18 +92,22 @@
 //        List<TemplateBean> tempList = new ArrayList<TemplateBean>();
 //        tempList.add(testTemplate);
 //        tempList.add(testTemplate1);
-//        //-----------------------------------------------------------------------------------------
-//        File file = null;
-//        try {
-//            file = FileController.createTempXml(tempList);
-//        }
-//        catch (IOException e) {
-//            Assert.fail();
-//            return;
-//        }
-//        FileInputStream stream = new FileInputStream(file.getAbsolutePath());
-//        List<TemplateBean> newTempsList = new ArrayList<TemplateBean>();
-//        newTempsList.addAll(XmlImportExport.importXmlTemplate(stream));
-//        Assert.assertTrue(tempList.equals(newTempsList));
-//    }
-//}
+
+        List<TemplateBean> tempList = new ArrayList<TemplateBean>();
+        tempList.add(mock.template());
+
+        //-----------------------------------------------------------------------------------------
+        File file = null;
+        try {
+            file = FileController.createTempXml(tempList);
+        }
+        catch (IOException e) {
+            Assert.fail();
+            return;
+        }
+        FileInputStream stream = new FileInputStream(file.getAbsolutePath());
+        List<TemplateBean> newTempsList = new ArrayList<TemplateBean>();
+        newTempsList.addAll(XmlImportExport.importXmlTemplate(stream));
+        Assert.assertTrue(tempList.equals(newTempsList));
+    }
+}

@@ -49,8 +49,11 @@ public class GroupBean implements Cloneable, BasicOperationWithBean, BasicBeanPr
         List<Question> copyQuestionsList = null;
         if (questionsList != null) {
             copyQuestionsList = new ArrayList<Question>();
-            for (Question question : questionsList) {
-                copyQuestionsList.add((Question) question.clone());
+            for (Question questionBean : questionsList) {
+                if(questionBean!=null)
+                    copyQuestionsList.add((Question) questionBean.clone());
+                else
+                    copyQuestionsList.add(null);
             }
         }
         copy.setQuestionsList(copyQuestionsList);
