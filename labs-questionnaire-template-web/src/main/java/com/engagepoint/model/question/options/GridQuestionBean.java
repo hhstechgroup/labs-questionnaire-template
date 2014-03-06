@@ -5,7 +5,7 @@ import java.util.List;
 
 import com.engagepoint.model.question.utils.VariantItem;
 
-public class GridQuestionBean extends OptionsQuestionBean {
+public class GridQuestionBean extends OptionsQuestion {
 
     //list of variants for second table
     private List<VariantItem> options2;

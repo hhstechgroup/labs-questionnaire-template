@@ -77,8 +77,8 @@
 //                return question;
 //
 //            case CHOOSEFROMLIST:
-//                question = new OptionsQuestionBean();
-//                OptionsQuestionBean choose = (OptionsQuestionBean)question;
+//                question = new OptionsQuestion();
+//                OptionsQuestion choose = (OptionsQuestion)question;
 //                VariantItem variantItem = new  VariantItem();
 //                variantItem.setValue("nice");
 //                choose.setDefaultOption(variantItem);
@@ -94,9 +94,9 @@
 //                return question;
 //
 //            case MULTIPLECHOICE:
-//                question = new OptionsQuestionBean();
+//                question = new OptionsQuestion();
 //                creator(question);
-//                OptionsQuestionBean multiple = (OptionsQuestionBean)question;
+//                OptionsQuestion multiple = (OptionsQuestion)question;
 //                VariantItem variant = new  VariantItem();
 //                variant.setValue("nice");
 //
