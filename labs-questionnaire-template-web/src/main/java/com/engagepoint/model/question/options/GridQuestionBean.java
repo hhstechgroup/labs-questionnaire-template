@@ -5,6 +5,9 @@ import java.util.List;
 
 import com.engagepoint.model.question.utils.VariantItem;
 
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlElementWrapper;
+
 public class GridQuestionBean extends OptionsQuestion {
 
     //list of variants for second table
@@ -20,10 +23,12 @@ public class GridQuestionBean extends OptionsQuestion {
         this.options2 = new ArrayList<VariantItem>();
     }
 
+    @XmlElementWrapper(name = "rows")
     public List<VariantItem> getOptions2() {
         return options2;
     }
 
+    @XmlElementWrapper(name = "columns")
     @Override
     public List<VariantItem> getOptions() {
         return this.options;
@@ -34,6 +39,7 @@ public class GridQuestionBean extends OptionsQuestion {
         this.options = options;
     }
 
+    @XmlElement(name = "default-column")
     @Override
     public VariantItem getDefaultOption() {
         return defaultOption;
@@ -56,6 +62,7 @@ public class GridQuestionBean extends OptionsQuestion {
 		this.defaultOptions2 = defaultOptions2;
 	}*/
 
+    @XmlElement(name = "default-row")
     public VariantItem getDefaultOption2() {
         return defaultOption2;
     }
