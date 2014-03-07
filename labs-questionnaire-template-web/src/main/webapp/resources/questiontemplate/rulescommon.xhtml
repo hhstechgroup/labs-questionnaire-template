@@ -15,7 +15,7 @@
     <br/>
     <br/>
     <h:form id="rulesForm">
-        <p:commandButton value="Add rule" rendered="#{cc.attrs.controller.addRuleButtonIsVsible}"
+        <p:commandButton value="Add rule" rendered="#{cc.attrs.controller.addRuleButtonIsVisible}"
                          action="#{cc.attrs.controller.addRuleAction}"/>
         <p:commandButton value="Cancel Rule" rendered="#{cc.attrs.controller.cancelRuleEditionButtonIsVisible}"
                          action="#{cc.attrs.controller.cancelAddRuleAction}"/>
@@ -23,8 +23,7 @@
         <br/>
         <br/>
         <uib:dataTable var="item"
-                       value="#{cc.attrs.rules.supportedRules}"
-                       rendered="#{cc.attrs.controller.addRulesTableIsVisible}">
+                       value="#{cc.attrs.controller.rules.supportedRules}">
 
             <f:facet name="header">
                 <p> List of Rules</p>
@@ -38,8 +37,7 @@
             </uib:column>
 
             <uib:column style="width:20%">
-                <p:commandButton id="selectButton" value="Create">
-                </p:commandButton>
+                <p:commandButton id="selectButton" value="Create"/>
             </uib:column>
 
         </uib:dataTable>
