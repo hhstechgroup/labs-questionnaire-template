@@ -1,6 +1,7 @@
 package com.engagepoint.controller.page;
 
 import com.engagepoint.controller.utils.PageNavigator;
+import com.engagepoint.model.question.rules.RulesContainer;
 
 import java.io.Serializable;
 
@@ -12,6 +13,19 @@ import javax.inject.Inject;
 public abstract class QuestionEditController implements Serializable {
 
     boolean isNew = false;
+    private RulesContainer rules;
+
+    public QuestionEditController() {
+        rules = new RulesContainer();
+    }
+
+    public RulesContainer getRules() {
+        return rules;
+    }
+
+    public void setRules(RulesContainer rules) {
+        this.rules = rules;
+    }
 
     public boolean isNew() {
         return isNew;

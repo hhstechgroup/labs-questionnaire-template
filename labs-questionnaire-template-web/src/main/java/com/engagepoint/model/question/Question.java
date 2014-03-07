@@ -17,7 +17,7 @@ import javax.xml.bind.annotation.XmlSeeAlso;
 /**
  * Class represents question tag.
  */
-@XmlSeeAlso({TextQuestionBean.class, DateQuestionBean.class, OptionsQuestion.class,RangeQuestionBean.class})
+@XmlSeeAlso({TextQuestionBean.class, DateQuestionBean.class, OptionsQuestion.class, RangeQuestionBean.class})
 public abstract class Question implements Cloneable, BasicBeanProperty {
     private Long id;                    //id of the question
     protected String questionText = "";        //questiontext
@@ -25,15 +25,12 @@ public abstract class Question implements Cloneable, BasicBeanProperty {
     private QuestionType questionType;    //questiontype from ENUM of questiontypes
     private String helpText = "";            //Help texts for questions
 
-    private RulesContainer rules;
-
     @Inject
     TemplateTreeController templateTreeController;
 
     //Dependent questions
 
     public Question() {
-        rules = new RulesContainer();
     }
 
     @XmlElement(name = "question-title")
@@ -132,13 +129,5 @@ public abstract class Question implements Cloneable, BasicBeanProperty {
     @Override
     public String getType() {
         return "question";
-    }
-
-    public RulesContainer getRules() {
-        return rules;
-    }
-
-    public void setRules(RulesContainer rules) {
-        this.rules = rules;
     }
 }
