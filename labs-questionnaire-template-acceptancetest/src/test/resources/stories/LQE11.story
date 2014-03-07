@@ -1,17 +1,17 @@
 Narrative:
-As a template author I want to add "Multiple
-Choice" questions to question groups so that
-the template meets my needs.
+As a template author I want to add
+"Checkboxes" questions to question groups so
+that the template meets my needs.
 
 
 GivenStories: base_stories/openDefaultPage.story
 Scenario: create and fill
-Meta: @testName         LQE-10
+Meta: @testName         LQE-11
       @sectionName      Page 1
       @groupName        GROUP_1
-      @questionType     MULTIPLECHOICE
-      @questionText     Question text LQE-10
-      @helpText         Help text LQE-10
+      @questionType     CHECKBOX
+      @questionText     Question text LQE-11
+      @helpText         Help text LQE-11
       @optionName       Test option 1
 
 GivenStories: base_stories/template/addTemplate.story,
@@ -35,12 +35,12 @@ GivenStories: base_stories/question/deleteOption.story
 Then wait until all animations on page completed
 
 Scenario: save and check
-Meta: @testName         LQE-10
+Meta: @testName         LQE-11
       @sectionName      Page 1
       @groupName        GROUP_1
       @questionName     Question 1
-      @questionText     Question text LQE-10
-      @helpText         Help text LQE-10
+      @questionText     Question text LQE-11
+      @helpText         Help text LQE-11
       @optionName       Test option 3
 GivenStories: base_stories/question/saveQuestion.story,
               base_stories/template/saveTemplate.story,
@@ -53,8 +53,8 @@ Then wait until all animations on page completed
 
 
 Scenario: edit
-Meta: @questionText     Question text LQE-10 edit
-      @helpText         Help text LQE-10 edit
+Meta: @questionText     Question text LQE-11 edit
+      @helpText         Help text LQE-11 edit
       @optionName       Test option 3
 GivenStories: base_stories/question/fillCommonPropertiesInQuestion.story,
               base_stories/question/addoption.story
@@ -62,12 +62,12 @@ Then wait until all animations on page completed
 
 
 Scenario: check and save
-Meta: @testName         LQE-10
+Meta: @testName         LQE-11
       @sectionName      Page 1
       @groupName        GROUP_1
       @questionName     Question 1
-      @questionText     Question text LQE-10 edit
-      @helpText         Help text LQE-10 edit
+      @questionText     Question text LQE-11 edit
+      @helpText         Help text LQE-11 edit
       @optionName       Test option 3
 GivenStories: base_stories/question/saveQuestion.story,
               base_stories/template/saveTemplate.story,
@@ -77,6 +77,5 @@ GivenStories: base_stories/question/saveQuestion.story,
               base_stories/question/checkSavedCommonPropertiesInQuestion.story,
               base_stories/question/checkOptions.story
 Then wait until all animations on page completed
-
 
 
