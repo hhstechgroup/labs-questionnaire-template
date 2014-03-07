@@ -1,0 +1,36 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ago="http://java.sun.com/jsf/composite/questiontemplate"
+                xmlns:uib="http://engagepoint.com/uib">
+    <br/>
+    <h:form id="rulesForm">
+        <p:commandButton value="Add rule"/>
+
+        <uib:dataTable var="item"
+                value="#{templateController.rulesList}">
+
+            <f:facet name="header">
+                <p> List of Rules</p>
+            </f:facet>
+
+            <uib:column>
+                <f:facet name="header">
+                    Rule Name:
+                </f:facet>
+                <h:outputText value="#{item.value}"/>
+            </uib:column>
+
+            <uib:column style="width:20%">
+                <p:commandButton id="selectButton" value="Create" >
+                    <f:setPropertyActionListener value="#{item}" target="#{templateController.currentRule}"/>
+                </p:commandButton>
+            </uib:column>
+
+
+        </uib:dataTable>
+    </h:form>
+
+</ui:composition>
