@@ -15,14 +15,16 @@
     <br/>
     <br/>
     <h:form id="rulesForm">
-        <p:commandButton value="Add rule" rendered="#{cc.attrs.addRuleButtonIsVsible}"
-                         action="#{cc.attrs.addRuleAction}"/>
-        <p:commandButton value="Cancel" rendered="#{cc.attrs.cancelRuleEditionButtonIsVisible}"
-                         action="#{cc.attrs.cancelAddRuleAction}"/>
+        <p:commandButton value="Add rule" rendered="#{cc.attrs.controller.addRuleButtonIsVsible}"
+                         action="#{cc.attrs.controller.addRuleAction}"/>
+        <p:commandButton value="Cancel Rule" rendered="#{cc.attrs.controller.cancelRuleEditionButtonIsVisible}"
+                         action="#{cc.attrs.controller.cancelAddRuleAction}"/>
+
         <br/>
         <br/>
         <uib:dataTable var="item"
-                       value="#{cc.attrs.rules.supportedRules}" rendered="#{cc.attrs.addRulesTableIsVisible}">
+                       value="#{cc.attrs.rules.supportedRules}"
+                       rendered="#{cc.attrs.controller.addRulesTableIsVisible}">
 
             <f:facet name="header">
                 <p> List of Rules</p>
