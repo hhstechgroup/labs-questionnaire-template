@@ -25,6 +25,7 @@ public abstract class QuestionEditController implements Serializable {
 
     public QuestionEditController() {
         rules = new RulesContainer();
+        addRuleButtonIsVsible=true;
         isNew = false;
     }
 
@@ -90,5 +91,14 @@ public abstract class QuestionEditController implements Serializable {
         setAddRuleButtonIsVsible(false);
         setCancelRuleEditionButtonIsVisible(true);
         setAddRulesTableIsVisible(true);
+    }
+
+    /**
+     * Set elements visibility after cancel rule button was clicked.
+     */
+    public void cancelAddRuleAction() {
+        setCancelRuleEditionButtonIsVisible(false);
+        setAddRulesTableIsVisible(false);
+        setAddRuleButtonIsVsible(true);
     }
 }
