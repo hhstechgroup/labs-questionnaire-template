@@ -3,6 +3,7 @@ package com.engagepoint.model.question;
 
 import com.engagepoint.controller.page.TemplateTreeController;
 import com.engagepoint.model.question.options.OptionsQuestion;
+import com.engagepoint.model.question.rules.RulesContainer;
 import com.engagepoint.model.questionnaire.BasicBeanProperty;
 import com.engagepoint.model.questionnaire.QuestionType;
 import com.engagepoint.model.questionnaire.TemplateBean;
@@ -24,12 +25,15 @@ public abstract class Question implements Cloneable, BasicBeanProperty {
     private QuestionType questionType;    //questiontype from ENUM of questiontypes
     private String helpText = "";            //Help texts for questions
 
+    private RulesContainer rules;
+
     @Inject
     TemplateTreeController templateTreeController;
 
     //Dependent questions
 
     public Question() {
+        rules = new RulesContainer();
     }
 
     @XmlElement(name = "question-title")
@@ -128,5 +132,13 @@ public abstract class Question implements Cloneable, BasicBeanProperty {
     @Override
     public String getType() {
         return "question";
+    }
+
+    public RulesContainer getRules() {
+        return rules;
+    }
+
+    public void setRules(RulesContainer rules) {
+        this.rules = rules;
     }
 }
