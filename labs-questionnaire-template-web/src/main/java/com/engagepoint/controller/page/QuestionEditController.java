@@ -11,7 +11,6 @@ import javax.inject.Named;
  * Used as basic controller for all question controllers
  */
 
-@Named("questionController")
 public abstract class QuestionEditController implements Serializable {
 
    
