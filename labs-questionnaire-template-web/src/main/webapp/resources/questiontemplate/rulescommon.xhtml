@@ -16,13 +16,13 @@
     <br/>
     <h:form id="rulesForm">
         <p:commandButton value="Add rule" rendered="#{cc.attrs.controller.addRuleButtonIsVisible}"
-                         action="#{cc.attrs.controller.addRuleAction}"/>
+                         action="#{cc.attrs.controller.addRuleAction}" ajax="false"/>
         <p:commandButton value="Cancel Rule" rendered="#{cc.attrs.controller.cancelRuleEditionButtonIsVisible}"
-                         action="#{cc.attrs.controller.cancelAddRuleAction}"/>
+                         action="#{cc.attrs.controller.cancelAddRuleAction}" ajax="false"/>
 
         <br/>
         <br/>
-        <uib:dataTable var="item" value="#{cc.attrs.controller.rulesContainer.mock}">
+        <uib:dataTable var="item" value="#{cc.attrs.controller.rulesContainer.mock}" rendered="#{cc.attrs.controller.addRulesTableIsVisible}">
 
             <f:facet name="header">
                 <p> List of Rules</p>
