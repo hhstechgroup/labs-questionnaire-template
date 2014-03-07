@@ -16,14 +16,11 @@
     <br/>
     <h:form id="rulesForm">
         <p:commandButton value="Add rule" rendered="#{cc.attrs.controller.addRuleButtonIsVisible}"
-                         action="#{cc.attrs.controller.addRuleAction}" ajax="false"/>
-        <p:commandButton value="Cancel Rule" rendered="#{cc.attrs.controller.cancelRuleEditionButtonIsVisible}"
-                         action="#{cc.attrs.controller.cancelAddRuleAction}" ajax="false"/>
+                         action="#{cc.attrs.controller.addRuleAction}" update="@form"/>
 
         <br/>
-        <br/>
-        <uib:dataTable var="item" value="#{cc.attrs.controller.rulesContainer.mock}" rendered="#{cc.attrs.controller.addRulesTableIsVisible}">
-
+        <uib:dataTable var="item" value="#{cc.attrs.controller.rulesContainer.mock}"
+                       rendered="#{cc.attrs.controller.addRulesTableIsVisible}">
             <f:facet name="header">
                 <p> List of Rules</p>
             </f:facet>
@@ -38,8 +35,11 @@
             <uib:column style="width:20%">
                 <p:commandButton id="selectButton" value="Create"/>
             </uib:column>
-
         </uib:dataTable>
+        <br/>
+
+        <p:commandButton value="Cancel Rule" rendered="#{cc.attrs.controller.cancelRuleEditionButtonIsVisible}"
+                         action="#{cc.attrs.controller.cancelAddRuleAction}" update="@form"/>
     </h:form>
 
 </composite:implementation>
