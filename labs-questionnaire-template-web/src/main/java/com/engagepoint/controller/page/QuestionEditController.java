@@ -12,7 +12,7 @@ import javax.inject.Inject;
 public abstract class QuestionEditController implements Serializable {
     private boolean isNew;
     //contains all rules
-    private RulesContainer rules;
+    private RulesContainer rulesContainer;
     //show add rule button
     private boolean addRuleButtonIsVisible;
     //show cancel rule edition button
@@ -24,22 +24,23 @@ public abstract class QuestionEditController implements Serializable {
     private TemplateTreeController templateTreeController;
 
     public QuestionEditController() {
-        rules = new RulesContainer();
+        rulesContainer = new RulesContainer();
         addRuleButtonIsVisible = true;
         isNew = false;
+    }
+
+    public RulesContainer getRulesContainer() {
+        return rulesContainer;
+    }
+
+    public void setRulesContainer(RulesContainer rulesContainer) {
+        this.rulesContainer = rulesContainer;
     }
 
     public TemplateTreeController getTemplateTreeController() {
         return templateTreeController;
     }
 
-    public RulesContainer getRules() {
-        return rules;
-    }
-
-    public void setRules(RulesContainer rules) {
-        this.rules = rules;
-    }
 
     public boolean isNew() {
         return isNew;
