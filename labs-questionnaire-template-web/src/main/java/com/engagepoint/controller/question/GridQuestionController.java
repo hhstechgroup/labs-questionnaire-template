@@ -21,6 +21,9 @@ public class GridQuestionController extends QuestionEditController {
 
 	private GridQuestionBean currentQuestion;
 
+    //I was forced to write this
+    double penetration;
+
 	// dataModel for table
 	private ListOfOptionsDataModel dataModel;
 	// dataModel for second table
