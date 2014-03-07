@@ -8,18 +8,21 @@
       xmlns:uib="http://engagepoint.com/uib">
 
 <composite:interface>
-    <composite:attribute name="controller" required="true" />
+    <composite:attribute name="controller" required="true"/>
 </composite:interface>
 
 <composite:implementation>
     <br/>
     <br/>
     <h:form id="rulesForm">
-        <p:commandButton value="Add rule"/>
+        <p:commandButton value="Add rule" rendered="#{cc.attrs.addRuleButtonIsVsible}"
+                         action="#{cc.attrs.addRuleAction}"/>
+        <p:commandButton value="Cancel" rendered="#{cc.attrs.cancelRuleEditionButtonIsVisible}"
+                         action="#{cc.attrs.cancelAddRuleAction}"/>
         <br/>
         <br/>
         <uib:dataTable var="item"
-                       value="#{cc.attrs.rules.supportedRules}">
+                       value="#{cc.attrs.rules.supportedRules}" rendered="#{cc.attrs.addRulesTableIsVisible}">
 
             <f:facet name="header">
                 <p> List of Rules</p>
