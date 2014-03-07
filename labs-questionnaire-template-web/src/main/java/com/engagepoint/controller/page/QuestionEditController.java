@@ -14,7 +14,7 @@ public abstract class QuestionEditController implements Serializable {
     //contains all rules
     private RulesContainer rules;
     //show add rule button
-    private boolean addRuleButtonIsVsible;
+    private boolean addRuleButtonIsVisible;
     //show cancel rule edition button
     private boolean cancelRuleEditionButtonIsVisible;
     //show rules table
@@ -25,7 +25,7 @@ public abstract class QuestionEditController implements Serializable {
 
     public QuestionEditController() {
         rules = new RulesContainer();
-        addRuleButtonIsVsible=true;
+        addRuleButtonIsVisible = true;
         isNew = false;
     }
 
@@ -68,14 +68,6 @@ public abstract class QuestionEditController implements Serializable {
         this.addRulesTableIsVisible = addRulesTableIsVisible;
     }
 
-    public boolean isAddRuleButtonIsVsible() {
-        return addRuleButtonIsVsible;
-    }
-
-    public void setAddRuleButtonIsVsible(boolean addRuleButtonIsVsible) {
-        this.addRuleButtonIsVsible = addRuleButtonIsVsible;
-    }
-
     public boolean isCancelRuleEditionButtonIsVisible() {
         return cancelRuleEditionButtonIsVisible;
     }
@@ -84,11 +76,19 @@ public abstract class QuestionEditController implements Serializable {
         this.cancelRuleEditionButtonIsVisible = cancelRuleEditionButtonIsVisible;
     }
 
+    public boolean isAddRuleButtonIsVisible() {
+        return addRuleButtonIsVisible;
+    }
+
+    public void setAddRuleButtonIsVisible(boolean addRuleButtonIsVisible) {
+        this.addRuleButtonIsVisible = addRuleButtonIsVisible;
+    }
+
     /**
      * Set elements visibility after add rule button was clicked.
      */
     public void addRuleAction() {
-        setAddRuleButtonIsVsible(false);
+        setAddRuleButtonIsVisible(false);
         setCancelRuleEditionButtonIsVisible(true);
         setAddRulesTableIsVisible(true);
     }
@@ -99,6 +99,6 @@ public abstract class QuestionEditController implements Serializable {
     public void cancelAddRuleAction() {
         setCancelRuleEditionButtonIsVisible(false);
         setAddRulesTableIsVisible(false);
-        setAddRuleButtonIsVsible(true);
+        setAddRuleButtonIsVisible(true);
     }
 }
