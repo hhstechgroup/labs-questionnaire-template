@@ -11,12 +11,19 @@ import javax.inject.Inject;
  * Used as basic controller for all question controllers
  */
 public abstract class QuestionEditController implements Serializable {
-
-    boolean isNew = false;
+    private boolean isNew;
     private RulesContainer rules;
+
+    @Inject
+    private TemplateTreeController templateTreeController;
 
     public QuestionEditController() {
         rules = new RulesContainer();
+        isNew = false;
+    }
+
+    public TemplateTreeController getTemplateTreeController() {
+        return templateTreeController;
     }
 
     public RulesContainer getRules() {
@@ -35,13 +42,6 @@ public abstract class QuestionEditController implements Serializable {
         isNew = aNew;
     }
 
-    @Inject
-    private TemplateTreeController templateTreeController;
-
-    public TemplateTreeController getTemplateTreeController() {
-        return templateTreeController;
-    }
-
     public String actionSave() {
         if (isNew) {
             getTemplateTreeController().addQuestionToCurrentGroup();
@@ -49,11 +49,7 @@ public abstract class QuestionEditController implements Serializable {
         return PageNavigator.TEMPLATE_EDIT_PAGE;
     }
 
-    ;
-
     public String actionCancel() {
         return PageNavigator.TEMPLATE_EDIT_PAGE;
     }
-
-    ;
 }
