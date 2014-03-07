@@ -4,7 +4,6 @@ import com.engagepoint.controller.utils.PageNavigator;
 import com.engagepoint.model.question.rules.RulesContainer;
 
 import java.io.Serializable;
-
 import javax.inject.Inject;
 
 /**
@@ -12,7 +11,14 @@ import javax.inject.Inject;
  */
 public abstract class QuestionEditController implements Serializable {
     private boolean isNew;
+    //contains all rules
     private RulesContainer rules;
+    //show add rule button
+    private boolean addRuleButtonIsVsible;
+    //show cancel rule edition button
+    private boolean cancelRuleEditionButtonIsVisible;
+    //show rules table
+    private boolean addRulesTableIsVisible;
 
     @Inject
     private TemplateTreeController templateTreeController;
@@ -51,5 +57,38 @@ public abstract class QuestionEditController implements Serializable {
 
     public String actionCancel() {
         return PageNavigator.TEMPLATE_EDIT_PAGE;
+    }
+
+    public boolean isAddRulesTableIsVisible() {
+        return addRulesTableIsVisible;
+    }
+
+    public void setAddRulesTableIsVisible(boolean addRulesTableIsVisible) {
+        this.addRulesTableIsVisible = addRulesTableIsVisible;
+    }
+
+    public boolean isAddRuleButtonIsVsible() {
+        return addRuleButtonIsVsible;
+    }
+
+    public void setAddRuleButtonIsVsible(boolean addRuleButtonIsVsible) {
+        this.addRuleButtonIsVsible = addRuleButtonIsVsible;
+    }
+
+    public boolean isCancelRuleEditionButtonIsVisible() {
+        return cancelRuleEditionButtonIsVisible;
+    }
+
+    public void setCancelRuleEditionButtonIsVisible(boolean cancelRuleEditionButtonIsVisible) {
+        this.cancelRuleEditionButtonIsVisible = cancelRuleEditionButtonIsVisible;
+    }
+
+    /**
+     * Set elements visibility after add rule button was clicked.
+     */
+    public void addRuleAction() {
+        setAddRuleButtonIsVsible(false);
+        setCancelRuleEditionButtonIsVisible(true);
+        setAddRulesTableIsVisible(true);
     }
 }
