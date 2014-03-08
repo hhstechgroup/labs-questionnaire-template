@@ -15,8 +15,10 @@
     <br/>
     <br/>
     <h:form id="rulesForm">
+        <p:panel id="buttonPanel">
+
         <p:commandButton value="Add rule" rendered="#{cc.attrs.controller.addRuleButtonIsVisible}"
-                         action="#{cc.attrs.controller.addRuleAction}" update="@form"/>
+                         action="#{cc.attrs.controller.addRuleAction}" update="buttonPanel"/>
 
         <br/>
         <uib:dataTable var="item" value="#{cc.attrs.controller.rulesContainer.mock}"
@@ -39,7 +41,8 @@
         <br/>
 
         <p:commandButton value="Cancel Rule" rendered="#{cc.attrs.controller.cancelRuleEditionButtonIsVisible}"
-                         action="#{cc.attrs.controller.cancelAddRuleAction}" update="@form"/>
+                         action="#{cc.attrs.controller.cancelAddRuleAction}" update="buttonPanel"/>
+        </p:panel>
     </h:form>
 
 </composite:implementation>
