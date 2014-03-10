@@ -21,7 +21,7 @@
                              action="#{cc.attrs.controller.addRuleAction}" update="buttonPanel"/>
 
             <br/>
-            <uib:dataTable var="item" value="#{cc.attrs.controller.rulesContainer.mock}"
+            <uib:dataTable id="rulesTable" var="item" value="#{cc.attrs.controller.rulesContainer.mock}"
                            rendered="#{cc.attrs.controller.addRulesTableIsVisible}">
                 <f:facet name="header">
                     <p> List of Rules</p>
@@ -35,11 +35,14 @@
                 </uib:column>
 
                 <uib:column style="width:20%">
-                    <p:commandButton id="selectButton" value="Create" action="#{cc.attrs.controller.createRule(item)}"/>
+                    <p:commandButton id="selectButton" value="Create" action="#{cc.attrs.controller.createRule(item)}"
+                                     update="rulesTable,@([id$=buttonPanel])"/>
                 </uib:column>
             </uib:dataTable>
             <br/>
-
+            <p:commandButton value="test" rendered="#{cc.attrs.controller.chooseDependentQuestionListVisible}"/>
+            <br/>
+            <br/>
             <p:commandButton value="Cancel Rule" rendered="#{cc.attrs.controller.cancelRuleEditionButtonIsVisible}"
                              action="#{cc.attrs.controller.cancelAddRuleAction}" update="buttonPanel"/>
         </p:panel>
