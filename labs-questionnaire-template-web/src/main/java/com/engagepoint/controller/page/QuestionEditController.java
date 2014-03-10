@@ -19,6 +19,8 @@ public abstract class QuestionEditController implements Serializable {
     private boolean cancelRuleEditionButtonIsVisible;
     //show rules table
     private boolean addRulesTableIsVisible;
+    //show question id list
+    private boolean chooseDependentQuestionListVisible;
 
     @Inject
     private TemplateTreeController templateTreeController;
@@ -85,6 +87,14 @@ public abstract class QuestionEditController implements Serializable {
         this.addRuleButtonIsVisible = addRuleButtonIsVisible;
     }
 
+    public boolean isChooseDependentQuestionListVisible() {
+        return chooseDependentQuestionListVisible;
+    }
+
+    public void setChooseDependentQuestionListVisible(boolean chooseDependentQuestionListVisible) {
+        this.chooseDependentQuestionListVisible = chooseDependentQuestionListVisible;
+    }
+
     /**
      * Set elements visibility after add rule button was clicked.
      */
@@ -101,5 +111,10 @@ public abstract class QuestionEditController implements Serializable {
         setCancelRuleEditionButtonIsVisible(false);
         setAddRulesTableIsVisible(false);
         setAddRuleButtonIsVisible(true);
+    }
+
+    public void createRule(String ruleName) {
+        setAddRulesTableIsVisible(false);
+        setChooseDependentQuestionListVisible(true);
     }
 }
