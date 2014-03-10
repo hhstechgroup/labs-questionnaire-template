@@ -182,6 +182,11 @@ public class TemplateEditController implements Serializable {
         return PageNavigator.TEMPLATE_EDIT_PAGE;
     }
 
+    /**
+     * Getting id of all questions from current template.
+     *
+     * @return list of id.
+     */
     public List<Long> getQuestionsId() {
         List<Long> list = new ArrayList<Long>();
         for (SectionBean sectionBean : currentTemplate.getSectionsList())
