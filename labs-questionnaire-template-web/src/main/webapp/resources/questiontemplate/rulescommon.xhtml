@@ -40,7 +40,12 @@
                 </uib:column>
             </uib:dataTable>
             <br/>
-            <p:commandButton value="test" rendered="#{cc.attrs.controller.chooseDependentQuestionListVisible}"/>
+            <p:selectOneMenu rendered="#{cc.attrs.controller.chooseDependentQuestionListVisible}">
+                <f:selectItem itemLabel="Select One" itemValue=""/>
+                <f:selectItems value="#{templateController.questionsId}"/>
+            </p:selectOneMenu>
+            <br/>
+            <p:commandButton value="Set Answer" rendered="#{cc.attrs.controller.chooseDependentQuestionListVisible}"/>
             <br/>
             <br/>
             <p:commandButton value="Cancel Rule" rendered="#{cc.attrs.controller.cancelRuleEditionButtonIsVisible}"
