@@ -108,6 +108,7 @@ public abstract class QuestionEditController implements Serializable {
      * Set elements visibility after cancel rule button was clicked.
      */
     public void cancelAddRuleAction() {
+        setChooseDependentQuestionListVisible(false);
         setCancelRuleEditionButtonIsVisible(false);
         setAddRulesTableIsVisible(false);
         setAddRuleButtonIsVisible(true);
