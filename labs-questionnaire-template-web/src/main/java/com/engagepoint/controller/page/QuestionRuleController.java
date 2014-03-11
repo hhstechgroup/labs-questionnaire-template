@@ -5,6 +5,7 @@ import com.engagepoint.model.question.rules.RulesContainer;
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.Conversation;
 import javax.enterprise.context.ConversationScoped;
+import javax.enterprise.context.SessionScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 import java.io.Serializable;
@@ -13,7 +14,7 @@ import java.io.Serializable;
  * Controller for question rules.
  */
 @Named
-@ConversationScoped
+@SessionScoped
 public class QuestionRuleController implements Serializable {
     //contains all rules
     private RulesContainer rulesContainer;
@@ -25,29 +26,10 @@ public class QuestionRuleController implements Serializable {
     private boolean addRulesTableIsVisible;
     //show question id list
     private boolean chooseDependentQuestionListVisible;
-    @Inject
-    private Conversation conversation;
 
     public QuestionRuleController() {
         rulesContainer = new RulesContainer();
         addRuleButtonIsVisible = true;
-    }
-
-    public void beginConversation() {
-        if (conversation.isTransient()) {
-            conversation.begin();
-        }
-    }
-
-    public void endConversation() {
-        if (!conversation.isTransient()) {
-            conversation.end();
-        }
-    }
-
-    @PostConstruct
-    public void init() {
-        beginConversation();
     }
 
     public RulesContainer getRulesContainer() {
@@ -107,7 +89,6 @@ public class QuestionRuleController implements Serializable {
         setCancelRuleEditionButtonIsVisible(false);
         setAddRulesTableIsVisible(false);
         setAddRuleButtonIsVisible(true);
-        endConversation();
     }
 
     /**
