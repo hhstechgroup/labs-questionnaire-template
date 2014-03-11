@@ -31,7 +31,7 @@ public class TemplateEditController implements Serializable {
     private TemplateBean currentTemplate; //real template
     private TemplateBean duplicateTemplate; //copy of real template, contains all unsaved changes
     private QuestionType selectedQuestionType;
-    private Question currentDependentQuestion;
+    private String currentDependentQuestionId;
 
     public TemplateBean getDuplicateTemplate() {
         return duplicateTemplate;
@@ -63,12 +63,12 @@ public class TemplateEditController implements Serializable {
         this.selectedQuestionType = selectedQuestionType;
     }
 
-    public Question getCurrentDependentQuestion() {
-        return currentDependentQuestion;
+    public String getCurrentDependentQuestionId() {
+        return currentDependentQuestionId;
     }
 
-    public void setCurrentDependentQuestion(Question currentDependentQuestion) {
-        this.currentDependentQuestion = currentDependentQuestion;
+    public void setCurrentDependentQuestionId(String currentDependentQuestionId) {
+        this.currentDependentQuestionId = currentDependentQuestionId;
     }
 
     /**
@@ -209,7 +209,13 @@ public class TemplateEditController implements Serializable {
      * @return question type
      */
     public String getCurrentDependentQuestionType() {
-        return currentDependentQuestion.getQuestionType().toString();
+        if (currentDependentQuestionId != null) {
+            for (SectionBean sectionBean : currentTemplate.getSectionsList())
+                for (GroupBean groupBean : sectionBean.getGroupsList())
+                    for (Question question : groupBean.getQuestionsList())
+                        if (String.valueOf(question.getId()).equals(currentDependentQuestionId))
+                            return question.getQuestionType().toString();
+        }
+        return "question type is not chose";
     }
-
 }
