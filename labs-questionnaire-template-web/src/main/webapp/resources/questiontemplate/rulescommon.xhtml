@@ -74,20 +74,24 @@
                 <h:outputLabel value="#{templateController.currentDependentQuestionType}"/>
                 <br/>
 
-                <p:calendar title="calendar" pattern="HH:mm" showOn="button" timeOnly="true" rendered="false"/>
-
-                <p:inputText size="50" rendered="false"/>
-
-                <h:outputText value="Set minimum value" rendered="false"/>
-                <h:inputText id="minRangeValue" rendered="false"/>
-                <h:outputText value="Set maximum value" rendered="false"/>
-                <h:inputText id="maxRangeValue" rendered="false"/>
+                <p:inputText size="50" rendered="#{templateController.currentDependentQuestionType eq 'TEXT'}"/>
 
                 <p:inputTextarea rows="8"
-                                 cols="555" rendered="false"/>
+                                 cols="555"
+                                 rendered="#{templateController.currentDependentQuestionType eq 'PARAGRAPHTEXT'}"/>
 
-                <p:calendar title="calendar" pattern="MM/dd/yyyy" showOn="button" rendered="false"/>
+                <p:calendar title="calendar" pattern="HH:mm" showOn="button" timeOnly="true"
+                            rendered="#{templateController.currentDependentQuestionType eq 'TIME'}"/>
 
+                <p:calendar title="calendar" pattern="MM/dd/yyyy" showOn="button"
+                            rendered="#{templateController.currentDependentQuestionType eq 'DATE'}"/>
+
+                <p:panel rendered="#{templateController.currentDependentQuestionType eq 'RANGE'}">
+                    <h:outputText value="Set minimum value" rendered="false"/>
+                    <h:inputText id="minRangeValue" rendered="false"/>
+                    <h:outputText value="Set maximum value" rendered="false"/>
+                    <h:inputText id="maxRangeValue" rendered="false"/>
+                </p:panel>
 
                 <br/>
                 <p:commandButton value="Set" immediate="true" onclick="dlgSetAnswer.hide()"/>
