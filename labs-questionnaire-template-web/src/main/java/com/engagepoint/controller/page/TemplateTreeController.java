@@ -10,7 +10,7 @@ import javax.faces.context.FacesContext;
 import javax.inject.Named;
 
 import com.engagepoint.model.question.Question;
-import com.engagepoint.model.questionnaire.BasicBeanProperty;
+import com.engagepoint.model.questionnaire.BasicBean;
 import com.engagepoint.model.questionnaire.GroupBean;
 import com.engagepoint.model.questionnaire.SectionBean;
 import com.engagepoint.model.questionnaire.TemplateBean;
@@ -77,7 +77,7 @@ public class TemplateTreeController implements Serializable {
      * Then it's more clear, what we are working with at the moment.
      */
     public void onSelect() {
-        selectedType = ((BasicBeanProperty) selectedNode.getData()).getType();
+        selectedType = ((BasicBean) selectedNode.getData()).getType();
         if (selectedType.equals("question")) {
             Question question = (Question) selectedNode.getData();
             currentQuestion = question;

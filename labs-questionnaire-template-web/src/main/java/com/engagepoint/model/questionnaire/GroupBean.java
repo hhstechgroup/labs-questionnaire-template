@@ -10,17 +10,19 @@ import java.util.List;
 /**
  * Class represents group tag.
  */
-public class GroupBean implements Cloneable, BasicOperationWithBean, BasicBeanProperty {
+public class GroupBean extends BasicBean
+                       implements Cloneable, BasicOperationWithBean {
     private String groupName;
-
     private List<Question> questionsList = new ArrayList<Question>();
 
     public GroupBean() {
+        super.setDisplayedName("GroupDefault");
     }
 
     public GroupBean(String groupName, List<Question> questionsList) {
         this.groupName = groupName;
         this.questionsList = questionsList;
+        super.setDisplayedName("GroupDefault");
     }
 
     @XmlElement(name = "group-name")
@@ -31,6 +33,11 @@ public class GroupBean implements Cloneable, BasicOperationWithBean, BasicBeanPr
     public void setGroupName(String groupName) {
         this.groupName = groupName;
     }
+
+    public void setDisplayedName(String name) {
+        this.groupName = name;
+    }
+
 
     @XmlElementWrapper(name = "questions")
     @XmlElement(name = "question")
@@ -99,5 +106,15 @@ public class GroupBean implements Cloneable, BasicOperationWithBean, BasicBeanPr
     @Override
     public String getType() {
         return "group";
+    }
+
+    @Override
+    public String getDisplayedId() {
+        return "   ";
+    }
+
+    @Override
+    public String getDisplayedName() {
+        return groupName;
     }
 }

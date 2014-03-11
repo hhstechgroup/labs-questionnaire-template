@@ -4,7 +4,7 @@
                 xmlns:p="http://primefaces.org/ui"
                 xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:f="http://java.sun.com/jsf/core"
-                xmlns:uib="http://engagepoint.com/uib" xmlns:F="http://java.sun.com/jsp/jstl/sql"
+                xmlns:uib="http://engagepoint.com/uib"
 
                 template="/templates/templateEdit.xhtml">
 
@@ -47,10 +47,19 @@
                         <p:ajax event="expand" update=":formTemplate:form:buttonPanel"/>
                         <p:ajax event="collapse" update=":formTemplate:form:buttonPanel"/>
                         <p:ajax event="select" update=":formTemplate:form:buttonPanel, :formTemplate:form:treeMultiple" listener="#{templateTreeController.onSelect}"/>
-                        <p:ajax event="unselect" update=":formTemplate:form:buttonPanel"/>
+                        <p:ajax event="unselect" update=":formTemplate:form:buttonPanel, :formTemplate:form:treeMultiple"/>
 
                         <p:column style="#{templateTreeController.getStyle(node)}">
-                            <h:outputText id="treeNode" value="#{node}" style="cursor: pointer"/>
+                            <h:outputText id="treeNodeDefault"
+                                          value="#{node.displayedName}"
+                                          style="cursor: pointer"/>
+                            <h:outputText id="treeNodeId"
+                                          value="#{node.displayedId}"
+                                          style="cursor: pointer"/>
+                            <h:commandButton id="editNameButton"
+                                             value="Edit name"
+                                             update="modalDialogChangeName"
+                                             rendered="#{templateTreeController.selectedNode.data == node}"/>
                         </p:column>
 
                     </p:treeTable>
@@ -96,6 +105,7 @@
                                          styleClass="secondary"
                                          id="btnDisplayEditQuestion">
                         </p:commandButton>
+
                         <p:dialog id="modalDialogSelectType" widgetVar="dlgSelectType"
                                   modal="true" height="100" closable="false" resizeable="false">
                             <h:outputText value="Please choose a question type"/>
@@ -112,7 +122,6 @@
                                              id="cancel"
                                              onclick="dlgSelectType.hide()"/>
                         </p:dialog>
-
                     </p:panel>
                 </h:form>
 
@@ -122,7 +131,7 @@
                                      action="#{templateController.saveTemplate}"/>
                     <h:outputText value=" "/>
                     <p:commandButton value="Cancel"
-                                     id="cancel"
+                                     id="cancel3"
                                      update="modalDialogCancel"
                                      oncomplete="dlgCancel.show();"/>
 

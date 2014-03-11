@@ -3,6 +3,7 @@ package com.engagepoint.model.question;
 
 import com.engagepoint.controller.page.TemplateTreeController;
 import com.engagepoint.model.question.options.OptionsQuestion;
+import com.engagepoint.model.question.rules.RulesContainer;
 import com.engagepoint.model.questionnaire.BasicBeanProperty;
 import com.engagepoint.model.questionnaire.QuestionType;
 import com.engagepoint.model.questionnaire.TemplateBean;
@@ -16,7 +17,7 @@ import javax.xml.bind.annotation.XmlSeeAlso;
 /**
  * Class represents question tag.
  */
-@XmlSeeAlso({TextQuestionBean.class, DateQuestionBean.class, OptionsQuestion.class,RangeQuestionBean.class})
+@XmlSeeAlso({TextQuestionBean.class, DateQuestionBean.class, OptionsQuestion.class, RangeQuestionBean.class})
 public abstract class Question implements Cloneable, BasicBeanProperty {
     private Long id;                    //id of the question
     protected String questionText = "";        //questiontext
@@ -30,13 +31,18 @@ public abstract class Question implements Cloneable, BasicBeanProperty {
     //Dependent questions
 
     public Question() {
-    }
+        super.setDisplayedName("QuestionDefault");
+	}
 
     @XmlElement(name = "question-title")
     public String getQuestionText() {
         return questionText;
     }
 
+	public void setQuestionText(String questionText) {
+		this.questionText = questionText;
+        super.setDisplayedName(questionText.substring(0, 9));
+	}
 
     public void setQuestionText(String questionText) {
         this.questionText = questionText;
@@ -54,6 +60,11 @@ public abstract class Question implements Cloneable, BasicBeanProperty {
     @XmlAttribute(name = "question-id")
     public Long getId() {
         return id;
+    }
+
+    @Override
+    public String getDisplayedName() {
+        return questionText.substring(0,9);
     }
 
     public void setId(Long id) {
@@ -128,5 +139,12 @@ public abstract class Question implements Cloneable, BasicBeanProperty {
     @Override
     public String getType() {
         return "question";
+    }
+
+    @Override
+    public String getDisplayedId() {
+        String sectionID = ((SectionBean) templateTreeController.getSelectedNode().getParent().getParent().getData()).getDisplayedId();
+        String questionID = " (ID: "+String.valueOf(id)+sectionID+") ";
+        return questionID;
     }
 }

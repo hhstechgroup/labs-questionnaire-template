@@ -10,17 +10,19 @@ import java.util.List;
 /**
  * Class represents page tag.
  */
-public class SectionBean implements Cloneable, Serializable, BasicOperationWithBean,
-                                    BasicBeanProperty {
+public class SectionBean extends BasicBean
+                         implements Cloneable, Serializable, BasicOperationWithBean{
     private int pageNumber;
     private List<GroupBean> groupsList = new ArrayList<GroupBean>();
 
     public SectionBean() {
+        super.setDisplayedName("PageDefault");
     }
 
     public SectionBean(int pageNumber, List<GroupBean> groupsList) {
         this.pageNumber = pageNumber;
         this.groupsList = groupsList;
+        super.setDisplayedName("Page");
     }
 
     @XmlElementWrapper(name = "groups-of-questions")
@@ -96,4 +98,11 @@ public class SectionBean implements Cloneable, Serializable, BasicOperationWithB
     public String getType() {
         return "section";
     }
+
+    @Override
+    public String getDisplayedId() {
+        String id = " (ID: "+String.valueOf(pageNumber)+") ";
+        return id;
+    }
+
 }
