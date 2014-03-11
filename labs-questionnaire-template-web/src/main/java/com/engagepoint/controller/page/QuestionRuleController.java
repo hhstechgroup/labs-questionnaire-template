@@ -11,6 +11,7 @@ import javax.enterprise.context.SessionScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * Controller for question rules.
@@ -29,6 +30,7 @@ public class QuestionRuleController implements Serializable {
     //show question id list
     private boolean chooseDependentQuestionListVisible;
     //
+    private List<VariantItem> defaultOptions;
     private ListOfOptionsDataModel dataModel;
     private VariantItem defaultOption;
 
@@ -91,6 +93,14 @@ public class QuestionRuleController implements Serializable {
 
     public void setDataModel(ListOfOptionsDataModel dataModel) {
         this.dataModel = dataModel;
+    }
+
+    public List<VariantItem> getDefaultOptions() {
+        return defaultOptions;
+    }
+
+    public void setDefaultOptions(List<VariantItem> defaultOptions) {
+        this.defaultOptions = defaultOptions;
     }
 
     /**
