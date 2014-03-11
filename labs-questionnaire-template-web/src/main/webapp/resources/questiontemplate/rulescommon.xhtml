@@ -8,7 +8,7 @@
       xmlns:uib="http://engagepoint.com/uib">
 
 <composite:interface>
-    <composite:attribute name="controller" required="true"/>
+    <composite:attribute name="controller"/>
 </composite:interface>
 
 <composite:implementation>
@@ -34,7 +34,8 @@
                     <h:outputText value="#{item}"/>
                 </uib:column>
                 <uib:column style="width:20%">
-                    <p:commandButton id="selectButton" value="Create" action="#{questionRuleController.createRule(item)}"
+                    <p:commandButton id="selectButton" value="Create"
+                                     action="#{questionRuleController.createRule(item)}"
                                      update="rulesTable,@([id$=buttonPanel])"/>
                 </uib:column>
             </uib:dataTable>
