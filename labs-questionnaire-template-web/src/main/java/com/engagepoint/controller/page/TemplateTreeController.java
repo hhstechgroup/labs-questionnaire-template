@@ -36,6 +36,7 @@ public class TemplateTreeController implements Serializable {
     private SectionBean currentSection;
     private GroupBean currentGroup;
     private Question currentQuestion;
+    private int id=0;
 
     public TreeNode getRoot() {
         return root;
@@ -120,7 +121,6 @@ public class TemplateTreeController implements Serializable {
 
     public void setNodes() {
         root = new DefaultTreeNode("Root", null);
-        ArrayList<TreeNode> nodeList = new ArrayList<TreeNode>();
 
         // Iterator LEVEL_0 for filling sections of choosed template
         for (SectionBean sectionBean : templateBean.getSectionsList()) {
@@ -158,11 +158,10 @@ public class TemplateTreeController implements Serializable {
      *
      * @return next page
      */
-    public String addGroup() {
+    public void addGroup() {
         GroupBean groupBean = new GroupBean();
-        groupBean.setGroupName("GROUP_" + (currentSection.getGroupsList().size() + 1));
         addGroupToCurrentSection(groupBean);
-        return null;
+        setNodes();
     }
 
 

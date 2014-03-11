@@ -3,6 +3,7 @@ package com.engagepoint.model.questionnaire;
 
 import com.engagepoint.model.question.Question;
 
+import javax.inject.Inject;
 import javax.xml.bind.annotation.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -12,14 +13,21 @@ import java.util.List;
  */
 public class GroupBean extends BasicBean
                        implements Cloneable, BasicOperationWithBean {
-    private String groupName;
+    private String groupName = "Default Name";
+    private String displayedName = "Default Displayed Name";
     private List<Question> questionsList = new ArrayList<Question>();
+    private static int groupId = 0;
+
+    @Inject
+    private SectionBean sectionBean;
 
     public GroupBean() {
+        ++groupId;
         super.setDisplayedName("GroupDefault");
     }
 
     public GroupBean(String groupName, List<Question> questionsList) {
+        ++groupId;
         this.groupName = groupName;
         this.questionsList = questionsList;
         super.setDisplayedName("GroupDefault");
@@ -35,9 +43,13 @@ public class GroupBean extends BasicBean
     }
 
     public void setDisplayedName(String name) {
-        this.groupName = name;
+        this.displayedName = name;
     }
 
+    @Override
+    public String getDisplayedName() {
+        return groupName;
+    }
 
     @XmlElementWrapper(name = "questions")
     @XmlElement(name = "question")
@@ -53,6 +65,7 @@ public class GroupBean extends BasicBean
     public Object clone() throws CloneNotSupportedException {
         GroupBean copy = (GroupBean) super.clone();
         copy.setGroupName(this.groupName);
+        copy.setDisplayedName(this.displayedName);
         List<Question> copyQuestionsList = null;
         if (questionsList != null) {
             copyQuestionsList = new ArrayList<Question>();
@@ -110,11 +123,7 @@ public class GroupBean extends BasicBean
 
     @Override
     public String getDisplayedId() {
-        return "   ";
-    }
-
-    @Override
-    public String getDisplayedName() {
-        return groupName;
+        return String.valueOf(groupId);
     }
 }
+
