@@ -55,7 +55,7 @@
                              action="#{cc.attrs.controller.cancelAddRuleAction}" update="buttonPanel"/>
 
             <p:dialog id="modalDialogSelectType" widgetVar="dlgSetAnswer"
-                      modal="true" height="100" closable="true" resizeable="false">
+                      modal="true" closable="true">
                 <h:outputText value="Please set answer"/>
                 <br/>
                 <p:selectOneMenu id="selectOneMenu"
@@ -64,6 +64,8 @@
                     <f:selectItem itemLabel="Item 1" itemValue="1"/>
                     <f:selectItem itemLabel="Item 2" itemValue="2"/>
                 </p:selectOneMenu>
+                <br/>
+                <p:commandButton value="Set" immediate="true"/>
             </p:dialog>
 
         </p:panel>
