@@ -1,6 +1,8 @@
 package com.engagepoint.controller.page;
 
 import com.engagepoint.model.question.rules.RulesContainer;
+import com.engagepoint.model.question.utils.VariantItem;
+import com.engagepoint.model.table.ListOfOptionsDataModel;
 
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.Conversation;
@@ -26,6 +28,9 @@ public class QuestionRuleController implements Serializable {
     private boolean addRulesTableIsVisible;
     //show question id list
     private boolean chooseDependentQuestionListVisible;
+    //
+    private ListOfOptionsDataModel dataModel;
+    private VariantItem defaultOption;
 
     public QuestionRuleController() {
         rulesContainer = new RulesContainer();
@@ -70,6 +75,22 @@ public class QuestionRuleController implements Serializable {
 
     public void setChooseDependentQuestionListVisible(boolean chooseDependentQuestionListVisible) {
         this.chooseDependentQuestionListVisible = chooseDependentQuestionListVisible;
+    }
+
+    public VariantItem getDefaultOption() {
+        return defaultOption;
+    }
+
+    public void setDefaultOption(VariantItem defaultOption) {
+        this.defaultOption = defaultOption;
+    }
+
+    public ListOfOptionsDataModel getDataModel() {
+        return dataModel;
+    }
+
+    public void setDataModel(ListOfOptionsDataModel dataModel) {
+        this.dataModel = dataModel;
     }
 
     /**

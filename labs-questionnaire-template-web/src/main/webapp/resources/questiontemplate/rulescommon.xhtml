@@ -93,6 +93,17 @@
                     <h:inputText id="maxRangeValue" rendered="false"/>
                 </p:panel>
 
+                <uib:dataTable var="option"
+                               value="#{questionRuleController.dataModel}"
+                               selection="#{questionRuleController.defaultOption}"
+                               rendered="#{templateController.currentDependentQuestionType eq 'CHOOSEFROMLIST' or templateController.currentDependentQuestionType eq 'MULTIPLECHOICE'}">
+                    <uib:column headerText="Default"
+                                selectionMode="single"/>
+                    <uib:column headerText="Options">
+                        <p:inputText id="option" value="#{option.value}" style="width:100%"/>
+                    </uib:column>
+                </uib:dataTable>
+
                 <br/>
                 <p:commandButton value="Set" immediate="true" onclick="dlgSetAnswer.hide()"/>
             </p:panel>
