@@ -40,16 +40,32 @@
                 </uib:column>
             </uib:dataTable>
             <br/>
+            <h:outputText value="Please choose a question id"
+                          rendered="#{cc.attrs.controller.chooseDependentQuestionListVisible}"/>
             <p:selectOneMenu rendered="#{cc.attrs.controller.chooseDependentQuestionListVisible}">
                 <f:selectItem itemLabel="Select One" itemValue=""/>
                 <f:selectItems value="#{templateController.questionsId}"/>
             </p:selectOneMenu>
             <br/>
-            <p:commandButton value="Set Answer" rendered="#{cc.attrs.controller.chooseDependentQuestionListVisible}"/>
+            <p:commandButton value="Set Answer" rendered="#{cc.attrs.controller.chooseDependentQuestionListVisible}"
+                             oncomplete="dlgSetAnswer.show();"/>
             <br/>
             <br/>
             <p:commandButton value="Cancel Rule" rendered="#{cc.attrs.controller.cancelRuleEditionButtonIsVisible}"
                              action="#{cc.attrs.controller.cancelAddRuleAction}" update="buttonPanel"/>
+
+            <p:dialog id="modalDialogSelectType" widgetVar="dlgSetAnswer"
+                      modal="true" height="100" closable="true" resizeable="false">
+                <h:outputText value="Please set answer"/>
+                <br/>
+                <p:selectOneMenu id="selectOneMenu"
+                                 value="#{templateController.selectedQuestionType}">
+                    <f:selectItem itemLabel="Select One" itemValue=""/>
+                    <f:selectItem itemLabel="Item 1" itemValue="1"/>
+                    <f:selectItem itemLabel="Item 2" itemValue="2"/>
+                </p:selectOneMenu>
+            </p:dialog>
+
         </p:panel>
     </h:form>
 
