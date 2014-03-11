@@ -107,8 +107,14 @@ public class QuestionRuleController implements Serializable {
         setCancelRuleEditionButtonIsVisible(false);
         setAddRulesTableIsVisible(false);
         setAddRuleButtonIsVisible(true);
+        endConversation();
     }
 
+    /**
+     * Set elements visibility after create rule button was clicked.
+     *
+     * @param ruleName
+     */
     public void createRule(String ruleName) {
         setAddRulesTableIsVisible(false);
         setChooseDependentQuestionListVisible(true);
