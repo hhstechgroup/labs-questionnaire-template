@@ -43,9 +43,10 @@
 
             <p:panel id="chooseQuestionIdPanel" rendered="#{cc.attrs.controller.chooseDependentQuestionListVisible}">
                 <h:outputText value="Please choose a question id"/>
-                <p:selectOneMenu>
+                <p:selectOneMenu value="#{templateController.currentDependentQuestion}">
                     <f:selectItem itemLabel="Select One" itemValue=""/>
-                    <f:selectItems value="#{templateController.questionsId}"/>
+                    <f:selectItems value="#{templateController.questions}" var="question" itemLabel="#{question.id}"
+                                   itemValue="#{question}"/>
                 </p:selectOneMenu>
                 <br/>
                 <p:commandButton value="Set Answer"
@@ -80,7 +81,8 @@
 
             <uib:dataTable var="option"
                            value="#{optionsQuestionEditController.dataModel}"
-                           selection="#{optionsQuestionEditController.currentQuestion.defaultOption}">
+                           selection="#{optionsQuestionEditController.currentQuestion.defaultOption}"
+                    >
                 <uib:column headerText="Default"
                             selectionMode="single"/>
                 <uib:column headerText="Options">

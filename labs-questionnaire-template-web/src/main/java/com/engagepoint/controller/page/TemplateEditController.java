@@ -30,8 +30,8 @@ public class TemplateEditController implements Serializable {
 
     private TemplateBean currentTemplate; //real template
     private TemplateBean duplicateTemplate; //copy of real template, contains all unsaved changes
-
     private QuestionType selectedQuestionType;
+    private Question currentDependentQuestion;
 
     public TemplateBean getDuplicateTemplate() {
         return duplicateTemplate;
@@ -63,6 +63,13 @@ public class TemplateEditController implements Serializable {
         this.selectedQuestionType = selectedQuestionType;
     }
 
+    public Question getCurrentDependentQuestion() {
+        return currentDependentQuestion;
+    }
+
+    public void setCurrentDependentQuestion(Question currentDependentQuestion) {
+        this.currentDependentQuestion = currentDependentQuestion;
+    }
 
     /**
      * Create new template.
@@ -183,17 +190,26 @@ public class TemplateEditController implements Serializable {
     }
 
     /**
-     * Getting id of all questions from current template.
+     * Get all questions from current template.
      *
-     * @return list of id.
+     * @return list of questions.
      */
-    public List<Long> getQuestionsId() {
-        List<Long> list = new ArrayList<Long>();
+    public List<Question> getQuestions() {
+        List<Question> list = new ArrayList<Question>();
         for (SectionBean sectionBean : currentTemplate.getSectionsList())
             for (GroupBean groupBean : sectionBean.getGroupsList())
                 for (Question question : groupBean.getQuestionsList())
-                    list.add(question.getId());
+                    list.add(question);
         return list;
+    }
+
+    /**
+     * Get current dependent question type.
+     *
+     * @return question type
+     */
+    public String getCurrentDependentQuestionType() {
+        return currentDependentQuestion.getQuestionType().toString();
     }
 
 }
