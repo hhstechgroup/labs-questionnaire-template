@@ -53,22 +53,17 @@
             <br/>
             <p:commandButton value="Cancel Rule" rendered="#{cc.attrs.controller.cancelRuleEditionButtonIsVisible}"
                              action="#{cc.attrs.controller.cancelAddRuleAction}" update="buttonPanel"/>
-
-            <p:dialog id="modalDialogSelectType" widgetVar="dlgSetAnswer"
-                      modal="true" closable="true">
-                <h:outputText value="Please set answer"/>
-                <br/>
-                <p:selectOneMenu id="selectOneMenu"
-                                 value="#{templateController.selectedQuestionType}">
-                    <f:selectItem itemLabel="Select One" itemValue=""/>
-                    <f:selectItem itemLabel="Item 1" itemValue="1"/>
-                    <f:selectItem itemLabel="Item 2" itemValue="2"/>
-                </p:selectOneMenu>
-                <br/>
-                <p:commandButton value="Set" immediate="true" onclick="dlgSetAnswer.hide()"/>
-            </p:dialog>
-
         </p:panel>
+
+        <p:dialog widgetVar="dlgSetAnswer"
+                  modal="true" closable="true">
+            <h:outputText value="Please set answer"/>
+            <br/>
+
+            <br/>
+            <p:commandButton value="Set" immediate="true" onclick="dlgSetAnswer.hide()"/>
+        </p:dialog>
+
     </h:form>
 
 </composite:implementation>
