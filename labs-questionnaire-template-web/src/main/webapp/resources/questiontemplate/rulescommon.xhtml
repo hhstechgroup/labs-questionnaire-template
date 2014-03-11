@@ -17,13 +17,13 @@
     <h:form id="rulesForm">
 
         <p:panel id="buttonPanel">
-            <p:commandButton value="Add rule" rendered="#{cc.attrs.controller.addRuleButtonIsVisible}"
-                             action="#{cc.attrs.controller.addRuleAction}" update="buttonPanel"/>
+            <p:commandButton value="Add rule" rendered="#{questionRuleController.addRuleButtonIsVisible}"
+                             action="#{questionRuleController.addRuleAction}" update="buttonPanel"/>
 
             <br/>
 
-            <uib:dataTable id="rulesTable" var="item" value="#{cc.attrs.controller.rulesContainer.mock}"
-                           rendered="#{cc.attrs.controller.addRulesTableIsVisible}">
+            <uib:dataTable id="rulesTable" var="item" value="#{questionRuleController.rulesContainer.mock}"
+                           rendered="#{questionRuleController.addRulesTableIsVisible}">
                 <f:facet name="header">
                     <p> List of Rules</p>
                 </f:facet>
@@ -34,14 +34,14 @@
                     <h:outputText value="#{item}"/>
                 </uib:column>
                 <uib:column style="width:20%">
-                    <p:commandButton id="selectButton" value="Create" action="#{cc.attrs.controller.createRule(item)}"
+                    <p:commandButton id="selectButton" value="Create" action="#{questionRuleController.createRule(item)}"
                                      update="rulesTable,@([id$=buttonPanel])"/>
                 </uib:column>
             </uib:dataTable>
 
             <br/>
 
-            <p:panel id="chooseQuestionIdPanel" rendered="#{cc.attrs.controller.chooseDependentQuestionListVisible}">
+            <p:panel id="chooseQuestionIdPanel" rendered="#{questionRuleController.chooseDependentQuestionListVisible}">
                 <h:outputText value="Please choose a question id"/>
 
                 <p:selectOneMenu value="#{templateController.currentDependentQuestionId}">
@@ -57,8 +57,8 @@
             <br/>
             <br/>
 
-            <p:commandButton value="Cancel Rule" rendered="#{cc.attrs.controller.cancelRuleEditionButtonIsVisible}"
-                             action="#{cc.attrs.controller.cancelAddRuleAction}" update="buttonPanel"/>
+            <p:commandButton value="Cancel Rule" rendered="#{questionRuleController.cancelRuleEditionButtonIsVisible}"
+                             action="#{questionRuleController.cancelAddRuleAction}" update="buttonPanel"/>
         </p:panel>
 
         <p:dialog widgetVar="dlgSetAnswer"
