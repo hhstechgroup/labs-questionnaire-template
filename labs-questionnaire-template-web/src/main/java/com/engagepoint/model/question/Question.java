@@ -3,9 +3,9 @@ package com.engagepoint.model.question;
 
 import com.engagepoint.controller.page.TemplateTreeController;
 import com.engagepoint.model.question.options.OptionsQuestion;
-import com.engagepoint.model.question.rules.RulesContainer;
-import com.engagepoint.model.questionnaire.BasicBeanProperty;
+import com.engagepoint.model.questionnaire.BasicBean;
 import com.engagepoint.model.questionnaire.QuestionType;
+import com.engagepoint.model.questionnaire.SectionBean;
 import com.engagepoint.model.questionnaire.TemplateBean;
 
 import javax.inject.Inject;
@@ -18,7 +18,7 @@ import javax.xml.bind.annotation.XmlSeeAlso;
  * Class represents question tag.
  */
 @XmlSeeAlso({TextQuestionBean.class, DateQuestionBean.class, OptionsQuestion.class, RangeQuestionBean.class})
-public abstract class Question implements Cloneable, BasicBeanProperty {
+public abstract class Question extends BasicBean implements Cloneable {
     private Long id;                    //id of the question
     protected String questionText = "";        //questiontext
     private boolean requiredAnswer;        //is answer required or not
@@ -43,10 +43,6 @@ public abstract class Question implements Cloneable, BasicBeanProperty {
 		this.questionText = questionText;
         super.setDisplayedName(questionText.substring(0, 9));
 	}
-
-    public void setQuestionText(String questionText) {
-        this.questionText = questionText;
-    }
 
     @XmlElement(name = "help-text")
     public String getHelpText() {
