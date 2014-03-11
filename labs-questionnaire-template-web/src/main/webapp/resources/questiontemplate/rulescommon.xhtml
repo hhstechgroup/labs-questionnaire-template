@@ -43,14 +43,15 @@
 
             <p:panel id="chooseQuestionIdPanel" rendered="#{cc.attrs.controller.chooseDependentQuestionListVisible}">
                 <h:outputText value="Please choose a question id"/>
-                <p:selectOneMenu value="#{templateController.currentDependentQuestion}">
+
+                <p:selectOneMenu value="#{templateController.currentDependentQuestionId}">
                     <f:selectItem itemLabel="Select One" itemValue=""/>
                     <f:selectItems value="#{templateController.questions}" var="question" itemLabel="#{question.id}"
-                                   itemValue="#{question}"/>
+                                   itemValue="#{question.id}"/>
                 </p:selectOneMenu>
                 <br/>
                 <p:commandButton value="Set Answer"
-                                 oncomplete="dlgSetAnswer.show();"/>
+                                 oncomplete="dlgSetAnswer.show();" update="@([id$=SetAnswerPanel])"/>
             </p:panel>
 
             <br/>
@@ -62,46 +63,55 @@
 
         <p:dialog widgetVar="dlgSetAnswer"
                   modal="true" closable="true">
-            <h:outputText value="Please set answer"/>
-            <br/>
+            <p:panel id="SetAnswerPanel">
+                <h:outputText value="Please set answer"/>
+                <br/>
 
-            <p:calendar title="calendar" pattern="HH:mm" showOn="button" timeOnly="true"/>
+                <h:outputLabel value="Test:"/>
+                <h:outputLabel value="#{templateController.currentDependentQuestionId}"/>
+                <br/>
+                <h:outputLabel value="#{templateController.currentDependentQuestionType}"/>
+                <br/>
 
-            <p:inputText size="50"/>
+                <p:calendar title="calendar" pattern="HH:mm" showOn="button" timeOnly="true" rendered="false"/>
 
-            <h:outputText value="Set minimum value"/>
-            <h:inputText id="minRangeValue"/>
-            <h:outputText value="Set maximum value"/>
-            <h:inputText id="maxRangeValue"/>
+                <p:inputText size="50" rendered="false"/>
 
-            <p:inputTextarea rows="8"
-                             cols="555"/>
+                <h:outputText value="Set minimum value" rendered="false"/>
+                <h:inputText id="minRangeValue" rendered="false"/>
+                <h:outputText value="Set maximum value" rendered="false"/>
+                <h:inputText id="maxRangeValue" rendered="false"/>
 
-            <p:calendar title="calendar" pattern="MM/dd/yyyy" showOn="button"/>
+                <p:inputTextarea rows="8"
+                                 cols="555" rendered="false"/>
 
-            <uib:dataTable var="option"
-                           value="#{optionsQuestionEditController.dataModel}"
-                           selection="#{optionsQuestionEditController.currentQuestion.defaultOption}"
-                    >
-                <uib:column headerText="Default"
-                            selectionMode="single"/>
-                <uib:column headerText="Options">
-                    <h:outputText value="#{option.value}" style="width:100%"/>
-                </uib:column>
-            </uib:dataTable>
+                <p:calendar title="calendar" pattern="MM/dd/yyyy" showOn="button" rendered="false"/>
 
-            <uib:dataTable var="option"
-                           value="#{optionsQuestionEditController.dataModel}"
-                           selection="#{optionsQuestionEditController.currentQuestion.defaultOptions}">
-                <uib:column headerText="Default"
-                            selectionMode="multiple"/>
-                <uib:column headerText="Options">
-                    <h:outputText value="#{option.value}" style="width:100%"/>
-                </uib:column>
-            </uib:dataTable>
+                <uib:dataTable var="option"
+                               value="#{optionsQuestionEditController.dataModel}"
+                               selection="#{optionsQuestionEditController.currentQuestion.defaultOption}"
+                               rendered="false">
+                    <uib:column headerText="Default"
+                                selectionMode="single"/>
+                    <uib:column headerText="Options">
+                        <h:outputText value="#{option.value}" style="width:100%"/>
+                    </uib:column>
+                </uib:dataTable>
 
-            <br/>
-            <p:commandButton value="Set" immediate="true" onclick="dlgSetAnswer.hide()"/>
+                <uib:dataTable var="option"
+                               value="#{optionsQuestionEditController.dataModel}"
+                               selection="#{optionsQuestionEditController.currentQuestion.defaultOptions}"
+                               rendered="#{templateController.currentDependentQuestionType eq 'CHECKBOX'}">
+                    <uib:column headerText="Default"
+                                selectionMode="multiple"/>
+                    <uib:column headerText="Options">
+                        <h:outputText value="#{option.value}" style="width:100%"/>
+                    </uib:column>
+                </uib:dataTable>
+
+                <br/>
+                <p:commandButton value="Set" immediate="true" onclick="dlgSetAnswer.hide()"/>
+            </p:panel>
         </p:dialog>
 
     </h:form>
