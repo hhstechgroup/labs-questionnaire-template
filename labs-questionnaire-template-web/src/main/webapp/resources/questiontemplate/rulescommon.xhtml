@@ -87,10 +87,10 @@
                             rendered="#{templateController.currentDependentQuestionType eq 'DATE'}"/>
 
                 <p:panel rendered="#{templateController.currentDependentQuestionType eq 'RANGE'}">
-                    <h:outputText value="Set minimum value" rendered="false"/>
-                    <h:inputText id="minRangeValue" rendered="false"/>
-                    <h:outputText value="Set maximum value" rendered="false"/>
-                    <h:inputText id="maxRangeValue" rendered="false"/>
+                    <h:outputText value="Set minimum value"/>
+                    <h:inputText id="minRangeValue"/>
+                    <h:outputText value="Set maximum value"/>
+                    <h:inputText id="maxRangeValue"/>
                 </p:panel>
 
                 <uib:dataTable var="option"
