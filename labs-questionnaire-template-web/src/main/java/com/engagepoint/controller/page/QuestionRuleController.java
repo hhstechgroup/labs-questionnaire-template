@@ -48,6 +48,8 @@ public class QuestionRuleController implements Serializable {
     private boolean chooseDependentQuestionListVisible;
     //for multiple,choose from list,checkbox
     private ListOfOptionsDataModel dataModel;
+    private VariantItem defaultOption;
+    private List<VariantItem> defaultOptions;
     //question objects
     private OptionsQuestion optionsQuestion;
     private DateQuestionBean dateQuestionBean;
@@ -158,6 +160,22 @@ public class QuestionRuleController implements Serializable {
 
     public TextQuestionBean getTextQuestionBean() {
         return this.textQuestionBean;
+    }
+
+    public List<VariantItem> getDefaultOptions() {
+        return defaultOptions;
+    }
+
+    public void setDefaultOptions(List<VariantItem> defaultOptions) {
+        this.defaultOptions = defaultOptions;
+    }
+
+    public VariantItem getDefaultOption() {
+        return defaultOption;
+    }
+
+    public void setDefaultOption(VariantItem defaultOption) {
+        this.defaultOption = defaultOption;
     }
 
     /**

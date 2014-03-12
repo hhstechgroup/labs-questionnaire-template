@@ -96,7 +96,7 @@
 
                 <uib:dataTable var="option"
                                value="#{questionRuleController.dataModel}"
-                               selection="#{questionRuleController.optionsQuestion.defaultOption}"
+                               selection="#{questionRuleController.defaultOption}"
                                rendered="#{questionRuleController.currentDependentQuestionType eq 'CHOOSEFROMLIST' or questionRuleController.currentDependentQuestionType eq 'MULTIPLECHOICE'}">
                     <uib:column headerText="Default"
                                 selectionMode="single"/>
@@ -107,7 +107,7 @@
 
                 <uib:dataTable var="option"
                                value="#{questionRuleController.dataModel}"
-                               selection="#{questionRuleController.optionsQuestion.defaultOptions}"
+                               selection="#{questionRuleController.defaultOptions}"
                                rendered="#{questionRuleController.currentDependentQuestionType eq 'CHECKBOX'}">
                     <uib:column headerText=""
                                 selectionMode="multiple"/>
