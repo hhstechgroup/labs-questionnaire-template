@@ -253,6 +253,39 @@ public class QuestionRuleController implements Serializable {
      * Set elements visibility after save rule answer button was clicked.
      */
     public void saveRuleAnswerAction() {
+        switch (dependentQuestion.getQuestionType()) {
+            case TEXT:
+                getTextData();
+                break;
+            case DATE:
+                getDateData();
+                break;
+            case RANGE:
+                getMaxValue();
+                getMinValue();
+                break;
+            case TIME:
+                getTextData();
+                break;
+            case PARAGRAPHTEXT:
+                getTextData();
+                break;
+            case CHOOSEFROMLIST:
+                getDefaultOption();
+                break;
+            case FILEUPLOAD:
+
+                break;
+            case MULTIPLECHOICE:
+                getDefaultOption();
+                break;
+            case CHECKBOX:
+                getDefaultOptions();
+                break;
+            case GRID:
+                break;
+        }
+
         setChooseDependentQuestionListVisible(false);
         setCancelRuleEditionButtonIsVisible(false);
         setAddRulesTableIsVisible(false);
