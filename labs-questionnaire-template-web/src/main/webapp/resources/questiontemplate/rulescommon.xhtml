@@ -8,13 +8,30 @@
       xmlns:uib="http://engagepoint.com/uib">
 
 <composite:interface>
-    <composite:attribute name="controller"/>
+    <composite:attribute name="controller" required="true"/>
 </composite:interface>
 
 <composite:implementation>
     <br/>
     <br/>
     <h:form id="rulesForm">
+
+        <uib:dataTable var="rule"
+                       value="">
+            <uib:column headerText="Rules">
+                <h:outputText value="#{rule}"/>
+            </uib:column>
+
+            <uib:column>
+                <p:commandButton value="Delete"
+                                 action="#{cc.attrs.controller.deleteRule(rule)}"
+                                 immediate="true"
+                                 styleClass="fl-right">
+                </p:commandButton>
+            </uib:column>
+        </uib:dataTable>
+        <br/>
+        <br/>
 
         <p:panel id="buttonPanel">
             <p:commandButton value="Add rule" rendered="#{questionRuleController.addRuleButtonIsVisible}"
