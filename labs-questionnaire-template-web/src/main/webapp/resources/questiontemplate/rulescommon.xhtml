@@ -68,30 +68,29 @@
             <p:panel id="SetAnswerPanel">
                 <h:outputText value="Please set answer"/>
                 <br/>
-
-                <h:outputLabel value="Test:"/>
-                <h:outputLabel value="#{questionRuleController.currentDependentQuestionId}"/>
-                <br/>
-                <h:outputLabel value="#{questionRuleController.currentDependentQuestionType}"/>
                 <br/>
 
-                <p:inputText size="50" rendered="#{questionRuleController.currentDependentQuestionType eq 'TEXT'}"/>
+                <p:inputText size="50" rendered="#{questionRuleController.currentDependentQuestionType eq 'TEXT'}"
+                             value="#{questionRuleController.textData}"/>
 
                 <p:inputTextarea rows="8"
                                  cols="555"
-                                 rendered="#{questionRuleController.currentDependentQuestionType eq 'PARAGRAPHTEXT'}"/>
+                                 rendered="#{questionRuleController.currentDependentQuestionType eq 'PARAGRAPHTEXT'}"
+                                 value="#{questionRuleController.textData}"/>
 
                 <p:calendar title="calendar" pattern="HH:mm" showOn="button" timeOnly="true"
-                            rendered="#{questionRuleController.currentDependentQuestionType eq 'TIME'}"/>
+                            rendered="#{questionRuleController.currentDependentQuestionType eq 'TIME'}"
+                            value="#{questionRuleController.dateData}"/>
 
                 <p:calendar title="calendar" pattern="MM/dd/yyyy" showOn="button"
-                            rendered="#{questionRuleController.currentDependentQuestionType eq 'DATE'}"/>
+                            rendered="#{questionRuleController.currentDependentQuestionType eq 'DATE'}"
+                            value="#{questionRuleController.dateData}"/>
 
                 <p:panel rendered="#{questionRuleController.currentDependentQuestionType eq 'RANGE'}">
                     <h:outputText value="Set minimum value"/>
-                    <h:inputText id="minRangeValue"/>
+                    <h:inputText id="minRangeValue" value="#{questionRuleController.minValue}"/>
                     <h:outputText value="Set maximum value"/>
-                    <h:inputText id="maxRangeValue"/>
+                    <h:inputText id="maxRangeValue" value="#{questionRuleController.maxValue}"/>
                 </p:panel>
 
                 <uib:dataTable var="option"
@@ -118,8 +117,9 @@
 
                 <br/>
                 <br/>
-                <p:commandButton value="Save" immediate="true" onclick="dlgSetAnswer.hide()" update="@([id$=buttonPanel])"
-                        action="#{questionRuleController.saveRuleAnswerAction}"/>
+                <p:commandButton value="Save" immediate="true" onclick="dlgSetAnswer.hide()"
+                                 update="@([id$=buttonPanel])"
+                                 action="#{questionRuleController.saveRuleAnswerAction}"/>
             </p:panel>
         </p:dialog>
 
