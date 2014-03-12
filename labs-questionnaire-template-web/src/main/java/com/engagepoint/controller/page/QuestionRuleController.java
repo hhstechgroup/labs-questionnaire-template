@@ -190,6 +190,16 @@ public class QuestionRuleController implements Serializable {
     }
 
     /**
+     * Set elements visibility after save rule answer button was clicked.
+     */
+    public void saveRuleAnswer() {
+        setChooseDependentQuestionListVisible(false);
+        setCancelRuleEditionButtonIsVisible(false);
+        setAddRulesTableIsVisible(false);
+        setAddRuleButtonIsVisible(true);
+    }
+
+    /**
      * Action on click Set Answer button.
      */
     public void setDependentQuestionAnswer() {

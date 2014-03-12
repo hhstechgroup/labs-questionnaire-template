@@ -118,7 +118,8 @@
 
                 <br/>
                 <br/>
-                <p:commandButton value="Set" immediate="true" onclick="dlgSetAnswer.hide()"/>
+                <p:commandButton value="Set" immediate="true" onclick="dlgSetAnswer.hide()" update="@([id$=buttonPanel])"
+                        action="#{questionRuleController.saveRuleAnswer}"/>
             </p:panel>
         </p:dialog>
 
