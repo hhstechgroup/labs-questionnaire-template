@@ -11,6 +11,10 @@ public class CheckBoxQuestionBean extends OptionsQuestion {
     //selected variants
     private List<VariantItem> defaultOptions;
 
+    public CheckBoxQuestionBean() {
+
+    }
+
     public CheckBoxQuestionBean(GroupBean currentGroup) {
         super(currentGroup);
     }

@@ -16,6 +16,11 @@ public abstract class OptionsQuestion extends Question implements Cloneable {
     //selected variant for multiple choice,grid,choose from list question.
     protected VariantItem defaultOption;
 
+    public OptionsQuestion() {
+        super();
+        this.options = new ArrayList<VariantItem>();
+    }
+
     public OptionsQuestion(GroupBean groupBean) {
         super(groupBean);
         this.options = new ArrayList<VariantItem>();

@@ -38,6 +38,8 @@ public class TemplateTreeController implements Serializable {
 	private GroupBean currentGroup;
 	private Question currentQuestion;
 
+    private String nameOfCurrentNode;
+
 	public TreeNode getRoot() {
 		return root;
 	}
@@ -70,10 +72,18 @@ public class TemplateTreeController implements Serializable {
     public Question getCurrentQuestion() {
         return currentQuestion;
     }
-	public void setCurrentQuestion(Question currentQuestion) {
+
+    public void setCurrentQuestion(Question currentQuestion) {
 		this.currentQuestion = currentQuestion;
 	}
 
+    public String getNameOfCurrentNode() {
+        return nameOfCurrentNode;
+    }
+
+    public void setNameOfCurrentNode(String nameOfCurrentNode) {
+        this.nameOfCurrentNode = nameOfCurrentNode;
+    }
 
     /**
      * When some node is selected, we can verify
@@ -98,6 +108,7 @@ public class TemplateTreeController implements Serializable {
         } else if (selectedType.equals("group")) {
             currentQuestion = null;
             currentGroup = (GroupBean) selectedNode.getData();
+            nameOfCurrentNode = currentGroup.getDisplayedName();
             //check if current section has not been changed
             SectionBean sectionBean = (SectionBean) selectedNode.getParent().getData();
             if (currentSection != sectionBean) {
@@ -107,6 +118,7 @@ public class TemplateTreeController implements Serializable {
             currentQuestion = null;
             currentGroup = null;
             currentSection = (SectionBean) selectedNode.getData();
+            nameOfCurrentNode = currentSection.getDisplayedName();
         }
     }
 
@@ -234,6 +246,24 @@ public class TemplateTreeController implements Serializable {
             return selectedNode.getData() == tr;
         }
         return false;
+    }
+
+    public void revertNameOfCurrentNode() {
+        if (selectedType=="section") {
+            setNameOfCurrentNode(currentSection.getDisplayedName());
+        } else if (selectedType=="group") {
+            setNameOfCurrentNode(currentGroup.getDisplayedName());
+        }
+
+    }
+
+    public void commitNameOfCurrentNode() {
+        if (selectedType=="section") {
+            currentSection.setDisplayedName(nameOfCurrentNode);
+        } else if (selectedType=="group") {
+            currentGroup.setDisplayedName(nameOfCurrentNode);
+        }
+        revertNameOfCurrentNode();
     }
 
 }

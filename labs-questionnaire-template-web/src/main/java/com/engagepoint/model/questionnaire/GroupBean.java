@@ -51,15 +51,6 @@ public class GroupBean extends BasicBean
         this.groupName = groupName;
     }
 
-    public void setDisplayedName(String name) {
-        this.displayedName = name;
-    }
-
-    @Override
-    public String getDisplayedName() {
-        return groupName;
-    }
-
     @XmlElementWrapper(name = "questions")
     @XmlElement(name = "question")
     public List<Question> getQuestionsList() {

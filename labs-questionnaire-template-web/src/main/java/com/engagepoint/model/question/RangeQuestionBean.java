@@ -9,6 +9,10 @@ import javax.xml.bind.annotation.XmlElement;
 public class RangeQuestionBean extends Question {
     private RangeItem rangeItem;
 
+    public RangeQuestionBean() {
+        super();
+    }
+
     public RangeQuestionBean(GroupBean currentGroup) {
         super(currentGroup);
     }

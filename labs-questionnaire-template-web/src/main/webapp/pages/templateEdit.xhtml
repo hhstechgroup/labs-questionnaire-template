@@ -53,22 +53,26 @@
                         <p:ajax event="unselect" update=":formTemplate:form:buttonPanel"/>
 
 						<p:column style="#{templateTreeController.getStyle(node)}">
-							<h:outputText id="treeNode" value="#{node}"
-								style="cursor: pointer" />
+							<h:outputText id="treeDisplayedName" value="#{node.displayedName}"
+                                          style="cursor: pointer" />
+                            <h:outputText id="treeDisplayedId" value="#{node.displayedId}"
+                                          style="cursor: pointer" />
 							<p:commandButton value="Edit Name" id="editName"
 								style="float:right;"
-								rendered="#{templateTreeController.editButtonRendering(node)}"
-								onclick="dlg.show();" />
+                                rendered="#{templateTreeController.editButtonRendering(node)}"
+								onclick="dlg.show();">
+						    </p:commandButton>
                             <p:dialog id="modalDialogEdit" widgetVar="dlg" modal="true"
                                       closable="false" height="100" resizeable="false">
+
+                                <h:inputText id="nameOfCurrentNode"
+                                             value="#{templateTreeController.nameOfCurrentNode}"/> <br/>
     
-                                <h:outputText value="#{templateTreeController.selectedNode}"/> <br/>
-    
-                                <p:commandButton value="OK" id="yesEditName" actionListener="submit()"
+                                <p:commandButton value="OK" id="yesEditName" action="#{templateTreeController.commitNameOfCurrentNode}"
                                                  update=":formTemplate:form:treeMultiple" onclick="dlg.hide()" />
-                                <p:commandButton value="Cancel" id="notEditName" immediate="true"
+                                <p:commandButton value="Cancel" id="notEditName" action="#{templateTreeController.revertNameOfCurrentNode}"
+                                                 immediate="true"
                                                  onclick="dlg.hide()" />
-    
                             </p:dialog>
                         </p:column>
                     </p:treeTable>

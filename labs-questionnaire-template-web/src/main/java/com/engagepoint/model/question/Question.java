@@ -5,6 +5,7 @@ import com.engagepoint.controller.page.TemplateTreeController;
 import com.engagepoint.model.question.options.OptionsQuestion;
 import com.engagepoint.model.question.rules.RulesContainer;
 import com.engagepoint.model.questionnaire.BasicBean;
+import com.engagepoint.model.questionnaire.GroupBean;
 import com.engagepoint.model.questionnaire.QuestionType;
 import com.engagepoint.model.questionnaire.TemplateBean;
 
@@ -29,6 +30,10 @@ public abstract class Question extends BasicBean implements Cloneable {
     private GroupBean groupBean;
 
     //Dependent questions
+
+    public Question() {
+        super.setDisplayedName("QuestionDefault");
+    }
 
     public Question(GroupBean groupBean) {
         this.groupBean = groupBean;
@@ -58,11 +63,6 @@ public abstract class Question extends BasicBean implements Cloneable {
     @XmlAttribute(name = "question-id")
     public Long getId() {
         return id;
-    }
-
-    @Override
-    public String getDisplayedName() {
-        return questionText;
     }
 
     public void setId(Long id) {
