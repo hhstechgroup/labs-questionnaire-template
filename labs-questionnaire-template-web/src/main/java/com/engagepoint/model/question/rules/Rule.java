@@ -2,7 +2,7 @@ package com.engagepoint.model.question.rules;
 
 
 public abstract class Rule {
-    protected static String description;
+    public static String description;
     protected String nameXML;
 
     public Rule(){
@@ -15,5 +15,9 @@ public abstract class Rule {
 
     public  String getNameXML(){
         return nameXML;
+    }
+
+    public String getDescription(){
+        return description;
     }
 }

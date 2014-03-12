@@ -22,7 +22,7 @@
 
             <br/>
 
-            <uib:dataTable id="rulesTable" var="item" value="#{questionRuleController.rulesContainer.mock}"
+            <uib:dataTable id="rulesTable" var="item" value="#{questionRuleController.rulesContainer.supportedRules}"
                            rendered="#{questionRuleController.addRulesTableIsVisible}">
                 <f:facet name="header">
                     <p> List of Rules</p>

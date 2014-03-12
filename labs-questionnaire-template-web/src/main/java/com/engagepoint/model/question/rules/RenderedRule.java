@@ -5,10 +5,12 @@ public class RenderedRule extends Rule{
     private long id;
     private String answer;
     private String xmlTemplate = "this.rule.renderedRule";
+    static{
+        description="This Question Will be rendered if ...";
+    }
 
 
     public RenderedRule(){
-        this.description="This Question Will be rendered if ...";
         nameXML = xmlTemplate+"("+"'"+id+"'"+", "+"'"+answer+"'"+")";
     }
 
@@ -36,5 +38,7 @@ public class RenderedRule extends Rule{
     private void changeNameXML(){
         nameXML = xmlTemplate+"("+"'"+id+"'"+", "+"'"+answer+"'"+")";
     }
+
+
 
 }
