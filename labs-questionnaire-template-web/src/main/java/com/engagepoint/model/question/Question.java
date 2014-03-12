@@ -141,7 +141,7 @@ public abstract class Question extends BasicBean implements Cloneable {
 
     @Override
     public String getDisplayedId() {
-        String questionID = " (ID: "+String.valueOf(id)+") ";
-        return questionID;
+        String id = " ID: ("+String.valueOf(groupBean.getSectionBean().getId())+String.valueOf(groupBean.getId())+String.valueOf(this.id)+")";
+        return id;
     }
 }

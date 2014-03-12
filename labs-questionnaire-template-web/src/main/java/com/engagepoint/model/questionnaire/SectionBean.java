@@ -14,7 +14,7 @@ public class SectionBean extends BasicBean
                          implements Cloneable, Serializable, BasicOperationWithBean{
     private static Long lastId = 1L;
 
-    private Long id=0L;
+    private Long id = 0L;
     private List<GroupBean> groupsList = new ArrayList<GroupBean>();
 
     public SectionBean() {
