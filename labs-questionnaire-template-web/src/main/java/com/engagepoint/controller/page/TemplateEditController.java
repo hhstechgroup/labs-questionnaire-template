@@ -1,7 +1,10 @@
 package com.engagepoint.controller.page;
 
 import com.engagepoint.controller.utils.PageNavigator;
+import com.engagepoint.model.question.Question;
+import com.engagepoint.model.questionnaire.GroupBean;
 import com.engagepoint.model.questionnaire.QuestionType;
+import com.engagepoint.model.questionnaire.SectionBean;
 import com.engagepoint.model.questionnaire.TemplateBean;
 
 import javax.enterprise.context.SessionScoped;
@@ -9,6 +12,8 @@ import javax.inject.Inject;
 import javax.inject.Named;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Used for controlling questform.xhtml
@@ -175,6 +180,20 @@ public class TemplateEditController implements Serializable {
      */
     public static String income() {
         return PageNavigator.TEMPLATE_EDIT_PAGE;
+    }
+
+    /**
+     * Getting id of all questions from current template.
+     *
+     * @return list of id.
+     */
+    public List<Long> getQuestionsId() {
+        List<Long> list = new ArrayList<Long>();
+        for (SectionBean sectionBean : currentTemplate.getSectionsList())
+            for (GroupBean groupBean : sectionBean.getGroupsList())
+                for (Question question : groupBean.getQuestionsList())
+                    list.add(question.getId());
+        return list;
     }
 
 }
