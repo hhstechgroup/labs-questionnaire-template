@@ -154,6 +154,7 @@ public class TemplateEditController implements Serializable {
             listController.removeTemplateFromFilteredListIfNeed(currentTemplate);
             listController.sort();
         }
+        templateTreeController.setSelectedNode(null);
         return ListController.income();
     }
 
@@ -167,6 +168,7 @@ public class TemplateEditController implements Serializable {
      * @return index page
      */
     public String cancel() {
+        templateTreeController.setSelectedNode(null);
         return ListController.income();
     }
 
