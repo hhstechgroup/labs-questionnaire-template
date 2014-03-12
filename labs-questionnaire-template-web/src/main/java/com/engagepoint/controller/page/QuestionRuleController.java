@@ -1,6 +1,10 @@
 package com.engagepoint.controller.page;
 
 import com.engagepoint.controller.utils.PageNavigator;
+import com.engagepoint.model.question.DateQuestionBean;
+import com.engagepoint.model.question.RangeQuestionBean;
+import com.engagepoint.model.question.TextQuestionBean;
+import com.engagepoint.model.question.options.CheckBoxQuestionBean;
 import com.engagepoint.model.question.options.ChooseFromListQuestionBean;
 import com.engagepoint.model.question.options.MultipleChoiceQuestionBean;
 import com.engagepoint.model.question.options.OptionsQuestion;
@@ -41,11 +45,18 @@ public class QuestionRuleController implements Serializable {
     private TemplateEditController templateEditController;
     //
     private OptionsQuestion optionsQuestion;
+    private DateQuestionBean dateQuestionBean;
+    private RangeQuestionBean rangeQuestionBean;
+    private TextQuestionBean textQuestionBean;
 
     public QuestionRuleController() {
         rulesContainer = new RulesContainer();
         addRuleButtonIsVisible = true;
-        optionsQuestion=new MultipleChoiceQuestionBean();
+        //set questions
+        optionsQuestion = new CheckBoxQuestionBean();
+        dateQuestionBean = new DateQuestionBean();
+        rangeQuestionBean = new RangeQuestionBean();
+        textQuestionBean = new TextQuestionBean();
     }
 
     public RulesContainer getRulesContainer() {
@@ -120,6 +131,7 @@ public class QuestionRuleController implements Serializable {
         return this.optionsQuestion;
     }
 
+
     /**
      * Set elements visibility after add rule button was clicked.
      */
@@ -149,17 +161,25 @@ public class QuestionRuleController implements Serializable {
         setChooseDependentQuestionListVisible(true);
     }
 
+    /**
+     * Action on click Set Answer button.
+     */
     public void setDependentQuestionAnswer() {
         switch (templateEditController.getDependentQuestion().getQuestionType()) {
             case TEXT:
+                textQuestionBean = (TextQuestionBean) templateEditController.getDependentQuestion();
                 break;
             case DATE:
+                dateQuestionBean = (DateQuestionBean) templateEditController.getDependentQuestion();
                 break;
             case RANGE:
+                rangeQuestionBean = (RangeQuestionBean) templateEditController.getDependentQuestion();
                 break;
             case TIME:
+                dateQuestionBean = (DateQuestionBean) templateEditController.getDependentQuestion();
                 break;
             case PARAGRAPHTEXT:
+                textQuestionBean = (TextQuestionBean) templateEditController.getDependentQuestion();
                 break;
             case CHOOSEFROMLIST:
                 optionsQuestion = (ChooseFromListQuestionBean) templateEditController.getDependentQuestion();
@@ -172,11 +192,11 @@ public class QuestionRuleController implements Serializable {
                 dataModel = new ListOfOptionsDataModel(optionsQuestion.getOptions());
                 break;
             case CHECKBOX:
+                optionsQuestion = (CheckBoxQuestionBean) templateEditController.getDependentQuestion();
+                dataModel = new ListOfOptionsDataModel(optionsQuestion.getOptions());
                 break;
             case GRID:
                 break;
         }
-
-
     }
 }
