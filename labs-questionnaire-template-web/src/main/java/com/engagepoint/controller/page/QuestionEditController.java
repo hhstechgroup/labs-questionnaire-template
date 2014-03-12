@@ -1,6 +1,7 @@
 package com.engagepoint.controller.page;
 
 import com.engagepoint.controller.utils.PageNavigator;
+import com.engagepoint.model.question.rules.Rule;
 
 import java.io.Serializable;
 import javax.inject.Inject;
@@ -39,4 +40,7 @@ public abstract class QuestionEditController implements Serializable {
     public String actionCancel() {
         return PageNavigator.TEMPLATE_EDIT_PAGE;
     }
+
+    public abstract void deleteRule(Rule rule);
+
 }
