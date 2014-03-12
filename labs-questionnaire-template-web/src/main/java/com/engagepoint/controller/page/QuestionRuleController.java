@@ -202,7 +202,7 @@ public class QuestionRuleController implements Serializable {
      *
      * @param ruleName
      */
-    public void createRule(String ruleName) {
+    public void createRuleAction(String ruleName) {
         setAddRulesTableIsVisible(false);
         setChooseDependentQuestionListVisible(true);
     }
@@ -210,7 +210,7 @@ public class QuestionRuleController implements Serializable {
     /**
      * Set elements visibility after save rule answer button was clicked.
      */
-    public void saveRuleAnswer() {
+    public void saveRuleAnswerAction() {
         setChooseDependentQuestionListVisible(false);
         setCancelRuleEditionButtonIsVisible(false);
         setAddRulesTableIsVisible(false);

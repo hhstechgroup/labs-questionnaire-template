@@ -35,7 +35,7 @@
                 </uib:column>
                 <uib:column style="width:20%">
                     <p:commandButton id="selectButton" value="Create"
-                                     action="#{questionRuleController.createRule(item)}"
+                                     action="#{questionRuleController.createRuleAction(item)}"
                                      update="rulesTable,@([id$=buttonPanel])"/>
                 </uib:column>
             </uib:dataTable>
@@ -118,8 +118,8 @@
 
                 <br/>
                 <br/>
-                <p:commandButton value="Set" immediate="true" onclick="dlgSetAnswer.hide()" update="@([id$=buttonPanel])"
-                        action="#{questionRuleController.saveRuleAnswer}"/>
+                <p:commandButton value="Save" immediate="true" onclick="dlgSetAnswer.hide()" update="@([id$=buttonPanel])"
+                        action="#{questionRuleController.saveRuleAnswerAction}"/>
             </p:panel>
         </p:dialog>
 
