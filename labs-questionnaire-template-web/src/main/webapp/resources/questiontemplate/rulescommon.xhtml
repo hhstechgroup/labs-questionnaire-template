@@ -107,9 +107,9 @@
 
                 <uib:dataTable var="option"
                                value="#{questionRuleController.dataModel}"
-                               selection="#{questionRuleController.defaultOptions}"
+                               selection="#{questionRuleController.optionsQuestion.defaultOptions}"
                                rendered="#{templateController.currentDependentQuestionType eq 'CHECKBOX'}">
-                    <uib:column headerText="Default"
+                    <uib:column headerText=""
                                 selectionMode="multiple"/>
                     <uib:column headerText="Options">
                         <p:inputText value="#{option.value}" style="width:100%"/>

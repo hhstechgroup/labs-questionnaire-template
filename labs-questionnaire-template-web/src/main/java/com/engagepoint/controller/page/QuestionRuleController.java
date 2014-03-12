@@ -27,6 +27,8 @@ import java.util.List;
 @Named
 @SessionScoped
 public class QuestionRuleController implements Serializable {
+    @Inject
+    private TemplateEditController templateEditController;
     //contains all rules
     private RulesContainer rulesContainer;
     //show add rule button
@@ -38,12 +40,8 @@ public class QuestionRuleController implements Serializable {
     //show question id list
     private boolean chooseDependentQuestionListVisible;
     //for multiple,choose from list,checkbox
-    private List<VariantItem> defaultOptions;
     private ListOfOptionsDataModel dataModel;
-    private VariantItem defaultOption;
-    @Inject
-    private TemplateEditController templateEditController;
-    //
+    //question objects
     private OptionsQuestion optionsQuestion;
     private DateQuestionBean dateQuestionBean;
     private RangeQuestionBean rangeQuestionBean;
@@ -99,28 +97,12 @@ public class QuestionRuleController implements Serializable {
         this.chooseDependentQuestionListVisible = chooseDependentQuestionListVisible;
     }
 
-    public VariantItem getDefaultOption() {
-        return defaultOption;
-    }
-
-    public void setDefaultOption(VariantItem defaultOption) {
-        this.defaultOption = defaultOption;
-    }
-
     public ListOfOptionsDataModel getDataModel() {
         return dataModel;
     }
 
     public void setDataModel(ListOfOptionsDataModel dataModel) {
         this.dataModel = dataModel;
-    }
-
-    public List<VariantItem> getDefaultOptions() {
-        return defaultOptions;
-    }
-
-    public void setDefaultOptions(List<VariantItem> defaultOptions) {
-        this.defaultOptions = defaultOptions;
     }
 
     public void setOptionsQuestion(OptionsQuestion optionsQuestion) {
@@ -154,7 +136,6 @@ public class QuestionRuleController implements Serializable {
     public TextQuestionBean getTextQuestionBean() {
         return this.textQuestionBean;
     }
-
 
     /**
      * Set elements visibility after add rule button was clicked.
