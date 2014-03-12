@@ -1,5 +1,9 @@
 package com.engagepoint.controller.page;
 
+import com.engagepoint.controller.utils.PageNavigator;
+import com.engagepoint.model.question.options.ChooseFromListQuestionBean;
+import com.engagepoint.model.question.options.MultipleChoiceQuestionBean;
+import com.engagepoint.model.question.options.OptionsQuestion;
 import com.engagepoint.model.question.rules.RulesContainer;
 import com.engagepoint.model.question.utils.VariantItem;
 import com.engagepoint.model.table.ListOfOptionsDataModel;
@@ -29,14 +33,19 @@ public class QuestionRuleController implements Serializable {
     private boolean addRulesTableIsVisible;
     //show question id list
     private boolean chooseDependentQuestionListVisible;
-    //
+    //for multiple,choose from list,checkbox
     private List<VariantItem> defaultOptions;
     private ListOfOptionsDataModel dataModel;
     private VariantItem defaultOption;
+    @Inject
+    private TemplateEditController templateEditController;
+    //
+    private OptionsQuestion optionsQuestion;
 
     public QuestionRuleController() {
         rulesContainer = new RulesContainer();
         addRuleButtonIsVisible = true;
+        optionsQuestion=new MultipleChoiceQuestionBean();
     }
 
     public RulesContainer getRulesContainer() {
@@ -103,6 +112,14 @@ public class QuestionRuleController implements Serializable {
         this.defaultOptions = defaultOptions;
     }
 
+    public void setOptionsQuestion(OptionsQuestion optionsQuestion) {
+        this.optionsQuestion = optionsQuestion;
+    }
+
+    public OptionsQuestion getOptionsQuestion() {
+        return this.optionsQuestion;
+    }
+
     /**
      * Set elements visibility after add rule button was clicked.
      */
@@ -130,5 +147,36 @@ public class QuestionRuleController implements Serializable {
     public void createRule(String ruleName) {
         setAddRulesTableIsVisible(false);
         setChooseDependentQuestionListVisible(true);
+    }
+
+    public void setDependentQuestionAnswer() {
+        switch (templateEditController.getDependentQuestion().getQuestionType()) {
+            case TEXT:
+                break;
+            case DATE:
+                break;
+            case RANGE:
+                break;
+            case TIME:
+                break;
+            case PARAGRAPHTEXT:
+                break;
+            case CHOOSEFROMLIST:
+                optionsQuestion = (ChooseFromListQuestionBean) templateEditController.getDependentQuestion();
+                dataModel = new ListOfOptionsDataModel(optionsQuestion.getOptions());
+                break;
+            case FILEUPLOAD:
+                break;
+            case MULTIPLECHOICE:
+                optionsQuestion = (MultipleChoiceQuestionBean) templateEditController.getDependentQuestion();
+                dataModel = new ListOfOptionsDataModel(optionsQuestion.getOptions());
+                break;
+            case CHECKBOX:
+                break;
+            case GRID:
+                break;
+        }
+
+
     }
 }

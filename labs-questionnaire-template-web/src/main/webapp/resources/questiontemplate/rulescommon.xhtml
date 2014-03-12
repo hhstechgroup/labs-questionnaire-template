@@ -52,6 +52,7 @@
                 </p:selectOneMenu>
                 <br/>
                 <p:commandButton value="Set Answer"
+                                 action="#{questionRuleController.setDependentQuestionAnswer()}"
                                  oncomplete="dlgSetAnswer.show();" update="@([id$=SetAnswerPanel])"/>
             </p:panel>
 
@@ -95,7 +96,7 @@
 
                 <uib:dataTable var="option"
                                value="#{questionRuleController.dataModel}"
-                               selection="#{questionRuleController.defaultOption}"
+                               selection="#{questionRuleController.optionsQuestion.defaultOption}"
                                rendered="#{templateController.currentDependentQuestionType eq 'CHOOSEFROMLIST' or templateController.currentDependentQuestionType eq 'MULTIPLECHOICE'}">
                     <uib:column headerText="Default"
                                 selectionMode="single"/>
