@@ -16,11 +16,12 @@ public class GroupBean extends BasicBean
     private static Long lastId = 1L;
 
     private Long id;
-    private String groupName = "Group";
+    private String groupName = "";
     private List<Question> questionsList = new ArrayList<Question>();
     private SectionBean sectionBean;
 
     public GroupBean() {
+        this.id = lastId++;
     }
 
     public GroupBean(SectionBean sectionBean) {
@@ -121,6 +122,11 @@ public class GroupBean extends BasicBean
     @Override
     public String getType() {
         return "group";
+    }
+
+    @Override
+    public String getDisplayedNodeType() {
+        return "Group: ";
     }
 
     @Override

@@ -53,6 +53,8 @@
                         <p:ajax event="unselect" update=":formTemplate:form:buttonPanel"/>
 
 						<p:column style="#{templateTreeController.getStyle(node)}">
+                            <h:outputText id="treeDisplayedType" value="#{node.displayedNodeType}"
+                                          style="cursor: pointer" />
 							<h:outputText id="treeDisplayedName" value="#{node.displayedName}"
                                           style="cursor: pointer" />
                             <h:outputText id="treeDisplayedId" value="#{node.displayedId}"

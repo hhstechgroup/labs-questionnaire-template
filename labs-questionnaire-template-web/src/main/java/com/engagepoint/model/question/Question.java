@@ -32,6 +32,7 @@ public abstract class Question extends BasicBean implements Cloneable {
     //Dependent questions
 
     public Question() {
+        this.id = lastId++;
     }
 
     public Question(GroupBean groupBean) {
@@ -134,6 +135,11 @@ public abstract class Question extends BasicBean implements Cloneable {
     @Override
     public String getType() {
         return "question";
+    }
+
+    @Override
+    public String getDisplayedNodeType() {
+        return "Question: ";
     }
 
     @Override

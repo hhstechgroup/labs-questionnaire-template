@@ -16,10 +16,12 @@ public class SectionBean extends BasicBean
 
     private Long id;
     private Long pageNumber;
+    private String sectionName = "";
     private List<GroupBean> groupsList = new ArrayList<GroupBean>();
     private TemplateBean templateBean;
 
     public SectionBean() {
+        this.id = lastId++;
     }
 
     public SectionBean(TemplateBean templateBean) {
@@ -116,6 +118,21 @@ public class SectionBean extends BasicBean
     @Override
     public String getType() {
         return "section";
+    }
+
+    @Override
+    public String getDisplayedNodeType() {
+        return "Page: ";
+    }
+
+    @Override
+    public String getDisplayedName() {
+        return sectionName;
+    }
+
+    @Override
+    public void setDisplayedName(String displayedName) {
+        sectionName = displayedName;
     }
 
     @Override
