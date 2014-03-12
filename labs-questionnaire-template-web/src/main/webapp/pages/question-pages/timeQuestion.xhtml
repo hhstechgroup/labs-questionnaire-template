@@ -15,15 +15,16 @@
     <ui:define name="page">
 
         <h:form id="form2">
-            <ago:questioncommon qb="#{dateQuestion.currentQuestion}" id="formWithCommonProps" />
+            <ago:questioncommon qb="#{dateQuestion.currentQuestion}" id="formWithCommonProps"/>
             <h:panelGrid columns="2" style="margin-bottom:10px" cellpadding="5">
-                <h:outputText value="Default answer: " />
-                <p:calendar title="calendar" id="calendar" pattern="HH:mm" showOn="button" timeOnly="true" value="#{dateQuestion.currentQuestion.defaultAnswer}"/>
+                <h:outputText value="Default answer: "/>
+                <p:calendar title="calendar" id="calendar" pattern="HH:mm" showOn="button" timeOnly="true"
+                            value="#{dateQuestion.currentQuestion.defaultAnswer}"/>
             </h:panelGrid>
             <ago:buttonsCommon qbuttons="#{dateQuestion}" id="formWithSaveButtons"/>
 
 
         </h:form>
-
+        <ago:rulescommon/>
     </ui:define>
 </ui:composition>

@@ -3,6 +3,7 @@ package com.engagepoint.model.question;
 
 import com.engagepoint.controller.page.TemplateTreeController;
 import com.engagepoint.model.question.options.OptionsQuestion;
+import com.engagepoint.model.question.rules.RulesContainer;
 import com.engagepoint.model.questionnaire.BasicBeanProperty;
 import com.engagepoint.model.questionnaire.QuestionType;
 import com.engagepoint.model.questionnaire.TemplateBean;
@@ -16,7 +17,7 @@ import javax.xml.bind.annotation.XmlSeeAlso;
 /**
  * Class represents question tag.
  */
-@XmlSeeAlso({TextQuestionBean.class, DateQuestionBean.class, OptionsQuestion.class,RangeQuestionBean.class})
+@XmlSeeAlso({TextQuestionBean.class, DateQuestionBean.class, OptionsQuestion.class, RangeQuestionBean.class})
 public abstract class Question implements Cloneable, BasicBeanProperty {
     private Long id;                    //id of the question
     protected String questionText = "";        //questiontext

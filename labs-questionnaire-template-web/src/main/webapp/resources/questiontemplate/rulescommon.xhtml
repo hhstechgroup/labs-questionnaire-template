@@ -1,0 +1,129 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:composite="http://java.sun.com/jsf/composite"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:uib="http://engagepoint.com/uib">
+
+<composite:interface>
+    <composite:attribute name="controller"/>
+</composite:interface>
+
+<composite:implementation>
+    <br/>
+    <br/>
+    <h:form id="rulesForm">
+
+        <p:panel id="buttonPanel">
+            <p:commandButton value="Add rule" rendered="#{questionRuleController.addRuleButtonIsVisible}"
+                             action="#{questionRuleController.addRuleAction}" update="buttonPanel"/>
+
+            <br/>
+
+            <uib:dataTable id="rulesTable" var="item" value="#{questionRuleController.rulesContainer.supportedRules}"
+                           rendered="#{questionRuleController.addRulesTableIsVisible}">
+                <f:facet name="header">
+                    <p> List of Rules</p>
+                </f:facet>
+                <uib:column>
+                    <f:facet name="header">
+                        Rule Name:
+                    </f:facet>
+                    <h:outputText value="#{item}"/>
+                </uib:column>
+                <uib:column style="width:20%">
+                    <p:commandButton id="selectButton" value="Create"
+                                     action="#{questionRuleController.createRule(item)}"
+                                     update="rulesTable,@([id$=buttonPanel])"/>
+                </uib:column>
+            </uib:dataTable>
+
+            <br/>
+
+            <p:panel id="chooseQuestionIdPanel" rendered="#{questionRuleController.chooseDependentQuestionListVisible}">
+                <h:outputText value="Please choose a question id"/>
+
+                <p:selectOneMenu value="#{questionRuleController.currentDependentQuestionId}">
+                    <f:selectItem itemLabel="Select One" itemValue=""/>
+                    <f:selectItems value="#{questionRuleController.questions}" var="question" itemLabel="#{question.id}"
+                                   itemValue="#{question.id}"/>
+                </p:selectOneMenu>
+                <br/>
+                <p:commandButton value="Set Answer"
+                                 action="#{questionRuleController.setDependentQuestionAnswer()}"
+                                 oncomplete="dlgSetAnswer.show();" update="@([id$=SetAnswerPanel])"/>
+            </p:panel>
+
+            <br/>
+            <br/>
+
+            <p:commandButton value="Cancel Rule" rendered="#{questionRuleController.cancelRuleEditionButtonIsVisible}"
+                             action="#{questionRuleController.cancelAddRuleAction}" update="buttonPanel"/>
+        </p:panel>
+
+        <p:dialog widgetVar="dlgSetAnswer"
+                  modal="true" closable="true">
+            <p:panel id="SetAnswerPanel">
+                <h:outputText value="Please set answer"/>
+                <br/>
+
+                <h:outputLabel value="Test:"/>
+                <h:outputLabel value="#{questionRuleController.currentDependentQuestionId}"/>
+                <br/>
+                <h:outputLabel value="#{questionRuleController.currentDependentQuestionType}"/>
+                <br/>
+
+                <p:inputText size="50" rendered="#{questionRuleController.currentDependentQuestionType eq 'TEXT'}"/>
+
+                <p:inputTextarea rows="8"
+                                 cols="555"
+                                 rendered="#{questionRuleController.currentDependentQuestionType eq 'PARAGRAPHTEXT'}"/>
+
+                <p:calendar title="calendar" pattern="HH:mm" showOn="button" timeOnly="true"
+                            rendered="#{questionRuleController.currentDependentQuestionType eq 'TIME'}"/>
+
+                <p:calendar title="calendar" pattern="MM/dd/yyyy" showOn="button"
+                            rendered="#{questionRuleController.currentDependentQuestionType eq 'DATE'}"/>
+
+                <p:panel rendered="#{questionRuleController.currentDependentQuestionType eq 'RANGE'}">
+                    <h:outputText value="Set minimum value"/>
+                    <h:inputText id="minRangeValue"/>
+                    <h:outputText value="Set maximum value"/>
+                    <h:inputText id="maxRangeValue"/>
+                </p:panel>
+
+                <uib:dataTable var="option"
+                               value="#{questionRuleController.dataModel}"
+                               selection="#{questionRuleController.defaultOption}"
+                               rendered="#{questionRuleController.currentDependentQuestionType eq 'CHOOSEFROMLIST' or questionRuleController.currentDependentQuestionType eq 'MULTIPLECHOICE'}">
+                    <uib:column headerText="Default"
+                                selectionMode="single"/>
+                    <uib:column headerText="Options">
+                        <p:inputText id="option" value="#{option.value}" style="width:100%"/>
+                    </uib:column>
+                </uib:dataTable>
+
+                <uib:dataTable var="option"
+                               value="#{questionRuleController.dataModel}"
+                               selection="#{questionRuleController.defaultOptions}"
+                               rendered="#{questionRuleController.currentDependentQuestionType eq 'CHECKBOX'}">
+                    <uib:column headerText=""
+                                selectionMode="multiple"/>
+                    <uib:column headerText="Options">
+                        <p:inputText value="#{option.value}" style="width:100%"/>
+                    </uib:column>
+                </uib:dataTable>
+
+                <br/>
+                <br/>
+                <p:commandButton value="Set" immediate="true" onclick="dlgSetAnswer.hide()" update="@([id$=buttonPanel])"
+                        action="#{questionRuleController.saveRuleAnswer}"/>
+            </p:panel>
+        </p:dialog>
+
+    </h:form>
+
+</composite:implementation>
+</html>

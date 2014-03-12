@@ -3,19 +3,23 @@ package com.engagepoint.controller.page;
 import com.engagepoint.controller.utils.PageNavigator;
 
 import java.io.Serializable;
-
 import javax.inject.Inject;
-import javax.inject.Named;
 
 /**
  * Used as basic controller for all question controllers
  */
-
-@Named("questionController")
 public abstract class QuestionEditController implements Serializable {
+    private boolean isNew;
 
-   
-    boolean isNew=false;
+    @Inject
+    private TemplateTreeController templateTreeController;
+
+    public QuestionEditController() {
+    }
+
+    public TemplateTreeController getTemplateTreeController() {
+        return templateTreeController;
+    }
 
     public boolean isNew() {
         return isNew;
@@ -25,21 +29,14 @@ public abstract class QuestionEditController implements Serializable {
         isNew = aNew;
     }
 
-    @Inject
-    private TemplateTreeController templateTreeController;
-
-    public TemplateTreeController getTemplateTreeController() {
-        return templateTreeController;
-    }
-
     public String actionSave() {
         if (isNew) {
             getTemplateTreeController().addQuestionToCurrentGroup();
         }
         return PageNavigator.TEMPLATE_EDIT_PAGE;
-    };
+    }
 
     public String actionCancel() {
         return PageNavigator.TEMPLATE_EDIT_PAGE;
-    };
+    }
 }
