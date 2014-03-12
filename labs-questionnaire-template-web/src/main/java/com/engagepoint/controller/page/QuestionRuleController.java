@@ -2,6 +2,7 @@ package com.engagepoint.controller.page;
 
 import com.engagepoint.controller.utils.PageNavigator;
 import com.engagepoint.model.question.DateQuestionBean;
+import com.engagepoint.model.question.Question;
 import com.engagepoint.model.question.RangeQuestionBean;
 import com.engagepoint.model.question.TextQuestionBean;
 import com.engagepoint.model.question.options.CheckBoxQuestionBean;
@@ -10,6 +11,8 @@ import com.engagepoint.model.question.options.MultipleChoiceQuestionBean;
 import com.engagepoint.model.question.options.OptionsQuestion;
 import com.engagepoint.model.question.rules.RulesContainer;
 import com.engagepoint.model.question.utils.VariantItem;
+import com.engagepoint.model.questionnaire.GroupBean;
+import com.engagepoint.model.questionnaire.SectionBean;
 import com.engagepoint.model.table.ListOfOptionsDataModel;
 
 import javax.annotation.PostConstruct;
@@ -19,6 +22,7 @@ import javax.enterprise.context.SessionScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -29,6 +33,9 @@ import java.util.List;
 public class QuestionRuleController implements Serializable {
     @Inject
     private TemplateEditController templateEditController;
+    //
+    private String currentDependentQuestionId;
+    private Question dependentQuestion;
     //contains all rules
     private RulesContainer rulesContainer;
     //show add rule button
@@ -55,6 +62,22 @@ public class QuestionRuleController implements Serializable {
         dateQuestionBean = new DateQuestionBean();
         rangeQuestionBean = new RangeQuestionBean();
         textQuestionBean = new TextQuestionBean();
+    }
+
+    public String getCurrentDependentQuestionId() {
+        return currentDependentQuestionId;
+    }
+
+    public void setCurrentDependentQuestionId(String currentDependentQuestionId) {
+        this.currentDependentQuestionId = currentDependentQuestionId;
+    }
+
+    public Question getDependentQuestion() {
+        return dependentQuestion;
+    }
+
+    public void setDependentQuestion(Question dependentQuestion) {
+        this.dependentQuestion = dependentQuestion;
     }
 
     public RulesContainer getRulesContainer() {
@@ -170,38 +193,70 @@ public class QuestionRuleController implements Serializable {
      * Action on click Set Answer button.
      */
     public void setDependentQuestionAnswer() {
-        switch (templateEditController.getDependentQuestion().getQuestionType()) {
+        switch (dependentQuestion.getQuestionType()) {
             case TEXT:
-                textQuestionBean = (TextQuestionBean) templateEditController.getDependentQuestion();
+                textQuestionBean = (TextQuestionBean) dependentQuestion;
                 break;
             case DATE:
-                dateQuestionBean = (DateQuestionBean) templateEditController.getDependentQuestion();
+                dateQuestionBean = (DateQuestionBean) dependentQuestion;
                 break;
             case RANGE:
-                rangeQuestionBean = (RangeQuestionBean) templateEditController.getDependentQuestion();
+                rangeQuestionBean = (RangeQuestionBean) dependentQuestion;
                 break;
             case TIME:
-                dateQuestionBean = (DateQuestionBean) templateEditController.getDependentQuestion();
+                dateQuestionBean = (DateQuestionBean) dependentQuestion;
                 break;
             case PARAGRAPHTEXT:
-                textQuestionBean = (TextQuestionBean) templateEditController.getDependentQuestion();
+                textQuestionBean = (TextQuestionBean) dependentQuestion;
                 break;
             case CHOOSEFROMLIST:
-                optionsQuestion = (ChooseFromListQuestionBean) templateEditController.getDependentQuestion();
+                optionsQuestion = (ChooseFromListQuestionBean) dependentQuestion;
                 dataModel = new ListOfOptionsDataModel(optionsQuestion.getOptions());
                 break;
             case FILEUPLOAD:
                 break;
             case MULTIPLECHOICE:
-                optionsQuestion = (MultipleChoiceQuestionBean) templateEditController.getDependentQuestion();
+                optionsQuestion = (MultipleChoiceQuestionBean) dependentQuestion;
                 dataModel = new ListOfOptionsDataModel(optionsQuestion.getOptions());
                 break;
             case CHECKBOX:
-                optionsQuestion = (CheckBoxQuestionBean) templateEditController.getDependentQuestion();
+                optionsQuestion = (CheckBoxQuestionBean) dependentQuestion;
                 dataModel = new ListOfOptionsDataModel(optionsQuestion.getOptions());
                 break;
             case GRID:
                 break;
         }
+    }
+
+    /**
+     * Get all questions from current template.
+     *
+     * @return list of questions.
+     */
+    public List<Question> getQuestions() {
+        List<Question> list = new ArrayList<Question>();
+        for (SectionBean sectionBean : templateEditController.getCurrentTemplate().getSectionsList())
+            for (GroupBean groupBean : sectionBean.getGroupsList())
+                for (Question question : groupBean.getQuestionsList())
+                    list.add(question);
+        return list;
+    }
+
+    /**
+     * Get current dependent question type.
+     *
+     * @return question type
+     */
+    public String getCurrentDependentQuestionType() {
+        if (currentDependentQuestionId != null) {
+            for (SectionBean sectionBean : templateEditController.getCurrentTemplate().getSectionsList())
+                for (GroupBean groupBean : sectionBean.getGroupsList())
+                    for (Question question : groupBean.getQuestionsList())
+                        if (String.valueOf(question.getId()).equals(currentDependentQuestionId)) {
+                            dependentQuestion = question;
+                            return question.getQuestionType().toString();
+                        }
+        }
+        return "question type is not chose";
     }
 }

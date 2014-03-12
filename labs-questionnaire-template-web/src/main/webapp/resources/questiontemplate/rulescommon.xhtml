@@ -45,9 +45,9 @@
             <p:panel id="chooseQuestionIdPanel" rendered="#{questionRuleController.chooseDependentQuestionListVisible}">
                 <h:outputText value="Please choose a question id"/>
 
-                <p:selectOneMenu value="#{templateController.currentDependentQuestionId}">
+                <p:selectOneMenu value="#{questionRuleController.currentDependentQuestionId}">
                     <f:selectItem itemLabel="Select One" itemValue=""/>
-                    <f:selectItems value="#{templateController.questions}" var="question" itemLabel="#{question.id}"
+                    <f:selectItems value="#{questionRuleController.questions}" var="question" itemLabel="#{question.id}"
                                    itemValue="#{question.id}"/>
                 </p:selectOneMenu>
                 <br/>
@@ -70,24 +70,24 @@
                 <br/>
 
                 <h:outputLabel value="Test:"/>
-                <h:outputLabel value="#{templateController.currentDependentQuestionId}"/>
+                <h:outputLabel value="#{questionRuleController.currentDependentQuestionId}"/>
                 <br/>
-                <h:outputLabel value="#{templateController.currentDependentQuestionType}"/>
+                <h:outputLabel value="#{questionRuleController.currentDependentQuestionType}"/>
                 <br/>
 
-                <p:inputText size="50" rendered="#{templateController.currentDependentQuestionType eq 'TEXT'}"/>
+                <p:inputText size="50" rendered="#{questionRuleController.currentDependentQuestionType eq 'TEXT'}"/>
 
                 <p:inputTextarea rows="8"
                                  cols="555"
-                                 rendered="#{templateController.currentDependentQuestionType eq 'PARAGRAPHTEXT'}"/>
+                                 rendered="#{questionRuleController.currentDependentQuestionType eq 'PARAGRAPHTEXT'}"/>
 
                 <p:calendar title="calendar" pattern="HH:mm" showOn="button" timeOnly="true"
-                            rendered="#{templateController.currentDependentQuestionType eq 'TIME'}"/>
+                            rendered="#{questionRuleController.currentDependentQuestionType eq 'TIME'}"/>
 
                 <p:calendar title="calendar" pattern="MM/dd/yyyy" showOn="button"
-                            rendered="#{templateController.currentDependentQuestionType eq 'DATE'}"/>
+                            rendered="#{questionRuleController.currentDependentQuestionType eq 'DATE'}"/>
 
-                <p:panel rendered="#{templateController.currentDependentQuestionType eq 'RANGE'}">
+                <p:panel rendered="#{questionRuleController.currentDependentQuestionType eq 'RANGE'}">
                     <h:outputText value="Set minimum value"/>
                     <h:inputText id="minRangeValue"/>
                     <h:outputText value="Set maximum value"/>
@@ -97,7 +97,7 @@
                 <uib:dataTable var="option"
                                value="#{questionRuleController.dataModel}"
                                selection="#{questionRuleController.optionsQuestion.defaultOption}"
-                               rendered="#{templateController.currentDependentQuestionType eq 'CHOOSEFROMLIST' or templateController.currentDependentQuestionType eq 'MULTIPLECHOICE'}">
+                               rendered="#{questionRuleController.currentDependentQuestionType eq 'CHOOSEFROMLIST' or questionRuleController.currentDependentQuestionType eq 'MULTIPLECHOICE'}">
                     <uib:column headerText="Default"
                                 selectionMode="single"/>
                     <uib:column headerText="Options">
@@ -108,7 +108,7 @@
                 <uib:dataTable var="option"
                                value="#{questionRuleController.dataModel}"
                                selection="#{questionRuleController.optionsQuestion.defaultOptions}"
-                               rendered="#{templateController.currentDependentQuestionType eq 'CHECKBOX'}">
+                               rendered="#{questionRuleController.currentDependentQuestionType eq 'CHECKBOX'}">
                     <uib:column headerText=""
                                 selectionMode="multiple"/>
                     <uib:column headerText="Options">

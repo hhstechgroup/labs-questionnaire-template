@@ -31,9 +31,6 @@ public class TemplateEditController implements Serializable {
     private TemplateBean currentTemplate; //real template
     private TemplateBean duplicateTemplate; //copy of real template, contains all unsaved changes
     private QuestionType selectedQuestionType;
-    //
-    private String currentDependentQuestionId;
-    private Question dependentQuestion;
 
     public TemplateBean getDuplicateTemplate() {
         return duplicateTemplate;
@@ -63,22 +60,6 @@ public class TemplateEditController implements Serializable {
 
     public void setSelectedQuestionType(QuestionType selectedQuestionType) {
         this.selectedQuestionType = selectedQuestionType;
-    }
-
-    public String getCurrentDependentQuestionId() {
-        return currentDependentQuestionId;
-    }
-
-    public void setCurrentDependentQuestionId(String currentDependentQuestionId) {
-        this.currentDependentQuestionId = currentDependentQuestionId;
-    }
-
-    public Question getDependentQuestion() {
-        return dependentQuestion;
-    }
-
-    public void setDependentQuestion(Question dependentQuestion) {
-        this.dependentQuestion = dependentQuestion;
     }
 
     /**
@@ -197,37 +178,5 @@ public class TemplateEditController implements Serializable {
      */
     public static String income() {
         return PageNavigator.TEMPLATE_EDIT_PAGE;
-    }
-
-    /**
-     * Get all questions from current template.
-     *
-     * @return list of questions.
-     */
-    public List<Question> getQuestions() {
-        List<Question> list = new ArrayList<Question>();
-        for (SectionBean sectionBean : currentTemplate.getSectionsList())
-            for (GroupBean groupBean : sectionBean.getGroupsList())
-                for (Question question : groupBean.getQuestionsList())
-                    list.add(question);
-        return list;
-    }
-
-    /**
-     * Get current dependent question type.
-     *
-     * @return question type
-     */
-    public String getCurrentDependentQuestionType() {
-        if (currentDependentQuestionId != null) {
-            for (SectionBean sectionBean : currentTemplate.getSectionsList())
-                for (GroupBean groupBean : sectionBean.getGroupsList())
-                    for (Question question : groupBean.getQuestionsList())
-                        if (String.valueOf(question.getId()).equals(currentDependentQuestionId)) {
-                            dependentQuestion = question;
-                            return question.getQuestionType().toString();
-                        }
-        }
-        return "question type is not chose";
     }
 }
