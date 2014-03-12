@@ -25,7 +25,6 @@
             <uib:column>
                 <p:commandButton value="Delete"
                                  action="#{cc.attrs.controller.deleteRule(rule)}"
-                                 immediate="true"
                                  styleClass="fl-right">
                 </p:commandButton>
             </uib:column>
@@ -142,7 +141,7 @@
 
                 <br/>
                 <br/>
-                <p:commandButton value="Save" immediate="true" onclick="dlgSetAnswer.hide()"
+                <p:commandButton value="Save" onclick="dlgSetAnswer.hide()"
                                  update="@([id$=buttonPanel])"
                                  action="#{questionRuleController.saveRuleAnswerAction}"/>
             </p:panel>
