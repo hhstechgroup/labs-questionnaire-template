@@ -23,6 +23,7 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -33,7 +34,7 @@ import java.util.List;
 public class QuestionRuleController implements Serializable {
     @Inject
     private TemplateEditController templateEditController;
-    //
+    //dependent question data
     private String currentDependentQuestionId;
     private Question dependentQuestion;
     //contains all rules
@@ -46,15 +47,24 @@ public class QuestionRuleController implements Serializable {
     private boolean addRulesTableIsVisible;
     //show question id list
     private boolean chooseDependentQuestionListVisible;
-    //for multiple,choose from list,checkbox
-    private ListOfOptionsDataModel dataModel;
-    private VariantItem defaultOption;
-    private List<VariantItem> defaultOptions;
     //question objects
     private OptionsQuestion optionsQuestion;
     private DateQuestionBean dateQuestionBean;
     private RangeQuestionBean rangeQuestionBean;
     private TextQuestionBean textQuestionBean;
+    //question fileds
+    //for multiple,choose from list,checkbox
+    private ListOfOptionsDataModel dataModel;
+    private VariantItem defaultOption;
+    private List<VariantItem> defaultOptions;
+    //for paragraph,text
+    private String textData;
+    //for time,data
+    private Date dateData;
+    //for range
+    private String minValue;
+    private String maxValue;
+
 
     public QuestionRuleController() {
         rulesContainer = new RulesContainer();
@@ -176,6 +186,38 @@ public class QuestionRuleController implements Serializable {
 
     public void setDefaultOption(VariantItem defaultOption) {
         this.defaultOption = defaultOption;
+    }
+
+    public String getTextData() {
+        return textData;
+    }
+
+    public void setTextData(String textData) {
+        this.textData = textData;
+    }
+
+    public void setDateData(Date dateData) {
+        this.dateData = dateData;
+    }
+
+    public Date getDateData() {
+        return dateData;
+    }
+
+    public String getMinValue() {
+        return minValue;
+    }
+
+    public void setMinValue(String minValue) {
+        this.minValue = minValue;
+    }
+
+    public String getMaxValue() {
+        return maxValue;
+    }
+
+    public void setMaxValue(String maxValue) {
+        this.maxValue = maxValue;
     }
 
     /**
