@@ -131,6 +131,30 @@ public class QuestionRuleController implements Serializable {
         return this.optionsQuestion;
     }
 
+    public void setDateQuestionBean(DateQuestionBean dateQuestionBean) {
+        this.dateQuestionBean = dateQuestionBean;
+    }
+
+    public DateQuestionBean getDateQuestionBean() {
+        return this.dateQuestionBean;
+    }
+
+    public void setRangeQuestionBean(RangeQuestionBean rangeQuestionBean) {
+        this.rangeQuestionBean = rangeQuestionBean;
+    }
+
+    public RangeQuestionBean getRangeQuestionBean() {
+        return this.rangeQuestionBean;
+    }
+
+    public void setTextQuestionBean(TextQuestionBean textQuestionBean) {
+        this.textQuestionBean = textQuestionBean;
+    }
+
+    public TextQuestionBean getTextQuestionBean() {
+        return this.textQuestionBean;
+    }
+
 
     /**
      * Set elements visibility after add rule button was clicked.
