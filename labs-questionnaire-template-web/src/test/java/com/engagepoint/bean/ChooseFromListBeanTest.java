@@ -16,7 +16,7 @@ import java.util.List;
 * Created by anton.kovunov on 3/5/14.
 */
 public class ChooseFromListBeanTest {
-    /*MockTemplate mock = new MockTemplate(QuestionType.CHOOSEFROMLIST);
+    MockTemplate mock = new MockTemplate(QuestionType.CHOOSEFROMLIST);
     @Test
     public void testOptionsBeanClone() throws CloneNotSupportedException {
         ChooseFromListQuestionBean testBean = (ChooseFromListQuestionBean)mock.question();
@@ -31,5 +31,5 @@ public class ChooseFromListBeanTest {
         testBean.setDefaultOption(var2);
         Assert.assertTrue(testBean.equals(testBean.clone()));
 
-    }*/
+    }
 }

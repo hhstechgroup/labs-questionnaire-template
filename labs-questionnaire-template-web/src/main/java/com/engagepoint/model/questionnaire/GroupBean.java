@@ -15,17 +15,23 @@ public class GroupBean extends BasicBean
                        implements Cloneable, BasicOperationWithBean {
     private static Long lastId = 1L;
 
-    private Long id=0L;
-    private String groupName = "Default Name";
-    private String displayedName = "Default Displayed Name";
+    private Long id;
+    private String groupName = "Group";
     private List<Question> questionsList = new ArrayList<Question>();
     private SectionBean sectionBean;
+
+    public GroupBean() {
+    }
 
     public GroupBean(SectionBean sectionBean) {
         this.sectionBean = sectionBean;
         id = Long.valueOf(sectionBean.getId() + (lastId++).toString());
         sectionBean.addToInnerList(this);
-        super.setDisplayedName("GroupDefault");
+    }
+
+    public GroupBean(String groupName, SectionBean sectionBean) {
+        this(sectionBean);
+        this.groupName = groupName;
     }
 
     public GroupBean(String groupName, List<Question> questionsList, SectionBean sectionBean) {
@@ -65,7 +71,7 @@ public class GroupBean extends BasicBean
     public Object clone() throws CloneNotSupportedException {
         GroupBean copy = (GroupBean) super.clone();
         copy.setGroupName(this.groupName);
-        copy.setDisplayedName(this.displayedName);
+        //copy.setDisplayedName(this.displayedName);
         List<Question> copyQuestionsList = null;
         if (questionsList != null) {
             copyQuestionsList = new ArrayList<Question>();
@@ -118,8 +124,19 @@ public class GroupBean extends BasicBean
     }
 
     @Override
+    public String getDisplayedName() {
+        return groupName;
+    }
+
+    @Override
+    public void setDisplayedName(String groupName) {
+        this.groupName = groupName;
+    }
+
+    @Override
     public String getDisplayedId() {
-        return String.valueOf(id);
+        String id = " (ID: "+String.valueOf(this.id)+") ";
+        return id;
     }
 }
 

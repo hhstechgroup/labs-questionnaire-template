@@ -17,13 +17,13 @@ import java.util.List;
 * Created by yurii.kukharskyi on 1/28/14.
 */
 public class TemplateBeanTest {
-    /*MockTemplate mock = new MockTemplate(QuestionType.CHECKBOX);
+    MockTemplate mock = new MockTemplate(QuestionType.CHECKBOX);
 
     @Test
     public void testCloneTemplateBean() throws Exception {
-        TemplateBean testTemplateClone = (TemplateBean) mock.template().clone();
+        /*TemplateBean testTemplateClone = (TemplateBean) mock.template().clone();
         Assert.assertEquals(mock.template().getTemplateName(), testTemplateClone.getTemplateName());
-        Assert.assertEquals(mock.template().getSectionsList(), testTemplateClone.getSectionsList());
+        Assert.assertEquals(mock.template().getSectionsList(), testTemplateClone.getSectionsList());*/
     }
     @Test
     public void testEqualityTemplates(){
@@ -114,7 +114,7 @@ public class TemplateBeanTest {
         sectionsList1.add(section12);
         sectionsList1.add(section21);
         TemplateBean testTemplate1 = new TemplateBean(new Long(5),"Questionnaire",sectionsList1);
-        Assert.assertTrue(testTemplate.equals(testTemplate1));
+        Assert.assertTrue(testTemplate.equals(testTemplate1)); */
 
-    }*/
+    }
 }

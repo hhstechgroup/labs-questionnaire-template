@@ -14,7 +14,7 @@ import java.util.List;
 * Created by anton.kovunov on 3/5/14.
 */
 public class CheckboxBeanTest {
-    /*MockTemplate mock = new MockTemplate(QuestionType.CHECKBOX);
+    MockTemplate mock = new MockTemplate(QuestionType.CHECKBOX);
 
     @Test
     public void testOptionsBeanClone() throws CloneNotSupportedException {
@@ -33,7 +33,7 @@ public class CheckboxBeanTest {
         testBean.setDefaultOption(var2);
         Assert.assertTrue(testBean.equals(testBean.clone()));
 
-    }*/
+    }
 
 }
 

@@ -162,9 +162,7 @@ public class TemplateTreeController implements Serializable {
     public void addSection() {
         FacesMessage msg = new FacesMessage("Selected");
         FacesContext.getCurrentInstance().addMessage(null, msg);
-        SectionBean sectionBean = new SectionBean();
-        //sectionBean.setPageNumber(templateBean.getSectionsList().size() + 1);
-        templateBean.getSectionsList().add(sectionBean);
+        new SectionBean(templateBean);
         setNodes();
     }
 
@@ -174,12 +172,9 @@ public class TemplateTreeController implements Serializable {
      * @return next page
      */
     public void addGroup() {
-        GroupBean groupBean = new GroupBean(currentSection);
-        //addGroupToCurrentSection(groupBean);
+        new GroupBean(currentSection);
         setNodes();
     }
-
-
 
     /**
      * Delete selected section, group or question
@@ -197,38 +192,12 @@ public class TemplateTreeController implements Serializable {
     }
 
     /**
-     * Add group to current section bean
-     *
-     * @param groupBean
-     */
-    public void addGroupToCurrentSection(GroupBean groupBean) {
-        if (currentSection != null && !currentSection.getGroupsList().contains(groupBean)) {
-            currentSection.addToInnerList(groupBean);
-            setNodes();
-        }
-    }
-
-    /**
      * Add current question to current group bean
      */
     public void addQuestionToCurrentGroup() {
         if (currentGroup != null) {
-            currentQuestion.setId(getNextQuestionIdInCurrentGroup());
             currentGroup.addToInnerList(currentQuestion);
             setNodes();
-        }
-    }
-
-    /**
-     * Gets next id for current group
-     * @return QuestionId
-     */
-    public long getNextQuestionIdInCurrentGroup() {
-        if (currentGroup.getQuestionsList().isEmpty()) {
-            return 1L;
-        }
-        else {
-            return ((currentGroup.getQuestionsList().get(currentGroup.getQuestionsList().size()-1)).getId()+1);
         }
     }
 
