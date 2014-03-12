@@ -9,7 +9,13 @@ public class RulesContainer {
     private List<String> mock;
 
     static {
-        generateSupportedRules();
+        try {
+            Class.forName("com.engagepoint.model.question.rules.RenderedRule");
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        supportedRules = new HashMap<String, Class<? extends Rule>>();
+        supportedRules.put("1. " + RenderedRule.description, RenderedRule.class);
     }
 
     public RulesContainer() {
@@ -35,11 +41,12 @@ public class RulesContainer {
      *
      * @return
      */
-    public static List<String> getSupportedRules() {
-        return new ArrayList<String>(supportedRules.keySet());
+    public List<String> getSupportedRules() {
+        List<String> list = new ArrayList<String>( supportedRules.keySet());
+        return list;
     }
 
-    public static Rule createRule(String descriptionId) {
+    public Rule createRule(String descriptionId) {
         Rule rule = null;
         try {
             rule = supportedRules.get(descriptionId).newInstance();
@@ -62,10 +69,5 @@ public class RulesContainer {
 
     public List<Rule> getRules() {
         return rules;
-    }
-
-    private static void generateSupportedRules() {
-        supportedRules = new HashMap<String, Class<? extends Rule>>();
-        supportedRules.put("1. " + RenderedRule.description, RenderedRule.class);
     }
 }
