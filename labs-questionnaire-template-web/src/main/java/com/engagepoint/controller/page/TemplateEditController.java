@@ -1,7 +1,10 @@
 package com.engagepoint.controller.page;
 
 import com.engagepoint.controller.utils.PageNavigator;
+import com.engagepoint.model.question.Question;
+import com.engagepoint.model.questionnaire.GroupBean;
 import com.engagepoint.model.questionnaire.QuestionType;
+import com.engagepoint.model.questionnaire.SectionBean;
 import com.engagepoint.model.questionnaire.TemplateBean;
 
 import javax.enterprise.context.SessionScoped;
@@ -9,11 +12,12 @@ import javax.inject.Inject;
 import javax.inject.Named;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Used for controlling questform.xhtml
  */
-
 @Named("templateController")
 @SessionScoped
 public class TemplateEditController implements Serializable {
@@ -25,7 +29,6 @@ public class TemplateEditController implements Serializable {
 
     private TemplateBean currentTemplate; //real template
     private TemplateBean duplicateTemplate; //copy of real template, contains all unsaved changes
-
     private QuestionType selectedQuestionType;
 
     public TemplateBean getDuplicateTemplate() {
@@ -57,7 +60,6 @@ public class TemplateEditController implements Serializable {
     public void setSelectedQuestionType(QuestionType selectedQuestionType) {
         this.selectedQuestionType = selectedQuestionType;
     }
-
 
     /**
      * Create new template.
@@ -176,5 +178,4 @@ public class TemplateEditController implements Serializable {
     public static String income() {
         return PageNavigator.TEMPLATE_EDIT_PAGE;
     }
-
 }

@@ -12,6 +12,7 @@ import com.engagepoint.controller.page.QuestionEditController;
 import com.engagepoint.controller.page.TemplateEditController;
 import com.engagepoint.model.question.Question;
 import com.engagepoint.model.question.options.GridQuestionBean;
+import com.engagepoint.model.question.rules.Rule;
 import com.engagepoint.model.question.utils.VariantItem;
 import com.engagepoint.model.table.ListOfOptionsDataModel;
 
@@ -142,4 +143,9 @@ public class GridQuestionController extends QuestionEditController {
 		getTemplateTreeController().setCurrentQuestion(currentQuestion);
 		return super.actionSave();
 	}
+
+    @Override
+    public void deleteRule(Rule rule) {
+
+    }
 }

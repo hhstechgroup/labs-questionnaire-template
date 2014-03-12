@@ -3,7 +3,10 @@ package com.engagepoint.model.question;
 
 import com.engagepoint.controller.page.TemplateTreeController;
 import com.engagepoint.model.question.options.OptionsQuestion;
-import com.engagepoint.model.questionnaire.*;
+import com.engagepoint.model.question.rules.RulesContainer;
+import com.engagepoint.model.questionnaire.BasicBean;
+import com.engagepoint.model.questionnaire.QuestionType;
+import com.engagepoint.model.questionnaire.TemplateBean;
 
 import javax.inject.Inject;
 import javax.xml.bind.annotation.XmlAttribute;
@@ -20,7 +23,7 @@ public abstract class Question extends BasicBean implements Cloneable {
 
     private Long id;                    //id of the question
     protected String questionText = "";        //questiontext
-    private boolean requiredAnswer=false;        //is answer required or not
+    private boolean requiredAnswer;        //is answer required or not
     private QuestionType questionType;    //questiontype from ENUM of questiontypes
     private String helpText = "";            //Help texts for questions
     private GroupBean groupBean;

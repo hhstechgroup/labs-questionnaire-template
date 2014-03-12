@@ -5,11 +5,12 @@
                 xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:f="http://java.sun.com/jsf/core"
                 xmlns:uib="http://engagepoint.com/uib"
-
+                xmlns:F="http://java.sun.com/jsp/jstl/sql"
                 template="/templates/templateEdit.xhtml">
 
     <f:metadata>
-        <f:viewParam name="template" value="#{templateController.currentTemplate.id}"/>
+        <f:viewParam name="template" 
+                     value="#{templateController.currentTemplate.id}"/>
     </f:metadata>
 
     <ui:define name="page">
@@ -19,8 +20,10 @@
             <p:panelGrid columns="1">
 
                 <f:facet name="header">
-                    <h:outputText value="Template" rendered="#{!templateController.isNew()}"/>
-                    <h:outputText value="New template" rendered="#{templateController.isNew()}"/>
+                    <h:outputText value="Template" 
+                                  rendered="#{!templateController.isNew()}"/>
+                    <h:outputText value="New template" 
+                                  rendered="#{templateController.isNew()}"/>
                 </f:facet>
 
                 <h:panelGrid columns="3">
@@ -49,19 +52,25 @@
                         <p:ajax event="select" update=":formTemplate:form:buttonPanel, :formTemplate:form:treeMultiple" listener="#{templateTreeController.onSelect}"/>
                         <p:ajax event="unselect" update=":formTemplate:form:buttonPanel"/>
 
-                        <p:column style="#{templateTreeController.getStyle(node)}">
-                            <h:outputText id="treeNodeDefault"
-                                          value="#{node.displayedName}"
-                                          style="cursor: pointer"/>
-                            <h:outputText id="treeNodeId"
-                                          value="#{node.displayedId}"
-                                          style="cursor: pointer"/>
-                            <h:commandButton id="editNameButton"
-                                             value="Edit name"
-                                             update="modalDialogChangeName"
-                                             rendered="#{templateTreeController.selectedNode.data == node}"/>
+						<p:column style="#{templateTreeController.getStyle(node)}">
+							<h:outputText id="treeNode" value="#{node}"
+								style="cursor: pointer" />
+							<p:commandButton value="Edit Name" id="editName"
+								style="float:right;"
+								rendered="#{templateTreeController.editButtonRendering(node)}"
+								onclick="dlg.show();" />
+                            <p:dialog id="modalDialogEdit" widgetVar="dlg" modal="true"
+                                      closable="false" height="100" resizeable="false">
+    
+                                <h:outputText value="#{templateTreeController.selectedNode}"/> <br/>
+    
+                                <p:commandButton value="OK" id="yesEditName" actionListener="submit()"
+                                                 update=":formTemplate:form:treeMultiple" onclick="dlg.hide()" />
+                                <p:commandButton value="Cancel" id="notEditName" immediate="true"
+                                                 onclick="dlg.hide()" />
+    
+                            </p:dialog>
                         </p:column>
-
                     </p:treeTable>
 
                     <p:panel id="buttonPanel">
@@ -105,7 +114,6 @@
                                          styleClass="secondary"
                                          id="btnDisplayEditQuestion">
                         </p:commandButton>
-
                         <p:dialog id="modalDialogSelectType" widgetVar="dlgSelectType"
                                   modal="true" height="100" closable="false" resizeable="false">
                             <h:outputText value="Please choose a question type"/>
@@ -119,9 +127,10 @@
                                              id="create"
                                              action="#{templateController.addQuestion()}"/>
                             <p:commandButton value="Cancel"
-                                             id="cancel"
+                                             id="cancelCreating"
                                              onclick="dlgSelectType.hide()"/>
                         </p:dialog>
+
                     </p:panel>
                 </h:form>
 
@@ -131,7 +140,7 @@
                                      action="#{templateController.saveTemplate}"/>
                     <h:outputText value=" "/>
                     <p:commandButton value="Cancel"
-                                     id="cancel3"
+                                     id="cancel"
                                      update="modalDialogCancel"
                                      oncomplete="dlgCancel.show();"/>
 
