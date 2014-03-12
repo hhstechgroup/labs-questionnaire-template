@@ -35,7 +35,7 @@ public class ListController implements Serializable {
         ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
         String xmlPath = classLoader.getResource("Questionnaire.xml").getPath();
         //adding Templates from XML file
-        addAllTemplates(XmlImportExport.importXmlTemplate(xmlPath));
+        //addAllTemplates(XmlImportExport.importXmlTemplate(xmlPath)); //TODO:refactor
         templatesModel = new ListOfTemplatesDataModel(list);
     }
 

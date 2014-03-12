@@ -13,24 +13,33 @@ import java.util.List;
  */
 public class GroupBean extends BasicBean
                        implements Cloneable, BasicOperationWithBean {
+    private static Long lastId = 1L;
+
+    private Long id=0L;
     private String groupName = "Default Name";
     private String displayedName = "Default Displayed Name";
     private List<Question> questionsList = new ArrayList<Question>();
-    private static int groupId = 0;
-
-    @Inject
     private SectionBean sectionBean;
 
-    public GroupBean() {
-        ++groupId;
+    public GroupBean(SectionBean sectionBean) {
+        this.sectionBean = sectionBean;
+        id = Long.valueOf(sectionBean.getId() + (lastId++).toString());
+        sectionBean.addToInnerList(this);
         super.setDisplayedName("GroupDefault");
     }
 
-    public GroupBean(String groupName, List<Question> questionsList) {
-        ++groupId;
+    public GroupBean(String groupName, List<Question> questionsList, SectionBean sectionBean) {
+        this(sectionBean);
         this.groupName = groupName;
         this.questionsList = questionsList;
-        super.setDisplayedName("GroupDefault");
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public SectionBean getSectionBean() {
+        return sectionBean;
     }
 
     @XmlElement(name = "group-name")
@@ -87,18 +96,14 @@ public class GroupBean extends BasicBean
 
         GroupBean groupBean = (GroupBean) o;
 
-        if (groupName != null ? !groupName.equals(groupBean.groupName) : groupBean.groupName != null) return false;
-        if (questionsList != null ? !questionsList.equals(groupBean.questionsList) : groupBean.questionsList != null)
-            return false;
+        if (!id.equals(groupBean.id)) return false;
 
         return true;
     }
 
     @Override
     public int hashCode() {
-        int result = groupName != null ? groupName.hashCode() : 0;
-        result = 31 * result + (questionsList != null ? questionsList.hashCode() : 0);
-        return result;
+        return id.hashCode();
     }
 
     @Override
@@ -123,7 +128,7 @@ public class GroupBean extends BasicBean
 
     @Override
     public String getDisplayedId() {
-        return String.valueOf(groupId);
+        return String.valueOf(id);
     }
 }
 

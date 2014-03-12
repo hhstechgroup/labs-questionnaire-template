@@ -23,7 +23,7 @@ import java.util.List;
 * Created by oleksandr.koval on 2/25/14.
 */
 public class MockTemplate {
-    TemplateBean templateBean;
+    /*TemplateBean templateBean;
     List<SectionBean> sectionBeans;
     List<GroupBean> groupBeans;
     List<Question> questionBeans;
@@ -144,19 +144,20 @@ public class MockTemplate {
     public SectionBean creatorSections(){
         SectionBean sectionBean=  new  SectionBean();
         sectionBean.setGroupsList(groupBeans);
-        sectionBean.setPageNumber(1);
+        //sectionBean.setPageNumber(1);
         return sectionBean;
     }
     public GroupBean creatorGroup(){
-        GroupBean groupBean = new GroupBean();
+        /*GroupBean groupBean = new GroupBean();
         groupBean.setQuestionsList(questionBeans);
         groupBean.setGroupName("GroupName");
         return groupBean;
+        return null;
     }
 
     public Question question(){
         return question;
     }
-    public TemplateBean template(){return templateBean;}
+    public TemplateBean template(){return templateBean;}*/
 
 }

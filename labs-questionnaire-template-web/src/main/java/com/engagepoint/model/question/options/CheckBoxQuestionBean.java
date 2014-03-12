@@ -1,6 +1,7 @@
 package com.engagepoint.model.question.options;
 
 import com.engagepoint.model.question.utils.VariantItem;
+import com.engagepoint.model.questionnaire.GroupBean;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElementWrapper;
@@ -9,6 +10,10 @@ import java.util.List;
 public class CheckBoxQuestionBean extends OptionsQuestion {
     //selected variants
     private List<VariantItem> defaultOptions;
+
+    public CheckBoxQuestionBean(GroupBean currentGroup) {
+        super(currentGroup);
+    }
 
     @XmlElementWrapper(name = "default-options")
     @XmlElement(name = "default-option")

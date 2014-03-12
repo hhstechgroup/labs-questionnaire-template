@@ -12,17 +12,25 @@ import java.util.List;
  */
 public class SectionBean extends BasicBean
                          implements Cloneable, Serializable, BasicOperationWithBean{
-    private int sectionId;
+    private static Long lastId = 1L;
+
+    private Long id=0L;
     private List<GroupBean> groupsList = new ArrayList<GroupBean>();
 
     public SectionBean() {
+        this.id = lastId++;
         super.setDisplayedName("PageDefault");
     }
 
-    public SectionBean(int sectionId, List<GroupBean> groupsList) {
-        this.sectionId = sectionId;
+    public SectionBean(List<GroupBean> groupsList) {
+        this.id = lastId++;
         this.groupsList = groupsList;
         super.setDisplayedName("Page");
+    }
+
+    @XmlElement(name = "page-number")
+    public Long getId() {
+        return id;
     }
 
     @XmlElementWrapper(name = "groups-of-questions")
@@ -35,19 +43,9 @@ public class SectionBean extends BasicBean
         this.groupsList = groupsList;
     }
 
-    @XmlElement(name = "page-number")
-    public int getPageNumber() {
-        return sectionId;
-    }
-
-    public void setPageNumber(int sectionId) {
-        this.sectionId = sectionId;
-    }
-
     @Override
     public Object clone() throws CloneNotSupportedException {
         SectionBean copy = (SectionBean) super.clone();
-        copy.setPageNumber(this.sectionId);
         List<GroupBean> copyGroupsList=null;
         if(groupsList!=null){
             copyGroupsList = new ArrayList<GroupBean>();
@@ -66,17 +64,14 @@ public class SectionBean extends BasicBean
 
         SectionBean that = (SectionBean) o;
 
-        if (sectionId != that.sectionId) return false;
-        if (groupsList != null ? !groupsList.equals(that.groupsList) : that.groupsList != null) return false;
+        if (!id.equals(that.id)) return false;
 
         return true;
     }
 
     @Override
     public int hashCode() {
-        int result = sectionId;
-        result = 31 * result + (groupsList != null ? groupsList.hashCode() : 0);
-        return result;
+        return id.hashCode();
     }
 
     @Override
@@ -91,7 +86,7 @@ public class SectionBean extends BasicBean
 
     @Override
     public String toString() {
-        return "Page " + sectionId;
+        return "Page " + id;
     }
 
     @Override
@@ -101,7 +96,7 @@ public class SectionBean extends BasicBean
 
     @Override
     public String getDisplayedId() {
-        String id = " (ID: "+String.valueOf(sectionId)+") ";
+        String id = " (ID: "+String.valueOf(this.id)+") ";
         return id;
     }
 

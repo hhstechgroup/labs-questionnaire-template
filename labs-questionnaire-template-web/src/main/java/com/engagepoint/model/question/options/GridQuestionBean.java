@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.engagepoint.model.question.utils.VariantItem;
+import com.engagepoint.model.questionnaire.GroupBean;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElementWrapper;
@@ -19,7 +20,8 @@ public class GridQuestionBean extends OptionsQuestion {
     private VariantItem defaultOption2;        //TODO maybe only defaultOptions2 is necessary
     private VariantItem defaultOption;
 
-    public GridQuestionBean() {
+    public GridQuestionBean(GroupBean currentGroup) {
+        super(currentGroup);
         this.options2 = new ArrayList<VariantItem>();
     }
 

@@ -1,12 +1,17 @@
 package com.engagepoint.model.question.options;
 
 import com.engagepoint.model.question.utils.VariantItem;
+import com.engagepoint.model.questionnaire.GroupBean;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElementWrapper;
 import java.util.List;
 
 public class MultipleChoiceQuestionBean extends OptionsQuestion {
+
+    public MultipleChoiceQuestionBean(GroupBean groupBean) {
+        super(groupBean);
+    }
 
     @XmlElementWrapper(name = "multiple-choice-options")
     @XmlElement(name = "option")

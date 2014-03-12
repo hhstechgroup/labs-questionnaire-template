@@ -3,10 +3,7 @@ package com.engagepoint.model.question;
 
 import com.engagepoint.controller.page.TemplateTreeController;
 import com.engagepoint.model.question.options.OptionsQuestion;
-import com.engagepoint.model.questionnaire.BasicBean;
-import com.engagepoint.model.questionnaire.QuestionType;
-import com.engagepoint.model.questionnaire.SectionBean;
-import com.engagepoint.model.questionnaire.TemplateBean;
+import com.engagepoint.model.questionnaire.*;
 
 import javax.inject.Inject;
 import javax.xml.bind.annotation.XmlAttribute;
@@ -19,20 +16,23 @@ import javax.xml.bind.annotation.XmlSeeAlso;
  */
 @XmlSeeAlso({TextQuestionBean.class, DateQuestionBean.class, OptionsQuestion.class, RangeQuestionBean.class})
 public abstract class Question extends BasicBean implements Cloneable {
+    private static Long lastId=1L;
+
     private Long id;                    //id of the question
     protected String questionText = "";        //questiontext
-    private boolean requiredAnswer;        //is answer required or not
+    private boolean requiredAnswer=false;        //is answer required or not
     private QuestionType questionType;    //questiontype from ENUM of questiontypes
     private String helpText = "";            //Help texts for questions
-
-    @Inject
-    TemplateTreeController templateTreeController;
+    private GroupBean groupBean;
 
     //Dependent questions
 
-    public Question() {
+    public Question(GroupBean groupBean) {
+        this.groupBean = groupBean;
+        id = Long.valueOf(groupBean.getId() + (lastId++).toString());
         super.setDisplayedName("QuestionDefault");
-	}
+        //groupBean.addToInnerList(this);
+    }
 
     @XmlElement(name = "question-title")
     public String getQuestionText() {
@@ -41,7 +41,6 @@ public abstract class Question extends BasicBean implements Cloneable {
 
 	public void setQuestionText(String questionText) {
 		this.questionText = questionText;
-        super.setDisplayedName(questionText.substring(0, 9));
 	}
 
     @XmlElement(name = "help-text")
@@ -60,7 +59,7 @@ public abstract class Question extends BasicBean implements Cloneable {
 
     @Override
     public String getDisplayedName() {
-        return questionText.substring(0,9);
+        return questionText;
     }
 
     public void setId(Long id) {
@@ -139,8 +138,7 @@ public abstract class Question extends BasicBean implements Cloneable {
 
     @Override
     public String getDisplayedId() {
-        String sectionID = ((SectionBean) templateTreeController.getSelectedNode().getParent().getParent().getData()).getDisplayedId();
-        String questionID = " (ID: "+String.valueOf(id)+sectionID+") ";
+        String questionID = " (ID: "+String.valueOf(id)+") ";
         return questionID;
     }
 }

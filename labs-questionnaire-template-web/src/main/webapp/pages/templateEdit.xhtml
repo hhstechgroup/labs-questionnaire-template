@@ -47,7 +47,7 @@
                         <p:ajax event="expand" update=":formTemplate:form:buttonPanel"/>
                         <p:ajax event="collapse" update=":formTemplate:form:buttonPanel"/>
                         <p:ajax event="select" update=":formTemplate:form:buttonPanel, :formTemplate:form:treeMultiple" listener="#{templateTreeController.onSelect}"/>
-                        <p:ajax event="unselect" update=":formTemplate:form:buttonPanel, :formTemplate:form:treeMultiple"/>
+                        <p:ajax event="unselect" update=":formTemplate:form:buttonPanel"/>
 
                         <p:column style="#{templateTreeController.getStyle(node)}">
                             <h:outputText id="treeNodeDefault"

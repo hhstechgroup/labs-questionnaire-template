@@ -54,7 +54,6 @@ public class TemplateTreeController implements Serializable {
         return selectedType;
     }
 
-
     public TemplateBean getTemplateBean() {
         return templateBean;
     }
@@ -62,6 +61,10 @@ public class TemplateTreeController implements Serializable {
     public void setTemplateBean(TemplateBean templateBean) {
         this.templateBean = templateBean;
         setNodes();
+    }
+
+    public GroupBean getCurrentGroup() {
+        return currentGroup;
     }
 
     public Question getCurrentQuestion() {
@@ -84,12 +87,12 @@ public class TemplateTreeController implements Serializable {
             currentQuestion = question;
             //check if current group has not been changed
             GroupBean groupBean = (GroupBean) selectedNode.getParent().getData();
-            if (currentGroup != groupBean) {
+            if (!currentGroup.equals(groupBean)) {
                 currentGroup = groupBean;
             }
             //check if current section has not been changed
             SectionBean sectionBean = (SectionBean) selectedNode.getParent().getParent().getData();
-            if (currentSection != sectionBean) {
+            if (!currentSection.equals(sectionBean)) {
                 currentSection = sectionBean;
             }
         } else if (selectedType.equals("group")) {
@@ -97,7 +100,7 @@ public class TemplateTreeController implements Serializable {
             currentGroup = (GroupBean) selectedNode.getData();
             //check if current section has not been changed
             SectionBean sectionBean = (SectionBean) selectedNode.getParent().getData();
-            if (currentSection != sectionBean) {
+            if (!currentSection.equals(sectionBean)) {
                 currentSection = sectionBean;
             }
         } else {
@@ -148,7 +151,7 @@ public class TemplateTreeController implements Serializable {
         FacesMessage msg = new FacesMessage("Selected");
         FacesContext.getCurrentInstance().addMessage(null, msg);
         SectionBean sectionBean = new SectionBean();
-        sectionBean.setPageNumber(templateBean.getSectionsList().size() + 1);
+        //sectionBean.setPageNumber(templateBean.getSectionsList().size() + 1);
         templateBean.getSectionsList().add(sectionBean);
         setNodes();
     }
@@ -159,8 +162,8 @@ public class TemplateTreeController implements Serializable {
      * @return next page
      */
     public void addGroup() {
-        GroupBean groupBean = new GroupBean();
-        addGroupToCurrentSection(groupBean);
+        GroupBean groupBean = new GroupBean(currentSection);
+        //addGroupToCurrentSection(groupBean);
         setNodes();
     }
 
@@ -198,7 +201,7 @@ public class TemplateTreeController implements Serializable {
      */
     public void addQuestionToCurrentGroup() {
         if (currentGroup != null) {
-            currentQuestion.setId(getNextQuestionIdInCurrentGroup());
+            //currentQuestion.setId(getNextQuestionIdInCurrentGroup());
             currentGroup.addToInnerList(currentQuestion);
             setNodes();
         }
@@ -216,6 +219,5 @@ public class TemplateTreeController implements Serializable {
             return ((currentGroup.getQuestionsList().get(currentGroup.getQuestionsList().size()-1)).getId()+1);
         }
     }
-
 
 }

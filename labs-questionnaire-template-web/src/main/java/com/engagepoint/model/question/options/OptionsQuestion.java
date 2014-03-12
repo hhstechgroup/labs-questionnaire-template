@@ -2,6 +2,7 @@ package com.engagepoint.model.question.options;
 
 import com.engagepoint.model.question.Question;
 import com.engagepoint.model.question.utils.VariantItem;
+import com.engagepoint.model.questionnaire.GroupBean;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlSeeAlso;
@@ -15,7 +16,8 @@ public abstract class OptionsQuestion extends Question implements Cloneable {
     //selected variant for multiple choice,grid,choose from list question.
     protected VariantItem defaultOption;
 
-    public OptionsQuestion() {
+    public OptionsQuestion(GroupBean groupBean) {
+        super(groupBean);
         this.options = new ArrayList<VariantItem>();
     }
 

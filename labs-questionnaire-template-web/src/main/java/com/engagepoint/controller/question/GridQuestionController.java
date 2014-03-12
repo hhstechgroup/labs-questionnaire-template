@@ -29,9 +29,6 @@ public class GridQuestionController extends QuestionEditController {
 	@Inject
 	private TemplateEditController templateEditController;
 
-	@Inject
-	private Conversation conversation;
-
 	@PostConstruct
 	public void postConstruct() {
 		beginConversation();
@@ -39,7 +36,7 @@ public class GridQuestionController extends QuestionEditController {
 				.getCurrentQuestion();
 		if (question == null) {
 			setNew(true);
-			currentQuestion = new GridQuestionBean();
+			currentQuestion = new GridQuestionBean(getTemplateTreeController().getCurrentGroup());
 			currentQuestion.setQuestionType(templateEditController
 					.getSelectedQuestionType());
 			dataModel = new ListOfOptionsDataModel();
@@ -49,18 +46,6 @@ public class GridQuestionController extends QuestionEditController {
 			dataModel = new ListOfOptionsDataModel(currentQuestion.getOptions());
 			dataModel2 = new ListOfOptionsDataModel(
 					currentQuestion.getOptions2());
-		}
-	}
-
-	public void beginConversation() {
-		if (conversation.isTransient()) {
-			conversation.begin();
-		}
-	}
-
-	public void endConversation() {
-		if (!conversation.isTransient()) {
-			conversation.end();
 		}
 	}
 
@@ -155,14 +140,6 @@ public class GridQuestionController extends QuestionEditController {
 			// TODO
 		}
 		getTemplateTreeController().setCurrentQuestion(currentQuestion);
-		endConversation();
 		return super.actionSave();
 	}
-
-	@Override
-	public String actionCancel() {
-		endConversation();
-		return super.actionCancel();
-	}
-
 }

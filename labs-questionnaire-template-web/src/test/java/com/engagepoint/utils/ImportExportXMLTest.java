@@ -26,7 +26,7 @@ import java.util.List;
 * To change this template use File | Settings | File Templates.
 */
 public class ImportExportXMLTest {
-    MockTemplate mock = new MockTemplate(QuestionType.CHECKBOX);
+    /*MockTemplate mock = new MockTemplate(QuestionType.CHECKBOX);
     @Test
     public void testEqualityXML() throws FileNotFoundException, FileNotFoundException {
 //        Question bean = new CheckBoxQuestionBean("blah",false, QuestionType.CHECKBOX);
@@ -109,5 +109,5 @@ public class ImportExportXMLTest {
         List<TemplateBean> newTempsList = new ArrayList<TemplateBean>();
         newTempsList.addAll(XmlImportExport.importXmlTemplate(stream));
         Assert.assertTrue(tempList.equals(newTempsList));
-    }
+    }*/
 }
