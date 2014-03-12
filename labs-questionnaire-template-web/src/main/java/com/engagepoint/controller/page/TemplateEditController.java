@@ -18,7 +18,6 @@ import java.util.List;
 /**
  * Used for controlling questform.xhtml
  */
-
 @Named("templateController")
 @SessionScoped
 public class TemplateEditController implements Serializable {
