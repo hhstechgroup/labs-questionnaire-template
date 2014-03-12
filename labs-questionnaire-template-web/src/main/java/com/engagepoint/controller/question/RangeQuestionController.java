@@ -3,6 +3,7 @@ package com.engagepoint.controller.question;
 import com.engagepoint.model.question.Question;
 import com.engagepoint.model.question.RangeQuestionBean;
 import com.engagepoint.controller.page.QuestionEditController;
+import com.engagepoint.model.question.rules.Rule;
 import com.engagepoint.model.question.utils.RangeItem;
 import com.engagepoint.model.questionnaire.QuestionType;
 
@@ -43,4 +44,8 @@ public class RangeQuestionController extends QuestionEditController {
         return super.actionSave();
     }
 
+    @Override
+    public void deleteRule(Rule rule) {
+
+    }
 }
