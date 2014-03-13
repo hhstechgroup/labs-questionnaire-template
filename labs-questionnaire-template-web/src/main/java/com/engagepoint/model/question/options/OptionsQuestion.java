@@ -6,6 +6,7 @@ import com.engagepoint.model.questionnaire.GroupBean;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlSeeAlso;
+import javax.xml.bind.annotation.XmlTransient;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,6 +27,7 @@ public abstract class OptionsQuestion extends Question implements Cloneable {
         this.options = new ArrayList<VariantItem>();
     }
 
+    @XmlTransient
     public abstract List<VariantItem> getOptions();
 
     public abstract void setOptions(List<VariantItem> options);
