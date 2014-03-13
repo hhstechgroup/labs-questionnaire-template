@@ -59,6 +59,7 @@ public class OptionsQuestionEditController extends QuestionEditController {
             currentQuestion = (OptionsQuestion) question;
             dataModel = new ListOfOptionsDataModel(currentQuestion.getOptions());
         }
+        currentQuestionEventNew.fire(currentQuestion);
     }
 
     public ListOfOptionsDataModel getDataModel() {

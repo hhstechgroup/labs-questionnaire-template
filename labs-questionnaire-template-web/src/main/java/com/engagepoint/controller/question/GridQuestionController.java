@@ -51,6 +51,7 @@ public class GridQuestionController extends QuestionEditController {
 			dataModel2 = new ListOfOptionsDataModel(
 					currentQuestion.getOptions2());
 		}
+        currentQuestionEventNew.fire(currentQuestion);
 	}
 
 	public void beginConversation() {

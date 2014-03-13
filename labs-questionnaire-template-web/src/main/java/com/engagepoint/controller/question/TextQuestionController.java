@@ -31,6 +31,8 @@ public class TextQuestionController extends QuestionEditController {
         else {
             currentQuestion = (TextQuestionBean) question;
         }
+
+        currentQuestionEventNew.fire(currentQuestion);
     }
 
     public TextQuestionBean getCurrentQuestion() {

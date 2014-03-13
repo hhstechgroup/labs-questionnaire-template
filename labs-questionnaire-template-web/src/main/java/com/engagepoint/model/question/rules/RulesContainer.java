@@ -3,23 +3,17 @@ package com.engagepoint.model.question.rules;
 import java.util.*;
 import java.util.List;
 
-public class RulesContainer {
-    private List<Rule> rules;
-    private static Map<String, Class<? extends Rule>> supportedRules;
-    private List<String> mock;
+import static com.engagepoint.model.question.rules.RuleType.RENDERED;
 
-    static {
-        try {
-            Class.forName("com.engagepoint.model.question.rules.RenderedRule");
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        }
-        supportedRules = new HashMap<String, Class<? extends Rule>>();
-        supportedRules.put("1. " + RenderedRule.description, RenderedRule.class);
+public class RulesContainer {
+    private Map<String, RuleType> supportedRules;
+    private List<String> mock;
+    {
+        supportedRules = new HashMap<String, RuleType>();
+        supportedRules.put("1. " + RENDERED.description(), RENDERED);
     }
 
     public RulesContainer() {
-        rules = new ArrayList<Rule>();
         mock = new ArrayList<String>();
         mock.add("Rule 1");
         mock.add("Rule 2");
@@ -47,27 +41,10 @@ public class RulesContainer {
     }
 
     public Rule createRule(String descriptionId) {
-        Rule rule = null;
-        try {
-            rule = supportedRules.get(descriptionId).newInstance();
-        } catch (InstantiationException e) {
-            e.printStackTrace();
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
+        switch(supportedRules.get(descriptionId)){
+            case RENDERED:
+                return new RenderedRule();
         }
-
-        return rule;
-    }
-
-    public void setRule(Rule rule) {
-        rules.add(rule);
-    }
-
-    public void setRules(List<Rule> rules) {
-        this.rules = rules;
-    }
-
-    public List<Rule> getRules() {
-        return rules;
+        return null;
     }
 }

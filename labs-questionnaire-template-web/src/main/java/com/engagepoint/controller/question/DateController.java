@@ -32,6 +32,7 @@ public class DateController extends QuestionEditController {
         else {
             currentQuestion = (DateQuestionBean) question;
         }
+        currentQuestionEventNew.fire(currentQuestion);
     }
 
     public DateQuestionBean getCurrentQuestion() {

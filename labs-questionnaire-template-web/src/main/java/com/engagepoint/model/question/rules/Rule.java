@@ -1,8 +1,8 @@
 package com.engagepoint.model.question.rules;
 
 
-public abstract class Rule {
-    public static String description;
+public abstract class Rule implements Cloneable {
+    protected String description;
     protected String nameXML;
     protected RuleType type;
 
@@ -25,4 +25,17 @@ public abstract class Rule {
     public RuleType getType() {
         return type;
     }
+
+    @Override
+    public Object clone() throws CloneNotSupportedException {
+        Rule copy = (Rule)super.clone();
+        copy.description = this.description;
+        copy.nameXML = this.nameXML;
+        copy.type = this.type;
+
+        return copy;
+    }
+
+
+
 }
