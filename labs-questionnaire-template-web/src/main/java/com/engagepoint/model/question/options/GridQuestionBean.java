@@ -1,106 +1,92 @@
 package com.engagepoint.model.question.options;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
-import com.engagepoint.model.question.utils.VariantItem;
+import com.engagepoint.model.question.Question;
 
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlElementWrapper;
+public class GridQuestionBean extends Question {
+    List<String> rows;
+    List<String> cols;
+    boolean[][] selected;
 
-public class GridQuestionBean extends OptionsQuestion {
-
-    //list of variants for second table
-    private List<VariantItem> options2;
-    /*//selected variants for second table
-    private List<VariantItem> defaultOptions2; 	//TODO maybe only defaultOption2 is necessary
-     */
-    //selected variant for second table
-    private VariantItem defaultOption2;        //TODO maybe only defaultOptions2 is necessary
-    private VariantItem defaultOption;
+    public void clear() {
+        rows = new ArrayList<String>();
+        cols = new ArrayList<String>();
+        selected = new boolean[rows.size()][cols.size()];
+    }
 
     public GridQuestionBean() {
-        this.options2 = new ArrayList<VariantItem>();
+        rows = new ArrayList<String>();
+        rows.add("row1");
+        rows.add("row2");
+        rows.add("row3");
+        cols = new ArrayList<String>();
+        cols.add("col1");
+        cols.add("col2");
+        cols.add("col3");
+        selected = new boolean[rows.size()][cols.size()];
     }
 
-    @XmlElementWrapper(name = "rows")
-    public List<VariantItem> getOptions2() {
-        return options2;
+    public List<String> getRows() {
+        return rows;
     }
 
-    @XmlElementWrapper(name = "columns")
-    @Override
-    public List<VariantItem> getOptions() {
-        return this.options;
+    public void setRows(List<String> rows) {
+        this.rows = rows;
     }
 
-    @Override
-    public void setOptions(List<VariantItem> options) {
-        this.options = options;
+    public List<String> getCols() {
+        return cols;
     }
 
-    @XmlElement(name = "default-column")
-    @Override
-    public VariantItem getDefaultOption() {
-        return defaultOption;
+    public void setCols(List<String> cols) {
+        this.cols = cols;
     }
 
-    @Override
-    public void setDefaultOption(VariantItem defaultOption) {
-        this.defaultOption = defaultOption;
+    public boolean[][] getSelected() {
+        return selected;
     }
 
-    public void setOptions2(List<VariantItem> options2) {
-        this.options2 = options2;
+    public void setSelected(boolean[][] selected) {
+        this.selected = selected;
     }
 
-	/*public List<VariantItem> getDefaultOptions2() {
-        return defaultOptions2;
-	}
-
-	public void setDefaultOptions2(List<VariantItem> defaultOptions2) {
-		this.defaultOptions2 = defaultOptions2;
-	}*/
-
-    @XmlElement(name = "default-row")
-    public VariantItem getDefaultOption2() {
-        return defaultOption2;
+    public void addRow(String name) {
+        rows.add(name);
+        selected = Arrays.copyOf(selected, rows.size());
+        selected[rows.size() - 1] = new boolean[cols.size()];
     }
 
-    public void setDefaultOption2(VariantItem defaultOption2) {
-        this.defaultOption2 = defaultOption2;
+    public void addCol(String name) {
+        cols.add(name);
+        for (int i = 0; i < selected.length; i++) {
+            selected[i] = Arrays.copyOf(selected[i], cols.size());
+        }
     }
 
-    @Override
-    public Object clone() throws CloneNotSupportedException {
-        GridQuestionBean copy = (GridQuestionBean) super.clone();
-        copy.setOptions2(this.options2);
-        copy.setDefaultOption2(this.defaultOption2);
-        copy.setDefaultOption(this.defaultOption);
-        return copy;
+    public void unselectRow(int row) {
+        for (int i = 0; i < selected[row].length; i++) {
+            unsetSelect(row, i);
+        }
     }
 
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof GridQuestionBean)) return false;
-        if (!super.equals(o)) return false;
-
-        GridQuestionBean that = (GridQuestionBean) o;
-
-        if (!defaultOption.equals(that.defaultOption)) return false;
-        if (!options.equals(that.options)) return false;
-
-        return true;
+    public void unselectCol(int col) {
+        for (int j = 0; j < selected.length; j++) {
+            unsetSelect(j, col);
+        }
     }
 
-    @Override
-    public int hashCode() {
-        int result = super.hashCode();
-        result = 31 * result + defaultOption.hashCode();
-        result = 31 * result + defaultOption2.hashCode();
-        return result;
+    public void setSelect(int i, int j) {
+        selected[i][j] = true;
     }
 
+    public void unsetSelect(int i, int j) {
+        selected[i][j] = false;
+    }
+
+    public boolean isSelect(int i, int j) {
+        return selected[i][j];
+    }
 }
