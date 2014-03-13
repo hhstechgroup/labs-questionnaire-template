@@ -21,11 +21,11 @@ public class SectionBean extends BasicBean
     private TemplateBean templateBean;
 
     public SectionBean() {
-        this.id = lastId++;
+        id = lastId++;
     }
 
     public SectionBean(TemplateBean templateBean) {
-        this.id = lastId++;
+        id = lastId++;
         this.templateBean = templateBean;
         this.pageNumber = getNextSectionIdInTemplate();
         templateBean.addToInnerList(this);
@@ -137,7 +137,7 @@ public class SectionBean extends BasicBean
 
     @Override
     public String getDisplayedId() {
-        String id = " (ID: "+String.valueOf(this.id)+") ";
+        String id = "  (ID: "+String.valueOf(this.id)+") ";
         return id;
     }
 }
