@@ -26,9 +26,7 @@ import javax.enterprise.event.Observes;
 import javax.inject.Inject;
 import javax.inject.Named;
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 /**
  * Controller for question rules.
@@ -403,6 +401,52 @@ public class QuestionRuleController implements Serializable {
     public void cancelAll() {
         currentRules = null;
         endConversation();
+    }
+
+    public List<Question> getAllQuestionsThatSetDependence(){
+        List<Question> all = getQuestions();
+        List<Question> questionsWithRules = getQuestionsWithRules();
+        Set<Long> idSet = new HashSet<Long>();
+        for(Question q : questionsWithRules){
+            for(Rule rule : q.getRules()){
+                idSet.add(rule.getId());
+            }
+        }
+        List<Question> result = new ArrayList<Question>();
+        for(Question q : all){
+            if(idSet.contains(q.getId()))
+                result.add(q);
+        }
+
+        return result;
+    }
+
+    public List<Question> getDependentQuestions(Question question){
+        if(question==null)
+            return null;
+        List<Question> questionsWithRules = getQuestionsWithRules();
+        List<Question> result = new ArrayList<Question>();
+        for(Question q : questionsWithRules){
+            for(Rule rule : q.getRules()){
+                if(rule.getId()==question.getId()){
+                    result.add(q);
+                    break;
+                }
+            }
+        }
+
+        return result;
+    }
+
+    public List<Question> getQuestionsWithRules(){
+        List<Question> all = getQuestions();
+        List<Question> result = new ArrayList<Question>();
+        for(Question question : all){
+            if(question.getRules()!=null && ! question.getRules().isEmpty())
+                result.add(question);
+        }
+
+        return result;
     }
 
     private void endConversation() {
