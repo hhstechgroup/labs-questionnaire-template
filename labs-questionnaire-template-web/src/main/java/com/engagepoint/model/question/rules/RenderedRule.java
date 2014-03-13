@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class RenderedRule extends Rule{
-    private long id;
+
     private List<String> answers;
     private String xmlTemplate = "this.ruleExecutor.renderedRule";
 
@@ -20,11 +20,6 @@ public class RenderedRule extends Rule{
     public void setId(long id) {
         this.id=id;
         update();
-    }
-
-
-    public long getId() {
-        return id;
     }
 
 
@@ -46,7 +41,6 @@ public class RenderedRule extends Rule{
     @Override
     public Object clone() throws CloneNotSupportedException {
         RenderedRule copy = (RenderedRule)super.clone();
-        copy.id = this.id;
         copy.answers = new ArrayList<String>(this.answers);
         copy.xmlTemplate = this.xmlTemplate;
         return copy;
