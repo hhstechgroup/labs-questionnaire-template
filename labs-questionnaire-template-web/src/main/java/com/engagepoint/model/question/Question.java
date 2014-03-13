@@ -42,10 +42,10 @@ public abstract class Question extends BasicBean implements Cloneable {
 
     public Question(GroupBean groupBean) {
         this.groupBean = groupBean;
-        id = Long.valueOf(groupBean.getId() + (lastId++).toString());
+        //id = Long.valueOf(groupBean.getId() + (lastId++).toString());
+        id = lastId++;
         rules = new ArrayList<Rule>();
     }
-
 
     @XmlElement(name = "question-title")
     public String getQuestionText() {
@@ -156,7 +156,8 @@ public abstract class Question extends BasicBean implements Cloneable {
 
     @Override
     public String getDisplayedId() {
-        String id = " (ID: "+String.valueOf(this.id)+") ";
+        //String id = " (ID: "+String.valueOf(this.id)+") ";
+        String id = " (ID: "+String.valueOf(groupBean.getSectionBean().getId())+String.valueOf(groupBean.getId())+String.valueOf(this.id)+") ";
         return id;
     }
 

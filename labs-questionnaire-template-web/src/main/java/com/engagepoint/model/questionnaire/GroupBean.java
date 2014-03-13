@@ -21,12 +21,12 @@ public class GroupBean extends BasicBean
     private SectionBean sectionBean;
 
     public GroupBean() {
-        this.id = lastId++;
+        id = lastId++;
     }
 
     public GroupBean(SectionBean sectionBean) {
         this.sectionBean = sectionBean;
-        id = Long.valueOf(sectionBean.getId() + (lastId++).toString());
+        id = lastId++;
         sectionBean.addToInnerList(this);
     }
 
@@ -141,7 +141,7 @@ public class GroupBean extends BasicBean
 
     @Override
     public String getDisplayedId() {
-        String id = " (ID: "+String.valueOf(this.id)+") ";
+        String id = " (ID: "+String.valueOf(sectionBean.getId())+String.valueOf(this.id)+") ";
         return id;
     }
 }
