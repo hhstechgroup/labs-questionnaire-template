@@ -47,8 +47,4 @@ public class RangeQuestionController extends QuestionEditController {
         return super.actionSave();
     }
 
-    @Override
-    public void deleteRule(Rule rule) {
-
-    }
 }

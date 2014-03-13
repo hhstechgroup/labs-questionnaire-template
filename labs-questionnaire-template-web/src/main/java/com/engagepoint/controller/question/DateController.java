@@ -48,9 +48,4 @@ public class DateController extends QuestionEditController {
         getTemplateTreeController().setCurrentQuestion(currentQuestion);
         return super.actionSave();
     }
-
-    @Override
-    public void deleteRule(Rule rule) {
-
-    }
 }

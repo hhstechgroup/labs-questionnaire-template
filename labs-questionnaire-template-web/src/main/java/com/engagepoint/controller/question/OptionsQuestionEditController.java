@@ -139,8 +139,4 @@ public class OptionsQuestionEditController extends QuestionEditController {
         currentQuestion.setQuestionType(templateEditController.getSelectedQuestionType());
     }
 
-    @Override
-    public void deleteRule(Rule rule) {
-
-    }
 }

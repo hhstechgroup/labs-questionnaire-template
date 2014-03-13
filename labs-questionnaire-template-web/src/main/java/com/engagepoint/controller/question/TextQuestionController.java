@@ -49,8 +49,4 @@ public class TextQuestionController extends QuestionEditController {
         return super.actionSave();
     }
 
-    @Override
-    public void deleteRule(Rule rule) {
-
-    }
 }

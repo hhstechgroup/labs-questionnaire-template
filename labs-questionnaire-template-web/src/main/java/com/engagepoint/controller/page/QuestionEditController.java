@@ -19,10 +19,12 @@ public abstract class QuestionEditController implements Serializable {
     @Inject
     private TemplateTreeController templateTreeController;
 
-    @Inject @NewQuestion
+    @Inject
+    @NewQuestion
     protected Event<Question> currentQuestionEventNew;
 
-    @Inject @SaveQuestion
+    @Inject
+    @SaveQuestion
     protected Event<Question> currentQuestionEventSave;
 
     public QuestionEditController() {
@@ -51,7 +53,4 @@ public abstract class QuestionEditController implements Serializable {
     public String actionCancel() {
         return PageNavigator.TEMPLATE_EDIT_PAGE;
     }
-
-    public abstract void deleteRule(Rule rule);
-
 }
