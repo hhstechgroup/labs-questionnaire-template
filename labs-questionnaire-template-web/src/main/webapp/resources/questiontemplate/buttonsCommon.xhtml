@@ -17,7 +17,8 @@
                          />
         <h:outputText value=" "/>
         <p:commandButton id="cancel" value="Cancel" immediate="true"
-                         action="#{cc.attrs.qbuttons.actionCancel}"/>
+                         action="#{cc.attrs.qbuttons.actionCancel}"
+                         actionListener="#{questionRuleController.cancelAll}"/>
 
 </composite:implementation>
 </html>

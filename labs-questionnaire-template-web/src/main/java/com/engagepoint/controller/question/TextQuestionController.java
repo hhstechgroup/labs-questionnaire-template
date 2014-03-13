@@ -4,6 +4,7 @@ import com.engagepoint.controller.page.TemplateEditController;
 import com.engagepoint.model.question.Question;
 import com.engagepoint.model.question.TextQuestionBean;
 import com.engagepoint.controller.page.QuestionEditController;
+import com.engagepoint.model.question.rules.Rule;
 
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.RequestScoped;
@@ -30,6 +31,8 @@ public class TextQuestionController extends QuestionEditController {
         else {
             currentQuestion = (TextQuestionBean) question;
         }
+
+        currentQuestionEventNew.fire(currentQuestion);
     }
 
     public TextQuestionBean getCurrentQuestion() {
@@ -46,4 +49,8 @@ public class TextQuestionController extends QuestionEditController {
         return super.actionSave();
     }
 
+    @Override
+    public void deleteRule(Rule rule) {
+
+    }
 }

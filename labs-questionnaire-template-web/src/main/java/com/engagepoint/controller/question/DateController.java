@@ -4,6 +4,7 @@ import com.engagepoint.controller.page.TemplateEditController;
 import com.engagepoint.model.question.DateQuestionBean;
 import com.engagepoint.controller.page.QuestionEditController;
 import com.engagepoint.model.question.Question;
+import com.engagepoint.model.question.rules.Rule;
 
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.RequestScoped;
@@ -31,6 +32,7 @@ public class DateController extends QuestionEditController {
         else {
             currentQuestion = (DateQuestionBean) question;
         }
+        currentQuestionEventNew.fire(currentQuestion);
     }
 
     public DateQuestionBean getCurrentQuestion() {
@@ -45,5 +47,10 @@ public class DateController extends QuestionEditController {
     public String actionSave() {
         getTemplateTreeController().setCurrentQuestion(currentQuestion);
         return super.actionSave();
+    }
+
+    @Override
+    public void deleteRule(Rule rule) {
+
     }
 }

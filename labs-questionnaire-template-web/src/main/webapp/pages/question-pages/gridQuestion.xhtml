@@ -4,30 +4,97 @@
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
-
+	xmlns:uib="http://engagepoint.com/uib"
+	xmlns:ago="http://java.sun.com/jsf/composite/questiontemplate"
 	template="/templates/questionEdit.xhtml">
+
+	<f:metadata>
+		<f:viewParam name="template"
+			value="#{templateController.currentTemplate.id}" />
+		<f:viewParam name="question"
+			value="#{optionsQuestionEditController.currentQuestion.id}" />
+	</f:metadata>
 
 	<ui:define name="page">
 
-        <h:form id="form">
-            <p:commandButton value="Add row" action="#{gridQuestionController.addRow}" update="gridTable"/>
-            <p:commandButton value="Add column" action="#{gridQuestionController.addColumn}" update="gridTable"/>
+		<h:form id="form2">
 
-            <p:dataTable id="gridTable" var="row" value="#{gridQuestionController.rowsSize}">
-                <p:column>
-                    <f:facet name="header">
-                        <p:outputLabel value="first column"/>
-                    </f:facet>
-                    <p:outputLabel value="#{gridQuestionController.getRow(row)}"/>
-                </p:column>
+			<ago:questioncommon qb="#{gridQuestionController.currentQuestion}"
+				id="formWithCommonProps" />
 
-                <p:columns var="column" value="#{gridQuestionController.columnsSize}">
-                    <f:facet name="header">
-                        <p:outputLabel value="#{gridQuestionController.getColumn(column)}"/>
-                    </f:facet>
-                    <p:selectBooleanCheckbox value="#{gridQuestionController.f}"/>
-                </p:columns>
-            </p:dataTable>
-        </h:form>
+			<br />
+
+			
+
+			<h:outputText value="PLEASE FILL IN THE COLUMNS" />
+			<br />
+			<p:commandButton value="Add Column" id="AddOption"
+				action="#{gridQuestionController.addOption('New')}"
+				update="tableOptions" immediate="true" styleClass="fl-right">
+			</p:commandButton>
+			<uib:dataTable id="tableOptions" widgetVar="tableOptions"
+				var="option" value="#{gridQuestionController.dataModel}"
+				selection="#{gridQuestionController.currentQuestion.defaultOption}"
+				editable="true" editMode="cell">
+
+				<uib:column headerText="Default" selectionMode="single" />
+				<uib:column headerText="Columns">
+					<p:cellEditor>
+						<f:facet name="output">
+							<h:outputText value="#{option.value}" />
+						</f:facet>
+						<f:facet name="input">
+							<p:inputText value="#{option.value}" style="width:100%" />
+						</f:facet>
+					</p:cellEditor>
+				</uib:column>
+
+				<uib:column>
+					<p:commandButton value="Delete" id="DeleteOption"
+						action="#{gridQuestionController.removeOption(option)}"
+						update="tableOptions" styleClass="fl-right">
+					</p:commandButton>
+				</uib:column>
+
+			</uib:dataTable>
+			<br />
+			<h:outputText value="PLEASE FILL IN THE ROWS" />
+			<br />
+			<p:commandButton value="Add Row" id="AddOption2"
+				action="#{gridQuestionController.addOption2('New')}"
+				update="tableOptions2" immediate="true" styleClass="fl-right">
+			</p:commandButton>
+			<uib:dataTable id="tableOptions2" widgetVar="tableOptions2"
+				var="option2" value="#{gridQuestionController.dataModel2}"
+				selection="#{gridQuestionController.currentQuestion.defaultOption2}"
+				editable="true" editMode="cell">
+
+				<uib:column headerText="Default" selectionMode="single" />
+				<uib:column headerText="Rows">
+					<p:cellEditor>
+						<f:facet name="output">
+							<h:outputText value="#{option2.value}" />
+						</f:facet>
+						<f:facet name="input">
+							<p:inputText value="#{option2.value}" style="width:100%" />
+						</f:facet>
+					</p:cellEditor>
+				</uib:column>
+
+				<uib:column>
+					<p:commandButton value="Delete" id="DeleteOption2"
+						action="#{gridQuestionController.removeOption2(option2)}"
+						update="tableOptions2" styleClass="fl-right">
+					</p:commandButton>
+				</uib:column>
+
+			</uib:dataTable>
+
+			<ago:buttonsCommon qbuttons="#{gridQuestionController}"
+				id="formWithSaveButtons" />
+
+
+		</h:form>
+        <ago:rulescommon controller="#{gridQuestionController}"/>
 	</ui:define>
 </ui:composition>

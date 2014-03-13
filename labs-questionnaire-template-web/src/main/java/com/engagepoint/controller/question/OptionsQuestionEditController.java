@@ -5,6 +5,7 @@ import com.engagepoint.controller.page.TemplateEditController;
 import com.engagepoint.model.question.*;
 import com.engagepoint.controller.page.QuestionEditController;
 import com.engagepoint.model.question.options.*;
+import com.engagepoint.model.question.rules.Rule;
 import com.engagepoint.model.question.utils.VariantItem;
 import com.engagepoint.model.table.ListOfOptionsDataModel;
 
@@ -58,6 +59,7 @@ public class OptionsQuestionEditController extends QuestionEditController {
             currentQuestion = (OptionsQuestion) question;
             dataModel = new ListOfOptionsDataModel(currentQuestion.getOptions());
         }
+        currentQuestionEventNew.fire(currentQuestion);
     }
 
     public ListOfOptionsDataModel getDataModel() {
@@ -138,5 +140,10 @@ public class OptionsQuestionEditController extends QuestionEditController {
                 break;
         }
         currentQuestion.setQuestionType(templateEditController.getSelectedQuestionType());
+    }
+
+    @Override
+    public void deleteRule(Rule rule) {
+
     }
 }
