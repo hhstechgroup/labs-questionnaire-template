@@ -77,7 +77,6 @@ public class QuestionRuleController implements Serializable {
     private List<Rule> currentRules;
 
 
-
     public QuestionRuleController() {
         rulesContainer = new RulesContainer();
         addRuleButtonIsVisible = true;
@@ -89,7 +88,7 @@ public class QuestionRuleController implements Serializable {
     }
 
     @PostConstruct
-    public void init(){
+    public void init() {
         beginConversation();
     }
 
@@ -282,7 +281,7 @@ public class QuestionRuleController implements Serializable {
                 answer = getDateData().toString();
                 break;
             case RANGE:
-                answer = (new RangeItem(getMinValue(),getMaxValue())).toString();
+                answer = (new RangeItem(getMinValue(), getMaxValue())).toString();
                 break;
             case TIME:
                 answer = getTextData();
@@ -293,21 +292,18 @@ public class QuestionRuleController implements Serializable {
             case CHOOSEFROMLIST:
                 answer = getDefaultOption().getValue();
                 break;
-            case FILEUPLOAD:
-
-                break;
             case MULTIPLECHOICE:
                 answer = getDefaultOption().getValue();
                 break;
             case CHECKBOX:
-                for(VariantItem item : getDefaultOptions())
+                for (VariantItem item : getDefaultOptions())
                     answers.add(item.getValue());
                 break;
             case GRID:
                 break;
         }
 
-        if(answer!=null)
+        if (answer != null)
             answers.add(answer);
         setAnswerAndIdToRule(answers);
 
@@ -341,8 +337,6 @@ public class QuestionRuleController implements Serializable {
             case CHOOSEFROMLIST:
                 optionsQuestion = (ChooseFromListQuestionBean) dependentQuestion;
                 dataModel = new ListOfOptionsDataModel(optionsQuestion.getOptions());
-                break;
-            case FILEUPLOAD:
                 break;
             case MULTIPLECHOICE:
                 optionsQuestion = (MultipleChoiceQuestionBean) dependentQuestion;
@@ -389,85 +383,83 @@ public class QuestionRuleController implements Serializable {
         return "question type is not chose";
     }
 
-    public List<Rule> getCurrentRules(){
+    public List<Rule> getCurrentRules() {
         //return currentQuestion.getRules();
         //return rulesContainer.getRules();
         return currentRules;
     }
 
-    public void setCurrentRules(List<Rule> rules){
+    public void setCurrentRules(List<Rule> rules) {
         currentRules = rules;
     }
 
-    public void deleteRule(Rule rule){
-        List<Rule> list =  getCurrentRules();
-        if(list!=null)
+    public void deleteRule(Rule rule) {
+        List<Rule> list = getCurrentRules();
+        if (list != null)
             list.remove(rule);
         setCurrentRules(list);
     }
 
-    public void cancelAll(){
+    public void cancelAll() {
         currentRules = null;
         endConversation();
     }
 
-    private void endConversation(){
+    private void endConversation() {
         if (!conversation.isTransient())
             conversation.end();
 
     }
 
-    private void beginConversation(){
+    private void beginConversation() {
         if (conversation.isTransient())
             conversation.begin();
     }
 
-    private void saveRuleToQuestion(@Observes @SaveQuestion Question question){
+    private void saveRuleToQuestion(@Observes @SaveQuestion Question question) {
         //question.setRules(rulesContainer.getRules());
         question.setRules(currentRules);
-        currentRules=null;
+        currentRules = null;
 
         //rulesContainer.setRules(null);
     }
 
-    private void setAnswerAndIdToRule(List<String> answers){
+    private void setAnswerAndIdToRule(List<String> answers) {
 
-        switch(currentRule.getType()){
+        switch (currentRule.getType()) {
             case RENDERED:
-                RenderedRule renderedRule = (RenderedRule)currentRule;
+                RenderedRule renderedRule = (RenderedRule) currentRule;
                 renderedRule.setAnswers(answers);
                 renderedRule.setId(dependentQuestion.getId());
                 break;
         }
 
         List<Rule> list = getCurrentRules();
-        if(list!=null)
+        if (list != null)
             list.add(currentRule);
         setCurrentRules(list);
     }
 
-    private void setCurrentQuestion(@Observes @NewQuestion Question question){
-        if(currentRules==null)
-            if(question.getRules()!=null)
+    private void setCurrentQuestion(@Observes @NewQuestion Question question) {
+        if (currentRules == null)
+            if (question.getRules() != null)
                 currentRules = cloneRulesList(question.getRules());
             else
                 currentRules = new ArrayList<Rule>();
     }
 
     private List<Rule> cloneRulesList(List<Rule> input) {
-        if(input==null)
+        if (input == null)
             return null;
         List<Rule> result = new ArrayList<Rule>();
         try {
-        for(Rule rule : input){
+            for (Rule rule : input) {
 
-                result.add((Rule)rule.clone());
-        }
+                result.add((Rule) rule.clone());
+            }
         } catch (CloneNotSupportedException e) {
             e.printStackTrace();
         }
         return result;
     }
-
-
 }
