@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class GroupBeanTest {
-    /*MockTemplate mock = new MockTemplate(QuestionType.CHECKBOX);
+    MockTemplate mock = new MockTemplate(QuestionType.CHECKBOX);
 
     @Test
     public void testCloneGroupBean() throws Exception {
@@ -21,24 +21,11 @@ public class GroupBeanTest {
 //        List<QuestionBean> questionBeanList = new ArrayList<QuestionBean>();
 //        questionBeanList.add(bean);
 //        questionBeanList.add(eqBean);
-        GroupBean testBean = mock.creatorGroup(); //new GroupBean("EqBeans",questionBeanList);
+        /*GroupBean testBean = mock.creatorGroup(); //new GroupBean("EqBeans",questionBeanList);
 
 
-        Assert.assertTrue(testBean.equals(testBean.clone()));
+        Assert.assertTrue(testBean.equals(testBean.clone())); */
 
     }
-    @Test
-    public void testEqualsGroupBean(){
-        /*Question bean = mock.question();
-        Question eqBean = mock.question();
-        List<Question> questionBeanList = new ArrayList<Question>();
-        questionBeanList.add(bean);
-        questionBeanList.add(eqBean);
-        GroupBean testBean = new GroupBean("EqBeans",questionBeanList);
-        GroupBean testBean2 = new GroupBean("EqBeans",questionBeanList);
-        Assert.assertTrue(testBean.equals(testBean2));
-
-    }*/
-
 }
 

@@ -7,6 +7,10 @@ import javax.xml.bind.annotation.XmlElement;
 public class TextQuestionBean extends Question {
 	private String defaultAnswer;
 
+    public TextQuestionBean() {
+        super();
+    }
+
     public TextQuestionBean(GroupBean currentGroup) {
         super(currentGroup);
     }

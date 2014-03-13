@@ -1,15 +1,22 @@
 package com.engagepoint.model.question.rules;
 
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class RenderedRule extends Rule{
     private long id;
-    private String answer;
-    private String xmlTemplate = "this.rule.renderedRule";
+    private List<String> answers;
+    private String xmlTemplate = "this.ruleExecutor.renderedRule";
+    static{
+        description="This Question Will be rendered if ...";
+    }
 
 
     public RenderedRule(){
-        this.description="This Question Will be rendered if ...";
-        nameXML = xmlTemplate+"("+"'"+id+"'"+", "+"'"+answer+"'"+")";
+        type = RuleType.RENDERED;
+        changeNameXML();
+        answers = new ArrayList<String>();
     }
 
     public void setId(long id) {
@@ -24,17 +31,30 @@ public class RenderedRule extends Rule{
 
 
     public void setAnswer(String answer) {
-        this.answer = answer;
+        this.answers.add(answer);
+        changeNameXML();
+    }
+
+    public void setAnswers(List<String> answers) {
+        this.answers=answers;
         changeNameXML();
     }
 
 
-    public String getAnswer() {
-        return answer;
+    public List<String> getAnswers() {
+        return answers;
     }
 
     private void changeNameXML(){
-        nameXML = xmlTemplate+"("+"'"+id+"'"+", "+"'"+answer+"'"+")";
+        StringBuilder answer = new StringBuilder();
+        for(String str : answers){
+            answer.append("'"+str+"'"+", ");
+        }
+        if(answer.length()>0)
+            answer.setLength(answer.length() -1);
+        nameXML = xmlTemplate+"("+"'"+id+"'"+", "+"["+answer+"]"+")";
     }
+
+
 
 }

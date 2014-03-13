@@ -14,23 +14,49 @@ public class SectionBean extends BasicBean
                          implements Cloneable, Serializable, BasicOperationWithBean{
     private static Long lastId = 1L;
 
-    private Long id=0L;
+    private Long id;
+    private Long pageNumber;
+    private String sectionName = "";
     private List<GroupBean> groupsList = new ArrayList<GroupBean>();
+    private TemplateBean templateBean;
 
     public SectionBean() {
         this.id = lastId++;
-        super.setDisplayedName("PageDefault");
     }
 
-    public SectionBean(List<GroupBean> groupsList) {
+    public SectionBean(TemplateBean templateBean) {
         this.id = lastId++;
-        this.groupsList = groupsList;
+        this.templateBean = templateBean;
+        this.pageNumber = getNextSectionIdInTemplate();
+        templateBean.addToInnerList(this);
         super.setDisplayedName("Page");
     }
 
-    @XmlElement(name = "page-number")
     public Long getId() {
         return id;
+    }
+
+    /**
+     * Gets next number of page for current template
+     * @return SectionId
+     */
+    public Long getNextSectionIdInTemplate() {
+        List<SectionBean> sectionList = templateBean.getSectionsList();
+        if (sectionList.isEmpty()) {
+            return 1L;
+        }
+        else {
+            return ((sectionList.get(sectionList.size()-1)).getId()+1);
+        }
+    }
+
+    @XmlElement(name = "page-number")
+    public Long getPageNumber() {
+        return pageNumber;
+    }
+
+    public void setPageNumber(Long pageNumber) {
+        this.pageNumber = pageNumber;
     }
 
     @XmlElementWrapper(name = "groups-of-questions")
@@ -95,9 +121,23 @@ public class SectionBean extends BasicBean
     }
 
     @Override
+    public String getDisplayedNodeType() {
+        return "Page: ";
+    }
+
+    @Override
+    public String getDisplayedName() {
+        return sectionName;
+    }
+
+    @Override
+    public void setDisplayedName(String displayedName) {
+        sectionName = displayedName;
+    }
+
+    @Override
     public String getDisplayedId() {
         String id = " (ID: "+String.valueOf(this.id)+") ";
         return id;
     }
-
 }

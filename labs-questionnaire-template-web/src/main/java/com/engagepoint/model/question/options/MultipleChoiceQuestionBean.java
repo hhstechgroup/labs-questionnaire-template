@@ -9,6 +9,10 @@ import java.util.List;
 
 public class MultipleChoiceQuestionBean extends OptionsQuestion {
 
+    public MultipleChoiceQuestionBean() {
+        super();
+    }
+
     public MultipleChoiceQuestionBean(GroupBean groupBean) {
         super(groupBean);
     }

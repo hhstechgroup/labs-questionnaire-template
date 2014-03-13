@@ -5,6 +5,7 @@ import com.engagepoint.controller.page.TemplateTreeController;
 import com.engagepoint.model.question.DateQuestionBean;
 import com.engagepoint.controller.page.QuestionEditController;
 import com.engagepoint.model.question.Question;
+import com.engagepoint.model.question.rules.Rule;
 
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.Conversation;
@@ -49,5 +50,10 @@ public class DateController extends QuestionEditController {
     public String actionSave() {
         getTemplateTreeController().setCurrentQuestion(currentQuestion);
         return super.actionSave();
+    }
+
+    @Override
+    public void deleteRule(Rule rule) {
+
     }
 }

@@ -8,6 +8,10 @@ import java.util.Date;
 public class DateQuestionBean extends Question {
     private Date defaultAnswer;
 
+    public DateQuestionBean() {
+        super();
+    }
+
     public DateQuestionBean(GroupBean currentGroup) {
         super(currentGroup);
     }

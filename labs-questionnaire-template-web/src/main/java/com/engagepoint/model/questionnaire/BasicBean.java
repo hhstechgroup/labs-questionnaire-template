@@ -10,6 +10,9 @@ public abstract class BasicBean {
     /** Return type of bean */
     public abstract String getType();
 
+    /** Return displayed type of bean as String */
+    public abstract String getDisplayedNodeType();
+
     /** Return ID of bean as String */
     public abstract String getDisplayedId();
 

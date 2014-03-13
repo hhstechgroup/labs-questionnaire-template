@@ -9,6 +9,10 @@ import java.util.List;
 
 public class ChooseFromListQuestionBean extends OptionsQuestion {
 
+    public ChooseFromListQuestionBean() {
+        super();
+    }
+
     public ChooseFromListQuestionBean(GroupBean groupBean) {
         super(groupBean);
     }

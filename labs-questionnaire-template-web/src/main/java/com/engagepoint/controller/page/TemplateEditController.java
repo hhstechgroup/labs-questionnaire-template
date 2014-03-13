@@ -18,7 +18,6 @@ import java.util.List;
 /**
  * Used for controlling questform.xhtml
  */
-
 @Named("templateController")
 @SessionScoped
 public class TemplateEditController implements Serializable {
@@ -30,7 +29,6 @@ public class TemplateEditController implements Serializable {
 
     private TemplateBean currentTemplate; //real template
     private TemplateBean duplicateTemplate; //copy of real template, contains all unsaved changes
-
     private QuestionType selectedQuestionType;
 
     public TemplateBean getDuplicateTemplate() {
@@ -62,7 +60,6 @@ public class TemplateEditController implements Serializable {
     public void setSelectedQuestionType(QuestionType selectedQuestionType) {
         this.selectedQuestionType = selectedQuestionType;
     }
-
 
     /**
      * Create new template.
@@ -157,6 +154,7 @@ public class TemplateEditController implements Serializable {
             listController.removeTemplateFromFilteredListIfNeed(currentTemplate);
             listController.sort();
         }
+        templateTreeController.setSelectedNode(null);
         return ListController.income();
     }
 
@@ -170,6 +168,7 @@ public class TemplateEditController implements Serializable {
      * @return index page
      */
     public String cancel() {
+        templateTreeController.setSelectedNode(null);
         return ListController.income();
     }
 
@@ -181,19 +180,4 @@ public class TemplateEditController implements Serializable {
     public static String income() {
         return PageNavigator.TEMPLATE_EDIT_PAGE;
     }
-
-    /**
-     * Getting id of all questions from current template.
-     *
-     * @return list of id.
-     */
-    public List<Long> getQuestionsId() {
-        List<Long> list = new ArrayList<Long>();
-        for (SectionBean sectionBean : currentTemplate.getSectionsList())
-            for (GroupBean groupBean : sectionBean.getGroupsList())
-                for (Question question : groupBean.getQuestionsList())
-                    list.add(question.getId());
-        return list;
-    }
-
 }

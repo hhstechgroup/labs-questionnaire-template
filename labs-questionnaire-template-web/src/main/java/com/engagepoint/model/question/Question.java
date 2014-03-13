@@ -31,11 +31,13 @@ public abstract class Question extends BasicBean implements Cloneable {
 
     //Dependent questions
 
+    public Question() {
+        this.id = lastId++;
+    }
+
     public Question(GroupBean groupBean) {
         this.groupBean = groupBean;
         id = Long.valueOf(groupBean.getId() + (lastId++).toString());
-        super.setDisplayedName("QuestionDefault");
-        //groupBean.addToInnerList(this);
     }
 
     @XmlElement(name = "question-title")
@@ -59,11 +61,6 @@ public abstract class Question extends BasicBean implements Cloneable {
     @XmlAttribute(name = "question-id")
     public Long getId() {
         return id;
-    }
-
-    @Override
-    public String getDisplayedName() {
-        return questionText;
     }
 
     public void setId(Long id) {
@@ -141,8 +138,18 @@ public abstract class Question extends BasicBean implements Cloneable {
     }
 
     @Override
+    public String getDisplayedNodeType() {
+        return "Question: ";
+    }
+
+    @Override
+    public String getDisplayedName() {
+        return questionText.length()>9 ? questionText.substring(0, 9)+"..." : questionText; //TODO: make property for quantity of symbols
+    }
+
+    @Override
     public String getDisplayedId() {
-        String questionID = " (ID: "+String.valueOf(id)+") ";
-        return questionID;
+        String id = " (ID: "+String.valueOf(this.id)+") ";
+        return id;
     }
 }

@@ -15,42 +15,138 @@
     <br/>
     <br/>
     <h:form id="rulesForm">
-        <p:panel id="buttonPanel">
 
-            <p:commandButton value="Add rule" rendered="#{cc.attrs.controller.addRuleButtonIsVisible}"
-                             action="#{cc.attrs.controller.addRuleAction}" update="buttonPanel"/>
+        <uib:dataTable var="rule"
+                       value="">
+            <uib:column headerText="Rules">
+                <h:outputText value="#{rule}"/>
+            </uib:column>
+
+            <uib:column>
+                <p:commandButton value="Delete"
+                                 action="#{cc.attrs.controller.deleteRule(rule)}"
+                                 styleClass="fl-right">
+                </p:commandButton>
+            </uib:column>
+        </uib:dataTable>
+        <br/>
+        <br/>
+
+        <p:panel id="buttonPanel">
+            <p:commandButton value="Add rule" rendered="#{questionRuleController.addRuleButtonIsVisible}"
+                             action="#{questionRuleController.addRuleAction}" update="buttonPanel"/>
 
             <br/>
-            <uib:dataTable id="rulesTable" var="item" value="#{cc.attrs.controller.rulesContainer.mock}"
-                           rendered="#{cc.attrs.controller.addRulesTableIsVisible}">
+
+            <uib:dataTable id="rulesTable" var="item" value="#{questionRuleController.rulesContainer.supportedRules}"
+                           rendered="#{questionRuleController.addRulesTableIsVisible}">
                 <f:facet name="header">
                     <p> List of Rules</p>
                 </f:facet>
-
                 <uib:column>
                     <f:facet name="header">
                         Rule Name:
                     </f:facet>
                     <h:outputText value="#{item}"/>
                 </uib:column>
-
                 <uib:column style="width:20%">
-                    <p:commandButton id="selectButton" value="Create" action="#{cc.attrs.controller.createRule(item)}"
+                    <p:commandButton id="selectButton" value="Create"
+                                     action="#{questionRuleController.createRuleAction(item)}"
                                      update="rulesTable,@([id$=buttonPanel])"/>
                 </uib:column>
             </uib:dataTable>
+
             <br/>
-            <p:selectOneMenu rendered="#{cc.attrs.controller.chooseDependentQuestionListVisible}">
-                <f:selectItem itemLabel="Select One" itemValue=""/>
-                <f:selectItems value="#{templateController.questionsId}"/>
-            </p:selectOneMenu>
+
+            <p:panel id="chooseQuestionIdPanel" rendered="#{questionRuleController.chooseDependentQuestionListVisible}">
+                <h:outputText value="Please choose a question id"/>
+
+                <p:selectOneMenu value="#{questionRuleController.currentDependentQuestionId}">
+                    <f:selectItem itemLabel="Select One" itemValue=""/>
+                    <f:selectItems value="#{questionRuleController.questions}" var="question" itemLabel="#{question.id}"
+                                   itemValue="#{question.id}"/>
+                </p:selectOneMenu>
+                <br/>
+                <p:commandButton value="Set Answer"
+                                 action="#{questionRuleController.setDependentQuestionAnswer()}"
+                                 oncomplete="dlgSetAnswer.show();" update="@([id$=SetAnswerPanel])"/>
+            </p:panel>
+
             <br/>
-            <p:commandButton value="Set Answer" rendered="#{cc.attrs.controller.chooseDependentQuestionListVisible}"/>
             <br/>
-            <br/>
-            <p:commandButton value="Cancel Rule" rendered="#{cc.attrs.controller.cancelRuleEditionButtonIsVisible}"
-                             action="#{cc.attrs.controller.cancelAddRuleAction}" update="buttonPanel"/>
+
+            <p:commandButton value="Cancel Rule" rendered="#{questionRuleController.cancelRuleEditionButtonIsVisible}"
+                             action="#{questionRuleController.cancelAddRuleAction}" update="buttonPanel"/>
         </p:panel>
+
+        <p:dialog widgetVar="dlgSetAnswer"
+                  modal="true" closable="true">
+            <p:panel id="SetAnswerPanel">
+                <br/>
+                <h:outputText value="Question text: "/>
+                <p:outputLabel value=" #{questionRuleController.dependentQuestion.questionText}"/>
+                <br/>
+                <h:outputText value="Help text: "/>
+                <p:outputLabel value="#{questionRuleController.dependentQuestion.helpText}"/>
+                <br/>
+                <br/>
+                <h:outputText value="Please set answer."/>
+                <br/>
+                <br/>
+
+                <p:inputText size="50" rendered="#{questionRuleController.currentDependentQuestionType eq 'TEXT'}"
+                             value="#{questionRuleController.textData}"/>
+
+                <p:inputTextarea rows="8"
+                                 cols="555"
+                                 rendered="#{questionRuleController.currentDependentQuestionType eq 'PARAGRAPHTEXT'}"
+                                 value="#{questionRuleController.textData}"/>
+
+                <p:calendar title="calendar" pattern="HH:mm" showOn="button" timeOnly="true"
+                            rendered="#{questionRuleController.currentDependentQuestionType eq 'TIME'}"
+                            value="#{questionRuleController.dateData}"/>
+
+                <p:calendar title="calendar" pattern="MM/dd/yyyy" showOn="button"
+                            rendered="#{questionRuleController.currentDependentQuestionType eq 'DATE'}"
+                            value="#{questionRuleController.dateData}"/>
+
+                <p:panel rendered="#{questionRuleController.currentDependentQuestionType eq 'RANGE'}">
+                    <h:outputText value="Set minimum value"/>
+                    <h:inputText id="minRangeValue" value="#{questionRuleController.minValue}"/>
+                    <h:outputText value="Set maximum value"/>
+                    <h:inputText id="maxRangeValue" value="#{questionRuleController.maxValue}"/>
+                </p:panel>
+
+                <uib:dataTable var="option"
+                               value="#{questionRuleController.dataModel}"
+                               selection="#{questionRuleController.defaultOption}"
+                               rendered="#{questionRuleController.currentDependentQuestionType eq 'CHOOSEFROMLIST' or questionRuleController.currentDependentQuestionType eq 'MULTIPLECHOICE'}">
+                    <uib:column headerText="Default"
+                                selectionMode="single"/>
+                    <uib:column headerText="Options">
+                        <h:outputText value="#{option.value}" style="width:100%"/>
+                    </uib:column>
+                </uib:dataTable>
+
+                <uib:dataTable var="option"
+                               value="#{questionRuleController.dataModel}"
+                               selection="#{questionRuleController.defaultOptions}"
+                               rendered="#{questionRuleController.currentDependentQuestionType eq 'CHECKBOX'}">
+                    <uib:column headerText=""
+                                selectionMode="multiple"/>
+                    <uib:column headerText="Options">
+                        <h:outputText value="#{option.value}" style="width:100%"/>
+                    </uib:column>
+                </uib:dataTable>
+
+                <br/>
+                <br/>
+                <p:commandButton value="Save" onclick="dlgSetAnswer.hide()"
+                                 update="@([id$=buttonPanel])"
+                                 action="#{questionRuleController.saveRuleAnswerAction}"/>
+            </p:panel>
+        </p:dialog>
+
     </h:form>
 
 </composite:implementation>
