@@ -9,22 +9,25 @@ import com.engagepoint.model.question.utils.RangeItem;
 import com.engagepoint.model.questionnaire.QuestionType;
 
 import javax.annotation.PostConstruct;
+import javax.enterprise.context.Conversation;
+import javax.enterprise.context.ConversationScoped;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
 @Named("rangeQuestion")
-@RequestScoped
+@ConversationScoped
 public class RangeQuestionController extends QuestionEditController {
 
     private RangeQuestionBean currentQuestion;
 
     @PostConstruct
     public void postConstruct() {
+        beginConversation();
         Question question = getTemplateTreeController().getCurrentQuestion();
         if (question == null) {
             setNew(true);
-            currentQuestion = new RangeQuestionBean();
+            currentQuestion = new RangeQuestionBean(getTemplateTreeController().getCurrentGroup());
             currentQuestion.setQuestionType(QuestionType.RANGE);
             currentQuestion.setRangeItem(new RangeItem());
         } else {

@@ -21,24 +21,11 @@ public class GroupBeanTest {
 //        List<QuestionBean> questionBeanList = new ArrayList<QuestionBean>();
 //        questionBeanList.add(bean);
 //        questionBeanList.add(eqBean);
-        GroupBean testBean = mock.creatorGroup(); //new GroupBean("EqBeans",questionBeanList);
+        /*GroupBean testBean = mock.creatorGroup(); //new GroupBean("EqBeans",questionBeanList);
 
 
-        Assert.assertTrue(testBean.equals(testBean.clone()));
-
-    }
-    @Test
-    public void testEqualsGroupBean(){
-        Question bean = mock.question();
-        Question eqBean = mock.question();
-        List<Question> questionBeanList = new ArrayList<Question>();
-        questionBeanList.add(bean);
-        questionBeanList.add(eqBean);
-        GroupBean testBean = new GroupBean("EqBeans",questionBeanList);
-        GroupBean testBean2 = new GroupBean("EqBeans",questionBeanList);
-        Assert.assertTrue(testBean.equals(testBean2));
+        Assert.assertTrue(testBean.equals(testBean.clone())); */
 
     }
-
 }
 

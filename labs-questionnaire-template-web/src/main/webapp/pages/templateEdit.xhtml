@@ -1,163 +1,171 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:p="http://primefaces.org/ui"
-	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:uib="http://engagepoint.com/uib"
-	xmlns:F="http://java.sun.com/jsp/jstl/sql"
-	template="/templates/templateEdit.xhtml">
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:uib="http://engagepoint.com/uib"
+                xmlns:F="http://java.sun.com/jsp/jstl/sql"
+                template="/templates/templateEdit.xhtml">
 
-	<f:metadata>
-		<f:viewParam name="template"
-			value="#{templateController.currentTemplate.id}" />
-	</f:metadata>
+    <f:metadata>
+        <f:viewParam name="template" 
+                     value="#{templateController.currentTemplate.id}"/>
+    </f:metadata>
 
-	<ui:define name="page">
+    <ui:define name="page">
 
-		<h:form id="formTemplate">
+        <h:form id="formTemplate">
 
-			<p:panelGrid columns="1">
+            <p:panelGrid columns="1">
 
-				<f:facet name="header">
-					<h:outputText value="Template"
-						rendered="#{!templateController.isNew()}" />
-					<h:outputText value="New template"
-						rendered="#{templateController.isNew()}" />
-				</f:facet>
+                <f:facet name="header">
+                    <h:outputText value="Template" 
+                                  rendered="#{!templateController.isNew()}"/>
+                    <h:outputText value="New template" 
+                                  rendered="#{templateController.isNew()}"/>
+                </f:facet>
 
-				<h:panelGrid columns="3">
-					<p:outputLabel value="New name:"
-						rendered="#{!templateController.isNew()}" />
-					<p:outputLabel value="Name:"
-						rendered="#{templateController.isNew()}" />
-					<p:inputText id="name" required="true"
-						value="#{templateController.duplicateTemplate.templateName}" />
-				</h:panelGrid>
+                <h:panelGrid columns="3">
+                    <p:outputLabel value="New name:" rendered="#{!templateController.isNew()}"/>
+                    <p:outputLabel value="Name:" rendered="#{templateController.isNew()}"/>
+                    <p:inputText id="name" required="true"
+                                 value="#{templateController.duplicateTemplate.templateName}"/>
+                </h:panelGrid>
 
-				<h:form id="form">
+                <h:form id="form">
 
-					<p:growl id="messages" showDetail="true" escape="false" />
+                    <p:growl id="messages" showDetail="true" escape="false"/>
 
-					<p:treeTable value="#{templateTreeController.root}" var="node"
-						selectionMode="single"
-						selection="#{templateTreeController.selectedNode}"
-						id="treeMultiple">
+                    <p:treeTable value="#{templateTreeController.root}"
+                                 var="node"
+                                 selectionMode="single"
+                                 selection="#{templateTreeController.selectedNode}"
+                                 id="treeMultiple">
 
-						<f:facet name="header">
+                        <f:facet name="header">
                             #{templateTreeController.templateBean.templateName} content
                         </f:facet>
 
-						<p:ajax event="expand" update=":formTemplate:form:buttonPanel" />
-						<p:ajax event="collapse" update=":formTemplate:form:buttonPanel" />
-						<p:ajax event="select"
-							update=":formTemplate:form:buttonPanel, :formTemplate:form:treeMultiple"
-							listener="#{templateTreeController.onSelect}" />
-						<p:ajax event="unselect" update=":formTemplate:form:buttonPanel" />
+                        <p:ajax event="expand" update=":formTemplate:form:buttonPanel"/>
+                        <p:ajax event="collapse" update=":formTemplate:form:buttonPanel"/>
+                        <p:ajax event="select" update=":formTemplate:form:buttonPanel, :formTemplate:form:treeMultiple" listener="#{templateTreeController.onSelect}"/>
+                        <p:ajax event="unselect" update=":formTemplate:form:buttonPanel"/>
 
 						<p:column style="#{templateTreeController.getStyle(node)}">
-							<h:outputText id="treeNode" value="#{node}"
-								style="cursor: pointer" />
+                            <h:outputText id="treeDisplayedType" value="#{node.displayedNodeType}"
+                                          style="cursor: pointer" />
+							<h:outputText id="treeDisplayedName" value="#{node.displayedName}"
+                                          style="cursor: pointer" />
+                            <h:outputText id="treeDisplayedId" value="#{node.displayedId}"
+                                          style="cursor: pointer" />
 							<p:commandButton value="Edit Name" id="editName"
 								style="float:right;"
-								rendered="#{templateTreeController.editButtonRendering(node)}"
-								onclick="dlg.show();" />
+                                rendered="#{templateTreeController.editButtonRendering(node)}"
+								onclick="dlg.show();">
+						    </p:commandButton>
+                            <p:dialog id="modalDialogEdit" widgetVar="dlg" modal="true"
+                                      closable="false" height="100" resizeable="false">
 
-							<p:dialog id="modalDialogEdit" widgetVar="dlg" modal="true"
-								closable="false" height="100" resizeable="false">
-								
-								<h:outputText value="#{templateTreeController.selectedNode}"/> <br/>
-								
-								<p:commandButton value="OK" id="yes" actionListener="submit()"
-								update=":formTemplate:form:treeMultiple" onclick="dlg.hide()" />
-								<p:commandButton value="Cancel" id="no" immediate="true"
-									onclick="dlg.hide()" />
+                                <h:inputText id="nameOfCurrentNode"
+                                             value="#{templateTreeController.nameOfCurrentNode}"/> <br/>
 
-							</p:dialog>
+                                <p:commandButton value="OK" id="yesEditName" action="#{templateTreeController.commitNameOfCurrentNode}"
+                                                 update=":formTemplate:form:treeMultiple" onclick="dlg.hide()" />
+                                <p:commandButton value="Cancel" id="notEditName" action="#{templateTreeController.revertNameOfCurrentNode}"
+                                                 immediate="true"
+                                                 onclick="dlg.hide()" />
+                            </p:dialog>
+                        </p:column>
+                    </p:treeTable>
 
+                    <p:panel id="buttonPanel">
+                        <p:commandButton value="Add section"
+                                         title="Add section"
+                                         id="addSection"
+                                         action="#{templateTreeController.addSection()}"
+                                         styleClass="secondary"
+                                         icon="ui-icon-add-v2"
+                                         update="treeMultiple,messages">
+                        </p:commandButton>
+                        <h:outputText value=" "/>
+                        <p:commandButton value="Delete #{templateTreeController.selectedType}"
+                                         update="treeMultiple,buttonPanel"
+                                         action="#{templateTreeController.delete()}"
+                                         rendered="#{templateTreeController.selectedNode!=null}"
+                                         id="btnDisplayDelete"
+                                         styleClass="secondary"
+                                         icon="ui-icon-remove"/>
+                        <h:outputText value=" "/>
 
+                        <p:commandButton value="Add group"
+                                         rendered="#{templateTreeController.selectedNode!=null and templateTreeController.selectedType eq 'section'}"
+                                         icon="ui-icon-add-v2"
+                                         action="#{templateTreeController.addGroup()}"
+                                         update=":formTemplate:form:treeMultiple"
+                                         styleClass="secondary"
+                                         id="btnDisplayAddGroup">
+                        </p:commandButton>
+                        <p:commandButton value="Add question"
+                                         rendered="#{templateTreeController.selectedNode!=null and templateTreeController.selectedType eq 'group'}"
+                                         icon="ui-icon-add-v2"
+                                         oncomplete="dlgSelectType.show();"
+                                         styleClass="secondary"
+                                         id="btnDisplayAddQuestion">
+                        </p:commandButton>
+                        <p:commandButton value="Edit question"
+                                         rendered="#{templateTreeController.selectedNode!=null and templateTreeController.selectedType eq 'question'}"
+                                         icon="ui-icon-edit"
+                                         action="#{templateController.editQuestion()}"
+                                         styleClass="secondary"
+                                         id="btnDisplayEditQuestion">
+                        </p:commandButton>
+                        <p:dialog id="modalDialogSelectType" widgetVar="dlgSelectType"
+                                  modal="true" height="100" closable="false" resizeable="false">
+                            <h:outputText value="Please choose a question type"/>
+                            <br/>
+                            <p:selectOneMenu id="selectOneMenu"
+                                             value="#{templateController.selectedQuestionType}">
+                                <f:selectItem itemLabel="Select One" itemValue="#{null}" />
+                                <f:selectItems value="#{templateController.questionTypes}"/>
+                            </p:selectOneMenu>
+                            <p:commandButton value="Create"
+                                             id="create"
+                                             action="#{templateController.addQuestion()}"/>
+                            <p:commandButton value="Cancel"
+                                             id="cancelCreating"
+                                             onclick="dlgSelectType.hide()"/>
+                        </p:dialog>
 
+                    </p:panel>
+                </h:form>
 
-						</p:column>
+                <f:facet name="footer">
 
-					</p:treeTable>
+                    <p:commandButton value="Save" id="save"
+                                     action="#{templateController.saveTemplate}"/>
+                    <h:outputText value=" "/>
+                    <p:commandButton value="Cancel"
+                                     id="cancel"
+                                     update="modalDialogCancel"
+                                     oncomplete="dlgCancel.show();"/>
 
+                    <p:dialog id="modalDialogCancel" widgetVar="dlgCancel"
+                              modal="true" height="100" closable="false" resizeable="false">
+                        <h:outputFormat value="#{msgs.msgOnCancel}"/>
+                        <br/>
 
+                        <p:commandButton value="Yes"
+                                         id="yes"
+                                         immediate="#{templateController.new}"
+                                         action="#{templateController.cancel}"/>
+                        <p:commandButton value="No" id="no" onclick="dlgCancel.hide()"/>
 
-					<p:panel id="buttonPanel">
-						<p:commandButton value="Add section" title="Add section"
-							id="addSection" action="#{templateTreeController.addSection()}"
-							styleClass="secondary" icon="ui-icon-add-v2"
-							update="treeMultiple,messages">
-						</p:commandButton>
-						<h:outputText value=" " />
-						<p:commandButton
-							value="Delete #{templateTreeController.selectedType}"
-							update="treeMultiple,buttonPanel"
-							action="#{templateTreeController.delete()}"
-							rendered="#{templateTreeController.selectedNode!=null}"
-							id="btnDisplayDelete" styleClass="secondary"
-							icon="ui-icon-remove" />
-						<h:outputText value=" " />
+                    </p:dialog>
+                </f:facet>
+            </p:panelGrid>
 
-						<p:commandButton value="Add group"
-							rendered="#{templateTreeController.selectedNode!=null and templateTreeController.selectedType eq 'section'}"
-							icon="ui-icon-add-v2"
-							action="#{templateTreeController.addGroup()}"
-							update=":formTemplate:form:treeMultiple" styleClass="secondary"
-							id="btnDisplayAddGroup">
-						</p:commandButton>
-						<p:commandButton value="Add question"
-							rendered="#{templateTreeController.selectedNode!=null and templateTreeController.selectedType eq 'group'}"
-							icon="ui-icon-add-v2" oncomplete="dlgSelectType.show();"
-							styleClass="secondary" id="btnDisplayAddQuestion">
-						</p:commandButton>
-						<p:commandButton value="Edit question"
-							rendered="#{templateTreeController.selectedNode!=null and templateTreeController.selectedType eq 'question'}"
-							icon="ui-icon-edit" action="#{templateController.editQuestion()}"
-							styleClass="secondary" id="btnDisplayEditQuestion">
-						</p:commandButton>
-						<p:dialog id="modalDialogSelectType" widgetVar="dlgSelectType"
-							modal="true" height="100" closable="false" resizeable="false">
-							<h:outputText value="Please choose a question type" />
-							<br />
-							<p:selectOneMenu id="selectOneMenu"
-								value="#{templateController.selectedQuestionType}">
-								<f:selectItem itemLabel="Select One" itemValue="#{null}" />
-								<f:selectItems value="#{templateController.questionTypes}" />
-							</p:selectOneMenu>
-							<p:commandButton value="Create" id="create"
-								action="#{templateController.addQuestion()}" />
-							<p:commandButton value="Cancel" id="cancel"
-								onclick="dlgSelectType.hide()" />
-						</p:dialog>
+        </h:form>
 
-					</p:panel>
-				</h:form>
-
-				<f:facet name="footer">
-
-					<p:commandButton value="Save" id="save"
-						action="#{templateController.saveTemplate}" />
-					<h:outputText value=" " />
-					<p:commandButton value="Cancel" id="cancel"
-						update="modalDialogCancel" oncomplete="dlgCancel.show();" />
-
-					<p:dialog id="modalDialogCancel" widgetVar="dlgCancel" modal="true"
-						height="100" closable="false" resizeable="false">
-						<h:outputFormat value="#{msgs.msgOnCancel}" />
-						<br />
-
-						<p:commandButton value="Yes" id="yes"
-							immediate="#{templateController.new}"
-							action="#{templateController.cancel}" />
-						<p:commandButton value="No" id="no" onclick="dlgCancel.hide()" />
-
-					</p:dialog>
-				</f:facet>
-			</p:panelGrid>
-
-		</h:form>
-
-	</ui:define>
+    </ui:define>
 </ui:composition>

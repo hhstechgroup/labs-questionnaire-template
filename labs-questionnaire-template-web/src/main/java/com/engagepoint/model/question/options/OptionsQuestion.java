@@ -2,6 +2,7 @@ package com.engagepoint.model.question.options;
 
 import com.engagepoint.model.question.Question;
 import com.engagepoint.model.question.utils.VariantItem;
+import com.engagepoint.model.questionnaire.GroupBean;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlSeeAlso;
@@ -16,6 +17,12 @@ public abstract class OptionsQuestion extends Question implements Cloneable {
     protected VariantItem defaultOption;
 
     public OptionsQuestion() {
+        super();
+        this.options = new ArrayList<VariantItem>();
+    }
+
+    public OptionsQuestion(GroupBean groupBean) {
+        super(groupBean);
         this.options = new ArrayList<VariantItem>();
     }
 

@@ -144,13 +144,13 @@ public class MockTemplate {
     public SectionBean creatorSections(){
         SectionBean sectionBean=  new  SectionBean();
         sectionBean.setGroupsList(groupBeans);
-        sectionBean.setPageNumber(1);
+        //sectionBean.setPageNumber(1);
         return sectionBean;
     }
     public GroupBean creatorGroup(){
         GroupBean groupBean = new GroupBean();
         groupBean.setQuestionsList(questionBeans);
-        groupBean.setGroupName("GroupName");
+        groupBean.setDisplayedName("GroupName");
         return groupBean;
     }
 

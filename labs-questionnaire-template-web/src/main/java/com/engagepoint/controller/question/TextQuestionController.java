@@ -7,12 +7,14 @@ import com.engagepoint.controller.page.QuestionEditController;
 import com.engagepoint.model.question.rules.Rule;
 
 import javax.annotation.PostConstruct;
+import javax.enterprise.context.Conversation;
+import javax.enterprise.context.ConversationScoped;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
 @Named("textQuestion")
-@RequestScoped
+@ConversationScoped
 public class TextQuestionController extends QuestionEditController {
 
     private TextQuestionBean currentQuestion;
@@ -22,10 +24,11 @@ public class TextQuestionController extends QuestionEditController {
 
     @PostConstruct
     public void postConstruct() {
+        beginConversation();
         Question question = getTemplateTreeController().getCurrentQuestion();
         if (question ==null) {
             setNew(true);
-            currentQuestion = new TextQuestionBean();
+            currentQuestion = new TextQuestionBean(getTemplateTreeController().getCurrentGroup());
             currentQuestion.setQuestionType(templateEditController.getSelectedQuestionType());
         }
         else {

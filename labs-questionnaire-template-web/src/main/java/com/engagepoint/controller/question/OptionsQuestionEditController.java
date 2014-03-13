@@ -31,21 +31,6 @@ public class OptionsQuestionEditController extends QuestionEditController {
     @Inject
     private TemplateEditController templateEditController;
 
-    @Inject
-    private Conversation conversation;
-
-    public void beginConversation() {
-        if (conversation.isTransient()) {
-            conversation.begin();
-        }
-    }
-
-    public void endConversation() {
-        if (!conversation.isTransient()) {
-            conversation.end();
-        }
-    }
-
     @PostConstruct
     public void postConstruct() {
         beginConversation();
@@ -114,26 +99,19 @@ public class OptionsQuestionEditController extends QuestionEditController {
             //TODO
         }
         getTemplateTreeController().setCurrentQuestion(currentQuestion);
-        endConversation();
         return super.actionSave();
-    }
-
-    @Override
-    public String actionCancel() {
-        endConversation();
-        return super.actionCancel();
     }
 
     private void createCurrentQuestion(){
         switch(templateEditController.getSelectedQuestionType()){
             case CHECKBOX:
-                currentQuestion = new CheckBoxQuestionBean();
+                currentQuestion = new CheckBoxQuestionBean(getTemplateTreeController().getCurrentGroup());
                 break;
             case CHOOSEFROMLIST:
-                currentQuestion = new ChooseFromListQuestionBean();
+                currentQuestion = new ChooseFromListQuestionBean(getTemplateTreeController().getCurrentGroup());
                 break;
             case MULTIPLECHOICE:
-                currentQuestion = new MultipleChoiceQuestionBean();
+                currentQuestion = new MultipleChoiceQuestionBean(getTemplateTreeController().getCurrentGroup());
                 break;
         }
         currentQuestion.setQuestionType(templateEditController.getSelectedQuestionType());

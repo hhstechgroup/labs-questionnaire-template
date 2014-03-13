@@ -5,6 +5,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import com.engagepoint.model.question.Question;
+import com.engagepoint.model.questionnaire.GroupBean;
 
 public class GridQuestionBean extends Question {
     List<String> rows;
@@ -21,6 +22,20 @@ public class GridQuestionBean extends Question {
     }
 
     public GridQuestionBean() {
+        rows = new ArrayList<String>();
+        rows.add("row1");
+        rows.add("row2");
+        rows.add("row3");
+        cols = new ArrayList<String>();
+        cols.add("col1");
+        cols.add("col2");
+        cols.add("col3");
+        selected = new boolean[rows.size()][cols.size()];
+        setSelect(1, 1);
+    }
+
+    public GridQuestionBean(GroupBean currentGroup) {
+        super(currentGroup);
         rows = new ArrayList<String>();
         rows.add("row1");
         rows.add("row2");
