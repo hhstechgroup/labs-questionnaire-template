@@ -32,8 +32,13 @@ public class SectionBean extends BasicBean
         super.setDisplayedName("Page");
     }
 
+    @XmlElement(name = "id")
     public Long getId() {
         return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     /**

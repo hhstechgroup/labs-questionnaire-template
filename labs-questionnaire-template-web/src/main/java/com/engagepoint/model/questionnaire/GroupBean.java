@@ -16,7 +16,6 @@ public class GroupBean extends BasicBean
     private static Long lastId = 1L;
 
     private Long id;
-    private String groupName = "";
     private List<Question> questionsList = new ArrayList<Question>();
     private SectionBean sectionBean;
 
@@ -32,30 +31,26 @@ public class GroupBean extends BasicBean
 
     public GroupBean(String groupName, SectionBean sectionBean) {
         this(sectionBean);
-        this.groupName = groupName;
+        setDisplayedName(groupName);
     }
 
     public GroupBean(String groupName, List<Question> questionsList, SectionBean sectionBean) {
         this(sectionBean);
-        this.groupName = groupName;
+        setDisplayedName(groupName);
         this.questionsList = questionsList;
     }
 
+    @XmlElement(name = "id")
     public Long getId() {
         return id;
     }
 
+    public void setId(Long id) {
+        this.id = id;
+    }
+
     public SectionBean getSectionBean() {
         return sectionBean;
-    }
-
-    @XmlElement(name = "group-name")
-    public String getGroupName() {
-        return groupName;
-    }
-
-    public void setGroupName(String groupName) {
-        this.groupName = groupName;
     }
 
     @XmlElementWrapper(name = "questions")
@@ -71,7 +66,7 @@ public class GroupBean extends BasicBean
     @Override
     public Object clone() throws CloneNotSupportedException {
         GroupBean copy = (GroupBean) super.clone();
-        copy.setGroupName(this.groupName);
+        copy.setDisplayedName(this.getDisplayedName());
         //copy.setDisplayedName(this.displayedName);
         List<Question> copyQuestionsList = null;
         if (questionsList != null) {
@@ -116,7 +111,7 @@ public class GroupBean extends BasicBean
 
     @Override
     public String toString() {
-        return groupName;
+        return getDisplayedName();
     }
 
     @Override
@@ -127,16 +122,6 @@ public class GroupBean extends BasicBean
     @Override
     public String getDisplayedNodeType() {
         return "Group: ";
-    }
-
-    @Override
-    public String getDisplayedName() {
-        return groupName;
-    }
-
-    @Override
-    public void setDisplayedName(String groupName) {
-        this.groupName = groupName;
     }
 
     @Override

@@ -150,7 +150,7 @@ public class MockTemplate {
     public GroupBean creatorGroup(){
         GroupBean groupBean = new GroupBean();
         groupBean.setQuestionsList(questionBeans);
-        groupBean.setGroupName("GroupName");
+        groupBean.setDisplayedName("GroupName");
         return groupBean;
     }
 

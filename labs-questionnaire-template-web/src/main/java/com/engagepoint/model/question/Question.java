@@ -64,7 +64,7 @@ public abstract class Question extends BasicBean implements Cloneable {
         this.helpText = helpText;
     }
 
-    @XmlAttribute(name = "question-id")
+    @XmlAttribute(name = "id")
     public Long getId() {
         return id;
     }
