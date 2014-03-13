@@ -69,7 +69,7 @@
 
                                 <h:inputText id="nameOfCurrentNode"
                                              value="#{templateTreeController.nameOfCurrentNode}"/> <br/>
-    
+
                                 <p:commandButton value="OK" id="yesEditName" action="#{templateTreeController.commitNameOfCurrentNode}"
                                                  update=":formTemplate:form:treeMultiple" onclick="dlg.hide()" />
                                 <p:commandButton value="Cancel" id="notEditName" action="#{templateTreeController.revertNameOfCurrentNode}"

@@ -38,7 +38,7 @@ public class TemplateTreeController implements Serializable {
 	private GroupBean currentGroup;
 	private Question currentQuestion;
 
-    private String nameOfCurrentNode;
+    private String nameOfCurrentNode="";
 
 	public TreeNode getRoot() {
 		return root;

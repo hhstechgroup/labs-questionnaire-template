@@ -137,7 +137,7 @@ public class SectionBean extends BasicBean
 
     @Override
     public String getDisplayedId() {
-        String id = "  (ID: "+String.valueOf(this.id)+") ";
+        String id = " (ID: "+String.valueOf(this.id)+") ";
         return id;
     }
 }
