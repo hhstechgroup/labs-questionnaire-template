@@ -1,7 +1,7 @@
 package com.engagepoint.controller.utils.qualifiers;
 
-/**
- * Created by yaroslav on 3/12/14.
- */
+import javax.inject.Qualifier;
+
+@Qualifier
 public @interface NewQuestion {
 }

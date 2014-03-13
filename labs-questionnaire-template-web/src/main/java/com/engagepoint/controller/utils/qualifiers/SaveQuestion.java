@@ -11,11 +11,6 @@ import java.lang.annotation.Target;
 
 import javax.inject.Qualifier;
 
-/**
- * Created by yaroslav on 3/12/14.
- */
-
-
 @Qualifier
 @Retention(RUNTIME)
 @Target({TYPE, METHOD, FIELD, PARAMETER})
