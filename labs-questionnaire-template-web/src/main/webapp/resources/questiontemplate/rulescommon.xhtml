@@ -16,16 +16,17 @@
     <br/>
     <h:form id="rulesForm">
 
-        <uib:dataTable var="rule"
-                       value="">
+        <uib:dataTable id="existRules" var="rule"
+                       value="#{questionRuleController.currentRules}">
             <uib:column headerText="Rules">
-                <h:outputText value="#{rule}"/>
+                <h:outputText value="#{rule.description}"/>
             </uib:column>
 
             <uib:column>
                 <p:commandButton value="Delete"
-                                 action="#{cc.attrs.controller.deleteRule(rule)}"
-                                 styleClass="fl-right">
+                                 action="#{questionRuleController.deleteRule(rule)}"
+                                 styleClass="fl-right"
+                                 update="existRules">
                 </p:commandButton>
             </uib:column>
         </uib:dataTable>
@@ -142,7 +143,7 @@
                 <br/>
                 <br/>
                 <p:commandButton value="Save" onclick="dlgSetAnswer.hide()"
-                                 update="@([id$=buttonPanel])"
+                                 update="rulesForm:existRules,@([id$=buttonPanel])"
                                  action="#{questionRuleController.saveRuleAnswerAction}"/>
             </p:panel>
         </p:dialog>

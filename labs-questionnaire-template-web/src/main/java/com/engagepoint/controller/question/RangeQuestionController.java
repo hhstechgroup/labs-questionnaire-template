@@ -1,5 +1,6 @@
 package com.engagepoint.controller.question;
 
+import com.engagepoint.controller.page.TemplateEditController;
 import com.engagepoint.model.question.Question;
 import com.engagepoint.model.question.RangeQuestionBean;
 import com.engagepoint.controller.page.QuestionEditController;
@@ -32,6 +33,7 @@ public class RangeQuestionController extends QuestionEditController {
         } else {
             currentQuestion = (RangeQuestionBean) question;
         }
+        currentQuestionEventNew.fire(currentQuestion);
     }
 
     public RangeQuestionBean getCurrentQuestion() {

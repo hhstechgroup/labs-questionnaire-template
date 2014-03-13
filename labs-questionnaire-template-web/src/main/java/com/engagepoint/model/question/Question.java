@@ -3,6 +3,7 @@ package com.engagepoint.model.question;
 
 import com.engagepoint.controller.page.TemplateTreeController;
 import com.engagepoint.model.question.options.OptionsQuestion;
+import com.engagepoint.model.question.rules.Rule;
 import com.engagepoint.model.question.rules.RulesContainer;
 import com.engagepoint.model.questionnaire.BasicBean;
 import com.engagepoint.model.questionnaire.GroupBean;
@@ -13,6 +14,8 @@ import javax.inject.Inject;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlSeeAlso;
+import java.util.ArrayList;
+import java.util.List;
 
 
 /**
@@ -27,18 +30,22 @@ public abstract class Question extends BasicBean implements Cloneable {
     private boolean requiredAnswer;        //is answer required or not
     private QuestionType questionType;    //questiontype from ENUM of questiontypes
     private String helpText = "";            //Help texts for questions
+    private List<Rule> rules;
     private GroupBean groupBean;
 
     //Dependent questions
 
     public Question() {
         this.id = lastId++;
+        rules = new ArrayList<Rule>();
     }
 
     public Question(GroupBean groupBean) {
         this.groupBean = groupBean;
         id = Long.valueOf(groupBean.getId() + (lastId++).toString());
+        rules = new ArrayList<Rule>();
     }
+
 
     @XmlElement(name = "question-title")
     public String getQuestionText() {
@@ -151,5 +158,13 @@ public abstract class Question extends BasicBean implements Cloneable {
     public String getDisplayedId() {
         String id = " (ID: "+String.valueOf(this.id)+") ";
         return id;
+    }
+
+    public List<Rule> getRules() {
+        return rules;
+    }
+
+    public void setRules(List<Rule> rules) {
+        this.rules = rules;
     }
 }

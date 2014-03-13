@@ -1,151 +1,81 @@
 package com.engagepoint.controller.question;
 
+import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.List;
 
-import javax.annotation.PostConstruct;
-import javax.enterprise.context.Conversation;
-import javax.enterprise.context.ConversationScoped;
-import javax.inject.Inject;
+import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
 
-import com.engagepoint.controller.page.QuestionEditController;
-import com.engagepoint.controller.page.TemplateEditController;
-import com.engagepoint.model.question.Question;
 import com.engagepoint.model.question.options.GridQuestionBean;
-import com.engagepoint.model.question.rules.Rule;
-import com.engagepoint.model.question.utils.VariantItem;
-import com.engagepoint.model.table.ListOfOptionsDataModel;
 
 @Named
-@ConversationScoped
-public class GridQuestionController extends QuestionEditController {
+@SessionScoped
+public class GridQuestionController implements Serializable {
+    GridQuestionBean questionBean = new GridQuestionBean();
+    int currentI;
+    int currentJ;
 
-	private GridQuestionBean currentQuestion;
+    public List<String> getRowsSize() {
+        List<String> ints = new ArrayList<String>();
+        for (int i = 0; i < questionBean.getRows().size(); i++) {
+            ints.add("" + i);
+        }
+        return ints;
+    }
 
-	// dataModel for table
-	private ListOfOptionsDataModel dataModel;
-	// dataModel for second table
-	private ListOfOptionsDataModel dataModel2;
+    public List<String> getColumnsSize() {
+        List<String> ints = new ArrayList<String>();
+        for (int i = 0; i < questionBean.getCols().size(); i++) {
+            ints.add("" + i);
+        }
+        return ints;
+    }
 
-	@Inject
-	private TemplateEditController templateEditController;
+    public String getRow(String i) {
+        return questionBean.getRows().get(Integer.parseInt(i));
+    }
 
-	@PostConstruct
-	public void postConstruct() {
-		beginConversation();
-		Question question = getTemplateTreeController()
-				.getCurrentQuestion();
-		if (question == null) {
-			setNew(true);
-			currentQuestion = new GridQuestionBean(getTemplateTreeController().getCurrentGroup());
-			currentQuestion.setQuestionType(templateEditController
-					.getSelectedQuestionType());
-			dataModel = new ListOfOptionsDataModel();
-			dataModel2 = new ListOfOptionsDataModel();
-		} else {
-			currentQuestion = (GridQuestionBean) question;
-			dataModel = new ListOfOptionsDataModel(currentQuestion.getOptions());
-			dataModel2 = new ListOfOptionsDataModel(
-					currentQuestion.getOptions2());
-		}
-	}
+    public String getColumn(String j) {
+        return questionBean.getCols().get(Integer.parseInt(j));
+    }
 
-	public ListOfOptionsDataModel getDataModel2() {
-		return dataModel2;
-	}
+    public void addRow() {
+        questionBean.addRow("New");
+    }
 
-	public void setDataModel2(ListOfOptionsDataModel dataModel2) {
-		this.dataModel2 = dataModel2;
-	}
+    public void addColumn() {
+        questionBean.addCol("New");
+    }
 
-	public GridQuestionBean getCurrentQuestion() {
-		return currentQuestion;
-	}
+    public GridQuestionController setCurrentPosition(String i, String j) {
+        currentI = Integer.parseInt(i);
+        currentJ = Integer.parseInt(j);
 
-	public void setCurrentQuestion(GridQuestionBean currentQuestion) {
-		this.currentQuestion = currentQuestion;
-	}
+        return this;
+    }
 
-	public ListOfOptionsDataModel getDataModel() {
-		return dataModel;
-	}
+    public boolean isCurrentSelected() {
+        return questionBean.isSelect(currentI, currentJ);
+    }
 
-	public void setDataModel(ListOfOptionsDataModel dataModel) {
-		this.dataModel = dataModel;
-	}
+    public void setCurrentSelected(boolean currentSelected) {
+        questionBean.setSelect(currentI, currentJ, currentSelected);
+    }
 
-	/**
-	 * Update options in ListOfOptionsDataModel.
-	 */
-	private void updateModel() {
-		getDataModel().setWrappedData(getCurrentQuestion().getOptions());
-	}
+    public boolean isOnlyOneSelectInRow() {
+        return questionBean.isOnlyOneSelectInRow();
+    }
 
-	/**
-	 * Update options2 in ListOfOptionsDataModel.
-	 */
-	private void updateModel2() {
-		getDataModel2().setWrappedData(getCurrentQuestion().getOptions2());
-	}
+    public void setOnlyOneSelectInRow(boolean onlyOneSelectInRow) {
+        this.questionBean.setOnlyOneSelectInRow(onlyOneSelectInRow);
+    }
 
-	/**
-	 * Add variant to a question.
-	 * 
-	 * @param option
-	 *            VariantItem object
-	 */
-	public void addOption(String option) {
-		getCurrentQuestion().getOptions().add(new VariantItem("New"));
-		updateModel();
-	}
+    public boolean isOnlyOneSelectInCol() {
+        return questionBean.isOnlyOneSelectInCol();
+    }
 
-	/**
-	 * Add variant to a question for second table.
-	 * 
-	 * @param option
-	 *            VariantItem object
-	 */
-	public void addOption2(String option) {
-		getCurrentQuestion().getOptions2().add(new VariantItem("New"));
-		updateModel2();
-	}
-
-	/**
-	 * Remove variant from a question.
-	 * 
-	 * @param option
-	 *            VariantItem object
-	 */
-	public void removeOption(VariantItem option) {
-		getCurrentQuestion().getOptions().remove(option);
-		updateModel();
-	}
-
-	/**
-	 * Remove variant from a question.
-	 * 
-	 * @param option
-	 *            VariantItem object
-	 */
-	public void removeOption2(VariantItem option) {
-		getCurrentQuestion().getOptions2().remove(option);
-		updateModel2();
-	}
-
-	@Override
-	public String actionSave() {
-		try {
-			currentQuestion.setOptions((ArrayList<VariantItem>) dataModel.getWrappedData());
-			currentQuestion.setOptions2((ArrayList<VariantItem>) dataModel2.getWrappedData());
-		} catch (ClassCastException e) {
-			// TODO
-		}
-		getTemplateTreeController().setCurrentQuestion(currentQuestion);
-		return super.actionSave();
-	}
-
-    @Override
-    public void deleteRule(Rule rule) {
-
+    public void setOnlyOneSelectInCol(boolean onlyOneSelectInCol) {
+        this.questionBean.setOnlyOneSelectInCol(onlyOneSelectInCol);
     }
 }

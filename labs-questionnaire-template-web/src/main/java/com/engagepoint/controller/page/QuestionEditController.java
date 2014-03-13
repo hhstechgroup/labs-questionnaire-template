@@ -1,9 +1,13 @@
 package com.engagepoint.controller.page;
 
 import com.engagepoint.controller.utils.PageNavigator;
+import com.engagepoint.controller.utils.qualifiers.NewQuestion;
+import com.engagepoint.controller.utils.qualifiers.SaveQuestion;
+import com.engagepoint.model.question.Question;
 import com.engagepoint.model.question.rules.Rule;
 
 import java.io.Serializable;
+import javax.enterprise.event.Event;
 
 import javax.enterprise.context.Conversation;
 import javax.inject.Inject;
@@ -16,6 +20,12 @@ public abstract class QuestionEditController implements Serializable {
 
     @Inject
     private TemplateTreeController templateTreeController;
+
+    @Inject @NewQuestion
+    protected Event<Question> currentQuestionEventNew;
+
+    @Inject @SaveQuestion
+    protected Event<Question> currentQuestionEventSave;
 
     public QuestionEditController() {
     }
@@ -51,6 +61,7 @@ public abstract class QuestionEditController implements Serializable {
         if (isNew) {
             getTemplateTreeController().addQuestionToCurrentGroup();
         }
+        currentQuestionEventSave.fire(getTemplateTreeController().getCurrentQuestion());
         endConversation();
         return PageNavigator.TEMPLATE_EDIT_PAGE;
     }

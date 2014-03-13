@@ -1,6 +1,7 @@
 package com.engagepoint.controller.page;
 
-import com.engagepoint.controller.utils.PageNavigator;
+import com.engagepoint.controller.utils.qualifiers.NewQuestion;
+import com.engagepoint.controller.utils.qualifiers.SaveQuestion;
 import com.engagepoint.model.question.DateQuestionBean;
 import com.engagepoint.model.question.Question;
 import com.engagepoint.model.question.RangeQuestionBean;
@@ -9,7 +10,10 @@ import com.engagepoint.model.question.options.CheckBoxQuestionBean;
 import com.engagepoint.model.question.options.ChooseFromListQuestionBean;
 import com.engagepoint.model.question.options.MultipleChoiceQuestionBean;
 import com.engagepoint.model.question.options.OptionsQuestion;
+import com.engagepoint.model.question.rules.RenderedRule;
+import com.engagepoint.model.question.rules.Rule;
 import com.engagepoint.model.question.rules.RulesContainer;
+import com.engagepoint.model.question.utils.RangeItem;
 import com.engagepoint.model.question.utils.VariantItem;
 import com.engagepoint.model.questionnaire.GroupBean;
 import com.engagepoint.model.questionnaire.SectionBean;
@@ -18,23 +22,24 @@ import com.engagepoint.model.table.ListOfOptionsDataModel;
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.Conversation;
 import javax.enterprise.context.ConversationScoped;
-import javax.enterprise.context.SessionScoped;
+import javax.enterprise.event.Observes;
 import javax.inject.Inject;
 import javax.inject.Named;
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 /**
  * Controller for question rules.
  */
 @Named
-@SessionScoped
+@ConversationScoped
 public class QuestionRuleController implements Serializable {
     @Inject
     private TemplateEditController templateEditController;
+    @Inject
+    private Conversation conversation;
     //dependent question data
+    //
     private String currentDependentQuestionId;
     private Question dependentQuestion;
     //contains all rules
@@ -66,6 +71,10 @@ public class QuestionRuleController implements Serializable {
     private String maxValue;
 
 
+    private Rule currentRule;
+    private List<Rule> currentRules;
+
+
     public QuestionRuleController() {
         rulesContainer = new RulesContainer();
         addRuleButtonIsVisible = true;
@@ -74,6 +83,11 @@ public class QuestionRuleController implements Serializable {
         dateQuestionBean = new DateQuestionBean();
         rangeQuestionBean = new RangeQuestionBean();
         textQuestionBean = new TextQuestionBean();
+    }
+
+    @PostConstruct
+    public void init() {
+        beginConversation();
     }
 
     public String getCurrentDependentQuestionId() {
@@ -247,44 +261,50 @@ public class QuestionRuleController implements Serializable {
     public void createRuleAction(String ruleName) {
         setAddRulesTableIsVisible(false);
         setChooseDependentQuestionListVisible(true);
+        //currentRules.add(rulesContainer.createRule(ruleName));
+        currentRule = rulesContainer.createRule(ruleName);
     }
 
     /**
      * Set elements visibility after save rule answer button was clicked.
      */
     public void saveRuleAnswerAction() {
+        List<String> answers = new ArrayList<String>();
+        String answer = null;
         switch (dependentQuestion.getQuestionType()) {
             case TEXT:
-                getTextData();
+                answer = getTextData();
                 break;
             case DATE:
-                getDateData();
+                answer = getDateData().toString();
                 break;
             case RANGE:
-                getMaxValue();
-                getMinValue();
+                answer = (new RangeItem(getMinValue(), getMaxValue())).toString();
                 break;
             case TIME:
-                getTextData();
+                answer = getTextData();
                 break;
             case PARAGRAPHTEXT:
-                getTextData();
+                answer = getTextData();
                 break;
             case CHOOSEFROMLIST:
-                getDefaultOption();
-                break;
-            case FILEUPLOAD:
-
+                answer = getDefaultOption().getValue();
                 break;
             case MULTIPLECHOICE:
-                getDefaultOption();
+                answer = getDefaultOption().getValue();
                 break;
             case CHECKBOX:
-                getDefaultOptions();
+                for (VariantItem item : getDefaultOptions())
+                    answers.add(item.getValue());
                 break;
             case GRID:
                 break;
         }
+
+        if (answer != null)
+            answers.add(answer);
+        setAnswerAndIdToRule(answers);
+
 
         setChooseDependentQuestionListVisible(false);
         setCancelRuleEditionButtonIsVisible(false);
@@ -315,8 +335,6 @@ public class QuestionRuleController implements Serializable {
             case CHOOSEFROMLIST:
                 optionsQuestion = (ChooseFromListQuestionBean) dependentQuestion;
                 dataModel = new ListOfOptionsDataModel(optionsQuestion.getOptions());
-                break;
-            case FILEUPLOAD:
                 break;
             case MULTIPLECHOICE:
                 optionsQuestion = (MultipleChoiceQuestionBean) dependentQuestion;
@@ -361,5 +379,131 @@ public class QuestionRuleController implements Serializable {
                         }
         }
         return "question type is not chose";
+    }
+
+    public List<Rule> getCurrentRules() {
+        //return currentQuestion.getRules();
+        //return rulesContainer.getRules();
+        return currentRules;
+    }
+
+    public void setCurrentRules(List<Rule> rules) {
+        currentRules = rules;
+    }
+
+    public void deleteRule(Rule rule) {
+        List<Rule> list = getCurrentRules();
+        if (list != null)
+            list.remove(rule);
+        setCurrentRules(list);
+    }
+
+    public void cancelAll() {
+        currentRules = null;
+        endConversation();
+    }
+
+    public List<Question> getAllQuestionsThatSetDependence(){
+        List<Question> all = getQuestions();
+        List<Question> questionsWithRules = getQuestionsWithRules();
+        Set<Long> idSet = new HashSet<Long>();
+        for(Question q : questionsWithRules){
+            for(Rule rule : q.getRules()){
+                idSet.add(rule.getId());
+            }
+        }
+        List<Question> result = new ArrayList<Question>();
+        for(Question q : all){
+            if(idSet.contains(q.getId()))
+                result.add(q);
+        }
+
+        return result;
+    }
+
+    public List<Question> getDependentQuestions(Question question){
+        if(question==null)
+            return null;
+        List<Question> questionsWithRules = getQuestionsWithRules();
+        List<Question> result = new ArrayList<Question>();
+        for(Question q : questionsWithRules){
+            for(Rule rule : q.getRules()){
+                if(rule.getId()==question.getId()){
+                    result.add(q);
+                    break;
+                }
+            }
+        }
+
+        return result;
+    }
+
+    public List<Question> getQuestionsWithRules(){
+        List<Question> all = getQuestions();
+        List<Question> result = new ArrayList<Question>();
+        for(Question question : all){
+            if(question.getRules()!=null && ! question.getRules().isEmpty())
+                result.add(question);
+        }
+
+        return result;
+    }
+
+    private void endConversation() {
+        if (!conversation.isTransient())
+            conversation.end();
+
+    }
+
+    private void beginConversation() {
+        if (conversation.isTransient())
+            conversation.begin();
+    }
+
+    private void saveRuleToQuestion(@Observes @SaveQuestion Question question) {
+        //question.setRules(rulesContainer.getRules());
+        question.setRules(currentRules);
+        currentRules = null;
+
+        //rulesContainer.setRules(null);
+    }
+
+    private void setAnswerAndIdToRule(List<String> answers) {
+
+        switch (currentRule.getType()) {
+            case RENDERED:
+                RenderedRule renderedRule = (RenderedRule) currentRule;
+                renderedRule.setAnswers(answers);
+                renderedRule.setId(dependentQuestion.getId());
+                break;
+        }
+
+        List<Rule> list = getCurrentRules();
+        if (list != null)
+            list.add(currentRule);
+        setCurrentRules(list);
+    }
+
+    private void setCurrentQuestion(@Observes @NewQuestion Question question) {
+        if (currentRules == null)
+            if (question.getRules() != null)
+                currentRules = cloneRulesList(question.getRules());
+            else
+                currentRules = new ArrayList<Rule>();
+    }
+
+    private List<Rule> cloneRulesList(List<Rule> input) {
+        if (input == null)
+            return null;
+        List<Rule> result = new ArrayList<Rule>();
+        try {
+            for (Rule rule : input) {
+
+                result.add((Rule) rule.clone());
+            }
+        } catch (CloneNotSupportedException e) {
+            e.printStackTrace();
+        }
+        return result;
     }
 }

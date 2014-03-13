@@ -35,7 +35,7 @@ public class OptionsQuestionEditController extends QuestionEditController {
     public void postConstruct() {
         beginConversation();
         Question question = getTemplateTreeController().getCurrentQuestion();
-        if (question ==null) {
+        if (question == null) {
             setNew(true);
             createCurrentQuestion();
             dataModel = new ListOfOptionsDataModel();
@@ -44,6 +44,7 @@ public class OptionsQuestionEditController extends QuestionEditController {
             currentQuestion = (OptionsQuestion) question;
             dataModel = new ListOfOptionsDataModel(currentQuestion.getOptions());
         }
+        currentQuestionEventNew.fire(currentQuestion);
     }
 
     public ListOfOptionsDataModel getDataModel() {
@@ -108,9 +109,6 @@ public class OptionsQuestionEditController extends QuestionEditController {
                 break;
             case CHOOSEFROMLIST:
                 currentQuestion = new ChooseFromListQuestionBean(getTemplateTreeController().getCurrentGroup());
-                break;
-            case GRID:
-                currentQuestion = new GridQuestionBean(getTemplateTreeController().getCurrentGroup());
                 break;
             case MULTIPLECHOICE:
                 currentQuestion = new MultipleChoiceQuestionBean(getTemplateTreeController().getCurrentGroup());
