@@ -41,7 +41,7 @@
                     <h:outputText value="#{template.templateName}"/>
                 </uib:column>
 
-                <uib:column style="width:260px;">
+                <uib:column style="width:340px;">
                     <uib:buttonGroup>
                         <p:commandButton id="btnEdit"
                                          value="Edit"
@@ -71,7 +71,7 @@
 											id="testrules" 
 											title="Test"
 											styleClass="secondary small"
-											icon="ui-icon-edit-small"
+											icon="ui-icon-rotate-table"
 											action="#{rulesTestController.income()}">
 											<f:setPropertyActionListener value="#{template}"
                                                          target="#{listController.currentTemplate}"/>
