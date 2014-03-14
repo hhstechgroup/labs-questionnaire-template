@@ -45,15 +45,13 @@ public abstract class OptionsQuestion extends Question implements Cloneable {
      * For multiple choice,grid,choose from list question.
      */
     public List<VariantItem> getDefaultOptions() {
-        //NOP
-        return null;
+        return new ArrayList<VariantItem>();
     }
 
     /**
      * For multiple choice,grid,choose from list question.
      */
     public void setDefaultOptions(List<VariantItem> defaultOptions) {
-        //NOP
     }
 
     @Override

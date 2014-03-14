@@ -36,6 +36,7 @@ public class RulesContainer {
         switch (supportedRules.get(description)) {
             case RENDERED:
                 return new RenderedRule();
+            default:
         }
         return null;
     }

@@ -7,6 +7,7 @@ import com.engagepoint.utils.XmlImportExport;
 import org.apache.log4j.Logger;
 import org.primefaces.event.FileUploadEvent;
 
+import javax.annotation.PostConstruct;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
@@ -28,10 +29,14 @@ public class ListController implements Serializable {
     private ListOfTemplatesDataModel templatesModel;
     private String filterValue = "";
     private TemplateBean currentTemplate;
-	private static final Logger LOG = Logger.getLogger(ListController.class);
+    private static final Logger LOG = Logger.getLogger(ListController.class);
 
     public ListController() {
         list = new ArrayList<TemplateBean>();
+    }
+
+    @PostConstruct
+    private void init() {
         //searching path of XML file in glassfish
         ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
         String xmlPath = classLoader.getResource("Questionnaire.xml").getPath();
@@ -44,7 +49,6 @@ public class ListController implements Serializable {
         return templatesModel;
     }
 
-    //operations on list
     public List<TemplateBean> getTemplates() {
         return list;
     }
@@ -61,7 +65,6 @@ public class ListController implements Serializable {
         this.selectedTemplates = selectedTemplates;
     }
 
-    //operations on filtered list
     public List<TemplateBean> getFilteredTemplates() {
         return filteredList;
     }
@@ -81,7 +84,6 @@ public class ListController implements Serializable {
     private boolean containsFilterValue(String name) {
         return name.toLowerCase().contains(filterValue.toLowerCase());
     }
-    //operations on both lists
 
     /**
      * Add template to list if it is not already there.
@@ -213,17 +215,6 @@ public class ListController implements Serializable {
     }
 
     /**
-     * Show message on default page.
-     *
-     * @param propertyKey key of messages.properties
-     */
-    private void addMessage(String propertyKey) {
-        String summary = getMessageProperty(propertyKey);
-        FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, summary, null);
-        FacesContext.getCurrentInstance().addMessage(null, message);
-    }
-
-    /**
      * Get message from messages.properties.
      *
      * @param propertyKey key of messages.properties
@@ -258,12 +249,11 @@ public class ListController implements Serializable {
         return PageNavigator.INDEX_PAGE;
     }
 
-	public TemplateBean getCurrentTemplate() {
-		return currentTemplate;
-	}
+    public TemplateBean getCurrentTemplate() {
+        return currentTemplate;
+    }
 
-	public void setCurrentTemplate(TemplateBean currentTemplate) {
-		this.currentTemplate = currentTemplate;
-	}
-
+    public void setCurrentTemplate(TemplateBean currentTemplate) {
+        this.currentTemplate = currentTemplate;
+    }
 }

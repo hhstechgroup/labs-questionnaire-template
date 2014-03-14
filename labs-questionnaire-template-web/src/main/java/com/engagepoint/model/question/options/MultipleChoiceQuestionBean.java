@@ -31,15 +31,16 @@ public class MultipleChoiceQuestionBean extends OptionsQuestion {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof MultipleChoiceQuestionBean)) return false;
-        if (!super.equals(o)) return false;
-
+        if (!(o instanceof MultipleChoiceQuestionBean)) {
+            return false;
+        }
+        if (!super.equals(o)) {
+            return false;
+        }
         MultipleChoiceQuestionBean that = (MultipleChoiceQuestionBean) o;
-
-        if (!defaultOption.equals(that.defaultOption)) return false;
-        if (!options.equals(that.options)) return false;
-
+        if (!defaultOption.equals(that.defaultOption) || !options.equals(that.options)) {
+            return false;
+        }
         return true;
     }
 

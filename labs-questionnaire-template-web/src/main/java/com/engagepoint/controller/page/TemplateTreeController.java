@@ -1,10 +1,8 @@
 package com.engagepoint.controller.page;
 
 import javax.enterprise.context.SessionScoped;
-
 import java.io.Serializable;
 import java.util.ArrayList;
-
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.inject.Named;
@@ -17,53 +15,51 @@ import com.engagepoint.model.questionnaire.TemplateBean;
 import org.primefaces.model.DefaultTreeNode;
 import org.primefaces.model.TreeNode;
 
-
 /**
  * Used for controlling tree on templateEdit.xhtml
  */
-
 @Named
 @SessionScoped
 public class TemplateTreeController implements Serializable {
 
-	private static final long serialVersionUID = 1L;
-	private TreeNode root = new DefaultTreeNode("Root", null);
-	private TreeNode selectedNode;
-	private String selectedType; // instead of method getSelectedType() to make
-									// code more clear
-	// it is initialized in method onSelect
+    private static final long serialVersionUID = 1L;
+    private TreeNode root = new DefaultTreeNode("Root", null);
+    private TreeNode selectedNode;
+    // instead of method getSelectedType() to make
+    private String selectedType;
+    // code more clear
+    // it is initialized in method onSelect
+    private TemplateBean templateBean;
+    private SectionBean currentSection;
+    private GroupBean currentGroup;
+    private Question currentQuestion;
 
-	private TemplateBean templateBean;
-	private SectionBean currentSection;
-	private GroupBean currentGroup;
-	private Question currentQuestion;
+    private String nameOfCurrentNode = "";
 
-    private String nameOfCurrentNode="";
+    public TreeNode getRoot() {
+        return root;
+    }
 
-	public TreeNode getRoot() {
-		return root;
-	}
+    public TreeNode getSelectedNode() {
+        return selectedNode;
+    }
 
-	public TreeNode getSelectedNode() {
-		return selectedNode;
-	}
+    public void setSelectedNode(TreeNode selectedNode) {
+        this.selectedNode = selectedNode;
+    }
 
-	public void setSelectedNode(TreeNode selectedNode) {
-		this.selectedNode = selectedNode;
-	}
+    public String getSelectedType() {
+        return selectedType;
+    }
 
-	public String getSelectedType() {
-		return selectedType;
-	}
+    public TemplateBean getTemplateBean() {
+        return templateBean;
+    }
 
-	public TemplateBean getTemplateBean() {
-		return templateBean;
-	}
-
-	public void setTemplateBean(TemplateBean templateBean) {
-		this.templateBean = templateBean;
-		setNodes();
-	}
+    public void setTemplateBean(TemplateBean templateBean) {
+        this.templateBean = templateBean;
+        setNodes();
+    }
 
     public GroupBean getCurrentGroup() {
         return currentGroup;
@@ -74,8 +70,8 @@ public class TemplateTreeController implements Serializable {
     }
 
     public void setCurrentQuestion(Question currentQuestion) {
-		this.currentQuestion = currentQuestion;
-	}
+        this.currentQuestion = currentQuestion;
+    }
 
     public String getNameOfCurrentNode() {
         return nameOfCurrentNode;
@@ -92,26 +88,26 @@ public class TemplateTreeController implements Serializable {
      */
     public void onSelect() {
         selectedType = ((BasicBean) selectedNode.getData()).getType();
-        if (selectedType.equals("question")) {
+        if ("question".equals(selectedType)) {
             Question question = (Question) selectedNode.getData();
             currentQuestion = question;
             //check if current group has not been changed
             GroupBean groupBean = (GroupBean) selectedNode.getParent().getData();
-            if (currentGroup != groupBean) {
+            if (!currentGroup.equals(groupBean)) {
                 currentGroup = groupBean;
             }
             //check if current section has not been changed
             SectionBean sectionBean = (SectionBean) selectedNode.getParent().getParent().getData();
-            if (currentSection != sectionBean) {
+            if (!currentSection.equals(sectionBean)) {
                 currentSection = sectionBean;
             }
-        } else if (selectedType.equals("group")) {
+        } else if ("group".equals(selectedType)) {
             currentQuestion = null;
             currentGroup = (GroupBean) selectedNode.getData();
             nameOfCurrentNode = currentGroup.getDisplayedName();
             //check if current section has not been changed
             SectionBean sectionBean = (SectionBean) selectedNode.getParent().getData();
-            if (currentSection != sectionBean) {
+            if (!currentSection.equals(sectionBean)) {
                 currentSection = sectionBean;
             }
         } else {
@@ -126,25 +122,20 @@ public class TemplateTreeController implements Serializable {
      * Style of selected node
      */
     public String getStyle(Object node) {
-        if (selectedNode != null) {
-            if (selectedNode.getData() == node) {
-                return "color:white;background:#0075ac;";
-            }
+        if (selectedNode != null && selectedNode.getData().equals(node)) {
+            return "color:white;background:#0075ac;";
         }
         return "";
     }
 
     public void setNodes() {
         root = new DefaultTreeNode("Root", null);
-
         // Iterator LEVEL_0 for filling sections of choosed template
         for (SectionBean sectionBean : templateBean.getSectionsList()) {
             TreeNode section = new DefaultTreeNode(sectionBean, root);
-
             // Iterator LEVEL_1 for filling groups of choosed section
             for (GroupBean groupBean : sectionBean.getGroupsList()) {
                 TreeNode group = new DefaultTreeNode(groupBean, section);
-
                 // Iterator LEVEL_2 for filling questions of choosed section
                 for (Question question : groupBean.getQuestionsList()) {
                     new DefaultTreeNode(question, group);
@@ -180,9 +171,9 @@ public class TemplateTreeController implements Serializable {
      * Delete selected section, group or question
      */
     public void delete() {
-        if (selectedType.equals("group")) {
+        if ("group".equals(selectedType)) {
             currentSection.deleteFromInnerList(currentGroup);
-        } else if (selectedType.equals("question")) {
+        } else if ("question".equals(selectedType)) {
             currentGroup.deleteFromInnerList(currentQuestion);
         } else {
             templateBean.deleteFromInnerList(currentSection);
@@ -210,29 +201,28 @@ public class TemplateTreeController implements Serializable {
     public boolean editButtonRendering(Object tr) {
         if (selectedNode != null) {
             selectedType = ((BasicBean) selectedNode.getData()).getType();
-            if (selectedType.equals("question"))
+            if ("question".equals(selectedType)) {
                 return false;
-            return selectedNode.getData() == tr;
+            }
+            return selectedNode.getData().equals(tr);
         }
         return false;
     }
 
     public void revertNameOfCurrentNode() {
-        if (selectedType=="section") {
+        if ("section".equals(selectedType)) {
             setNameOfCurrentNode(currentSection.getDisplayedName());
-        } else if (selectedType=="group") {
+        } else if ("group".equals(selectedType)) {
             setNameOfCurrentNode(currentGroup.getDisplayedName());
         }
-
     }
 
     public void commitNameOfCurrentNode() {
-        if (selectedType=="section") {
+        if ("section".equals(selectedType)) {
             currentSection.setDisplayedName(nameOfCurrentNode);
-        } else if (selectedType=="group") {
+        } else if ("group".equals(selectedType)) {
             currentGroup.setDisplayedName(nameOfCurrentNode);
         }
         revertNameOfCurrentNode();
     }
-
 }

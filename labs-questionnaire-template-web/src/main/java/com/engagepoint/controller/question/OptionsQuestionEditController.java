@@ -114,6 +114,7 @@ public class OptionsQuestionEditController extends QuestionEditController {
             case MULTIPLECHOICE:
                 currentQuestion = new MultipleChoiceQuestionBean(getTemplateTreeController().getCurrentGroup());
                 break;
+            default:
         }
         currentQuestion.setQuestionType(templateEditController.getSelectedQuestionType());
     }

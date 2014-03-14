@@ -11,7 +11,7 @@ import java.util.List;
  * Class represents page tag.
  */
 public class SectionBean extends BasicBean
-                         implements Cloneable, Serializable, BasicOperationWithBean{
+        implements Cloneable, Serializable, BasicOperationWithBean {
     private static Long lastId = 1L;
 
     private Long id;
@@ -43,15 +43,15 @@ public class SectionBean extends BasicBean
 
     /**
      * Gets next number of page for current template
+     *
      * @return SectionId
      */
     public Long getNextSectionIdInTemplate() {
         List<SectionBean> sectionList = templateBean.getSectionsList();
         if (sectionList.isEmpty()) {
             return 1L;
-        }
-        else {
-            return ((sectionList.get(sectionList.size()-1)).getId()+1);
+        } else {
+            return ((sectionList.get(sectionList.size() - 1)).getId() + 1);
         }
     }
 
@@ -77,11 +77,11 @@ public class SectionBean extends BasicBean
     @Override
     public Object clone() throws CloneNotSupportedException {
         SectionBean copy = (SectionBean) super.clone();
-        List<GroupBean> copyGroupsList=null;
-        if(groupsList!=null){
+        List<GroupBean> copyGroupsList = null;
+        if (groupsList != null) {
             copyGroupsList = new ArrayList<GroupBean>();
             for (GroupBean groupBean : groupsList) {
-             copyGroupsList.add((GroupBean) groupBean.clone());
+                copyGroupsList.add((GroupBean) groupBean.clone());
             }
         }
         copy.setGroupsList(copyGroupsList);
@@ -90,13 +90,16 @@ public class SectionBean extends BasicBean
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
         SectionBean that = (SectionBean) o;
-
-        if (!id.equals(that.id)) return false;
-
+        if (!id.equals(that.id)) {
+            return false;
+        }
         return true;
     }
 
@@ -142,7 +145,7 @@ public class SectionBean extends BasicBean
 
     @Override
     public String getDisplayedId() {
-        String id = " (ID: "+String.valueOf(this.id)+") ";
+        String id = " (ID: " + String.valueOf(this.id) + ") ";
         return id;
     }
 }

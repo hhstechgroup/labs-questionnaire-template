@@ -14,6 +14,10 @@ import java.util.List;
 public class XmlImportExport {
     private static final Logger LOG = Logger.getLogger(XmlImportExport.class);
 
+    private XmlImportExport() {
+
+    }
+
     /**
      * Unmarshal XML to Wrapper from file and return List value.
      */

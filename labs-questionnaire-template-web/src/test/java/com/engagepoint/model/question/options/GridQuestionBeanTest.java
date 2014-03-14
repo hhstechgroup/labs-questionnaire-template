@@ -10,19 +10,12 @@ public class GridQuestionBeanTest {
 
     private GridQuestionBean createBean() {
         GridQuestionBean gridQuestionBean = new GridQuestionBean();
-        gridQuestionBean.clear();
-        List<String> rows = new ArrayList<String>();
-        rows.add("row1");
-        rows.add("row2");
-        rows.add("row3");
-        gridQuestionBean.setRows(rows);
-        List<String> cols = new ArrayList<String>();
-        cols.add("col1");
-        cols.add("col2");
-        cols.add("col3");
-        gridQuestionBean.setCols(cols);
-        boolean[][] booleans = new  boolean[3][3];
-        gridQuestionBean.setSelected(booleans);
+        gridQuestionBean.addRow("row1");
+        gridQuestionBean.addRow("row2");
+        gridQuestionBean.addRow("row3");
+        gridQuestionBean.addCol("col1");
+        gridQuestionBean.addCol("col2");
+        gridQuestionBean.addCol("col3");
         return gridQuestionBean;
     }
 
@@ -63,50 +56,37 @@ public class GridQuestionBeanTest {
         return report;
     }
 
-    private void outReportOK(String report) {
-        System.out.print("\nTest \"OK\"");
-        System.out.println(report);
-    }
-
     @Test
     public void testAddRow() throws Exception {
-        System.out.print("Add row");
         GridQuestionBean gridQuestionBean = createBean();
         gridQuestionBean.addRow("newTestRow");
         Assert.assertArrayEquals(mkReport(gridQuestionBean), gridQuestionBean.getSelected(), new boolean[4][3]);
-        outReportOK(mkReport(gridQuestionBean));
     }
 
     @Test
     public void testAddCol() throws Exception {
-        System.out.print("Add col");
         GridQuestionBean gridQuestionBean = createBean();
         gridQuestionBean.addCol("newTestCol");
         Assert.assertArrayEquals(mkReport(gridQuestionBean), gridQuestionBean.getSelected(), new boolean[3][4]);
-        outReportOK(mkReport(gridQuestionBean));
     }
 
     @Test
     public void testUnselectRow() throws Exception {
-        System.out.print("Unselect row");
         GridQuestionBean gridQuestionBean = createBean();
         selectAll(gridQuestionBean);
         gridQuestionBean.unselectRow(1);
         for (boolean b : gridQuestionBean.getSelected()[1]) {
             Assert.assertTrue(mkSelectedReport(gridQuestionBean), !b);
         }
-        outReportOK(mkSelectedReport(gridQuestionBean));
     }
 
     @Test
     public void testUnselectCol() throws Exception {
-        System.out.print("Unselect col");
         GridQuestionBean gridQuestionBean = createBean();
         selectAll(gridQuestionBean);
         gridQuestionBean.unselectCol(1);
         for (boolean[] b : gridQuestionBean.getSelected()) {
             Assert.assertTrue(mkSelectedReport(gridQuestionBean), !b[1]);
         }
-        outReportOK(mkSelectedReport(gridQuestionBean));
     }
 }
