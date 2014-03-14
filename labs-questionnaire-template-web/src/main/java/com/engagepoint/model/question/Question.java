@@ -3,7 +3,10 @@ package com.engagepoint.model.question;
 
 import com.engagepoint.controller.page.TemplateTreeController;
 import com.engagepoint.model.question.options.OptionsQuestion;
-import com.engagepoint.model.questionnaire.BasicBeanProperty;
+import com.engagepoint.model.question.rules.Rule;
+import com.engagepoint.model.question.rules.RulesContainer;
+import com.engagepoint.model.questionnaire.BasicBean;
+import com.engagepoint.model.questionnaire.GroupBean;
 import com.engagepoint.model.questionnaire.QuestionType;
 import com.engagepoint.model.questionnaire.TemplateBean;
 
@@ -11,25 +14,36 @@ import javax.inject.Inject;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlSeeAlso;
+import java.util.ArrayList;
+import java.util.List;
 
 
 /**
  * Class represents question tag.
  */
-@XmlSeeAlso({TextQuestionBean.class, DateQuestionBean.class, OptionsQuestion.class,RangeQuestionBean.class})
-public abstract class Question implements Cloneable, BasicBeanProperty {
+@XmlSeeAlso({TextQuestionBean.class, DateQuestionBean.class, OptionsQuestion.class, RangeQuestionBean.class})
+public abstract class Question extends BasicBean implements Cloneable {
+    private static Long lastId=1L;
+
     private Long id;                    //id of the question
     protected String questionText = "";        //questiontext
     private boolean requiredAnswer;        //is answer required or not
     private QuestionType questionType;    //questiontype from ENUM of questiontypes
     private String helpText = "";            //Help texts for questions
-
-    @Inject
-    TemplateTreeController templateTreeController;
+    private List<Rule> rules;
+    private GroupBean groupBean;
 
     //Dependent questions
 
     public Question() {
+        this.id = lastId++;
+        rules = new ArrayList<Rule>();
+    }
+
+    public Question(GroupBean groupBean) {
+        this.groupBean = groupBean;
+        id = Long.valueOf(groupBean.getId() + (lastId++).toString());
+        rules = new ArrayList<Rule>();
     }
 
     @XmlElement(name = "question-title")
@@ -37,10 +51,9 @@ public abstract class Question implements Cloneable, BasicBeanProperty {
         return questionText;
     }
 
-
-    public void setQuestionText(String questionText) {
-        this.questionText = questionText;
-    }
+	public void setQuestionText(String questionText) {
+		this.questionText = questionText;
+	}
 
     @XmlElement(name = "help-text")
     public String getHelpText() {
@@ -51,7 +64,7 @@ public abstract class Question implements Cloneable, BasicBeanProperty {
         this.helpText = helpText;
     }
 
-    @XmlAttribute(name = "question-id")
+    @XmlAttribute(name = "id")
     public Long getId() {
         return id;
     }
@@ -128,5 +141,29 @@ public abstract class Question implements Cloneable, BasicBeanProperty {
     @Override
     public String getType() {
         return "question";
+    }
+
+    @Override
+    public String getDisplayedNodeType() {
+        return "Question: ";
+    }
+
+    @Override
+    public String getDisplayedName() {
+        return questionText.length()>9 ? questionText.substring(0, 9)+"..." : questionText; //TODO: make property for quantity of symbols
+    }
+
+    @Override
+    public String getDisplayedId() {
+        String id = " (ID: "+String.valueOf(this.id)+") ";
+        return id;
+    }
+
+    public List<Rule> getRules() {
+        return rules;
+    }
+
+    public void setRules(List<Rule> rules) {
+        this.rules = rules;
     }
 }

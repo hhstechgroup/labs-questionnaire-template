@@ -1,21 +1,40 @@
 package com.engagepoint.controller.page;
 
 import com.engagepoint.controller.utils.PageNavigator;
+import com.engagepoint.controller.utils.qualifiers.NewQuestion;
+import com.engagepoint.controller.utils.qualifiers.SaveQuestion;
+import com.engagepoint.model.question.Question;
+import com.engagepoint.model.question.rules.Rule;
 
 import java.io.Serializable;
+import javax.enterprise.event.Event;
 
+import javax.enterprise.context.Conversation;
 import javax.inject.Inject;
-import javax.inject.Named;
 
 /**
  * Used as basic controller for all question controllers
  */
-
-@Named("questionController")
 public abstract class QuestionEditController implements Serializable {
+    private boolean isNew;
 
-   
-    boolean isNew=false;
+    @Inject
+    private TemplateTreeController templateTreeController;
+
+    @Inject
+    @NewQuestion
+    protected Event<Question> currentQuestionEventNew;
+
+    @Inject
+    @SaveQuestion
+    protected Event<Question> currentQuestionEventSave;
+
+    public QuestionEditController() {
+    }
+
+    public TemplateTreeController getTemplateTreeController() {
+        return templateTreeController;
+    }
 
     public boolean isNew() {
         return isNew;
@@ -26,20 +45,31 @@ public abstract class QuestionEditController implements Serializable {
     }
 
     @Inject
-    private TemplateTreeController templateTreeController;
+    private Conversation conversation;
 
-    public TemplateTreeController getTemplateTreeController() {
-        return templateTreeController;
+    public void beginConversation() {
+        if (conversation.isTransient()) {
+            conversation.begin();
+        }
+    }
+
+    public void endConversation() {
+        if (!conversation.isTransient()) {
+            conversation.end();
+        }
     }
 
     public String actionSave() {
         if (isNew) {
             getTemplateTreeController().addQuestionToCurrentGroup();
         }
+        currentQuestionEventSave.fire(getTemplateTreeController().getCurrentQuestion());
+        endConversation();
         return PageNavigator.TEMPLATE_EDIT_PAGE;
-    };
+    }
 
     public String actionCancel() {
+        endConversation();
         return PageNavigator.TEMPLATE_EDIT_PAGE;
-    };
+    }
 }

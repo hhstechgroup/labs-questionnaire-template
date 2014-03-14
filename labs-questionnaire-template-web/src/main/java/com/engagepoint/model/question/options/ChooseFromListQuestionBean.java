@@ -1,12 +1,21 @@
 package com.engagepoint.model.question.options;
 
 import com.engagepoint.model.question.utils.VariantItem;
+import com.engagepoint.model.questionnaire.GroupBean;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElementWrapper;
 import java.util.List;
 
 public class ChooseFromListQuestionBean extends OptionsQuestion {
+
+    public ChooseFromListQuestionBean() {
+        super();
+    }
+
+    public ChooseFromListQuestionBean(GroupBean groupBean) {
+        super(groupBean);
+    }
 
     @XmlElementWrapper(name = "choose-from-list-options")
     @XmlElement(name = "option")

@@ -1,11 +1,15 @@
 package com.engagepoint.controller.question;
 
 import com.engagepoint.controller.page.TemplateEditController;
+import com.engagepoint.controller.page.TemplateTreeController;
 import com.engagepoint.model.question.DateQuestionBean;
 import com.engagepoint.controller.page.QuestionEditController;
 import com.engagepoint.model.question.Question;
+import com.engagepoint.model.question.rules.Rule;
 
 import javax.annotation.PostConstruct;
+import javax.enterprise.context.Conversation;
+import javax.enterprise.context.ConversationScoped;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -14,7 +18,7 @@ import javax.inject.Named;
  * Created by anton.kovunov on 2/25/14.
  */
 @Named("dateQuestion")
-@RequestScoped
+@ConversationScoped
 public class DateController extends QuestionEditController {
     @Inject
     TemplateEditController templateEditController;
@@ -22,15 +26,17 @@ public class DateController extends QuestionEditController {
 
     @PostConstruct
     public void postConstruct() {
+        beginConversation();
         Question question = getTemplateTreeController().getCurrentQuestion();
         if (question ==null) {
             setNew(true);
-            currentQuestion = new DateQuestionBean();
+            currentQuestion = new DateQuestionBean(getTemplateTreeController().getCurrentGroup());
             currentQuestion.setQuestionType(templateEditController.getSelectedQuestionType());
         }
         else {
             currentQuestion = (DateQuestionBean) question;
         }
+        currentQuestionEventNew.fire(currentQuestion);
     }
 
     public DateQuestionBean getCurrentQuestion() {

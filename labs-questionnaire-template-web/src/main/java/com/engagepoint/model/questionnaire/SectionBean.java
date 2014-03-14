@@ -10,17 +10,58 @@ import java.util.List;
 /**
  * Class represents page tag.
  */
-public class SectionBean implements Cloneable, Serializable, BasicOperationWithBean,
-                                    BasicBeanProperty {
-    private int pageNumber;
+public class SectionBean extends BasicBean
+                         implements Cloneable, Serializable, BasicOperationWithBean{
+    private static Long lastId = 1L;
+
+    private Long id;
+    private Long pageNumber;
+    private String sectionName = "";
     private List<GroupBean> groupsList = new ArrayList<GroupBean>();
+    private TemplateBean templateBean;
 
     public SectionBean() {
+        id = lastId++;
     }
 
-    public SectionBean(int pageNumber, List<GroupBean> groupsList) {
+    public SectionBean(TemplateBean templateBean) {
+        id = lastId++;
+        this.templateBean = templateBean;
+        this.pageNumber = getNextSectionIdInTemplate();
+        templateBean.addToInnerList(this);
+        super.setDisplayedName("Page");
+    }
+
+    @XmlElement(name = "id")
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    /**
+     * Gets next number of page for current template
+     * @return SectionId
+     */
+    public Long getNextSectionIdInTemplate() {
+        List<SectionBean> sectionList = templateBean.getSectionsList();
+        if (sectionList.isEmpty()) {
+            return 1L;
+        }
+        else {
+            return ((sectionList.get(sectionList.size()-1)).getId()+1);
+        }
+    }
+
+    @XmlElement(name = "page-number")
+    public Long getPageNumber() {
+        return pageNumber;
+    }
+
+    public void setPageNumber(Long pageNumber) {
         this.pageNumber = pageNumber;
-        this.groupsList = groupsList;
     }
 
     @XmlElementWrapper(name = "groups-of-questions")
@@ -33,19 +74,9 @@ public class SectionBean implements Cloneable, Serializable, BasicOperationWithB
         this.groupsList = groupsList;
     }
 
-    @XmlElement(name = "page-number")
-    public int getPageNumber() {
-        return pageNumber;
-    }
-
-    public void setPageNumber(int pageNumber) {
-        this.pageNumber = pageNumber;
-    }
-
     @Override
     public Object clone() throws CloneNotSupportedException {
         SectionBean copy = (SectionBean) super.clone();
-        copy.setPageNumber(this.pageNumber);
         List<GroupBean> copyGroupsList=null;
         if(groupsList!=null){
             copyGroupsList = new ArrayList<GroupBean>();
@@ -64,17 +95,14 @@ public class SectionBean implements Cloneable, Serializable, BasicOperationWithB
 
         SectionBean that = (SectionBean) o;
 
-        if (pageNumber != that.pageNumber) return false;
-        if (groupsList != null ? !groupsList.equals(that.groupsList) : that.groupsList != null) return false;
+        if (!id.equals(that.id)) return false;
 
         return true;
     }
 
     @Override
     public int hashCode() {
-        int result = pageNumber;
-        result = 31 * result + (groupsList != null ? groupsList.hashCode() : 0);
-        return result;
+        return id.hashCode();
     }
 
     @Override
@@ -89,11 +117,32 @@ public class SectionBean implements Cloneable, Serializable, BasicOperationWithB
 
     @Override
     public String toString() {
-        return "Page " + pageNumber;
+        return "Page " + id;
     }
 
     @Override
     public String getType() {
         return "section";
+    }
+
+    @Override
+    public String getDisplayedNodeType() {
+        return "Page: ";
+    }
+
+    @Override
+    public String getDisplayedName() {
+        return sectionName;
+    }
+
+    @Override
+    public void setDisplayedName(String displayedName) {
+        sectionName = displayedName;
+    }
+
+    @Override
+    public String getDisplayedId() {
+        String id = " (ID: "+String.valueOf(this.id)+") ";
+        return id;
     }
 }

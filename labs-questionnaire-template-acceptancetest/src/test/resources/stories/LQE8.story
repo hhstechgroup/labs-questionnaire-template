@@ -1,6 +1,7 @@
 Narrative:
 In order to have an ability to edit template 
-As a template author I want to add "Text" questions to question groups (LQE-8)
+As a template author 
+I want to add "Text" questions to question groups (LQE-8)
 
 GivenStories: base_stories/openDefaultPage.story
 Scenario: create and fill

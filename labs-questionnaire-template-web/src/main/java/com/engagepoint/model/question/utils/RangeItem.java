@@ -13,6 +13,11 @@ public class RangeItem {
         maxValue = "0";
     }
 
+    public RangeItem(String minValue, String maxValue) {
+        this.minValue = minValue;
+        this.maxValue = maxValue;
+    }
+
     @XmlAttribute(name = "range-begin")
     public String getMinValue() {
         return minValue;
@@ -29,5 +34,10 @@ public class RangeItem {
 
     public void setMaxValue(String maxValue) {
         this.maxValue = maxValue;
+    }
+
+    @Override
+    public String toString(){
+        return minValue+", "+maxValue;
     }
 }

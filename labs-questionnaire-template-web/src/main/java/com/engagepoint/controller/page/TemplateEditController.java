@@ -1,19 +1,24 @@
 package com.engagepoint.controller.page;
 
 import com.engagepoint.controller.utils.PageNavigator;
+import com.engagepoint.model.question.Question;
+import com.engagepoint.model.questionnaire.GroupBean;
 import com.engagepoint.model.questionnaire.QuestionType;
+import com.engagepoint.model.questionnaire.SectionBean;
 import com.engagepoint.model.questionnaire.TemplateBean;
+import org.apache.log4j.Logger;
 
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Used for controlling questform.xhtml
  */
-
 @Named("templateController")
 @SessionScoped
 public class TemplateEditController implements Serializable {
@@ -25,8 +30,8 @@ public class TemplateEditController implements Serializable {
 
     private TemplateBean currentTemplate; //real template
     private TemplateBean duplicateTemplate; //copy of real template, contains all unsaved changes
-
     private QuestionType selectedQuestionType;
+    private static final Logger LOG = Logger.getLogger(TemplateEditController.class);
 
     public TemplateBean getDuplicateTemplate() {
         return duplicateTemplate;
@@ -46,7 +51,7 @@ public class TemplateEditController implements Serializable {
             duplicateTemplate = currentTemplate.duplicate();
             templateTreeController.setTemplateBean(duplicateTemplate);
         } catch (CloneNotSupportedException e) {
-            //NOP
+            LOG.error("Clone template exception", e);
         }
     }
 
@@ -57,7 +62,6 @@ public class TemplateEditController implements Serializable {
     public void setSelectedQuestionType(QuestionType selectedQuestionType) {
         this.selectedQuestionType = selectedQuestionType;
     }
-
 
     /**
      * Create new template.
@@ -114,7 +118,6 @@ public class TemplateEditController implements Serializable {
             case GRID:
                 return PageNavigator.GRID_QUESTION_PAGE;
         }
-
         return stab;
     }
 
@@ -152,6 +155,7 @@ public class TemplateEditController implements Serializable {
             listController.removeTemplateFromFilteredListIfNeed(currentTemplate);
             listController.sort();
         }
+        templateTreeController.setSelectedNode(null);
         return ListController.income();
     }
 
@@ -165,6 +169,7 @@ public class TemplateEditController implements Serializable {
      * @return index page
      */
     public String cancel() {
+        templateTreeController.setSelectedNode(null);
         return ListController.income();
     }
 
@@ -176,5 +181,4 @@ public class TemplateEditController implements Serializable {
     public static String income() {
         return PageNavigator.TEMPLATE_EDIT_PAGE;
     }
-
 }

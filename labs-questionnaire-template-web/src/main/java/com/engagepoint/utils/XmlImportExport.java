@@ -3,6 +3,7 @@ package com.engagepoint.utils;
 
 import com.engagepoint.model.questionnaire.TemplateBean;
 import com.engagepoint.model.questionnaire.Wrapper;
+import org.apache.log4j.Logger;
 
 import javax.xml.bind.*;
 import javax.xml.namespace.QName;
@@ -11,6 +12,8 @@ import java.io.*;
 import java.util.List;
 
 public class XmlImportExport {
+    private static final Logger LOG = Logger.getLogger(XmlImportExport.class);
+
     /**
      * Unmarshal XML to Wrapper from file and return List value.
      */
@@ -58,7 +61,7 @@ public class XmlImportExport {
             Unmarshaller unmarshaller = jc.createUnmarshaller();
             list = unmarshal(unmarshaller, filePath);
         } catch (JAXBException e) {
-            e.printStackTrace();
+            LOG.error("Import XML exception", e);
         }
         return list;
     }
@@ -76,11 +79,10 @@ public class XmlImportExport {
             Unmarshaller unmarshaller = jc.createUnmarshaller();
             list = unmarshal(unmarshaller, inputStream);
         } catch (JAXBException e) {
-            e.printStackTrace();
+            LOG.error("Import XML exception", e);
         }
         return list;
     }
-
 
 
     /**
@@ -97,16 +99,13 @@ public class XmlImportExport {
             stream = new FileOutputStream(path);
             marshal(marshaller, listTemplateBean, "questionnaire-forms", stream);
         } catch (Exception e) {
-            e.printStackTrace();
-        }
-        finally {
-            try{
+            LOG.error("Export XML exception", e);
+        } finally {
+            try {
                 stream.close();
+            } catch (IOException e) {
+                LOG.error("Export XML exception", e);
             }
-            catch (IOException e) {
-                //do something
-            }
-
         }
     }
 }
