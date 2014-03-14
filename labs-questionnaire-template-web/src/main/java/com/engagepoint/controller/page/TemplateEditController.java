@@ -119,6 +119,7 @@ public class TemplateEditController implements Serializable {
                 return PageNavigator.CHECKBOX_QUESTION_PAGE;
             case GRID:
                 return PageNavigator.GRID_QUESTION_PAGE;
+            default:
         }
         return stab;
     }
