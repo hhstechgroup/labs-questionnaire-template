@@ -465,11 +465,6 @@ public class QuestionRuleController implements Serializable {
         }
     }
 
-    private void saveRuleToQuestion(@Observes @SaveQuestion Question question) {
-        question.setRules(currentRules);
-        currentRules = null;
-    }
-
     private void setAnswerAndIdToRule(List<String> answers) {
         switch (currentRule.getType()) {
             case RENDERED:
@@ -477,22 +472,13 @@ public class QuestionRuleController implements Serializable {
                 renderedRule.setAnswers(answers);
                 renderedRule.setId(dependentQuestion.getId());
                 break;
+            default:
         }
         List<Rule> list = getCurrentRules();
         if (list != null) {
             list.add(currentRule);
         }
         setCurrentRules(list);
-    }
-
-    private void setCurrentQuestion(@Observes @NewQuestion Question question) {
-        if (currentRules == null) {
-            if (question.getRules() != null) {
-                currentRules = cloneRulesList(question.getRules());
-            } else {
-                currentRules = new ArrayList<Rule>();
-            }
-        }
     }
 
     private List<Rule> cloneRulesList(List<Rule> input) {
