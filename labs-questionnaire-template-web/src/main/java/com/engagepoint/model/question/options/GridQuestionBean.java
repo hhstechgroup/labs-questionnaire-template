@@ -18,58 +18,28 @@ public class GridQuestionBean extends Question {
     public void clear() {
         rows = new ArrayList<String>();
         cols = new ArrayList<String>();
-        selected = new boolean[rows.size()][cols.size()];
+        selected = new boolean[0][0];
     }
 
     public GridQuestionBean() {
-        rows = new ArrayList<String>();
-        rows.add("row1");
-        rows.add("row2");
-        rows.add("row3");
-        cols = new ArrayList<String>();
-        cols.add("col1");
-        cols.add("col2");
-        cols.add("col3");
-        selected = new boolean[rows.size()][cols.size()];
-        setSelect(1, 1);
+        clear();
     }
 
     public GridQuestionBean(GroupBean currentGroup) {
         super(currentGroup);
-        rows = new ArrayList<String>();
-        rows.add("row1");
-        rows.add("row2");
-        rows.add("row3");
-        cols = new ArrayList<String>();
-        cols.add("col1");
-        cols.add("col2");
-        cols.add("col3");
-        selected = new boolean[rows.size()][cols.size()];
-        setSelect(1, 1);
+        clear();
     }
 
     public List<String> getRows() {
         return rows;
     }
 
-    public void setRows(List<String> rows) {
-        this.rows = rows;
-    }
-
     public List<String> getCols() {
         return cols;
     }
 
-    public void setCols(List<String> cols) {
-        this.cols = cols;
-    }
-
     public boolean[][] getSelected() {
         return selected;
-    }
-
-    public void setSelected(boolean[][] selected) {
-        this.selected = selected;
     }
 
     public void addRow(String name) {
@@ -95,10 +65,6 @@ public class GridQuestionBean extends Question {
         for (int j = 0; j < selected.length; j++) {
             unsetSelect(j, col);
         }
-    }
-
-    public void setSelect(int i, int j) {
-        setSelect(i, j, true);
     }
 
     public void setSelect(int i, int j, boolean b) {
