@@ -9,7 +9,6 @@ import javax.xml.bind.annotation.XmlTransient;
 import java.util.ArrayList;
 import java.util.List;
 
-@XmlSeeAlso({CheckBoxQuestionBean.class, ChooseFromListQuestionBean.class, MultipleChoiceQuestionBean.class, GridQuestionBean.class})
 public abstract class OptionsQuestion extends Question implements Cloneable {
     //list of variants
     protected List<VariantItem> options;
@@ -28,6 +27,7 @@ public abstract class OptionsQuestion extends Question implements Cloneable {
         defaultOption = new VariantItem();
     }
 
+    @XmlTransient
     public VariantItem getDefaultOption() {
         return defaultOption;
     }

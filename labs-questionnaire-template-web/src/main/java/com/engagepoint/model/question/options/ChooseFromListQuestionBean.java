@@ -3,8 +3,7 @@ package com.engagepoint.model.question.options;
 import com.engagepoint.model.question.utils.VariantItem;
 import com.engagepoint.model.questionnaire.GroupBean;
 
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlElementWrapper;
+import java.util.ArrayList;
 import java.util.List;
 
 public class ChooseFromListQuestionBean extends OptionsQuestion {
@@ -17,8 +16,6 @@ public class ChooseFromListQuestionBean extends OptionsQuestion {
         super(groupBean);
     }
 
-    @XmlElementWrapper(name = "choose-from-list-options")
-    @XmlElement(name = "option")
     @Override
     public List<VariantItem> getOptions() {
         return this.options;

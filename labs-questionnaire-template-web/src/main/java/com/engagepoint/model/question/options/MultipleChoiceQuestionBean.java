@@ -17,8 +17,6 @@ public class MultipleChoiceQuestionBean extends OptionsQuestion {
         super(groupBean);
     }
 
-    @XmlElementWrapper(name = "multiple-choice-options")
-    @XmlElement(name = "option")
     @Override
     public List<VariantItem> getOptions() {
         return this.options;
