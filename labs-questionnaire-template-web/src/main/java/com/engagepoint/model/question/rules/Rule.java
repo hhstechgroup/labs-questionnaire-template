@@ -1,6 +1,8 @@
 package com.engagepoint.model.question.rules;
 
 
+import javax.xml.bind.annotation.XmlElement;
+
 public abstract class Rule implements Cloneable {
     protected String description;
     protected long id;
@@ -15,6 +17,7 @@ public abstract class Rule implements Cloneable {
         this.nameXML = nameXML;
     }
 
+    @XmlElement(name = "method")
     public String getNameXML() {
         return nameXML;
     }
@@ -31,6 +34,7 @@ public abstract class Rule implements Cloneable {
         this.id = id;
     }
 
+    @XmlElement(name = "parentId")
     public long getId() {
         return id;
     }
