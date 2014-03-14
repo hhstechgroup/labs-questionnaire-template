@@ -15,7 +15,7 @@ import javax.faces.context.FacesContext;
 public class TopMenuBarBean {
 
     private MenuModel model;
-    private static final String styleClass = "active";
+    private static final String STYLE_CLASS = "active";
 
     @PostConstruct
     public void initModel() {
@@ -26,7 +26,7 @@ public class TopMenuBarBean {
         MenuItem menuItem = new MenuItem();
         menuItem.setId("bootstrapItem");
         if (viewId.startsWith("/bootstrap")) {
-            menuItem.setStyleClass(styleClass);
+            menuItem.setStyleClass(STYLE_CLASS);
         }
         menuItem.setValue("But but 1");
         menuItem.setUrl("/bootstrap/button/index.xhtml");
@@ -35,7 +35,7 @@ public class TopMenuBarBean {
         menuItem = new MenuItem();
         menuItem.setId("demoItem");
         if (viewId.startsWith("/demo")) {
-            menuItem.setStyleClass(styleClass);
+            menuItem.setStyleClass(STYLE_CLASS);
         }
         menuItem.setValue("But but 2");
         menuItem.setUrl("/demo/default.xhtml");
@@ -44,7 +44,7 @@ public class TopMenuBarBean {
         menuItem = new MenuItem();
         menuItem.setId("toolsItem");
         if (viewId.startsWith("/tools")) {
-            menuItem.setStyleClass(styleClass);
+            menuItem.setStyleClass(STYLE_CLASS);
         }
         menuItem.setValue("But but 3");
         menuItem.setUrl("/tools/grid/index.xhtml");

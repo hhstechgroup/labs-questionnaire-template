@@ -51,14 +51,15 @@ public class RenderedRule extends Rule {
     private String answerToString() {
         StringBuilder answer = new StringBuilder();
         answer.append("[");
-        if (answers != null)
+        if (answers != null) {
             for (String str : answers) {
                 answer.append("'" + str + "'" + ", ");
             }
-        if (answer.length() > 2)
+        }
+        if (answer.length() > 2) {
             answer.setLength(answer.length() - 2);
+        }
         answer.append("]");
-
         return answer.toString();
     }
 

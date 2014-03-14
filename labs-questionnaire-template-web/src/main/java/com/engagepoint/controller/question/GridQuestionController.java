@@ -30,17 +30,15 @@ public class GridQuestionController extends QuestionEditController implements Se
     public void postConstruct() {
         beginConversation();
         Question question = getTemplateTreeController().getCurrentQuestion();
-        if (question ==null) {
+        if (question == null) {
             setNew(true);
             currentQuestion = new GridQuestionBean(getTemplateTreeController().getCurrentGroup());
             currentQuestion.setQuestionType(templateEditController.getSelectedQuestionType());
             currentQuestion.addRow("First row");
             currentQuestion.addCol("First column");
-        }
-        else {
+        } else {
             currentQuestion = (GridQuestionBean) question;
         }
-        //currentQuestionEventNew.fire(currentQuestion);
     }
 
     public GridQuestionBean getCurrentQuestion() {

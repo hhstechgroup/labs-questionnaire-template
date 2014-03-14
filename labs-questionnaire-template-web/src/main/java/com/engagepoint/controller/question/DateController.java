@@ -24,8 +24,7 @@ public class DateController extends QuestionEditController {
             setNew(true);
             currentQuestion = new DateQuestionBean(getTemplateTreeController().getCurrentGroup());
             currentQuestion.setQuestionType(templateEditController.getSelectedQuestionType());
-        }
-        else {currentQuestion = (DateQuestionBean) question;
+        } else {currentQuestion = (DateQuestionBean) question;
         }
         currentQuestionEventNew.fire(currentQuestion);
     }
