@@ -19,11 +19,13 @@ public abstract class OptionsQuestion extends Question implements Cloneable {
     public OptionsQuestion() {
         super();
         this.options = new ArrayList<VariantItem>();
+        defaultOption = new VariantItem();
     }
 
     public OptionsQuestion(GroupBean groupBean) {
         super(groupBean);
         this.options = new ArrayList<VariantItem>();
+        defaultOption = new VariantItem();
     }
 
     public VariantItem getDefaultOption() {
@@ -32,6 +34,23 @@ public abstract class OptionsQuestion extends Question implements Cloneable {
 
     public void setDefaultOption(VariantItem defaultOption) {
         this.defaultOption = defaultOption;
+    }
+
+    @Override
+    public List<String> getDefaultAnswers() {
+        List<String> list = new ArrayList<String>();
+        list.add(defaultOption.getValue());
+        return list;
+    }
+
+    @Override
+    public void setDefaultAnswers(List<String> list) {
+        try {
+            defaultOption = new VariantItem(list.get(0));
+        }
+        catch (StringIndexOutOfBoundsException e) {
+            //log that id in XML is empty
+        }
     }
 
     /**

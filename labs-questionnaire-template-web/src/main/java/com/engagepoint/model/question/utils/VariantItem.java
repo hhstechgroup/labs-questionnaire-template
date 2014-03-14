@@ -6,7 +6,7 @@ import javax.xml.bind.annotation.XmlValue;
  * Representation of answer variant for a question.
  */
 public class VariantItem implements Cloneable {
-    private String value;
+    private String value="";
 
     public VariantItem() {
     }

@@ -3,6 +3,7 @@ package com.engagepoint.model.question.options;
 import com.engagepoint.model.question.utils.VariantItem;
 import com.engagepoint.model.questionnaire.GroupBean;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class CheckBoxQuestionBean extends OptionsQuestion {
@@ -10,11 +11,12 @@ public class CheckBoxQuestionBean extends OptionsQuestion {
     private List<VariantItem> defaultOptions;
 
     public CheckBoxQuestionBean() {
-
+        defaultOptions = new ArrayList<VariantItem>();
     }
 
     public CheckBoxQuestionBean(GroupBean currentGroup) {
         super(currentGroup);
+        defaultOptions = new ArrayList<VariantItem>();
     }
 
     public List<VariantItem> getDefaultOptions() {
@@ -23,6 +25,23 @@ public class CheckBoxQuestionBean extends OptionsQuestion {
 
     public void setDefaultOptions(List<VariantItem> defaultOptions) {
         this.defaultOptions = defaultOptions;
+    }
+
+    @Override
+    public List<String> getDefaultAnswers() {
+        List<String> list = new ArrayList<String>();
+        for (VariantItem curOption : defaultOptions) {
+            list.add(curOption.getValue());
+        }
+        return list;
+    }
+
+    @Override
+    public void setDefaultAnswers(List<String> list) {
+        defaultOptions = new ArrayList<VariantItem>();
+        for (String curAnswer : list) {
+            defaultOptions.add(new VariantItem(curAnswer));
+        }
     }
 
     @Override
