@@ -28,6 +28,7 @@ public class ListController implements Serializable {
     private List<TemplateBean> selectedTemplates;
     private ListOfTemplatesDataModel templatesModel;
     private String filterValue = "";
+    private TemplateBean currentTemplate;
 
     public ListController() {
         list = new ArrayList<TemplateBean>();
@@ -258,5 +259,13 @@ public class ListController implements Serializable {
     public static String income() {
         return PageNavigator.INDEX_PAGE;
     }
+
+	public TemplateBean getCurrentTemplate() {
+		return currentTemplate;
+	}
+
+	public void setCurrentTemplate(TemplateBean currentTemplate) {
+		this.currentTemplate = currentTemplate;
+	}
 
 }
