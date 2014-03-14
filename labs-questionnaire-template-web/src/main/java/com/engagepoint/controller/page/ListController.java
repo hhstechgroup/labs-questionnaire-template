@@ -118,12 +118,10 @@ public class ListController implements Serializable {
      */
     public void addTemplateToFilteredListIfNeed(TemplateBean template) {
         if (filteredList != null) {
-            if (!filteredList.contains(template)) {
+            if (!filteredList.contains(template) && containsFilterValue(template.getTemplateName())) {
                 //check if template with the same id exists
-                if (containsFilterValue(template.getTemplateName())) {
-                    //check if template satisfies current filter
-                    filteredList.add(template);
-                }
+                //check if template satisfies current filter
+                filteredList.add(template);
             }
         }
     }
