@@ -43,9 +43,6 @@ public class CheckBoxQuestionBean extends OptionsQuestion {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
         if (!(o instanceof CheckBoxQuestionBean)) {
             return false;
         }

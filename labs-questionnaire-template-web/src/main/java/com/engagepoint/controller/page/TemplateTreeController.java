@@ -122,10 +122,8 @@ public class TemplateTreeController implements Serializable {
      * Style of selected node
      */
     public String getStyle(Object node) {
-        if (selectedNode != null) {
-            if (selectedNode.getData().equals(node)) {
-                return "color:white;background:#0075ac;";
-            }
+        if (selectedNode != null && selectedNode.getData().equals(node)) {
+            return "color:white;background:#0075ac;";
         }
         return "";
     }

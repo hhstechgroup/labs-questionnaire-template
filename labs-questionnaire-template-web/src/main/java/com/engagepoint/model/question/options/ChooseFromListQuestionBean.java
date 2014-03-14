@@ -31,9 +31,6 @@ public class ChooseFromListQuestionBean extends OptionsQuestion {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
         if (!(o instanceof ChooseFromListQuestionBean)) {
             return false;
         }
