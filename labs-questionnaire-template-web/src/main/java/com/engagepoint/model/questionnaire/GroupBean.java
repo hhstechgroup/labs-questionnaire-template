@@ -129,8 +129,7 @@ public class GroupBean extends BasicBean
 
     @Override
     public String getDisplayedId() {
-        String id = " (ID: " + String.valueOf(this.id) + ") ";
-        return id;
+        return " (ID: " + String.valueOf(this.id) + ") ";
     }
 }
 

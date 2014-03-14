@@ -158,8 +158,7 @@ public abstract class Question extends BasicBean implements Cloneable {
 
     @Override
     public String getDisplayedId() {
-        String id = " (ID: " + String.valueOf(this.id) + ") ";
-        return id;
+        return " (ID: " + String.valueOf(this.id) + ") ";
     }
 
     public List<Rule> getRules() {
