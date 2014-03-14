@@ -17,13 +17,12 @@ import javax.xml.bind.annotation.XmlSeeAlso;
 import java.util.ArrayList;
 import java.util.List;
 
-
 /**
  * Class represents question tag.
  */
 @XmlSeeAlso({TextQuestionBean.class, DateQuestionBean.class, OptionsQuestion.class, RangeQuestionBean.class})
 public abstract class Question extends BasicBean implements Cloneable {
-    private static Long lastId=1L;
+    private static Long lastId = 1L;
 
     private Long id;                    //id of the question
     protected String questionText = "";        //questiontext
@@ -32,8 +31,6 @@ public abstract class Question extends BasicBean implements Cloneable {
     private String helpText = "";            //Help texts for questions
     private List<Rule> rules;
     private GroupBean groupBean;
-
-    //Dependent questions
 
     public Question() {
         this.id = lastId++;
@@ -51,9 +48,9 @@ public abstract class Question extends BasicBean implements Cloneable {
         return questionText;
     }
 
-	public void setQuestionText(String questionText) {
-		this.questionText = questionText;
-	}
+    public void setQuestionText(String questionText) {
+        this.questionText = questionText;
+    }
 
     @XmlElement(name = "help-text")
     public String getHelpText() {
@@ -100,8 +97,9 @@ public abstract class Question extends BasicBean implements Cloneable {
     @Override
     public Object clone() throws CloneNotSupportedException {
         Question copy = (Question) super.clone();
-        if (TemplateBean.duplicate)
+        if (TemplateBean.duplicate) {
             copy.setId(this.id);
+        }
         copy.setQuestionType(this.questionType);
         copy.setQuestionText(this.questionText);
         copy.setRequiredAnswer(this.requiredAnswer);
@@ -110,17 +108,22 @@ public abstract class Question extends BasicBean implements Cloneable {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        Question that = (Question) o;
-
-        if (requiredAnswer != that.requiredAnswer) return false;
-
-        if (questionText != null ? !questionText.equals(that.questionText) : that.questionText != null)
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
             return false;
-        if (questionType != that.questionType) return false;
-
+        }
+        Question that = (Question) o;
+        if (requiredAnswer != that.requiredAnswer) {
+            return false;
+        }
+        if (questionText != null ? !questionText.equals(that.questionText) : that.questionText != null) {
+            return false;
+        }
+        if (questionType != that.questionType) {
+            return false;
+        }
         return true;
     }
 
@@ -150,12 +153,12 @@ public abstract class Question extends BasicBean implements Cloneable {
 
     @Override
     public String getDisplayedName() {
-        return questionText.length()>9 ? questionText.substring(0, 9)+"..." : questionText; //TODO: make property for quantity of symbols
+        return questionText.length() > 9 ? questionText.substring(0, 9) + "..." : questionText; //TODO: make property for quantity of symbols
     }
 
     @Override
     public String getDisplayedId() {
-        String id = " (ID: "+String.valueOf(this.id)+") ";
+        String id = " (ID: " + String.valueOf(this.id) + ") ";
         return id;
     }
 
