@@ -38,10 +38,7 @@ public class MultipleChoiceQuestionBean extends OptionsQuestion {
             return false;
         }
         MultipleChoiceQuestionBean that = (MultipleChoiceQuestionBean) o;
-        if (!defaultOption.equals(that.defaultOption)) {
-            return false;
-        }
-        if (!options.equals(that.options)) {
+        if (!defaultOption.equals(that.defaultOption) || !options.equals(that.options)) {
             return false;
         }
         return true;

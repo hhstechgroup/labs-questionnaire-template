@@ -38,10 +38,7 @@ public class ChooseFromListQuestionBean extends OptionsQuestion {
             return false;
         }
         ChooseFromListQuestionBean that = (ChooseFromListQuestionBean) o;
-        if (!defaultOption.equals(that.defaultOption)) {
-            return false;
-        }
-        if (!options.equals(that.options)) {
+        if (!defaultOption.equals(that.defaultOption) || !options.equals(that.options)) {
             return false;
         }
         return true;

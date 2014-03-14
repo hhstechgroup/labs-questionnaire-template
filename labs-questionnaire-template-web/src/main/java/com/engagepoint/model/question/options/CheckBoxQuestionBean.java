@@ -50,10 +50,7 @@ public class CheckBoxQuestionBean extends OptionsQuestion {
             return false;
         }
         CheckBoxQuestionBean that = (CheckBoxQuestionBean) o;
-        if (!defaultOptions.equals(that.defaultOptions)) {
-            return false;
-        }
-        if (!options.equals(that.options)) {
+        if (!defaultOptions.equals(that.defaultOptions) && !options.equals(that.options)) {
             return false;
         }
         return true;
