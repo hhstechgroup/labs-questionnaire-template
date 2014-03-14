@@ -31,10 +31,7 @@ public class MultipleChoiceQuestionBean extends OptionsQuestion {
 
     @Override
     public boolean equals(Object o) {
-        if (!(o instanceof MultipleChoiceQuestionBean)) {
-            return false;
-        }
-        if (!super.equals(o)) {
+        if (!(o instanceof MultipleChoiceQuestionBean) || !super.equals(o)) {
             return false;
         }
         MultipleChoiceQuestionBean that = (MultipleChoiceQuestionBean) o;

@@ -15,7 +15,11 @@ public class TemplateBean implements Cloneable, Comparable<TemplateBean>, BasicO
     private Long id;
     private String templateName = "";
     private List<SectionBean> sectionsList = new ArrayList<SectionBean>();
-    public static boolean duplicate;
+    private static boolean duplicate;
+
+    public static boolean isDuplicate() {
+        return duplicate;
+    }
 
     public static Long getLastId() {
         return lastId++;

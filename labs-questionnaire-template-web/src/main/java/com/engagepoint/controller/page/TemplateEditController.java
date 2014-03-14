@@ -95,7 +95,9 @@ public class TemplateEditController implements Serializable {
      */
     public String getPageForSelectedQuestionType() {
         String stab = PageNavigator.STAB_PAGE;
-        if (selectedQuestionType == null) return PageNavigator.NOT_CHOOSE_QUESTION_PAGE;
+        if (selectedQuestionType == null) {
+            return PageNavigator.NOT_CHOOSE_QUESTION_PAGE;
+        }
         switch (selectedQuestionType) {
             case TEXT:
                 return PageNavigator.TEXT_QUESTION_PAGE;
@@ -117,6 +119,7 @@ public class TemplateEditController implements Serializable {
                 return PageNavigator.CHECKBOX_QUESTION_PAGE;
             case GRID:
                 return PageNavigator.GRID_QUESTION_PAGE;
+            default:
         }
         return stab;
     }

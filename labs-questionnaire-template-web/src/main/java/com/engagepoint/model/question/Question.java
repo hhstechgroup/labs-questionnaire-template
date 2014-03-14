@@ -97,7 +97,7 @@ public abstract class Question extends BasicBean implements Cloneable {
     @Override
     public Object clone() throws CloneNotSupportedException {
         Question copy = (Question) super.clone();
-        if (TemplateBean.duplicate) {
+        if (TemplateBean.isDuplicate()) {
             copy.setId(this.id);
         }
         copy.setQuestionType(this.questionType);
@@ -158,8 +158,7 @@ public abstract class Question extends BasicBean implements Cloneable {
 
     @Override
     public String getDisplayedId() {
-        String id = " (ID: " + String.valueOf(this.id) + ") ";
-        return id;
+        return " (ID: " + String.valueOf(this.id) + ") ";
     }
 
     public List<Rule> getRules() {

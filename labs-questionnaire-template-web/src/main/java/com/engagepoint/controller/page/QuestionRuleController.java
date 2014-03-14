@@ -454,18 +454,15 @@ public class QuestionRuleController implements Serializable {
     }
 
     private void endConversation() {
-        if (!conversation.isTransient())
+        if (!conversation.isTransient()) {
             conversation.end();
+        }
     }
 
     private void beginConversation() {
-        if (conversation.isTransient())
+        if (conversation.isTransient()) {
             conversation.begin();
-    }
-
-    private void saveRuleToQuestion(@Observes @SaveQuestion Question question) {
-        question.setRules(currentRules);
-        currentRules = null;
+        }
     }
 
     private void setAnswerAndIdToRule(List<String> answers) {
@@ -475,6 +472,7 @@ public class QuestionRuleController implements Serializable {
                 renderedRule.setAnswers(answers);
                 renderedRule.setId(dependentQuestion.getId());
                 break;
+            default:
         }
         List<Rule> list = getCurrentRules();
         if (list != null) {
@@ -483,7 +481,12 @@ public class QuestionRuleController implements Serializable {
         setCurrentRules(list);
     }
 
-    private void setCurrentQuestion(@Observes @NewQuestion Question question) {
+    void saveRuleToQuestion(@Observes @SaveQuestion Question question) {
+        question.setRules(currentRules);
+        currentRules = null;
+    }
+
+    void setCurrentQuestion(@Observes @NewQuestion Question question) {
         if (currentRules == null) {
             if (question.getRules() != null) {
                 currentRules = cloneRulesList(question.getRules());
@@ -493,7 +496,7 @@ public class QuestionRuleController implements Serializable {
         }
     }
 
-    private List<Rule> cloneRulesList(List<Rule> input) {
+    List<Rule> cloneRulesList(List<Rule> input) {
         if (input == null) {
             return null;
         }

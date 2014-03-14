@@ -36,7 +36,7 @@ public class ListController implements Serializable {
     }
 
     @PostConstruct
-    private void init() {
+    void init() {
         //searching path of XML file in glassfish
         ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
         String xmlPath = classLoader.getResource("Questionnaire.xml").getPath();
