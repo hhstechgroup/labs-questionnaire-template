@@ -16,13 +16,11 @@
 
         <h:form id="form">
             <ago:questioncommon qb="#{gridQuestionController.currentQuestion}" id="formWithCommonProps"/>
-            <p:selectBooleanCheckbox itemLabel="onlyOneSelectInCol"
-                                     value="#{gridQuestionController.onlyOneSelectInCol}"
-                                     onchange="submit()"/>
-            <h:outputText value="  "/>
-            <p:selectBooleanCheckbox itemLabel="onlyOneSelectInRow"
-                                     value="#{gridQuestionController.onlyOneSelectInRow}"
-                                     onchange="submit()"/>
+            <p:selectBooleanCheckbox itemLabel="Only one selection in column"
+                                     value="#{gridQuestionController.onlyOneSelectInCol}"/>
+            <br/>
+            <p:selectBooleanCheckbox itemLabel="Only one selection in row"
+                                     value="#{gridQuestionController.onlyOneSelectInRow}"/>
 
             <br/>
             <p:commandButton id="cmdAddRow" value="Add row" action="#{gridQuestionController.addRow}"
@@ -60,7 +58,6 @@
                     </f:facet>
                     <p:selectBooleanCheckbox
                             value="#{gridQuestionController.setCurrentPosition(row, column).currentSelected}"
-                            onchange="submit()"
                             style="width: 200px;"/>
                 </p:columns>
             </p:dataTable>
