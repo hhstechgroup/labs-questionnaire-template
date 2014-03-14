@@ -7,6 +7,10 @@ import java.util.List;
 import com.engagepoint.model.question.Question;
 import com.engagepoint.model.questionnaire.GroupBean;
 
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlElementWrapper;
+
 public class GridQuestionBean extends Question {
     List<String> rows;
     /** List of columns */
@@ -29,15 +33,22 @@ public class GridQuestionBean extends Question {
         super(currentGroup);
         clear();
     }
-
+    @XmlElementWrapper(name = "Rows")
+    @XmlElement(name = "row")
     public List<String> getRows() {
         return rows;
     }
 
+    public void setRows(List<String> rows) {
+        this.rows = rows;
+    }
+    @XmlElementWrapper(name = "Columns")
+    @XmlElement(name = "column")
     public List<String> getCols() {
         return cols;
     }
-
+    @XmlElementWrapper(name = "Array")
+    @XmlElement(name = "element")
     public boolean[][] getSelected() {
         return selected;
     }
@@ -67,6 +78,10 @@ public class GridQuestionBean extends Question {
         }
     }
 
+    public void setSelect(int i, int j) {
+        setSelect(i, j, true);
+    }
+
     public void setSelect(int i, int j, boolean b) {
         selected[i][j] = b;
     }
@@ -78,7 +93,7 @@ public class GridQuestionBean extends Question {
     public boolean isSelect(int i, int j) {
         return selected[i][j];
     }
-
+    @XmlAttribute(name = "OnlyOneInRow")
     public boolean isOnlyOneSelectInRow() {
         return onlyOneSelectInRow;
     }
@@ -86,7 +101,7 @@ public class GridQuestionBean extends Question {
     public void setOnlyOneSelectInRow(boolean onlyOneSelectInRow) {
         this.onlyOneSelectInRow = onlyOneSelectInRow;
     }
-
+    @XmlAttribute(name = "OnlyOneInCol")
     public boolean isOnlyOneSelectInCol() {
         return onlyOneSelectInCol;
     }
