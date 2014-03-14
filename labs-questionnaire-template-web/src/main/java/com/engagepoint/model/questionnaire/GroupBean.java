@@ -12,7 +12,7 @@ import java.util.List;
  * Class represents group tag.
  */
 public class GroupBean extends BasicBean
-                       implements Cloneable, BasicOperationWithBean {
+        implements Cloneable, BasicOperationWithBean {
     private static Long lastId = 1L;
 
     private Long id;
@@ -67,15 +67,15 @@ public class GroupBean extends BasicBean
     public Object clone() throws CloneNotSupportedException {
         GroupBean copy = (GroupBean) super.clone();
         copy.setDisplayedName(this.getDisplayedName());
-        //copy.setDisplayedName(this.displayedName);
         List<Question> copyQuestionsList = null;
         if (questionsList != null) {
             copyQuestionsList = new ArrayList<Question>();
             for (Question questionBean : questionsList) {
-                if(questionBean!=null)
+                if (questionBean != null) {
                     copyQuestionsList.add((Question) questionBean.clone());
-                else
+                } else {
                     copyQuestionsList.add(null);
+                }
             }
         }
         copy.setQuestionsList(copyQuestionsList);
@@ -84,13 +84,16 @@ public class GroupBean extends BasicBean
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
         GroupBean groupBean = (GroupBean) o;
-
-        if (!id.equals(groupBean.id)) return false;
-
+        if (!id.equals(groupBean.id)) {
+            return false;
+        }
         return true;
     }
 
@@ -126,7 +129,7 @@ public class GroupBean extends BasicBean
 
     @Override
     public String getDisplayedId() {
-        String id = " (ID: "+String.valueOf(this.id)+") ";
+        String id = " (ID: " + String.valueOf(this.id) + ") ";
         return id;
     }
 }
