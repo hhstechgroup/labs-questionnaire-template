@@ -2,25 +2,26 @@ package com.engagepoint.model.question;
 
 import com.engagepoint.model.questionnaire.GroupBean;
 
-import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 public class TextQuestionBean extends Question {
-	private String defaultAnswer;
 
     public TextQuestionBean() {
         super();
+        getDefaultAnswers().add(0, "");
     }
 
     public TextQuestionBean(GroupBean currentGroup) {
         super(currentGroup);
+        getDefaultAnswers().add(0, "");
     }
 
-    @XmlElement(name = "default-answer")
+    @XmlTransient
 	public String getDefaultAnswer() {
-		return defaultAnswer;
+		return getDefaultAnswers().get(0);
 	}
 
 	public void setDefaultAnswer(String defaultAnswer) {
-		this.defaultAnswer = defaultAnswer;
+        getDefaultAnswers().set(0, defaultAnswer);
 	}
 }

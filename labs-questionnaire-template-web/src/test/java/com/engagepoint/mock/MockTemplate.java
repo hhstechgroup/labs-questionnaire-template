@@ -51,7 +51,7 @@ public class MockTemplate {
             case TEXT:
                 question =  new TextQuestionBean();
                 TextQuestionBean tb =(TextQuestionBean)question;
-                tb.setDefaultAnswer("i don't know");
+                //tb.setDefaultAnswer("i don't know");
                 creator(question);
                 return question;
             case DATE:
@@ -81,7 +81,7 @@ public class MockTemplate {
             case PARAGRAPHTEXT:
                 question = new TextQuestionBean();
                 TextQuestionBean paragraph =(TextQuestionBean)question;
-                paragraph.setDefaultAnswer("i don't know");
+                //paragraph.setDefaultAnswer("i don't know");
                 creator(question);
                 return question;
 
@@ -150,7 +150,7 @@ public class MockTemplate {
     public GroupBean creatorGroup(){
         GroupBean groupBean = new GroupBean();
         groupBean.setQuestionsList(questionBeans);
-        groupBean.setDisplayedName("GroupName");
+        groupBean.setGroupName("GroupName");
         return groupBean;
     }
 

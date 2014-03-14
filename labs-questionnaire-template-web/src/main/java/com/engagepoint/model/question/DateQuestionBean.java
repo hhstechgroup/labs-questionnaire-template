@@ -2,7 +2,7 @@ package com.engagepoint.model.question;
 
 import com.engagepoint.model.questionnaire.GroupBean;
 
-import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlTransient;
 import java.util.Date;
 
 public class DateQuestionBean extends Question {
@@ -16,7 +16,7 @@ public class DateQuestionBean extends Question {
         super(currentGroup);
     }
 
-    @XmlElement(name = "default-answer")
+    @XmlTransient
     public Date getDefaultAnswer() {
         return defaultAnswer;
     }

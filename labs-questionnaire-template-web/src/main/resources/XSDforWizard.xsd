@@ -21,6 +21,7 @@ and open the template in the editor.
                                         <xs:element name="page" maxOccurs="unbounded">
                                             <xs:complexType>
                                                 <xs:sequence>
+                                                    <xs:element type="xs:string" name="page-name"/>
                                                     <xs:element name="groups-of-questions">
                                                         <xs:complexType>
                                                             <xs:sequence>

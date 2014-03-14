@@ -3,8 +3,6 @@ package com.engagepoint.model.question.options;
 import com.engagepoint.model.question.utils.VariantItem;
 import com.engagepoint.model.questionnaire.GroupBean;
 
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlElementWrapper;
 import java.util.List;
 
 public class CheckBoxQuestionBean extends OptionsQuestion {
@@ -19,26 +17,12 @@ public class CheckBoxQuestionBean extends OptionsQuestion {
         super(currentGroup);
     }
 
-    @XmlElementWrapper(name = "default-options")
-    @XmlElement(name = "default-option")
     public List<VariantItem> getDefaultOptions() {
         return defaultOptions;
     }
 
     public void setDefaultOptions(List<VariantItem> defaultOptions) {
         this.defaultOptions = defaultOptions;
-    }
-
-    @XmlElementWrapper(name = "checkboxes-options")
-    @XmlElement(name = "option")
-    @Override
-    public List<VariantItem> getOptions() {
-        return this.options;
-    }
-
-    @Override
-    public void setOptions(List<VariantItem> options) {
-        this.options = options;
     }
 
     @Override

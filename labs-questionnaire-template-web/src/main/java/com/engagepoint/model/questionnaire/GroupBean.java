@@ -3,7 +3,6 @@ package com.engagepoint.model.questionnaire;
 
 import com.engagepoint.model.question.Question;
 
-import javax.inject.Inject;
 import javax.xml.bind.annotation.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -12,12 +11,13 @@ import java.util.List;
  * Class represents group tag.
  */
 public class GroupBean extends BasicBean
-                       implements Cloneable, BasicOperationWithBean {
+        implements Cloneable, BasicOperationWithBean {
     private static Long lastId = 1L;
 
     private Long id;
     private List<Question> questionsList = new ArrayList<Question>();
     private SectionBean sectionBean;
+    private String groupName;
 
     public GroupBean() {
         id = lastId++;
@@ -31,22 +31,48 @@ public class GroupBean extends BasicBean
 
     public GroupBean(String groupName, SectionBean sectionBean) {
         this(sectionBean);
-        setDisplayedName(groupName);
+        setGroupName(groupName);
     }
 
     public GroupBean(String groupName, List<Question> questionsList, SectionBean sectionBean) {
         this(sectionBean);
-        setDisplayedName(groupName);
+        setGroupName(groupName);
         this.questionsList = questionsList;
     }
 
-    @XmlElement(name = "id")
+    @XmlAttribute(name = "group-id")
+    public String getQuestionId() {
+        return "g" + id;
+    }
+
+    public void setQuestionId(String id) {
+        try {
+            this.id = Long.valueOf(id.substring(1));
+        }
+        catch (StringIndexOutOfBoundsException e) {
+            //log that id in XML is empty
+        }
+        catch (NumberFormatException e) {
+            //log that id in XML is incorrect (must be like "g[id]")
+        }
+    }
+
+    @XmlTransient
     public Long getId() {
         return id;
     }
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    @XmlElement(name = "group-name")
+    public String getGroupName() {
+        return this.groupName;
+    }
+
+    public void setGroupName(String groupName) {
+        this.groupName = groupName;
     }
 
     public SectionBean getSectionBean() {
@@ -66,16 +92,16 @@ public class GroupBean extends BasicBean
     @Override
     public Object clone() throws CloneNotSupportedException {
         GroupBean copy = (GroupBean) super.clone();
-        copy.setDisplayedName(this.getDisplayedName());
-        //copy.setDisplayedName(this.displayedName);
+        copy.setGroupName(this.getGroupName());
         List<Question> copyQuestionsList = null;
         if (questionsList != null) {
             copyQuestionsList = new ArrayList<Question>();
             for (Question questionBean : questionsList) {
-                if(questionBean!=null)
+                if (questionBean != null) {
                     copyQuestionsList.add((Question) questionBean.clone());
-                else
+                } else {
                     copyQuestionsList.add(null);
+                }
             }
         }
         copy.setQuestionsList(copyQuestionsList);
@@ -84,13 +110,16 @@ public class GroupBean extends BasicBean
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
         GroupBean groupBean = (GroupBean) o;
-
-        if (!id.equals(groupBean.id)) return false;
-
+        if (!id.equals(groupBean.id)) {
+            return false;
+        }
         return true;
     }
 
@@ -111,7 +140,7 @@ public class GroupBean extends BasicBean
 
     @Override
     public String toString() {
-        return getDisplayedName();
+        return groupName;
     }
 
     @Override
@@ -125,8 +154,13 @@ public class GroupBean extends BasicBean
     }
 
     @Override
+    public String getDisplayedName() {
+        return groupName;
+    }
+
+    @Override
     public String getDisplayedId() {
-        String id = " (ID: "+String.valueOf(this.id)+") ";
+        String id = " (ID: " + String.valueOf(this.id) + ") ";
         return id;
     }
 }

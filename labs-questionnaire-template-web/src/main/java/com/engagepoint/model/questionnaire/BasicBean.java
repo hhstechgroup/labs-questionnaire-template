@@ -1,6 +1,6 @@
 package com.engagepoint.model.questionnaire;
 
-import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  * Basic properties of beans
@@ -18,8 +18,8 @@ public abstract class BasicBean {
     /** Return ID of bean as String */
     public abstract String getDisplayedId();
 
+    @XmlTransient
     /** Return displayed name of bean */
-    @XmlElement(name = "name")
     public String getDisplayedName() {
         return displayedName;
     }

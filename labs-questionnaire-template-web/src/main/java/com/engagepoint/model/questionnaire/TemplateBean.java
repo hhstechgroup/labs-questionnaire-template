@@ -3,6 +3,8 @@ package com.engagepoint.model.questionnaire;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlTransient;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -44,6 +46,24 @@ public class TemplateBean implements Cloneable, Comparable<TemplateBean>, BasicO
         this.sectionsList = sectionsList;
     }
 
+    @XmlAttribute(name = "form-id")
+    public String getQuestionId() {
+        return "f" + id;
+    }
+
+    public void setQuestionId(String id) {
+        try {
+            this.id = Long.valueOf(id.substring(1));
+        }
+        catch (StringIndexOutOfBoundsException e) {
+            //log that id in XML is empty
+        }
+        catch (NumberFormatException e) {
+            //log that id in XML is incorrect (must be like "f[id]")
+        }
+    }
+
+    @XmlTransient
     public Long getId() {
         return id;
     }

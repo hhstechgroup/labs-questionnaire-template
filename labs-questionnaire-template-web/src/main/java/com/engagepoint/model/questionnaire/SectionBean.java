@@ -1,7 +1,9 @@
 package com.engagepoint.model.questionnaire;
 
+import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElementWrapper;
+import javax.xml.bind.annotation.XmlTransient;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -16,7 +18,7 @@ public class SectionBean extends BasicBean
 
     private Long id;
     private Long pageNumber;
-    private String sectionName = "";
+    private String pageName = "";
     private List<GroupBean> groupsList = new ArrayList<GroupBean>();
     private TemplateBean templateBean;
 
@@ -29,10 +31,27 @@ public class SectionBean extends BasicBean
         this.templateBean = templateBean;
         this.pageNumber = getNextSectionIdInTemplate();
         templateBean.addToInnerList(this);
-        super.setDisplayedName("Page");
+        setPageName("Page");
     }
 
-    @XmlElement(name = "id")
+    @XmlAttribute(name = "page-id")
+    public String getQuestionId() {
+        return "p" + id;
+    }
+
+    public void setQuestionId(String id) {
+        try {
+            this.id = Long.valueOf(id.substring(1));
+        }
+        catch (StringIndexOutOfBoundsException e) {
+            //log that id in XML is empty
+        }
+        catch (NumberFormatException e) {
+            //log that id in XML is incorrect (must be like "p[id]")
+        }
+    }
+
+    @XmlTransient
     public Long getId() {
         return id;
     }
@@ -55,13 +74,22 @@ public class SectionBean extends BasicBean
         }
     }
 
-    @XmlElement(name = "page-number")
+    @XmlAttribute(name = "page-number")
     public Long getPageNumber() {
         return pageNumber;
     }
 
     public void setPageNumber(Long pageNumber) {
         this.pageNumber = pageNumber;
+    }
+
+    @XmlElement(name = "page-name")
+    public String getPageName() {
+        return pageName;
+    }
+
+    public void setPageName(String pageName) {
+        this.pageName = pageName;
     }
 
     @XmlElementWrapper(name = "groups-of-questions")
@@ -132,12 +160,7 @@ public class SectionBean extends BasicBean
 
     @Override
     public String getDisplayedName() {
-        return sectionName;
-    }
-
-    @Override
-    public void setDisplayedName(String displayedName) {
-        sectionName = displayedName;
+        return pageName;
     }
 
     @Override

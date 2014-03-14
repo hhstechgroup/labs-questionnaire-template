@@ -49,7 +49,9 @@
 
                         <p:ajax event="expand" update=":formTemplate:form:buttonPanel"/>
                         <p:ajax event="collapse" update=":formTemplate:form:buttonPanel"/>
-                        <p:ajax event="select" update=":formTemplate:form:buttonPanel, :formTemplate:form:treeMultiple" listener="#{templateTreeController.onSelect}"/>
+                        <p:ajax event="select"
+                                update=":formTemplate:form:buttonPanel, :formTemplate:form:treeMultiple"
+                                listener="#{templateTreeController.onSelect}"/>
                         <p:ajax event="unselect" update=":formTemplate:form:buttonPanel"/>
 
 						<p:column style="#{templateTreeController.getStyle(node)}">
@@ -70,9 +72,12 @@
                                 <h:inputText id="nameOfCurrentNode"
                                              value="#{templateTreeController.nameOfCurrentNode}"/> <br/>
 
-                                <p:commandButton value="OK" id="yesEditName" action="#{templateTreeController.commitNameOfCurrentNode}"
-                                                 update=":formTemplate:form:treeMultiple" onclick="dlg.hide()" />
-                                <p:commandButton value="Cancel" id="notEditName" action="#{templateTreeController.revertNameOfCurrentNode}"
+                                <p:commandButton value="OK" id="yesEditName"
+                                                 action="#{templateTreeController.commitNameOfCurrentNode}"
+                                                 update=":formTemplate:form:treeMultiple, treeDisplayedName"
+                                                 onclick="dlg.hide()" />
+                                <p:commandButton value="Cancel" id="notEditName"
+                                                 action="#{templateTreeController.revertNameOfCurrentNode}"
                                                  immediate="true"
                                                  onclick="dlg.hide()" />
                             </p:dialog>
