@@ -33,7 +33,6 @@ public class ListController implements Serializable {
 
     public ListController() {
         list = new ArrayList<TemplateBean>();
-        templatesModel = new ListOfTemplatesDataModel(list);
     }
 
     @PostConstruct
@@ -43,6 +42,7 @@ public class ListController implements Serializable {
         String xmlPath = classLoader.getResource("Questionnaire.xml").getPath();
         //adding Templates from XML file
         addAllTemplates(XmlImportExport.importXmlTemplate(xmlPath));
+        templatesModel = new ListOfTemplatesDataModel(list);
     }
 
     public ListOfTemplatesDataModel getTemplatesModel() {
