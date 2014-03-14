@@ -11,16 +11,14 @@
 	<ui:define name="page">
 
 		<h:form id="form1">
-			<h:outputText value="ELEMENTS IN QUESTIONLIST: "/>
-			<h:outputText value="#{rulesTestController.AAA}"/><br/>
 			<h:outputText value="TEMPLATE ID: "/>
-			<h:outputText value="#{rulesTestController.BBB}"/>
+			<h:outputText value="#{rulesTestController.listController.currentTemplate.id}"/>
 			<br/>
 			
 			<uib:dataTable id="questionstable" var="question" 
 				value="#{rulesTestController.questionsList}">
 				<uib:column headerText="Questions">
-					<h:outputText value="#{question.displayedName}" 
+					<h:outputText value="#{question.id}" 
 					style="#{rulesTestController.getStyle(question)}"/>
 				</uib:column>
 				<uib:column headerText="Dependencies">
@@ -29,10 +27,10 @@
 				<uib:column>
 					<p:commandButton value="View" id="viewdeps"
 								style="float:center;"
-                                rendered="#{rulesTestController.getDependentByQuestion(question)!='NO'}"
+                                rendered="#{rulesTestController.dependencies.get(question)!=null}"
 								styleClass="small blue"
 								update="questionstable"
-								onclick="">
+								action="#{rulesTestController.setStyles(question)}">
 								
 					</p:commandButton>
 				</uib:column>
