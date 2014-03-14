@@ -17,4 +17,8 @@ public class PageNavigator {
     public static final String FILE_UPLOAD_QUESTION_PAGE = "/pages/question-pages/fileUploadQuestion.xhtml?faces-redirect=true&includeViewParams=true";
     public static final String CHECKBOX_QUESTION_PAGE = "/pages/question-pages/checkBoxQuestion.xhtml?faces-redirect=true&includeViewParams=true";
     public static final String GRID_QUESTION_PAGE = "/pages/question-pages/gridQuestion.xhtml?faces-redirect=true";
+
+    private PageNavigator() {
+
+    }
 }

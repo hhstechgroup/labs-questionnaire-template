@@ -4,12 +4,9 @@ import com.engagepoint.controller.page.TemplateEditController;
 import com.engagepoint.model.question.Question;
 import com.engagepoint.model.question.TextQuestionBean;
 import com.engagepoint.controller.page.QuestionEditController;
-import com.engagepoint.model.question.rules.Rule;
 
 import javax.annotation.PostConstruct;
-import javax.enterprise.context.Conversation;
 import javax.enterprise.context.ConversationScoped;
-import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
@@ -26,15 +23,11 @@ public class TextQuestionController extends QuestionEditController {
     public void postConstruct() {
         beginConversation();
         Question question = getTemplateTreeController().getCurrentQuestion();
-        if (question ==null) {
+        if (question == null) {
             setNew(true);
             currentQuestion = new TextQuestionBean(getTemplateTreeController().getCurrentGroup());
             currentQuestion.setQuestionType(templateEditController.getSelectedQuestionType());
-        }
-        else {
-            currentQuestion = (TextQuestionBean) question;
-        }
-
+        } else {currentQuestion = (TextQuestionBean) question;}
         currentQuestionEventNew.fire(currentQuestion);
     }
 
@@ -51,5 +44,4 @@ public class TextQuestionController extends QuestionEditController {
         getTemplateTreeController().setCurrentQuestion(currentQuestion);
         return super.actionSave();
     }
-
 }
