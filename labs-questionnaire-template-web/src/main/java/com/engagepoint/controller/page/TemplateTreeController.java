@@ -123,7 +123,7 @@ public class TemplateTreeController implements Serializable {
      */
     public String getStyle(Object node) {
         if (selectedNode != null) {
-            if (selectedNode.getData() == node) {
+            if (selectedNode.getData().equals(node)) {
                 return "color:white;background:#0075ac;";
             }
         }
@@ -206,7 +206,7 @@ public class TemplateTreeController implements Serializable {
             if (selectedType.equals("question")) {
                 return false;
             }
-            return selectedNode.getData() == tr;
+            return selectedNode.getData().equals(tr);
         }
         return false;
     }
