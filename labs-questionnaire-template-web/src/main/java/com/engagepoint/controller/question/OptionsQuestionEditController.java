@@ -8,6 +8,7 @@ import com.engagepoint.model.question.options.*;
 import com.engagepoint.model.question.rules.Rule;
 import com.engagepoint.model.question.utils.VariantItem;
 import com.engagepoint.model.table.ListOfOptionsDataModel;
+import org.apache.log4j.Logger;
 
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.Conversation;
@@ -31,20 +32,7 @@ public class OptionsQuestionEditController extends QuestionEditController {
     @Inject
     private TemplateEditController templateEditController;
 
-    @Inject
-    private Conversation conversation;
-
-    public void beginConversation() {
-        if (conversation.isTransient()) {
-            conversation.begin();
-        }
-    }
-
-    public void endConversation() {
-        if (!conversation.isTransient()) {
-            conversation.end();
-        }
-    }
+    private static final Logger LOG = Logger.getLogger(OptionsQuestionEditController.class);
 
     @PostConstruct
     public void postConstruct() {
@@ -54,8 +42,7 @@ public class OptionsQuestionEditController extends QuestionEditController {
             setNew(true);
             createCurrentQuestion();
             dataModel = new ListOfOptionsDataModel();
-        }
-        else {
+        } else {
             currentQuestion = (OptionsQuestion) question;
             dataModel = new ListOfOptionsDataModel(currentQuestion.getOptions());
         }
@@ -109,38 +96,26 @@ public class OptionsQuestionEditController extends QuestionEditController {
     public String actionSave() {
         try {
             currentQuestion.setOptions((ArrayList<VariantItem>) dataModel.getWrappedData());
-        }
-        catch (ClassCastException e) {
-            //TODO
+        } catch (ClassCastException e) {
+            LOG.error("Class cast Exception", e);
         }
         getTemplateTreeController().setCurrentQuestion(currentQuestion);
-        endConversation();
         return super.actionSave();
     }
 
-    @Override
-    public String actionCancel() {
-        endConversation();
-        return super.actionCancel();
-    }
-
-    private void createCurrentQuestion(){
-        switch(templateEditController.getSelectedQuestionType()){
+    private void createCurrentQuestion() {
+        switch (templateEditController.getSelectedQuestionType()) {
             case CHECKBOX:
-                currentQuestion = new CheckBoxQuestionBean();
+                currentQuestion = new CheckBoxQuestionBean(getTemplateTreeController().getCurrentGroup());
                 break;
             case CHOOSEFROMLIST:
-                currentQuestion = new ChooseFromListQuestionBean();
+                currentQuestion = new ChooseFromListQuestionBean(getTemplateTreeController().getCurrentGroup());
                 break;
             case MULTIPLECHOICE:
-                currentQuestion = new MultipleChoiceQuestionBean();
+                currentQuestion = new MultipleChoiceQuestionBean(getTemplateTreeController().getCurrentGroup());
                 break;
         }
         currentQuestion.setQuestionType(templateEditController.getSelectedQuestionType());
     }
 
-    @Override
-    public void deleteRule(Rule rule) {
-
-    }
 }

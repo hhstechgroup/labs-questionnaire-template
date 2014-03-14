@@ -5,6 +5,7 @@ import com.engagepoint.controller.utils.PageNavigator;
 import com.engagepoint.model.questionnaire.TemplateBean;
 import com.engagepoint.model.table.ListOfTemplatesDataModel;
 import com.engagepoint.utils.XmlImportExport;
+import org.apache.log4j.Logger;
 import org.primefaces.event.FileUploadEvent;
 
 import javax.enterprise.context.SessionScoped;
@@ -29,6 +30,7 @@ public class ListController implements Serializable {
     private ListOfTemplatesDataModel templatesModel;
     private String filterValue = "";
     private TemplateBean currentTemplate;
+	private static final Logger LOG = Logger.getLogger(ListController.class);
 
     public ListController() {
         list = new ArrayList<TemplateBean>();
@@ -202,7 +204,7 @@ public class ListController implements Serializable {
             File tmpFile = FileController.createTempXml(selectedTemplates);
             FileController.setPathToTempFile(tmpFile.getPath());
         } catch (IOException e) {
-            System.out.println(e.getMessage());
+            LOG.error("Export XML List Exception", e);
         }
     }
 

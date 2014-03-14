@@ -7,19 +7,19 @@ public abstract class Rule implements Cloneable {
     protected String nameXML;
     protected RuleType type;
 
-    public Rule(){
+    public Rule() {
         this.description = "Not Supported";
     }
 
-    public void setNameXML(String nameXML){
+    public void setNameXML(String nameXML) {
         this.nameXML = nameXML;
     }
 
-    public  String getNameXML(){
+    public String getNameXML() {
         return nameXML;
     }
 
-    public String getDescription(){
+    public String getDescription() {
         return description;
     }
 
@@ -28,9 +28,8 @@ public abstract class Rule implements Cloneable {
     }
 
     public void setId(long id) {
-        this.id=id;
+        this.id = id;
     }
-
 
     public long getId() {
         return id;
@@ -38,7 +37,7 @@ public abstract class Rule implements Cloneable {
 
     @Override
     public Object clone() throws CloneNotSupportedException {
-        Rule copy = (Rule)super.clone();
+        Rule copy = (Rule) super.clone();
         copy.description = this.description;
         copy.nameXML = this.nameXML;
         copy.type = this.type;
@@ -46,9 +45,4 @@ public abstract class Rule implements Cloneable {
 
         return copy;
     }
-
-
-
-
-
 }

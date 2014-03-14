@@ -20,12 +20,22 @@
 			<uib:dataTable id="questionstable" var="question" 
 				value="#{rulesTestController.questionsList}">
 				<uib:column headerText="Questions">
-					<h:outputText value="#{question.id}" />
+					<h:outputText value="#{question.displayedName}" 
+					style="#{rulesTestController.getStyle(question)}"/>
 				</uib:column>
 				<uib:column headerText="Dependencies">
 					<h:outputText value="#{rulesTestController.getDependentByQuestion(question)}" />
 				</uib:column>
-				
+				<uib:column>
+					<p:commandButton value="View" id="viewdeps"
+								style="float:center;"
+                                rendered="#{rulesTestController.getDependentByQuestion(question)!='NO'}"
+								styleClass="small blue"
+								update="questionstable"
+								onclick="">
+								
+					</p:commandButton>
+				</uib:column>
 			</uib:dataTable>
 			
 			<br/>

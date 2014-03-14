@@ -128,5 +128,15 @@ public class RulesTestController implements Serializable {
 	public void setDependencies(Map<Question, List<Long>> dependencies) {
 		this.dependencies = dependencies;
 	}
+	
+	public String getStyle(Question q){
+		
+		/*if (selectedNode != null) {
+            if (selectedNode.getData() == node) {
+                return "color:white;background:#0075ac;";
+            }
+        }*/
+		return "";
+	}
 
 }

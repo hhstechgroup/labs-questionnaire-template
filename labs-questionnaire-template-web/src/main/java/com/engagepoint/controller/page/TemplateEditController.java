@@ -6,6 +6,7 @@ import com.engagepoint.model.questionnaire.GroupBean;
 import com.engagepoint.model.questionnaire.QuestionType;
 import com.engagepoint.model.questionnaire.SectionBean;
 import com.engagepoint.model.questionnaire.TemplateBean;
+import org.apache.log4j.Logger;
 
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Inject;
@@ -30,6 +31,7 @@ public class TemplateEditController implements Serializable {
     private TemplateBean currentTemplate; //real template
     private TemplateBean duplicateTemplate; //copy of real template, contains all unsaved changes
     private QuestionType selectedQuestionType;
+    private static final Logger LOG = Logger.getLogger(TemplateEditController.class);
 
     public TemplateBean getDuplicateTemplate() {
         return duplicateTemplate;
@@ -49,7 +51,7 @@ public class TemplateEditController implements Serializable {
             duplicateTemplate = currentTemplate.duplicate();
             templateTreeController.setTemplateBean(duplicateTemplate);
         } catch (CloneNotSupportedException e) {
-            //NOP
+            LOG.error("Clone template exception", e);
         }
     }
 
@@ -116,7 +118,6 @@ public class TemplateEditController implements Serializable {
             case GRID:
                 return PageNavigator.GRID_QUESTION_PAGE;
         }
-
         return stab;
     }
 
@@ -154,6 +155,7 @@ public class TemplateEditController implements Serializable {
             listController.removeTemplateFromFilteredListIfNeed(currentTemplate);
             listController.sort();
         }
+        templateTreeController.setSelectedNode(null);
         return ListController.income();
     }
 
@@ -167,6 +169,7 @@ public class TemplateEditController implements Serializable {
      * @return index page
      */
     public String cancel() {
+        templateTreeController.setSelectedNode(null);
         return ListController.income();
     }
 

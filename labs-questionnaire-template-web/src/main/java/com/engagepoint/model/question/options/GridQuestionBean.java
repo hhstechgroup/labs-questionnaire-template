@@ -5,11 +5,15 @@ import java.util.Arrays;
 import java.util.List;
 
 import com.engagepoint.model.question.Question;
+import com.engagepoint.model.questionnaire.GroupBean;
 
 public class GridQuestionBean extends Question {
     List<String> rows;
+    /** List of columns */
     List<String> cols;
     boolean[][] selected;
+    boolean onlyOneSelectInRow;
+    boolean onlyOneSelectInCol;
 
     public void clear() {
         rows = new ArrayList<String>();
@@ -27,6 +31,21 @@ public class GridQuestionBean extends Question {
         cols.add("col2");
         cols.add("col3");
         selected = new boolean[rows.size()][cols.size()];
+        setSelect(1, 1);
+    }
+
+    public GridQuestionBean(GroupBean currentGroup) {
+        super(currentGroup);
+        rows = new ArrayList<String>();
+        rows.add("row1");
+        rows.add("row2");
+        rows.add("row3");
+        cols = new ArrayList<String>();
+        cols.add("col1");
+        cols.add("col2");
+        cols.add("col3");
+        selected = new boolean[rows.size()][cols.size()];
+        setSelect(1, 1);
     }
 
     public List<String> getRows() {
@@ -79,7 +98,11 @@ public class GridQuestionBean extends Question {
     }
 
     public void setSelect(int i, int j) {
-        selected[i][j] = true;
+        setSelect(i, j, true);
+    }
+
+    public void setSelect(int i, int j, boolean b) {
+        selected[i][j] = b;
     }
 
     public void unsetSelect(int i, int j) {
@@ -88,5 +111,39 @@ public class GridQuestionBean extends Question {
 
     public boolean isSelect(int i, int j) {
         return selected[i][j];
+    }
+
+    public boolean isOnlyOneSelectInRow() {
+        return onlyOneSelectInRow;
+    }
+
+    public void setOnlyOneSelectInRow(boolean onlyOneSelectInRow) {
+        this.onlyOneSelectInRow = onlyOneSelectInRow;
+    }
+
+    public boolean isOnlyOneSelectInCol() {
+        return onlyOneSelectInCol;
+    }
+
+    public void setOnlyOneSelectInCol(boolean onlyOneSelectInCol) {
+        this.onlyOneSelectInCol = onlyOneSelectInCol;
+    }
+
+    private boolean isSelectedInCol (int i) {
+        for (boolean[] booleans : selected) {
+            if (booleans[i]) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private boolean isSelectedInRow (int i) {
+        for (boolean booleans : selected[i]) {
+            if (booleans) {
+                return true;
+            }
+        }
+        return false;
     }
 }

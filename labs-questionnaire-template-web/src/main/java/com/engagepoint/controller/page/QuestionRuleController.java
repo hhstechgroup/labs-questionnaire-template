@@ -18,6 +18,7 @@ import com.engagepoint.model.question.utils.VariantItem;
 import com.engagepoint.model.questionnaire.GroupBean;
 import com.engagepoint.model.questionnaire.SectionBean;
 import com.engagepoint.model.table.ListOfOptionsDataModel;
+import org.apache.log4j.Logger;
 
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.Conversation;
@@ -26,9 +27,7 @@ import javax.enterprise.event.Observes;
 import javax.inject.Inject;
 import javax.inject.Named;
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 /**
  * Controller for question rules.
@@ -71,11 +70,10 @@ public class QuestionRuleController implements Serializable {
     //for range
     private String minValue;
     private String maxValue;
-
-
     private Rule currentRule;
     private List<Rule> currentRules;
-
+    //logger
+    private static final Logger LOG = Logger.getLogger(QuestionRuleController.class);
 
     public QuestionRuleController() {
         rulesContainer = new RulesContainer();
@@ -306,8 +304,6 @@ public class QuestionRuleController implements Serializable {
         if (answer != null)
             answers.add(answer);
         setAnswerAndIdToRule(answers);
-
-
         setChooseDependentQuestionListVisible(false);
         setCancelRuleEditionButtonIsVisible(false);
         setAddRulesTableIsVisible(false);
@@ -405,10 +401,53 @@ public class QuestionRuleController implements Serializable {
         endConversation();
     }
 
+    public List<Question> getAllQuestionsThatSetDependence() {
+        List<Question> all = getQuestions();
+        List<Question> questionsWithRules = getQuestionsWithRules();
+        Set<Long> idSet = new HashSet<Long>();
+        for (Question q : questionsWithRules) {
+            for (Rule rule : q.getRules()) {
+                idSet.add(rule.getId());
+            }
+        }
+        List<Question> result = new ArrayList<Question>();
+        for (Question q : all) {
+            if (idSet.contains(q.getId()))
+                result.add(q);
+        }
+
+        return result;
+    }
+
+    public List<Question> getDependentQuestions(Question question) {
+        if (question == null)
+            return null;
+        List<Question> questionsWithRules = getQuestionsWithRules();
+        List<Question> result = new ArrayList<Question>();
+        for (Question q : questionsWithRules) {
+            for (Rule rule : q.getRules()) {
+                if (rule.getId() == question.getId()) {
+                    result.add(q);
+                    break;
+                }
+            }
+        }
+        return result;
+    }
+
+    public List<Question> getQuestionsWithRules() {
+        List<Question> all = getQuestions();
+        List<Question> result = new ArrayList<Question>();
+        for (Question question : all) {
+            if (question.getRules() != null && !question.getRules().isEmpty())
+                result.add(question);
+        }
+        return result;
+    }
+
     private void endConversation() {
         if (!conversation.isTransient())
             conversation.end();
-
     }
 
     private void beginConversation() {
@@ -420,8 +459,6 @@ public class QuestionRuleController implements Serializable {
         //question.setRules(rulesContainer.getRules());
         question.setRules(currentRules);
         currentRules = null;
-
-        //rulesContainer.setRules(null);
     }
 
     private void setAnswerAndIdToRule(List<String> answers) {
@@ -458,7 +495,7 @@ public class QuestionRuleController implements Serializable {
                 result.add((Rule) rule.clone());
             }
         } catch (CloneNotSupportedException e) {
-            e.printStackTrace();
+            LOG.error("Clone Rule List Exception", e);
         }
         return result;
     }
