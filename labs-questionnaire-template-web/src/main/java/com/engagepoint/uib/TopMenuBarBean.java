@@ -15,18 +15,18 @@ import javax.faces.context.FacesContext;
 public class TopMenuBarBean {
 
     private MenuModel model;
-    private UIViewRoot viewRoot;
+    private final String styleClass = "active";
 
     @PostConstruct
     public void initModel() {
         model = new DefaultMenuModel();
-        viewRoot = FacesContext.getCurrentInstance().getViewRoot();
+        UIViewRoot viewRoot = FacesContext.getCurrentInstance().getViewRoot();
         String viewId = viewRoot.getViewId();
 
         MenuItem menuItem = new MenuItem();
         menuItem.setId("bootstrapItem");
         if (viewId.startsWith("/bootstrap")) {
-            menuItem.setStyleClass("active");
+            menuItem.setStyleClass(styleClass);
         }
         menuItem.setValue("But but 1");
         menuItem.setUrl("/bootstrap/button/index.xhtml");
@@ -35,7 +35,7 @@ public class TopMenuBarBean {
         menuItem = new MenuItem();
         menuItem.setId("demoItem");
         if (viewId.startsWith("/demo")) {
-            menuItem.setStyleClass("active");
+            menuItem.setStyleClass(styleClass);
         }
         menuItem.setValue("But but 2");
         menuItem.setUrl("/demo/default.xhtml");
@@ -44,7 +44,7 @@ public class TopMenuBarBean {
         menuItem = new MenuItem();
         menuItem.setId("toolsItem");
         if (viewId.startsWith("/tools")) {
-            menuItem.setStyleClass("active");
+            menuItem.setStyleClass(styleClass);
         }
         menuItem.setValue("But but 3");
         menuItem.setUrl("/tools/grid/index.xhtml");
@@ -54,5 +54,4 @@ public class TopMenuBarBean {
     public MenuModel getModel() {
         return model;
     }
-
 }
