@@ -454,13 +454,15 @@ public class QuestionRuleController implements Serializable {
     }
 
     private void endConversation() {
-        if (!conversation.isTransient())
+        if (!conversation.isTransient()) {
             conversation.end();
+        }
     }
 
     private void beginConversation() {
-        if (conversation.isTransient())
+        if (conversation.isTransient()) {
             conversation.begin();
+        }
     }
 
     private void saveRuleToQuestion(@Observes @SaveQuestion Question question) {
