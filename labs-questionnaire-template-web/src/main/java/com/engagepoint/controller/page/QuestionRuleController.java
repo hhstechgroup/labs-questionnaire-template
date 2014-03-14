@@ -480,19 +480,4 @@ public class QuestionRuleController implements Serializable {
         }
         setCurrentRules(list);
     }
-
-    private List<Rule> cloneRulesList(List<Rule> input) {
-        if (input == null) {
-            return null;
-        }
-        List<Rule> result = new ArrayList<Rule>();
-        try {
-            for (Rule rule : input) {
-                result.add((Rule) rule.clone());
-            }
-        } catch (CloneNotSupportedException e) {
-            LOG.error("Clone Rule List Exception", e);
-        }
-        return result;
-    }
 }

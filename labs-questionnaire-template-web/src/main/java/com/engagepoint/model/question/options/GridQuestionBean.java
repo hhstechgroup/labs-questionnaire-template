@@ -13,7 +13,9 @@ import javax.xml.bind.annotation.XmlElementWrapper;
 
 public class GridQuestionBean extends Question {
     List<String> rows;
-    /** List of columns */
+    /**
+     * List of columns
+     */
     List<String> cols;
     boolean[][] selected;
     boolean onlyOneSelectInRow;
@@ -33,6 +35,7 @@ public class GridQuestionBean extends Question {
         super(currentGroup);
         clear();
     }
+
     @XmlElementWrapper(name = "Rows")
     @XmlElement(name = "row")
     public List<String> getRows() {
@@ -42,11 +45,13 @@ public class GridQuestionBean extends Question {
     public void setRows(List<String> rows) {
         this.rows = rows;
     }
+
     @XmlElementWrapper(name = "Columns")
     @XmlElement(name = "column")
     public List<String> getCols() {
         return cols;
     }
+
     @XmlElementWrapper(name = "Array")
     @XmlElement(name = "element")
     public boolean[][] getSelected() {
@@ -93,6 +98,7 @@ public class GridQuestionBean extends Question {
     public boolean isSelect(int i, int j) {
         return selected[i][j];
     }
+
     @XmlAttribute(name = "OnlyOneInRow")
     public boolean isOnlyOneSelectInRow() {
         return onlyOneSelectInRow;
@@ -101,6 +107,7 @@ public class GridQuestionBean extends Question {
     public void setOnlyOneSelectInRow(boolean onlyOneSelectInRow) {
         this.onlyOneSelectInRow = onlyOneSelectInRow;
     }
+
     @XmlAttribute(name = "OnlyOneInCol")
     public boolean isOnlyOneSelectInCol() {
         return onlyOneSelectInCol;
@@ -108,23 +115,5 @@ public class GridQuestionBean extends Question {
 
     public void setOnlyOneSelectInCol(boolean onlyOneSelectInCol) {
         this.onlyOneSelectInCol = onlyOneSelectInCol;
-    }
-
-    private boolean isSelectedInCol (int i) {
-        for (boolean[] booleans : selected) {
-            if (booleans[i]) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    private boolean isSelectedInRow (int i) {
-        for (boolean booleans : selected[i]) {
-            if (booleans) {
-                return true;
-            }
-        }
-        return false;
     }
 }
