@@ -15,7 +15,7 @@ import javax.faces.context.FacesContext;
 public class TopMenuBarBean {
 
     private MenuModel model;
-    private final String styleClass = "active";
+    private static final String styleClass = "active";
 
     @PostConstruct
     public void initModel() {

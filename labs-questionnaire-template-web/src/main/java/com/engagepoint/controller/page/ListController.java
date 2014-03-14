@@ -212,17 +212,6 @@ public class ListController implements Serializable {
     }
 
     /**
-     * Show message on default page.
-     *
-     * @param propertyKey key of messages.properties
-     */
-    private void addMessage(String propertyKey) {
-        String summary = getMessageProperty(propertyKey);
-        FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, summary, null);
-        FacesContext.getCurrentInstance().addMessage(null, message);
-    }
-
-    /**
      * Get message from messages.properties.
      *
      * @param propertyKey key of messages.properties

@@ -1,10 +1,8 @@
 package com.engagepoint.controller.page;
 
 import javax.enterprise.context.SessionScoped;
-
 import java.io.Serializable;
 import java.util.ArrayList;
-
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.inject.Named;
@@ -17,53 +15,51 @@ import com.engagepoint.model.questionnaire.TemplateBean;
 import org.primefaces.model.DefaultTreeNode;
 import org.primefaces.model.TreeNode;
 
-
 /**
  * Used for controlling tree on templateEdit.xhtml
  */
-
 @Named
 @SessionScoped
 public class TemplateTreeController implements Serializable {
 
-	private static final long serialVersionUID = 1L;
-	private TreeNode root = new DefaultTreeNode("Root", null);
-	private TreeNode selectedNode;
-	private String selectedType; // instead of method getSelectedType() to make
-									// code more clear
-	// it is initialized in method onSelect
+    private static final long serialVersionUID = 1L;
+    private TreeNode root = new DefaultTreeNode("Root", null);
+    private TreeNode selectedNode;
+    // instead of method getSelectedType() to make
+    private String selectedType;
+    // code more clear
+    // it is initialized in method onSelect
+    private TemplateBean templateBean;
+    private SectionBean currentSection;
+    private GroupBean currentGroup;
+    private Question currentQuestion;
 
-	private TemplateBean templateBean;
-	private SectionBean currentSection;
-	private GroupBean currentGroup;
-	private Question currentQuestion;
+    private String nameOfCurrentNode = "";
 
-    private String nameOfCurrentNode="";
+    public TreeNode getRoot() {
+        return root;
+    }
 
-	public TreeNode getRoot() {
-		return root;
-	}
+    public TreeNode getSelectedNode() {
+        return selectedNode;
+    }
 
-	public TreeNode getSelectedNode() {
-		return selectedNode;
-	}
+    public void setSelectedNode(TreeNode selectedNode) {
+        this.selectedNode = selectedNode;
+    }
 
-	public void setSelectedNode(TreeNode selectedNode) {
-		this.selectedNode = selectedNode;
-	}
+    public String getSelectedType() {
+        return selectedType;
+    }
 
-	public String getSelectedType() {
-		return selectedType;
-	}
+    public TemplateBean getTemplateBean() {
+        return templateBean;
+    }
 
-	public TemplateBean getTemplateBean() {
-		return templateBean;
-	}
-
-	public void setTemplateBean(TemplateBean templateBean) {
-		this.templateBean = templateBean;
-		setNodes();
-	}
+    public void setTemplateBean(TemplateBean templateBean) {
+        this.templateBean = templateBean;
+        setNodes();
+    }
 
     public GroupBean getCurrentGroup() {
         return currentGroup;
@@ -74,8 +70,8 @@ public class TemplateTreeController implements Serializable {
     }
 
     public void setCurrentQuestion(Question currentQuestion) {
-		this.currentQuestion = currentQuestion;
-	}
+        this.currentQuestion = currentQuestion;
+    }
 
     public String getNameOfCurrentNode() {
         return nameOfCurrentNode;
@@ -136,15 +132,12 @@ public class TemplateTreeController implements Serializable {
 
     public void setNodes() {
         root = new DefaultTreeNode("Root", null);
-
         // Iterator LEVEL_0 for filling sections of choosed template
         for (SectionBean sectionBean : templateBean.getSectionsList()) {
             TreeNode section = new DefaultTreeNode(sectionBean, root);
-
             // Iterator LEVEL_1 for filling groups of choosed section
             for (GroupBean groupBean : sectionBean.getGroupsList()) {
                 TreeNode group = new DefaultTreeNode(groupBean, section);
-
                 // Iterator LEVEL_2 for filling questions of choosed section
                 for (Question question : groupBean.getQuestionsList()) {
                     new DefaultTreeNode(question, group);
@@ -218,21 +211,20 @@ public class TemplateTreeController implements Serializable {
     }
 
     public void revertNameOfCurrentNode() {
-        if (selectedType=="section") {
+        if (selectedType.equals("section")) {
             setNameOfCurrentNode(currentSection.getDisplayedName());
-        } else if (selectedType=="group") {
+        } else if (selectedType.equals("group")) {
             setNameOfCurrentNode(currentGroup.getDisplayedName());
         }
 
     }
 
     public void commitNameOfCurrentNode() {
-        if (selectedType=="section") {
+        if (selectedType.equals("section")) {
             currentSection.setDisplayedName(nameOfCurrentNode);
-        } else if (selectedType=="group") {
+        } else if (selectedType.equals("group")) {
             currentGroup.setDisplayedName(nameOfCurrentNode);
         }
         revertNameOfCurrentNode();
     }
-
 }

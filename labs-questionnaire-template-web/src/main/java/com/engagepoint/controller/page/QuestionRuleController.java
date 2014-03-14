@@ -292,11 +292,13 @@ public class QuestionRuleController implements Serializable {
                 answer = getDefaultOption().getValue();
                 break;
             case CHECKBOX:
-                for (VariantItem item : getDefaultOptions())
+                for (VariantItem item : getDefaultOptions()) {
                     answers.add(item.getValue());
+                }
                 break;
             case GRID:
                 break;
+            default:
         }
         if (answer != null) {
             answers.add(answer);
@@ -342,6 +344,7 @@ public class QuestionRuleController implements Serializable {
                 break;
             case GRID:
                 break;
+            default:
         }
     }
 
