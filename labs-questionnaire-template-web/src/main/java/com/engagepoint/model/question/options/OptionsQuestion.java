@@ -28,6 +28,15 @@ public abstract class OptionsQuestion extends Question implements Cloneable {
     }
 
     @XmlTransient
+    public List<VariantItem> getOptions() {
+        return options;
+    }
+
+    public void setOptions(List<VariantItem> options) {
+        this.options = options;
+    }
+
+    @XmlTransient
     public VariantItem getDefaultOption() {
         return defaultOption;
     }

@@ -18,16 +18,6 @@ public class MultipleChoiceQuestionBean extends OptionsQuestion {
     }
 
     @Override
-    public List<VariantItem> getOptions() {
-        return this.options;
-    }
-
-    @Override
-    public void setOptions(List<VariantItem> options) {
-        this.options = options;
-    }
-
-    @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof MultipleChoiceQuestionBean)) return false;
