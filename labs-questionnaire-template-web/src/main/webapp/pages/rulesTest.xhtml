@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:uib="http://engagepoint.com/uib"
+	xmlns:F="http://java.sun.com/jsp/jstl/sql"
+	template="/templates/templateEdit.xhtml">
+
+	<ui:define name="page">
+
+		<h:form id="form1">
+			<h:outputText value="ELEMENTS IN QUESTIONLIST: "/>
+			<h:outputText value="#{rulesTestController.AAA}"/><br/>
+			<h:outputText value="TEMPLATE ID: "/>
+			<h:outputText value="#{rulesTestController.BBB}"/>
+			<br/>
+			
+			<uib:dataTable id="questionstable" var="question" 
+				value="#{rulesTestController.questionsList}">
+				<uib:column headerText="Questions">
+					<h:outputText value="#{question.displayedName}" 
+					style="#{rulesTestController.getStyle(question)}"/>
+				</uib:column>
+				<uib:column headerText="Dependencies">
+					<h:outputText value="#{rulesTestController.getDependentByQuestion(question)}" />
+				</uib:column>
+				<uib:column>
+					<p:commandButton value="View" id="viewdeps"
+								style="float:center;"
+                                rendered="#{rulesTestController.getDependentByQuestion(question)!='NO'}"
+								styleClass="small blue"
+								update="questionstable"
+								onclick="">
+								
+					</p:commandButton>
+				</uib:column>
+			</uib:dataTable>
+			
+			<br/>
+			<p:commandButton id="back" value="Back" title="Back"
+				action="#{rulesTestController.backToIndex()}">
+			</p:commandButton>
+		</h:form>
+
+	</ui:define>
+</ui:composition>

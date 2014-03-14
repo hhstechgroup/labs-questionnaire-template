@@ -62,7 +62,8 @@
 							<p:commandButton value="Edit Name" id="editName"
 								style="float:right;"
                                 rendered="#{templateTreeController.editButtonRendering(node)}"
-								onclick="dlg.show();">
+								onclick="dlg.show();"
+								styleClass="small blue">
 						    </p:commandButton>
                             <p:dialog id="modalDialogEdit" widgetVar="dlg" modal="true"
                                       closable="false" height="100" resizeable="false">

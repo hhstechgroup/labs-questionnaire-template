@@ -61,13 +61,23 @@
                                          styleClass="secondary small"
                                          icon="ui-icon-add-v2"/>
 
-                        <p:commandButton id="DeleteDialogButton" value="Delete"
-                                         title="Delete"
-                                         update="modalDialogDelete" oncomplete="dlg2.show();"
-                                         styleClass="secondary small"
-                                         icon="ui-icon-remove">
-                        </p:commandButton>
-                    </uib:buttonGroup>
+						<p:commandButton id="DeleteDialogButton" value="Delete"
+							title="Delete" update="modalDialogDelete"
+							oncomplete="dlg2.show();" styleClass="secondary small"
+							icon="ui-icon-remove">
+						</p:commandButton>
+						
+						<p:commandButton value="Test Rules" 
+											id="testrules" 
+											title="Test"
+											styleClass="secondary small"
+											icon="ui-icon-edit-small"
+											action="#{rulesTestController.income()}">
+											<f:setPropertyActionListener value="#{template}"
+                                                         target="#{listController.currentTemplate}"/>
+							
+						</p:commandButton>
+					</uib:buttonGroup>
 
                     <p:dialog id="modalDialogDelete" widgetVar="dlg2"
                               modal="true" height="100" closable="false" resizeable="false">
