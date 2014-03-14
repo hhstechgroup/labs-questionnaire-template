@@ -27,7 +27,8 @@ public class TextQuestionController extends QuestionEditController {
             setNew(true);
             currentQuestion = new TextQuestionBean(getTemplateTreeController().getCurrentGroup());
             currentQuestion.setQuestionType(templateEditController.getSelectedQuestionType());
-        } else {currentQuestion = (TextQuestionBean) question;}
+        } else {currentQuestion = (TextQuestionBean) question;
+        }
         currentQuestionEventNew.fire(currentQuestion);
     }
 
