@@ -88,26 +88,26 @@ public class TemplateTreeController implements Serializable {
      */
     public void onSelect() {
         selectedType = ((BasicBean) selectedNode.getData()).getType();
-        if (selectedType.equals("question")) {
+        if ("question".equals(selectedType)) {
             Question question = (Question) selectedNode.getData();
             currentQuestion = question;
             //check if current group has not been changed
             GroupBean groupBean = (GroupBean) selectedNode.getParent().getData();
-            if (currentGroup != groupBean) {
+            if (!currentGroup.equals(groupBean)) {
                 currentGroup = groupBean;
             }
             //check if current section has not been changed
             SectionBean sectionBean = (SectionBean) selectedNode.getParent().getParent().getData();
-            if (currentSection != sectionBean) {
+            if (!currentSection.equals(sectionBean)) {
                 currentSection = sectionBean;
             }
-        } else if (selectedType.equals("group")) {
+        } else if ("group".equals(selectedType)) {
             currentQuestion = null;
             currentGroup = (GroupBean) selectedNode.getData();
             nameOfCurrentNode = currentGroup.getDisplayedName();
             //check if current section has not been changed
             SectionBean sectionBean = (SectionBean) selectedNode.getParent().getData();
-            if (currentSection != sectionBean) {
+            if (!currentSection.equals(sectionBean)) {
                 currentSection = sectionBean;
             }
         } else {
@@ -173,9 +173,9 @@ public class TemplateTreeController implements Serializable {
      * Delete selected section, group or question
      */
     public void delete() {
-        if (selectedType.equals("group")) {
+        if ("group".equals(selectedType)) {
             currentSection.deleteFromInnerList(currentGroup);
-        } else if (selectedType.equals("question")) {
+        } else if ("question".equals(selectedType)) {
             currentGroup.deleteFromInnerList(currentQuestion);
         } else {
             templateBean.deleteFromInnerList(currentSection);
@@ -203,7 +203,7 @@ public class TemplateTreeController implements Serializable {
     public boolean editButtonRendering(Object tr) {
         if (selectedNode != null) {
             selectedType = ((BasicBean) selectedNode.getData()).getType();
-            if (selectedType.equals("question")) {
+            if ("question".equals(selectedType)) {
                 return false;
             }
             return selectedNode.getData().equals(tr);
@@ -212,18 +212,17 @@ public class TemplateTreeController implements Serializable {
     }
 
     public void revertNameOfCurrentNode() {
-        if (selectedType.equals("section")) {
+        if ("section".equals(selectedType)) {
             setNameOfCurrentNode(currentSection.getDisplayedName());
-        } else if (selectedType.equals("group")) {
+        } else if ("group".equals(selectedType)) {
             setNameOfCurrentNode(currentGroup.getDisplayedName());
         }
-
     }
 
     public void commitNameOfCurrentNode() {
-        if (selectedType.equals("section")) {
+        if ("section".equals(selectedType)) {
             currentSection.setDisplayedName(nameOfCurrentNode);
-        } else if (selectedType.equals("group")) {
+        } else if ("group".equals(selectedType)) {
             currentGroup.setDisplayedName(nameOfCurrentNode);
         }
         revertNameOfCurrentNode();
