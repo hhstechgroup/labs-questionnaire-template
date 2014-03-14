@@ -4,7 +4,6 @@ import com.engagepoint.controller.utils.PageNavigator;
 import com.engagepoint.controller.utils.qualifiers.NewQuestion;
 import com.engagepoint.controller.utils.qualifiers.SaveQuestion;
 import com.engagepoint.model.question.Question;
-import com.engagepoint.model.question.rules.Rule;
 
 import java.io.Serializable;
 import javax.enterprise.event.Event;
