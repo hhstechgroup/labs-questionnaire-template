@@ -203,8 +203,9 @@ public class TemplateTreeController implements Serializable {
     public boolean editButtonRendering(Object tr) {
         if (selectedNode != null) {
             selectedType = ((BasicBean) selectedNode.getData()).getType();
-            if (selectedType.equals("question"))
+            if (selectedType.equals("question")) {
                 return false;
+            }
             return selectedNode.getData() == tr;
         }
         return false;
