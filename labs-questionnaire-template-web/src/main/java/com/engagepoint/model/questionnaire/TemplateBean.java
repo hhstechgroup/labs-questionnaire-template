@@ -12,16 +12,14 @@ import java.util.List;
 @XmlRootElement(name = "questionnaire-form")
 public class TemplateBean implements Cloneable, Comparable<TemplateBean>, BasicOperationWithBean {
     private static Long lastId = 1L;
+    private Long id;
+    private String templateName = "";
+    private List<SectionBean> sectionsList = new ArrayList<SectionBean>();
+    public static boolean duplicate;
 
     public static Long getLastId() {
         return lastId++;
     }
-
-    private Long id;
-    private String templateName = "";
-    private List<SectionBean> sectionsList = new ArrayList<SectionBean>();
-
-    public static boolean duplicate;
 
     public TemplateBean() {
         setId(getLastId());
@@ -52,7 +50,6 @@ public class TemplateBean implements Cloneable, Comparable<TemplateBean>, BasicO
         this.id = id;
     }
 
-
     @XmlElement(name = "form-name")
     public String getTemplateName() {
         return templateName;
@@ -80,20 +77,22 @@ public class TemplateBean implements Cloneable, Comparable<TemplateBean>, BasicO
     }
 
     public TemplateBean duplicate() throws CloneNotSupportedException {
-        duplicate=true;
+        duplicate = true;
         TemplateBean copy = clone1();
         copy.setId(this.id);
-        duplicate=false;
+        duplicate = false;
         return copy;
     }
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
         TemplateBean that = (TemplateBean) o;
-
         return that.getId().equals(this.getId());
     }
 
@@ -134,7 +133,7 @@ public class TemplateBean implements Cloneable, Comparable<TemplateBean>, BasicO
     private TemplateBean clone1() throws CloneNotSupportedException {
         TemplateBean copy = (TemplateBean) super.clone();
         List<SectionBean> copySectionsList = null;
-        if(sectionsList!=null){
+        if (sectionsList != null) {
             copySectionsList = new ArrayList<SectionBean>();
             for (SectionBean sectionBean : sectionsList) {
                 copySectionsList.add((SectionBean) sectionBean.clone());

@@ -1,6 +1,5 @@
 package com.engagepoint.controller.page;
 
-
 import com.engagepoint.controller.utils.PageNavigator;
 import com.engagepoint.model.questionnaire.TemplateBean;
 import com.engagepoint.model.table.ListOfTemplatesDataModel;
@@ -19,7 +18,6 @@ import java.util.*;
 /**
  * Used for controlling index.xhtml
  */
-
 @Named
 @SessionScoped
 public class ListController implements Serializable {
@@ -83,7 +81,6 @@ public class ListController implements Serializable {
     private boolean containsFilterValue(String name) {
         return name.toLowerCase().contains(filterValue.toLowerCase());
     }
-
     //operations on both lists
 
     /**
@@ -163,14 +160,14 @@ public class ListController implements Serializable {
         sort();
     }
 
-
     /**
      * Sort both lists of templates.
      */
     public void sort() {
         Collections.sort(list);
-        if (filteredList != null)
+        if (filteredList != null) {
             Collections.sort(filteredList);
+        }
     }
 
     /**
@@ -214,7 +211,6 @@ public class ListController implements Serializable {
     public void importFromXML(FileUploadEvent event) throws IOException {
         addAllTemplates(XmlImportExport.importXmlTemplate(event.getFile().getInputstream()));
     }
-
 
     /**
      * Show message on default page.

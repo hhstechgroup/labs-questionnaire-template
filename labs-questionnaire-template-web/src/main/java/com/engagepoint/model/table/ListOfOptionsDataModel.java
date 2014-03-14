@@ -10,7 +10,6 @@ import java.util.List;
 /**
  * Class for enabling selection in the dataTable.
  */
-
 public class ListOfOptionsDataModel extends ListDataModel<VariantItem> implements SelectableDataModel<VariantItem> {
 
     public ListOfOptionsDataModel(List<VariantItem> data) {
@@ -36,8 +35,9 @@ public class ListOfOptionsDataModel extends ListDataModel<VariantItem> implement
     public VariantItem getRowData(String rowKey) {
         List<VariantItem> itemList = (List<VariantItem>) getWrappedData();
         for (VariantItem variantItem : itemList) {
-            if (variantItem.getValue().equals(rowKey))
+            if (variantItem.getValue().equals(rowKey)) {
                 return variantItem;
+            }
         }
         return null;
     }

@@ -40,7 +40,6 @@ public class QuestionRuleController implements Serializable {
     @Inject
     private Conversation conversation;
     //dependent question data
-    //
     private String currentDependentQuestionId;
     private Question dependentQuestion;
     //contains all rules
@@ -261,7 +260,6 @@ public class QuestionRuleController implements Serializable {
     public void createRuleAction(String ruleName) {
         setAddRulesTableIsVisible(false);
         setChooseDependentQuestionListVisible(true);
-        //currentRules.add(rulesContainer.createRule(ruleName));
         currentRule = rulesContainer.createRule(ruleName);
     }
 
@@ -300,9 +298,9 @@ public class QuestionRuleController implements Serializable {
             case GRID:
                 break;
         }
-
-        if (answer != null)
+        if (answer != null) {
             answers.add(answer);
+        }
         setAnswerAndIdToRule(answers);
         setChooseDependentQuestionListVisible(false);
         setCancelRuleEditionButtonIsVisible(false);
@@ -354,10 +352,13 @@ public class QuestionRuleController implements Serializable {
      */
     public List<Question> getQuestions() {
         List<Question> list = new ArrayList<Question>();
-        for (SectionBean sectionBean : templateEditController.getCurrentTemplate().getSectionsList())
-            for (GroupBean groupBean : sectionBean.getGroupsList())
-                for (Question question : groupBean.getQuestionsList())
+        for (SectionBean sectionBean : templateEditController.getCurrentTemplate().getSectionsList()) {
+            for (GroupBean groupBean : sectionBean.getGroupsList()) {
+                for (Question question : groupBean.getQuestionsList()) {
                     list.add(question);
+                }
+            }
+        }
         return list;
     }
 
@@ -368,20 +369,21 @@ public class QuestionRuleController implements Serializable {
      */
     public String getCurrentDependentQuestionType() {
         if (currentDependentQuestionId != null) {
-            for (SectionBean sectionBean : templateEditController.getCurrentTemplate().getSectionsList())
-                for (GroupBean groupBean : sectionBean.getGroupsList())
-                    for (Question question : groupBean.getQuestionsList())
+            for (SectionBean sectionBean : templateEditController.getCurrentTemplate().getSectionsList()) {
+                for (GroupBean groupBean : sectionBean.getGroupsList()) {
+                    for (Question question : groupBean.getQuestionsList()) {
                         if (String.valueOf(question.getId()).equals(currentDependentQuestionId)) {
                             dependentQuestion = question;
                             return question.getQuestionType().toString();
                         }
+                    }
+                }
+            }
         }
         return "question type is not chose";
     }
 
     public List<Rule> getCurrentRules() {
-        //return currentQuestion.getRules();
-        //return rulesContainer.getRules();
         return currentRules;
     }
 
@@ -391,8 +393,9 @@ public class QuestionRuleController implements Serializable {
 
     public void deleteRule(Rule rule) {
         List<Rule> list = getCurrentRules();
-        if (list != null)
+        if (list != null) {
             list.remove(rule);
+        }
         setCurrentRules(list);
     }
 
@@ -412,16 +415,17 @@ public class QuestionRuleController implements Serializable {
         }
         List<Question> result = new ArrayList<Question>();
         for (Question q : all) {
-            if (idSet.contains(q.getId()))
+            if (idSet.contains(q.getId())) {
                 result.add(q);
+            }
         }
-
         return result;
     }
 
     public List<Question> getDependentQuestions(Question question) {
-        if (question == null)
+        if (question == null) {
             return null;
+        }
         List<Question> questionsWithRules = getQuestionsWithRules();
         List<Question> result = new ArrayList<Question>();
         for (Question q : questionsWithRules) {
@@ -439,8 +443,9 @@ public class QuestionRuleController implements Serializable {
         List<Question> all = getQuestions();
         List<Question> result = new ArrayList<Question>();
         for (Question question : all) {
-            if (question.getRules() != null && !question.getRules().isEmpty())
+            if ((question.getRules() != null) && (!question.getRules().isEmpty())) {
                 result.add(question);
+            }
         }
         return result;
     }
@@ -456,13 +461,11 @@ public class QuestionRuleController implements Serializable {
     }
 
     private void saveRuleToQuestion(@Observes @SaveQuestion Question question) {
-        //question.setRules(rulesContainer.getRules());
         question.setRules(currentRules);
         currentRules = null;
     }
 
     private void setAnswerAndIdToRule(List<String> answers) {
-
         switch (currentRule.getType()) {
             case RENDERED:
                 RenderedRule renderedRule = (RenderedRule) currentRule;
@@ -470,28 +473,30 @@ public class QuestionRuleController implements Serializable {
                 renderedRule.setId(dependentQuestion.getId());
                 break;
         }
-
         List<Rule> list = getCurrentRules();
-        if (list != null)
+        if (list != null) {
             list.add(currentRule);
+        }
         setCurrentRules(list);
     }
 
     private void setCurrentQuestion(@Observes @NewQuestion Question question) {
-        if (currentRules == null)
-            if (question.getRules() != null)
+        if (currentRules == null) {
+            if (question.getRules() != null) {
                 currentRules = cloneRulesList(question.getRules());
-            else
+            } else {
                 currentRules = new ArrayList<Rule>();
+            }
+        }
     }
 
     private List<Rule> cloneRulesList(List<Rule> input) {
-        if (input == null)
+        if (input == null) {
             return null;
+        }
         List<Rule> result = new ArrayList<Rule>();
         try {
             for (Rule rule : input) {
-
                 result.add((Rule) rule.clone());
             }
         } catch (CloneNotSupportedException e) {
