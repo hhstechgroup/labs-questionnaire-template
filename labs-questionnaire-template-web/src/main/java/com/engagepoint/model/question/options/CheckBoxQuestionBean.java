@@ -43,15 +43,22 @@ public class CheckBoxQuestionBean extends OptionsQuestion {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof CheckBoxQuestionBean)) return false;
-        if (!super.equals(o)) return false;
-
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof CheckBoxQuestionBean)) {
+            return false;
+        }
+        if (!super.equals(o)) {
+            return false;
+        }
         CheckBoxQuestionBean that = (CheckBoxQuestionBean) o;
-
-        if (!defaultOptions.equals(that.defaultOptions)) return false;
-        if (!options.equals(that.options)) return false;
-
+        if (!defaultOptions.equals(that.defaultOptions)) {
+            return false;
+        }
+        if (!options.equals(that.options)) {
+            return false;
+        }
         return true;
     }
 

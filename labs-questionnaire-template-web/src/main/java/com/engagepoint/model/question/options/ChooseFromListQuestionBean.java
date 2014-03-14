@@ -31,15 +31,22 @@ public class ChooseFromListQuestionBean extends OptionsQuestion {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof ChooseFromListQuestionBean)) return false;
-        if (!super.equals(o)) return false;
-
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof ChooseFromListQuestionBean)) {
+            return false;
+        }
+        if (!super.equals(o)) {
+            return false;
+        }
         ChooseFromListQuestionBean that = (ChooseFromListQuestionBean) o;
-
-        if (!defaultOption.equals(that.defaultOption)) return false;
-        if (!options.equals(that.options)) return false;
-
+        if (!defaultOption.equals(that.defaultOption)) {
+            return false;
+        }
+        if (!options.equals(that.options)) {
+            return false;
+        }
         return true;
     }
 
