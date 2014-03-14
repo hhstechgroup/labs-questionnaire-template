@@ -8,6 +8,7 @@ import com.engagepoint.model.question.options.*;
 import com.engagepoint.model.question.rules.Rule;
 import com.engagepoint.model.question.utils.VariantItem;
 import com.engagepoint.model.table.ListOfOptionsDataModel;
+import org.apache.log4j.Logger;
 
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.Conversation;
@@ -31,6 +32,8 @@ public class OptionsQuestionEditController extends QuestionEditController {
     @Inject
     private TemplateEditController templateEditController;
 
+    private static final Logger LOG = Logger.getLogger(OptionsQuestionEditController.class);
+
     @PostConstruct
     public void postConstruct() {
         beginConversation();
@@ -39,8 +42,7 @@ public class OptionsQuestionEditController extends QuestionEditController {
             setNew(true);
             createCurrentQuestion();
             dataModel = new ListOfOptionsDataModel();
-        }
-        else {
+        } else {
             currentQuestion = (OptionsQuestion) question;
             dataModel = new ListOfOptionsDataModel(currentQuestion.getOptions());
         }
@@ -94,16 +96,15 @@ public class OptionsQuestionEditController extends QuestionEditController {
     public String actionSave() {
         try {
             currentQuestion.setOptions((ArrayList<VariantItem>) dataModel.getWrappedData());
-        }
-        catch (ClassCastException e) {
-            //TODO
+        } catch (ClassCastException e) {
+            LOG.error("Class cast Exception", e);
         }
         getTemplateTreeController().setCurrentQuestion(currentQuestion);
         return super.actionSave();
     }
 
-    private void createCurrentQuestion(){
-        switch(templateEditController.getSelectedQuestionType()){
+    private void createCurrentQuestion() {
+        switch (templateEditController.getSelectedQuestionType()) {
             case CHECKBOX:
                 currentQuestion = new CheckBoxQuestionBean(getTemplateTreeController().getCurrentGroup());
                 break;
