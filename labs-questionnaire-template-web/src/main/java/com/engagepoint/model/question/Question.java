@@ -30,6 +30,7 @@ public abstract class Question extends BasicBean implements Cloneable {
     private QuestionType questionType;    //questiontype from ENUM of questiontypes
     private String helpText = "";            //Help texts for questions
     private List<Rule> rules;
+    GroupBean groupBean;
 
     public Question() {
         this.id = lastId++;
@@ -37,6 +38,7 @@ public abstract class Question extends BasicBean implements Cloneable {
     }
 
     public Question(GroupBean groupBean) {
+        this.groupBean = groupBean;
         id = Long.valueOf(groupBean.getId() + (lastId++).toString());
         rules = new ArrayList<Rule>();
     }
