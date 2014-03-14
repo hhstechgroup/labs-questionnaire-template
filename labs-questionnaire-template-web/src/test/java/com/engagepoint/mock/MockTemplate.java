@@ -58,7 +58,7 @@ public class MockTemplate {
                 question = new DateQuestionBean();
                 DateQuestionBean dateQuestionBean = (DateQuestionBean)question;
 
-                dateQuestionBean.setDefaultAnswer(new Date());
+                dateQuestionBean.setDefaultDate(new Date());
                 creator(question);
 
                 return question;
@@ -75,7 +75,7 @@ public class MockTemplate {
             case TIME:
                 question = new DateQuestionBean();
                 DateQuestionBean timeQuestionBean = (DateQuestionBean)question;
-                timeQuestionBean.setDefaultAnswer(new Date());
+                timeQuestionBean.setDefaultDate(new Date());
                 creator(question);
                 return question;
             case PARAGRAPHTEXT:

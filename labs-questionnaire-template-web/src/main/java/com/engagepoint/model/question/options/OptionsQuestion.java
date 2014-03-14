@@ -4,7 +4,6 @@ import com.engagepoint.model.question.Question;
 import com.engagepoint.model.question.utils.VariantItem;
 import com.engagepoint.model.questionnaire.GroupBean;
 
-import javax.xml.bind.annotation.XmlSeeAlso;
 import javax.xml.bind.annotation.XmlTransient;
 import java.util.ArrayList;
 import java.util.List;
@@ -58,7 +57,7 @@ public abstract class OptionsQuestion extends Question implements Cloneable {
             defaultOption = new VariantItem(list.get(0));
         }
         catch (StringIndexOutOfBoundsException e) {
-            //log that id in XML is empty
+            //log that string of default answer in XML is empty
         }
     }
 
