@@ -81,10 +81,6 @@ public class TemplateTreeController implements Serializable {
         this.nameOfCurrentNode = nameOfCurrentNode;
     }
 
-    public String cutTextToNSymbols(String text, int n) {
-        return text.length()>n ? text.substring(0, n)+"..." : text; //TODO: make property for quantity of symbols
-    }
-
     /**
      * When some node is selected, we can verify
      * selected type, current group and current section.

@@ -55,7 +55,8 @@ public abstract class Question extends BasicBean implements Cloneable {
 
     public Question(GroupBean groupBean) {
         this.groupBean = groupBean;
-        id = Long.valueOf(groupBean.getId() + (lastId++).toString());
+        id = Long.valueOf(groupBean.getId() + lastId.toString());
+        lastId++;
         rules = new ArrayList<Rule>();
         defaultAnswers = new ArrayList<String>();
         options = new ArrayList<VariantItem>();
@@ -223,7 +224,7 @@ public abstract class Question extends BasicBean implements Cloneable {
 
     @Override
     public String getDisplayedName() {
-        return questionText.length() > 9 ? questionText.substring(0, 9) + "..." : questionText; //TODO: make property for quantity of symbols
+        return cutTextToNSymbols(questionText,9);
     }
 
     @Override
@@ -232,5 +233,8 @@ public abstract class Question extends BasicBean implements Cloneable {
         return id;
     }
 
+    private String cutTextToNSymbols(String text, int n) {
+        return text.length()>n ? text.substring(0, n)+"..." : text; //TODO: make property for quantity of symbols
+    }
 
 }
