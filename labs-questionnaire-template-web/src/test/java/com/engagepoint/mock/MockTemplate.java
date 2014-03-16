@@ -12,7 +12,6 @@ import com.engagepoint.model.questionnaire.TemplateBean;
 import com.engagepoint.model.question.*;
 
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -137,7 +136,7 @@ public class MockTemplate {
     public void creator(Question question){
         question.setHelpText("its my help");
         question.setQuestionText("WHY UYoA ArE SO SAD?");
-        question.setId(1567L);
+        question.setQuestionId("1567");
 
     }
 

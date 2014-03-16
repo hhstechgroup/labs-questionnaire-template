@@ -16,7 +16,7 @@ public class RenderedRule extends Rule {
         answers = new ArrayList<String>();
     }
 
-    public void setId(long id) {
+    public void setId(String id) {
         this.id = id;
         update();
     }
@@ -46,7 +46,7 @@ public class RenderedRule extends Rule {
     /**
      * Create rule representation in XML.
      *
-     * @return
+     * @return answer as String
      */
     private String answerToString() {
         StringBuilder answer = new StringBuilder();

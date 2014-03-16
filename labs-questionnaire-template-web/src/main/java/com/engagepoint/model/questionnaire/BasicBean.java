@@ -6,6 +6,7 @@ import javax.xml.bind.annotation.XmlTransient;
  * Basic properties of beans
  * Must have only methods need fot all bean type
  */
+@XmlTransient
 public abstract class BasicBean {
     private String displayedName="";
 

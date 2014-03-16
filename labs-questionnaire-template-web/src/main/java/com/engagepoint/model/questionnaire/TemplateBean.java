@@ -1,10 +1,6 @@
 package com.engagepoint.model.questionnaire;
 
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlElementWrapper;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlAttribute;
-import javax.xml.bind.annotation.XmlTransient;
+import javax.xml.bind.annotation.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,6 +8,11 @@ import java.util.List;
  * Class represents questionnaire-form tag.
  */
 @XmlRootElement(name = "questionnaire-form")
+@XmlType(name = "", propOrder = {
+        "formId",
+        "templateName",
+        "sectionsList"
+})
 public class TemplateBean implements Cloneable, Comparable<TemplateBean>, BasicOperationWithBean {
     private static Long lastId = 1L;
 
@@ -20,6 +21,7 @@ public class TemplateBean implements Cloneable, Comparable<TemplateBean>, BasicO
     }
 
     private Long id;
+    private String formId;
     private String templateName = "";
     private List<SectionBean> sectionsList = new ArrayList<SectionBean>();
 
@@ -27,17 +29,17 @@ public class TemplateBean implements Cloneable, Comparable<TemplateBean>, BasicO
 
     public TemplateBean() {
         setId(getLastId());
-    }
-
-    public TemplateBean(String templateName, List<SectionBean> sectionsList) {
-        setId(getLastId());
-        this.templateName = templateName;
-        this.sectionsList = sectionsList;
+        formId = "f" + id;
     }
 
     public TemplateBean(String templateName) {
-        setId(getLastId());
+        this();
         this.templateName = templateName;
+    }
+
+    public TemplateBean(String templateName, List<SectionBean> sectionsList) {
+        this(templateName);
+        this.sectionsList = sectionsList;
     }
 
     public TemplateBean(Long id, String templateName, List<SectionBean> sectionsList) {
@@ -47,20 +49,12 @@ public class TemplateBean implements Cloneable, Comparable<TemplateBean>, BasicO
     }
 
     @XmlAttribute(name = "form-id")
-    public String getQuestionId() {
-        return "f" + id;
+    public String getFormId() {
+        return formId;
     }
 
-    public void setQuestionId(String id) {
-        try {
-            this.id = Long.valueOf(id.substring(1));
-        }
-        catch (StringIndexOutOfBoundsException e) {
-            //log that id in XML is empty
-        }
-        catch (NumberFormatException e) {
-            //log that id in XML is incorrect (must be like "f[id]")
-        }
+    public void setFormId(String formId) {
+        this.formId = formId;
     }
 
     @XmlTransient
@@ -114,7 +108,7 @@ public class TemplateBean implements Cloneable, Comparable<TemplateBean>, BasicO
 
         TemplateBean that = (TemplateBean) o;
 
-        return that.getId().equals(this.getId());
+        return that.getFormId().equals(this.getFormId());
     }
 
     @Override

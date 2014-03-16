@@ -2,42 +2,56 @@
 <questionnaire-forms
         xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'
         xsi:noNamespaceSchemaLocation='XSDforWizard.xsd'>
-    <questionnaire-form form-id="f1">
+    <questionnaire-form form-id="f3">
         <form-name>Test template</form-name>
         <pages>
-            <page page-id="p1" page-number="1">
-                <page-name>First page</page-name>
+            <page page-id="f3p1" page-number="1">
+                <page-name>Page 1</page-name>
                 <groups-of-questions>
-                    <group group-id="g11">
-                        <group-name>First page</group-name>
+                    <group group-id="f3p1g1">
+                        <group-name>Personal data with default</group-name>
                         <questions>
-                            <question answer-required="false" question-id="q111">
-                                <question-title>How you're doing? :)</question-title>
+                            <question xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="textQuestionBean" question-id="f3p1g1q1" answer-required="true">
+                                <question-title>What's you're name?</question-title>
                                 <question-type>TEXT</question-type>
-                                <rules>
-                                    <rule>
-                                        <parentId> </parentId>
-                                        <method> </method>
-                                    </rule>
-                                </rules>
-                                <help-text>answer "good"!</help-text>
-                                <options>
-                                    <option> </option>
-                                </options>
-                                <range/>
-                                <grid>
-                                    <columns>
-                                        <column> </column>
-                                    </columns>
-                                    <rows>
-                                        <row> </row>
-                                    </rows>
-                                </grid>
+                                <rules/>
+                                <help-text>Enter first name</help-text>
                                 <default-answers>
-                                    <default-answer>Good</default-answer>
+                                    <default-answer>1</default-answer>
+                                </default-answers>
+                            </question>
+                            <question xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="dateQuestionBean" question-id="f3p1g1q2" answer-required="true">
+                                <question-title>When is your birthday?</question-title>
+                                <question-type>DATE</question-type>
+                                <rules/>
+                                <help-text/>
+                                <default-answers>
+                                    <default-answer>16-03-2014</default-answer>
+                                </default-answers>
+                            </question>
+                            <question xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="multipleChoiceQuestionBean" question-id="f3p1g1q3" answer-required="true">
+                                <question-title>Happy birthday! Choose your present.</question-title>
+                                <question-type>MULTIPLECHOICE</question-type>
+                                <rules/>
+                                <help-text>You can choose only one.</help-text>
+                                <options>
+                                    <option>Car</option>
+                                    <option>Flat</option>
+                                    <option>Flowers</option>
+                                </options>
+                                <default-answers>
+                                    <default-answer>Flowers</default-answer>
                                 </default-answers>
                             </question>
                         </questions>
+                    </group>
+                    <group group-id="f3p1g2">
+                        <group-name>Personal data without default</group-name>
+                        <questions/>
+                    </group>
+                    <group group-id="f3p1g3">
+                        <group-name>Personal data with rules</group-name>
+                        <questions/>
                     </group>
                 </groups-of-questions>
             </page>

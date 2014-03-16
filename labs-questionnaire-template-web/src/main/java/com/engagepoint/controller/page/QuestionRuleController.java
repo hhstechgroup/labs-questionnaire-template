@@ -373,7 +373,7 @@ public class QuestionRuleController implements Serializable {
             for (SectionBean sectionBean : templateEditController.getCurrentTemplate().getSectionsList())
                 for (GroupBean groupBean : sectionBean.getGroupsList())
                     for (Question question : groupBean.getQuestionsList())
-                        if (String.valueOf(question.getId()).equals(currentDependentQuestionId)) {
+                        if (String.valueOf(question.getQuestionId()).equals(currentDependentQuestionId)) {
                             dependentQuestion = question;
                             return question.getQuestionType().toString();
                         }
@@ -406,7 +406,7 @@ public class QuestionRuleController implements Serializable {
     public List<Question> getAllQuestionsThatSetDependence(){
         List<Question> all = getQuestions();
         List<Question> questionsWithRules = getQuestionsWithRules();
-        Set<Long> idSet = new HashSet<Long>();
+        Set<String> idSet = new HashSet<String>();
         for(Question q : questionsWithRules){
             for(Rule rule : q.getRules()){
                 idSet.add(rule.getId());
@@ -414,7 +414,7 @@ public class QuestionRuleController implements Serializable {
         }
         List<Question> result = new ArrayList<Question>();
         for(Question q : all){
-            if(idSet.contains(q.getId()))
+            if(idSet.contains(q.getQuestionId()))
                 result.add(q);
         }
 
@@ -428,7 +428,7 @@ public class QuestionRuleController implements Serializable {
         List<Question> result = new ArrayList<Question>();
         for(Question q : questionsWithRules){
             for(Rule rule : q.getRules()){
-                if(rule.getId()==question.getId()){
+                if(rule.getId().equals(question.getQuestionId())){
                     result.add(q);
                     break;
                 }
@@ -474,7 +474,7 @@ public class QuestionRuleController implements Serializable {
             case RENDERED:
                 RenderedRule renderedRule = (RenderedRule) currentRule;
                 renderedRule.setAnswers(answers);
-                renderedRule.setId(dependentQuestion.getId());
+                renderedRule.setId(dependentQuestion.getQuestionId());
                 break;
         }
 

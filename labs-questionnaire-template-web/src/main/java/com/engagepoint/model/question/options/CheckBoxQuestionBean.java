@@ -3,9 +3,21 @@ package com.engagepoint.model.question.options;
 import com.engagepoint.model.question.utils.VariantItem;
 import com.engagepoint.model.questionnaire.GroupBean;
 
+import javax.xml.bind.annotation.XmlTransient;
+import javax.xml.bind.annotation.XmlType;
 import java.util.ArrayList;
 import java.util.List;
 
+@XmlType(name = "checkBoxQuestionBean", propOrder = {
+        "questionId",
+        "requiredAnswer",
+        "questionText",
+        "questionType",
+        "rules",
+        "helpText",
+        "options",
+        "defaultAnswers"
+})
 public class CheckBoxQuestionBean extends OptionsQuestion {
     //selected variants
     private List<VariantItem> defaultOptions;
@@ -19,6 +31,7 @@ public class CheckBoxQuestionBean extends OptionsQuestion {
         defaultOptions = new ArrayList<VariantItem>();
     }
 
+    @XmlTransient
     public List<VariantItem> getDefaultOptions() {
         return defaultOptions;
     }

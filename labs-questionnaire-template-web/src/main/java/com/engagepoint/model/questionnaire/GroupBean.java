@@ -10,23 +10,31 @@ import java.util.List;
 /**
  * Class represents group tag.
  */
+@XmlType(name = "", propOrder = {
+        "groupId",
+        "groupName",
+        "questionsList"
+})
 public class GroupBean extends BasicBean
         implements Cloneable, BasicOperationWithBean {
-    private static Long lastId = 1L;
 
-    private Long id;
+    private String groupId; //absolutely unique and consists of template id, page number and group number (f.e. f1p1g1)
+    private Long groupNumber; //unique in section
+    private String groupName;
     private List<Question> questionsList = new ArrayList<Question>();
     private SectionBean sectionBean;
-    private String groupName;
+
 
     public GroupBean() {
-        id = lastId++;
     }
 
     public GroupBean(SectionBean sectionBean) {
+        this();
         this.sectionBean = sectionBean;
-        id = Long.valueOf(sectionBean.getId() + (lastId++).toString());
+        this.groupNumber = getNextGroupNumberInSection();
+        this.groupId = sectionBean.getPageId() + "g" + this.groupNumber;
         sectionBean.addToInnerList(this);
+        setGroupName("Group " + groupNumber);
     }
 
     public GroupBean(String groupName, SectionBean sectionBean) {
@@ -41,29 +49,47 @@ public class GroupBean extends BasicBean
     }
 
     @XmlAttribute(name = "group-id")
-    public String getQuestionId() {
-        return "g" + id;
+    public String getGroupId() {
+        return groupId;
     }
 
-    public void setQuestionId(String id) {
-        try {
-            this.id = Long.valueOf(id.substring(1));
+    public void setGroupId(String groupId) {
+        this.groupId = groupId;
+        //must set group number from xml
+        if (groupNumber==null) {
+            try {
+                int indexOfP = groupId.lastIndexOf("g");
+                setGroupNumber(Long.valueOf(groupId.substring(indexOfP+1)));
+            } catch (NullPointerException e) {
+                //log that groupId is null
+            }
+            catch (NumberFormatException e) {
+                //log that groupId is not correct
+            }
         }
-        catch (StringIndexOutOfBoundsException e) {
-            //log that id in XML is empty
+    }
+
+    /**
+     * Gets next number of page for current template
+     * @return SectionId
+     */
+    public Long getNextGroupNumberInSection() {
+        List<GroupBean> groupList = sectionBean.getGroupsList();
+        if (groupList.isEmpty()) {
+            return 1L;
         }
-        catch (NumberFormatException e) {
-            //log that id in XML is incorrect (must be like "g[id]")
+        else {
+            return ((groupList.get(groupList.size()-1)).getGroupNumber()+1);
         }
     }
 
     @XmlTransient
-    public Long getId() {
-        return id;
+    private Long getGroupNumber() {
+        return groupNumber;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    private void setGroupNumber(Long groupNumber) {
+        this.groupNumber = groupNumber;
     }
 
     @XmlElement(name = "group-name")
@@ -73,10 +99,6 @@ public class GroupBean extends BasicBean
 
     public void setGroupName(String groupName) {
         this.groupName = groupName;
-    }
-
-    public SectionBean getSectionBean() {
-        return sectionBean;
     }
 
     @XmlElementWrapper(name = "questions")
@@ -117,15 +139,12 @@ public class GroupBean extends BasicBean
             return false;
         }
         GroupBean groupBean = (GroupBean) o;
-        if (!id.equals(groupBean.id)) {
-            return false;
-        }
-        return true;
+        return groupId.equals(groupBean.groupId);
     }
 
     @Override
     public int hashCode() {
-        return id.hashCode();
+        return groupId.hashCode();
     }
 
     @Override
@@ -154,14 +173,14 @@ public class GroupBean extends BasicBean
     }
 
     @Override
+    @XmlTransient
     public String getDisplayedName() {
         return groupName;
     }
 
     @Override
     public String getDisplayedId() {
-        String id = " (ID: " + String.valueOf(this.id) + ") ";
-        return id;
+        return " (ID: " + String.valueOf(this.groupId) + ") ";
     }
 }
 

@@ -3,7 +3,10 @@ package com.engagepoint.model.question;
 import com.engagepoint.model.questionnaire.GroupBean;
 import com.engagepoint.model.questionnaire.QuestionType;
 
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlTransient;
+import javax.xml.bind.annotation.XmlType;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -11,15 +14,26 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+@XmlType(name = "dateQuestionBean", propOrder = {
+        "questionId",
+        "requiredAnswer",
+        "questionText",
+        "questionType",
+        "rules",
+        "helpText",
+        "defaultAnswers"
+})
 public class DateQuestionBean extends Question {
     private Date defaultDate;
 
     public DateQuestionBean() {
         super();
+        defaultDate = new Date();
     }
 
     public DateQuestionBean(GroupBean currentGroup) {
         super(currentGroup);
+        defaultDate = new Date();
     }
 
     @XmlTransient
@@ -32,6 +46,8 @@ public class DateQuestionBean extends Question {
     }
 
     @Override
+    @XmlElementWrapper(name = "default-answers")
+    @XmlElement(name = "default-answer")
     public List<String> getDefaultAnswers() {
         List<String> list = new ArrayList<String>();
         list.add(getDateFormat().format(defaultDate));

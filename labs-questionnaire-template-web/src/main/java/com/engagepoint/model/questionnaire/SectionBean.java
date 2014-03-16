@@ -1,9 +1,6 @@
 package com.engagepoint.model.questionnaire;
 
-import javax.xml.bind.annotation.XmlAttribute;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlElementWrapper;
-import javax.xml.bind.annotation.XmlTransient;
+import javax.xml.bind.annotation.*;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -12,65 +9,53 @@ import java.util.List;
 /**
  * Class represents page tag.
  */
+@XmlType(name = "", propOrder = {
+        "pageId",
+        "pageNumber",
+        "pageName",
+        "groupsList"
+})
 public class SectionBean extends BasicBean
                          implements Cloneable, Serializable, BasicOperationWithBean{
-    private static Long lastId = 1L;
 
-    private Long id;
-    private Long pageNumber;
+    private String pageId; //absolutely unique and consists of template id and page number (f.e. f1p1)
+    private Long pageNumber; //unique in template
     private String pageName = "";
     private List<GroupBean> groupsList = new ArrayList<GroupBean>();
     private TemplateBean templateBean;
 
     public SectionBean() {
-        id = lastId++;
     }
 
     public SectionBean(TemplateBean templateBean) {
-        id = lastId++;
+        this();
         this.templateBean = templateBean;
-        this.pageNumber = getNextSectionIdInTemplate();
+        this.pageNumber = getNextSectionNumberInTemplate();
+        this.pageId = templateBean.getFormId() + "p" + this.pageNumber;
         templateBean.addToInnerList(this);
-        setPageName("Page");
+        setPageName("Page " + pageNumber);
     }
 
     @XmlAttribute(name = "page-id")
-    public String getQuestionId() {
-        return "p" + id;
+    public String getPageId() {
+        return pageId;
     }
 
-    public void setQuestionId(String id) {
-        try {
-            this.id = Long.valueOf(id.substring(1));
-        }
-        catch (StringIndexOutOfBoundsException e) {
-            //log that id in XML is empty
-        }
-        catch (NumberFormatException e) {
-            //log that id in XML is incorrect (must be like "p[id]")
-        }
-    }
-
-    @XmlTransient
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
+    public void setPageId(String pageId) {
+        this.pageId = pageId;
     }
 
     /**
      * Gets next number of page for current template
      * @return SectionId
      */
-    public Long getNextSectionIdInTemplate() {
+    public Long getNextSectionNumberInTemplate() {
         List<SectionBean> sectionList = templateBean.getSectionsList();
         if (sectionList.isEmpty()) {
             return 1L;
         }
         else {
-            return ((sectionList.get(sectionList.size()-1)).getId()+1);
+            return ((sectionList.get(sectionList.size()-1)).getPageNumber()+1);
         }
     }
 
@@ -123,14 +108,14 @@ public class SectionBean extends BasicBean
 
         SectionBean that = (SectionBean) o;
 
-        if (!id.equals(that.id)) return false;
+        if (!pageId.equals(that.pageId)) return false;
 
         return true;
     }
 
     @Override
     public int hashCode() {
-        return id.hashCode();
+        return pageId.hashCode();
     }
 
     @Override
@@ -145,7 +130,7 @@ public class SectionBean extends BasicBean
 
     @Override
     public String toString() {
-        return "Page " + id;
+        return pageName;
     }
 
     @Override
@@ -159,13 +144,14 @@ public class SectionBean extends BasicBean
     }
 
     @Override
+    @XmlTransient
     public String getDisplayedName() {
         return pageName;
     }
 
     @Override
     public String getDisplayedId() {
-        String id = " (ID: "+String.valueOf(this.id)+") ";
+        String id = " (ID: "+String.valueOf(this.pageId)+") ";
         return id;
     }
 }

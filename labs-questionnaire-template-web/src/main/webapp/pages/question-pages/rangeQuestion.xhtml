@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
-                xmlns:p="http://primefaces.org/ui"
                 xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:f="http://java.sun.com/jsf/core"
                 xmlns:ago="http://java.sun.com/jsf/composite/questiontemplate"
@@ -9,7 +8,7 @@
 
     <f:metadata>
         <f:viewParam name="template" value="#{templateController.currentTemplate.id}"/>
-        <f:viewParam name="question" value="#{rangeQuestion.currentQuestion.id}"/>
+        <f:viewParam name="question" value="#{rangeQuestion.currentQuestion.questionId}"/>
     </f:metadata>
 
     <ui:define name="page">

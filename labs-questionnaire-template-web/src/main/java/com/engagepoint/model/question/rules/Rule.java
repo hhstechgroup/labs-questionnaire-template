@@ -2,10 +2,15 @@ package com.engagepoint.model.question.rules;
 
 
 import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlType;
 
+@XmlType(name = "rule", propOrder = {
+        "nameXML",
+        "id"
+})
 public abstract class Rule implements Cloneable {
     protected String description;
-    protected long id;
+    protected String id;
     protected String nameXML;
     protected RuleType type;
 
@@ -30,12 +35,12 @@ public abstract class Rule implements Cloneable {
         return type;
     }
 
-    public void setId(long id) {
+    public void setId(String id) {
         this.id = id;
     }
 
     @XmlElement(name = "parentId")
-    public long getId() {
+    public String getId() {
         return id;
     }
 

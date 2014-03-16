@@ -4,10 +4,11 @@ import com.engagepoint.model.question.Question;
 import com.engagepoint.model.question.utils.VariantItem;
 import com.engagepoint.model.questionnaire.GroupBean;
 
-import javax.xml.bind.annotation.XmlTransient;
+import javax.xml.bind.annotation.*;
 import java.util.ArrayList;
 import java.util.List;
 
+@XmlTransient
 public abstract class OptionsQuestion extends Question implements Cloneable {
     //list of variants
     protected List<VariantItem> options;
@@ -26,7 +27,8 @@ public abstract class OptionsQuestion extends Question implements Cloneable {
         defaultOption = new VariantItem();
     }
 
-    @XmlTransient
+    @XmlElementWrapper(name = "options")
+    @XmlElement(name = "option")
     public List<VariantItem> getOptions() {
         return options;
     }
@@ -45,6 +47,8 @@ public abstract class OptionsQuestion extends Question implements Cloneable {
     }
 
     @Override
+    @XmlElementWrapper(name = "default-answers")
+    @XmlElement(name = "default-answer")
     public List<String> getDefaultAnswers() {
         List<String> list = new ArrayList<String>();
         list.add(defaultOption.getValue());
@@ -76,9 +80,25 @@ public abstract class OptionsQuestion extends Question implements Cloneable {
     }
 
     @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
+
+        OptionsQuestion that = (OptionsQuestion) o;
+
+        if (defaultOption != null ? !defaultOption.equals(that.defaultOption) : that.defaultOption != null)
+            return false;
+        if (options != null ? !options.equals(that.options) : that.options != null) return false;
+
+        return true;
+    }
+
+    @Override
     public int hashCode() {
         int result = super.hashCode();
-        result = 31 * result + options.hashCode();
+        result = 31 * result + (options != null ? options.hashCode() : 0);
+        result = 31 * result + (defaultOption != null ? defaultOption.hashCode() : 0);
         return result;
     }
 

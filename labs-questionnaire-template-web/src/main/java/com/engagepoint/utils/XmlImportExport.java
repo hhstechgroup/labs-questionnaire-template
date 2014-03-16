@@ -103,7 +103,7 @@ public class XmlImportExport {
             try{
                 stream.close();
             }
-            catch (IOException e) {
+            catch (Exception e) {
                 //do something
             }
 
