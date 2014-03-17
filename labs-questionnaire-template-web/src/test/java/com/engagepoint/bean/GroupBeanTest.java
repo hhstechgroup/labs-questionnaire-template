@@ -4,6 +4,7 @@ package com.engagepoint.bean;
 import com.engagepoint.mock.MockTemplate;
 import com.engagepoint.model.question.Question;
 import com.engagepoint.model.question.options.CheckBoxQuestionBean;
+import com.engagepoint.model.question.options.OptionsQuestion;
 import com.engagepoint.model.questionnaire.GroupBean;
 import com.engagepoint.model.questionnaire.QuestionType;
 import org.junit.Assert;
@@ -30,7 +31,7 @@ public class GroupBeanTest {
 
     }
     @Test
-    public void testDeleteFromInnerList(){
+    public void testDeleteFromInnerListAndOthers(){
         CheckBoxQuestionBean testBean = (CheckBoxQuestionBean)mock.question();
         CheckBoxQuestionBean testBean1 = (CheckBoxQuestionBean)mock.question();
         List<Question> questionBeanList = new ArrayList<Question>();
@@ -41,6 +42,12 @@ public class GroupBeanTest {
         groupTest.setQuestionsList(questionBeanList);
         groupTest.deleteFromInnerList(testBean);
         Assert.assertTrue(groupTest.getQuestionsList().size() == 1);
+        Assert.assertTrue(groupTest.getType().contains("group"));
+        Assert.assertTrue(groupTest.getDisplayedNodeType().contains("Group"));
+        Assert.assertTrue(groupTest.getDisplayedId().contains("ID"));
+        OptionsQuestion optBean = (OptionsQuestion)mock.question();
+        groupTest.addToInnerList(optBean);
+        Assert.assertTrue(groupTest.getQuestionsList().size() == 2);
     }
 }
 
