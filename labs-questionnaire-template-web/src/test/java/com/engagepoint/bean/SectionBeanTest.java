@@ -27,7 +27,7 @@ public class SectionBeanTest {
         questionBeanList.add(testBean1);
         questionBeanList.add(testBean);
         GroupBean groupTest = mock.creatorGroup();
-        groupTest.setId(new Long(1));
+        groupTest.setId(new String("1"));
         groupTest.setQuestionsList(questionBeanList);
         List<GroupBean> groupBeans = new ArrayList<GroupBean>();
         groupBeans.add(groupTest);

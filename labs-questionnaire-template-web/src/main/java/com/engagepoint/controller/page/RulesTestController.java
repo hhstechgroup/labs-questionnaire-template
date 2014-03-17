@@ -24,7 +24,7 @@ import java.util.Map;
 public class RulesTestController implements Serializable {
 	
 	private List<BasicBean> TemplateElementsList;
-	private Map<BasicBean, List<Long>> dependencies;
+	private Map<BasicBean, List<String>> dependencies;
 	private Map<Question, String> styles;
 	
 	@Inject
@@ -42,11 +42,11 @@ public class RulesTestController implements Serializable {
 	}
 
 	
-	public Map<BasicBean, List<Long>> getDependencies() {
+	public Map<BasicBean, List<String>> getDependencies() {
 		return dependencies;
 	}
 
-	public void setDependencies(Map<BasicBean, List<Long>> dependencies) {
+	public void setDependencies(Map<BasicBean, List<String>> dependencies) {
 		this.dependencies = dependencies;
 	}
 	
@@ -115,7 +115,7 @@ public class RulesTestController implements Serializable {
 	 * and a list of questions ids that are dependent on this question
 	 */
 	private void prepareDependencies() {
-		dependencies = new HashMap<BasicBean, List<Long>>();
+		dependencies = new HashMap<BasicBean, List<String>>();
 		
 		for (BasicBean bb : TemplateElementsList){
 			if ((bb.getRules() != null) && (!bb.getRules().isEmpty())) {
@@ -146,7 +146,7 @@ public class RulesTestController implements Serializable {
 	 * @param id
 	 * @return
 	 */
-	/*private Question getQuestionById(Long id) {
+	/*private Question getQuestionById(String id) {
 		for (Question quest : questionsList) {
 			if (quest.getId() == id) {
 				return quest;
@@ -183,7 +183,7 @@ public class RulesTestController implements Serializable {
 	 */
 	
 	public String getDependentByQuestion(Question q){
-		List<Long> result=dependencies.get(q);
+		List<String> result=dependencies.get(q);
 		if(result==null){
 			return "";
 		}
@@ -212,7 +212,7 @@ public class RulesTestController implements Serializable {
 	/*public void setStyles(Question q){
 		styles = new HashMap<Question, String>();
 		styles.put(q, "green");
-		for(Long l : dependencies.get(q)){
+		for(String l : dependencies.get(q)){
 			styles.put(getQuestionById(l),"red");
 		}
 	}*/

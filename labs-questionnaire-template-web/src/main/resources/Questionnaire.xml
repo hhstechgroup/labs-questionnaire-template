@@ -1,164 +1,60 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<questionnaire-forms>
-    <questionnaire-form>
-        <id>9</id>
+<questionnaire-forms
+        xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'
+        xsi:noNamespaceSchemaLocation='XSDforWizard.xsd'>
+    <questionnaire-form form-id="f1">
+        <form-name>Test template</form-name>
         <pages>
-            <page>
+            <page page-id="f1p1" page-number="1">
+                <page-name>Page 1</page-name>
                 <groups-of-questions>
-                    <group>
-                        <group-name>GROUP_1</group-name>
+                    <group group-id="f1p1g1">
+                        <group-name>Personal data with default</group-name>
                         <questions>
-                            <question xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="textQuestionBean" question-id="1" requiredAnswer="false">
-                                <help-text>Text Question Help</help-text>
-                                <question-title>Text Question</question-title>
+                            <question xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="textQuestionBean" question-id="f1p1g1q1" answer-required="true">
+                                <question-title>What's you're name?</question-title>
                                 <question-type>TEXT</question-type>
-                                <default-answer>Test Default</default-answer>
+                                <rules/>
+                                <help-text>Enter first name</help-text>
+                                <default-answers>
+                                    <default-answer>1</default-answer>
+                                </default-answers>
                             </question>
-                            <question xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="textQuestionBean" question-id="2" requiredAnswer="false">
-                                <help-text>Question text help</help-text>
-                                <question-title>Question text</question-title>
-                                <question-type>PARAGRAPHTEXT</question-type>
-                                <default-answer>Question textQuestion textQuestion textQuestion text</default-answer>
-                            </question>
-                            <question xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="multipleChoiceQuestionBean" question-id="3" requiredAnswer="true">
-                                <help-text>Multiple choice help</help-text>
-                                <question-title>Multiple choice</question-title>
-                                <question-type>MULTIPLECHOICE</question-type>
-                                <default-option>3</default-option>
-                                <options>1</options>
-                                <options>2</options>
-                                <options>3</options>
-                                <options>4</options>
-                                <multiple-choice-options>
-                                    <option>1</option>
-                                    <option>2</option>
-                                    <option>3</option>
-                                    <option>4</option>
-                                </multiple-choice-options>
-                            </question>
-                        </questions>
-                    </group>
-                    <group>
-                        <group-name>GROUP_2</group-name>
-                        <questions>
-                            <question xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="checkBoxQuestionBean" question-id="4" requiredAnswer="false">
-                                <help-text>Question text</help-text>
-                                <question-title>Question text</question-title>
-                                <question-type>CHECKBOX</question-type>
-                                <options>1</options>
-                                <options>2</options>
-                                <options>3</options>
-                                <options>New</options>
-                                <default-options>
-                                    <default-option>3</default-option>
-                                </default-options>
-                                <checkboxes-options>
-                                    <option>1</option>
-                                    <option>2</option>
-                                    <option>3</option>
-                                    <option>New</option>
-                                </checkboxes-options>
-                            </question>
-                            <question xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="chooseFromListQuestionBean" question-id="5" requiredAnswer="false">
-                                <help-text>Question text</help-text>
-                                <question-title>Question text</question-title>
-                                <question-type>CHOOSEFROMLIST</question-type>
-                                <default-option>7</default-option>
-                                <options>4</options>
-                                <options>0</options>
-                                <options>6</options>
-                                <options>7</options>
-                                <options>5</options>
-                                <options>9</options>
-                                <choose-from-list-options>
-                                    <option>4</option>
-                                    <option>0</option>
-                                    <option>6</option>
-                                    <option>7</option>
-                                    <option>5</option>
-                                    <option>9</option>
-                                </choose-from-list-options>
-                            </question>
-                            <question xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="rangeQuestionBean" question-id="6" requiredAnswer="true">
-                                <help-text>Question text</help-text>
-                                <question-title>Question text</question-title>
-                                <question-type>RANGE</question-type>
-                                <range range-end="10" range-begin="1"/>
-                            </question>
-                        </questions>
-                    </group>
-                    <group>
-                        <group-name>GROUP_3</group-name>
-                        <questions>
-                            <question xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="dateQuestionBean" question-id="7" requiredAnswer="false">
-                                <help-text>Question text</help-text>
-                                <question-title>Question text</question-title>
+                            <question xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="dateQuestionBean" question-id="f1p1g1q2" answer-required="true">
+                                <question-title>When is your birthday?</question-title>
                                 <question-type>DATE</question-type>
-                                <default-answer>2014-03-11T00:00:00+02:00</default-answer>
+                                <rules/>
+                                <help-text/>
+                                <default-answers>
+                                    <default-answer>16-03-2014</default-answer>
+                                </default-answers>
                             </question>
-                            <question xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="dateQuestionBean" question-id="8" requiredAnswer="true">
-                                <help-text>Question text</help-text>
-                                <question-title>Question text</question-title>
-                                <question-type>TIME</question-type>
-                                <default-answer>1970-01-01T12:30:00+02:00</default-answer>
+                            <question xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="multipleChoiceQuestionBean" question-id="f1p1g1q3" answer-required="true">
+                                <question-title>Happy birthday! Choose your present.</question-title>
+                                <question-type>MULTIPLECHOICE</question-type>
+                                <rules/>
+                                <help-text>You can choose only one.</help-text>
+                                <options>
+                                    <option>Car</option>
+                                    <option>Flat</option>
+                                    <option>Flowers</option>
+                                </options>
+                                <default-answers>
+                                    <default-answer>Flowers</default-answer>
+                                </default-answers>
                             </question>
                         </questions>
                     </group>
-                </groups-of-questions>
-                <page-number>1</page-number>
-            </page>
-            <page>
-                <groups-of-questions>
-                    <group>
-                        <group-name>GROUP_1</group-name>
+                    <group group-id="f1p1g2">
+                        <group-name>Personal data without default</group-name>
+                        <questions/>
+                    </group>
+                    <group group-id="f1p1g3">
+                        <group-name>Personal data with rules</group-name>
                         <questions/>
                     </group>
                 </groups-of-questions>
-                <page-number>2</page-number>
-            </page>
-            <page>
-                <groups-of-questions>
-                    <group>
-                        <group-name>GROUP_1</group-name>
-                        <questions/>
-                    </group>
-                </groups-of-questions>
-                <page-number>3</page-number>
             </page>
         </pages>
-        <form-name>Template A</form-name>
-    </questionnaire-form>
-    <questionnaire-form>
-        <id>10</id>
-        <pages>
-            <page>
-                <groups-of-questions>
-                    <group>
-                        <group-name>GROUP_1</group-name>
-                        <questions/>
-                    </group>
-                </groups-of-questions>
-                <page-number>1</page-number>
-            </page>
-            <page>
-                <groups-of-questions>
-                    <group>
-                        <group-name>GROUP_1</group-name>
-                        <questions/>
-                    </group>
-                </groups-of-questions>
-                <page-number>2</page-number>
-            </page>
-            <page>
-                <groups-of-questions>
-                    <group>
-                        <group-name>GROUP_1</group-name>
-                        <questions/>
-                    </group>
-                </groups-of-questions>
-                <page-number>3</page-number>
-            </page>
-        </pages>
-        <form-name>Template B</form-name>
     </questionnaire-form>
 </questionnaire-forms>

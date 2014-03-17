@@ -36,22 +36,24 @@ public class ListControllerTest {
     public void shouldAddTemplate(){
 
         testListController.setTemplates(templateBeanList);
+        int startSize = testListController.getTemplates().size();
+
         // Variant 1: Add with exist id
-        testListController.getTemplates().get(5).setTemplateName("exist");
+        TemplateBean startBean = testListController.getTemplates().get(5);
+        String formIdOfStartBean = startBean.getFormId();
 
-        TemplateBean templateBean = new TemplateBean();
-        templateBean.setId(5L);
-        templateBean.setTemplateName("created");
-        testListController.addTemplateIfNotInList(templateBean);
+        TemplateBean createdBean = new TemplateBean();
+        createdBean.setFormId(formIdOfStartBean);
+        testListController.addTemplateIfNotInList(createdBean);
 
-        Assert.assertTrue("its exist because their id equals", testListController.getTemplates().get(5).getTemplateName().equals("exist"));
+        Assert.assertTrue("bean has been created, but it shouldn't", testListController.getTemplates().size()==startSize);
+
         // Variant 2: Add with new id
-        TemplateBean templateBean1 =new TemplateBean();
-        templateBean1.setTemplateName("added");
-        templateBean1.setId(14L);
-        templateBeanList.add(templateBean1);
+        TemplateBean addedBean = new TemplateBean();
+        addedBean.setFormId(formIdOfStartBean+"11");
+        templateBeanList.add(addedBean);
 
-        Assert.assertTrue("its exist because their id not equals",testListController.getTemplates().get(10).getTemplateName().equals("added"));
+        Assert.assertTrue("bean has not been created, but it should",testListController.getTemplates().get(10).equals(addedBean));
     }
     @Test
     public void shouldDeleteTemplate(){

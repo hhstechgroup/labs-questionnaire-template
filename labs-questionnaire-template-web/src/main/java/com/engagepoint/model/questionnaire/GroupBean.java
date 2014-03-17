@@ -4,7 +4,6 @@ package com.engagepoint.model.questionnaire;
 import com.engagepoint.model.question.Question;
 import com.engagepoint.model.question.rules.Rule;
 
-import javax.inject.Inject;
 import javax.xml.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -13,46 +12,109 @@ import java.util.List;
 /**
  * Class represents group tag.
  */
+@XmlType(name = "", propOrder = {
+        "id",
+        "groupName",
+        "questionsList",
+        "rules"
+})
 public class GroupBean extends BasicBean
         implements Cloneable, BasicOperationWithBean {
-    private static Long lastId = 1L;
 
-    private Long id;
+    private String groupId; //absolutely unique and consists of template id, page number and group number (f.e. f1p1g1)
+    private Long groupNumber; //unique in section
+    private String groupName;
     private List<Question> questionsList = new ArrayList<Question>();
     private SectionBean sectionBean;
     
+
+
     public GroupBean() {
-        id = lastId++;
+        setRules(new ArrayList<Rule>());
     }
 
     public GroupBean(SectionBean sectionBean) {
+        this();
         this.sectionBean = sectionBean;
-        id = Long.valueOf(sectionBean.getId() + (lastId++).toString());
+        this.groupNumber = getNextGroupNumberInSection();
+        this.groupId = sectionBean.getId() + "g" + this.groupNumber;
         sectionBean.addToInnerList(this);
+        setGroupName("Group " + groupNumber);
     }
 
     public GroupBean(String groupName, SectionBean sectionBean) {
         this(sectionBean);
-        setDisplayedName(groupName);
+        setGroupName(groupName);
     }
 
     public GroupBean(String groupName, List<Question> questionsList, SectionBean sectionBean) {
         this(sectionBean);
-        setDisplayedName(groupName);
+        setGroupName(groupName);
         this.questionsList = questionsList;
     }
 
-    @XmlElement(name = "id")
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
+    @XmlTransient
     public SectionBean getSectionBean() {
         return sectionBean;
+    }
+
+    public void setSectionBean(SectionBean sectionBean) {
+        this.sectionBean = sectionBean;
+    }
+
+    @XmlAttribute(name = "group-id")
+    @Override
+    public String getId() {
+        return groupId;
+    }
+
+    @Override
+    public void setId(String groupId) {
+        this.groupId = groupId;
+        //must set group number from xml
+        if (groupNumber==null) {
+            try {
+                int indexOfP = groupId.lastIndexOf("g");
+                setGroupNumber(Long.valueOf(groupId.substring(indexOfP+1)));
+            } catch (NullPointerException e) {
+                //log that groupId is null
+            }
+            catch (NumberFormatException e) {
+                //log that groupId is not correct
+            }
+        }
+    }
+
+    /**
+     * Gets next number of page for current template
+     * @return SectionId
+     */
+    public Long getNextGroupNumberInSection() {
+        List<GroupBean> groupList = sectionBean.getGroupsList();
+        if (groupList.isEmpty()) {
+            return 1L;
+        }
+        else {
+            return ((groupList.get(groupList.size()-1)).getGroupNumber()+1);
+        }
+    }
+
+    @XmlTransient
+    public Long getGroupNumber() {
+        return groupNumber;
+    }
+
+    public void setGroupNumber(Long groupNumber) {
+        this.groupNumber = groupNumber;
+    }
+
+    @XmlElement(name = "group-name")
+    public String getGroupName() {
+        return this.groupName;
+    }
+
+    public void setGroupName(String groupName) {
+        this.groupName = groupName;
     }
 
     @XmlElementWrapper(name = "questions")
@@ -68,40 +130,46 @@ public class GroupBean extends BasicBean
     @Override
     public Object clone() throws CloneNotSupportedException {
         GroupBean copy = (GroupBean) super.clone();
-        copy.setDisplayedName(this.getDisplayedName());
+        copy.setGroupName(this.groupName);
+        copy.setGroupNumber(this.groupNumber);
+
         List<Question> copyQuestionsList = null;
         if (questionsList != null) {
             copyQuestionsList = new ArrayList<Question>();
             for (Question questionBean : questionsList) {
                 if (questionBean != null) {
-                    copyQuestionsList.add((Question) questionBean.clone());
+                    Question clonedQuestion = (Question) questionBean.clone();
+                    clonedQuestion.setGroupBean(copy);
+                    copyQuestionsList.add(clonedQuestion);
                 } else {
                     copyQuestionsList.add(null);
                 }
             }
         }
         copy.setQuestionsList(copyQuestionsList);
+
         return copy;
     }
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
         GroupBean groupBean = (GroupBean) o;
-        if (!id.equals(groupBean.id)) {
+
+        if (groupName != null ? !groupName.equals(groupBean.groupName) : groupBean.groupName != null) return false;
+        if (questionsList != null ? !questionsList.equals(groupBean.questionsList) : groupBean.questionsList != null)
             return false;
-        }
+
         return true;
     }
 
     @Override
     public int hashCode() {
-        return id.hashCode();
+        int result = groupName.hashCode();
+        result = 31 * result + (questionsList != null ? questionsList.hashCode() : 0);
+        return result;
     }
 
     @Override
@@ -116,7 +184,7 @@ public class GroupBean extends BasicBean
 
     @Override
     public String toString() {
-        return getDisplayedName();
+        return groupName;
     }
 
     @Override
@@ -130,9 +198,14 @@ public class GroupBean extends BasicBean
     }
 
     @Override
-    public String getDisplayedId() {
-        return " (ID: " + String.valueOf(this.id) + ") ";
+    @XmlTransient
+    public String getDisplayedName() {
+        return groupName;
     }
-	
+
+    @Override
+    public String getDisplayedId() {
+        return " (ID: " + String.valueOf(this.groupId) + ") ";
+    }
 }
 
