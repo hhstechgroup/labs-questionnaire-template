@@ -3,7 +3,6 @@ package com.engagepoint.controller.page;
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.Conversation;
 import javax.enterprise.context.ConversationScoped;
-import javax.enterprise.context.SessionScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
@@ -13,7 +12,6 @@ import com.engagepoint.model.question.rules.Rule;
 import com.engagepoint.model.questionnaire.BasicBean;
 import com.engagepoint.model.questionnaire.GroupBean;
 import com.engagepoint.model.questionnaire.SectionBean;
-import com.engagepoint.model.questionnaire.TemplateBean;
 
 import java.io.Serializable;
 import java.util.ArrayList;
