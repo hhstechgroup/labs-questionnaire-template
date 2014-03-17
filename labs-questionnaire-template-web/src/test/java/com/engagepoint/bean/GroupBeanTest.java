@@ -3,6 +3,7 @@ package com.engagepoint.bean;
 
 import com.engagepoint.mock.MockTemplate;
 import com.engagepoint.model.question.Question;
+import com.engagepoint.model.question.options.CheckBoxQuestionBean;
 import com.engagepoint.model.questionnaire.GroupBean;
 import com.engagepoint.model.questionnaire.QuestionType;
 import org.junit.Assert;
@@ -16,16 +17,30 @@ public class GroupBeanTest {
 
     @Test
     public void testCloneGroupBean() throws Exception {
-//        QuestionBean bean = mock. //new QuestionBean("blah",true, QuestionType.CHECKBOX);
-//        QuestionBean eqBean = new QuestionBean("blah",true, QuestionType.CHECKBOX);
-//        List<QuestionBean> questionBeanList = new ArrayList<QuestionBean>();
-//        questionBeanList.add(bean);
-//        questionBeanList.add(eqBean);
-        /*GroupBean testBean = mock.creatorGroup(); //new GroupBean("EqBeans",questionBeanList);
+       CheckBoxQuestionBean testBean = (CheckBoxQuestionBean)mock.question();
+       CheckBoxQuestionBean testBean1 = (CheckBoxQuestionBean)mock.question();
+       List<Question> questionBeanList = new ArrayList<Question>();
+       questionBeanList.add(testBean1);
+       questionBeanList.add(testBean);
+       GroupBean groupTest = mock.creatorGroup();
+       groupTest.setId(new Long(1));
+       groupTest.setQuestionsList(questionBeanList);
 
+       Assert.assertTrue(groupTest.equals(groupTest.clone()));
 
-        Assert.assertTrue(testBean.equals(testBean.clone())); */
-
+    }
+    @Test
+    public void testDeleteFromInnerList(){
+        CheckBoxQuestionBean testBean = (CheckBoxQuestionBean)mock.question();
+        CheckBoxQuestionBean testBean1 = (CheckBoxQuestionBean)mock.question();
+        List<Question> questionBeanList = new ArrayList<Question>();
+        questionBeanList.add(testBean1);
+        questionBeanList.add(testBean);
+        GroupBean groupTest = mock.creatorGroup();
+        groupTest.setId(new Long(1));
+        groupTest.setQuestionsList(questionBeanList);
+        groupTest.deleteFromInnerList(testBean);
+        Assert.assertTrue(groupTest.getQuestionsList().size() == 1);
     }
 }
 

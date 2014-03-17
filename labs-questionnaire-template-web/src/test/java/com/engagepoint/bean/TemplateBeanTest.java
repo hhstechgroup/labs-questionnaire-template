@@ -21,13 +21,13 @@ public class TemplateBeanTest {
 
     @Test
     public void testCloneTemplateBean() throws Exception {
-        /*TemplateBean testTemplateClone = (TemplateBean) mock.template().clone();
+        TemplateBean testTemplateClone = (TemplateBean) mock.template().clone();
         Assert.assertEquals(mock.template().getTemplateName(), testTemplateClone.getTemplateName());
-        Assert.assertEquals(mock.template().getSectionsList(), testTemplateClone.getSectionsList());*/
+        Assert.assertEquals(mock.template().getSectionsList(), testTemplateClone.getSectionsList());
     }
     @Test
     public void testEqualityTemplates(){
-        /*Question bean = mock.question();
+        Question bean = mock.question();
         Question eqBean = null;
         try {
             eqBean = (Question)mock.question().clone();
@@ -39,13 +39,13 @@ public class TemplateBeanTest {
         questionBeanList.add(bean);
         questionBeanList.add(eqBean);
         //-----------------------------1----------------------------------------------
-        GroupBean testBean = new GroupBean("EqBeans",questionBeanList);
-        GroupBean testBean2 = new GroupBean("EqBeans",questionBeanList);
+        GroupBean testBean = mock.creatorGroup();
+        GroupBean testBean2 = mock.creatorGroup();
         ArrayList<GroupBean> groupBeans = new ArrayList<GroupBean>();
         groupBeans.add(testBean);
         groupBeans.add(testBean2);
         //--------------------------------1------------------------------------
-        SectionBean section1 = new SectionBean(2,groupBeans);
+        SectionBean section1 = mock.creatorSections();
         Question bean1 = null;
         Question eqBean1 = null;
         try {
@@ -60,12 +60,12 @@ public class TemplateBeanTest {
         questionBeanList1.add(bean1);
         questionBeanList1.add(eqBean1);
         //-------------------------------------------1------------------------------
-        GroupBean groupBean2 = new GroupBean("EqBeans",questionBeanList1);
-        GroupBean groupBean3 = new GroupBean("EqBeans",questionBeanList1);
+        GroupBean groupBean2 = mock.creatorGroup();
+        GroupBean groupBean3 = mock.creatorGroup();
         ArrayList<GroupBean> groupBeans1 = new ArrayList<GroupBean>();
         groupBeans1.add(groupBean2);
         groupBeans1.add(groupBean3);
-        SectionBean section2 = new SectionBean(2,groupBeans1);
+        SectionBean section2 = mock.creatorSections();
         //----------------------------------1-----------------------------
         ArrayList<SectionBean> sectionsList = new ArrayList<SectionBean>();
         sectionsList.add(section1);
@@ -87,12 +87,12 @@ public class TemplateBeanTest {
         List<Question> questionBeanList13 = new ArrayList<Question>();
         questionBeanList13.add(bean12);
         questionBeanList13.add(eqBean13);
-        GroupBean testBean21 = new GroupBean("EqBeans",questionBeanList13);
-        GroupBean testBean22 = new GroupBean("EqBeans",questionBeanList13);
+        GroupBean testBean21 = mock.creatorGroup();
+        GroupBean testBean22 = mock.creatorGroup();
         ArrayList<GroupBean> groupBeans12 = new ArrayList<GroupBean>();
         groupBeans12.add(testBean21);
         groupBeans12.add(testBean22);
-        SectionBean section12 = new SectionBean(2,groupBeans12);
+        SectionBean section12 = mock.creatorSections();
         ArrayList<GroupBean> groupBeans11 = new ArrayList<GroupBean>();
         Question bean18 = null;
         Question eqBean19 = null;
@@ -105,16 +105,16 @@ public class TemplateBeanTest {
         List<Question> questionBeanList14 = new ArrayList<Question>();
         questionBeanList14.add(bean18);
         questionBeanList14.add(eqBean19);
-        GroupBean groupBean24 = new GroupBean("EqBeans",questionBeanList14);
-        GroupBean groupBean37 = new GroupBean("EqBeans",questionBeanList14);
+        GroupBean groupBean24 = mock.creatorGroup();
+        GroupBean groupBean37 = mock.creatorGroup();
         groupBeans11.add(groupBean24);
         groupBeans11.add(groupBean37);
-        SectionBean section21 = new SectionBean(2,groupBeans11);
+        SectionBean section21 = mock.creatorSections();
         ArrayList<SectionBean> sectionsList1 = new ArrayList<SectionBean>();
         sectionsList1.add(section12);
         sectionsList1.add(section21);
         TemplateBean testTemplate1 = new TemplateBean(new Long(5),"Questionnaire",sectionsList1);
-        Assert.assertTrue(testTemplate.equals(testTemplate1)); */
+        Assert.assertTrue(testTemplate.equals(testTemplate1));
 
     }
 }

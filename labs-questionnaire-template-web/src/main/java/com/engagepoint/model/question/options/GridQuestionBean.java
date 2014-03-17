@@ -52,10 +52,25 @@ public class GridQuestionBean extends Question {
         return cols;
     }
 
-    @XmlElementWrapper(name = "Array")
-    @XmlElement(name = "element")
-    public boolean[][] getSelected() {
-        return selected;
+    @XmlElementWrapper(name = "default-answers")
+    @XmlElement(name = "default-answer")
+    public List<String> getSelected() {
+        List<String>defaultAnswers =new ArrayList<String>();
+        for (int i = 0; i <selected.length; i++) {
+            String defaultAnswer ="";
+            defaultAnswers.add(defaultAnswer);
+            for (int j = 0; j <selected[i].length ; j++) {
+                if (i < rows.size()){
+                    defaultAnswer +=selected[i][j]+",";
+                defaultAnswers.set(i,defaultAnswer);
+                }else {
+                    defaultAnswer +=selected[i][j];
+                    defaultAnswers.set(i, defaultAnswer);
+                }
+            }
+
+        }
+        return defaultAnswers;
     }
 
     public void addRow(String name) {
@@ -99,7 +114,7 @@ public class GridQuestionBean extends Question {
         return selected[i][j];
     }
 
-    @XmlAttribute(name = "OnlyOneInRow")
+    @XmlElement(name = "OnlyOneInRow")
     public boolean isOnlyOneSelectInRow() {
         return onlyOneSelectInRow;
     }
@@ -108,7 +123,7 @@ public class GridQuestionBean extends Question {
         this.onlyOneSelectInRow = onlyOneSelectInRow;
     }
 
-    @XmlAttribute(name = "OnlyOneInCol")
+    @XmlElement(name = "OnlyOneInCol")
     public boolean isOnlyOneSelectInCol() {
         return onlyOneSelectInCol;
     }
