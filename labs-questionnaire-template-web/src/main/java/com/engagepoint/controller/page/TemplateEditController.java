@@ -80,7 +80,7 @@ public class TemplateEditController implements Serializable {
      * @return true - this template already exists.
      */
     public boolean isNew() {
-        return (!listController.getTemplates().contains(currentTemplate));
+        return !listController.getTemplates().contains(currentTemplate);
     }
 
     public QuestionType[] getQuestionTypes() {

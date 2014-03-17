@@ -296,13 +296,9 @@ public class QuestionRuleController implements Serializable {
                     answers.add(item.getValue());
                 }
                 break;
-            case GRID:
-                break;
             default:
         }
-        if (answer != null) {
-            answers.add(answer);
-        }
+        answers.add(answer);
         setAnswerAndIdToRule(answers);
         setChooseDependentQuestionListVisible(false);
         setCancelRuleEditionButtonIsVisible(false);

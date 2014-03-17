@@ -51,7 +51,7 @@ public class SectionBean extends BasicBean
         if (sectionList.isEmpty()) {
             return 1L;
         } else {
-            return ((sectionList.get(sectionList.size() - 1)).getId() + 1);
+            return (sectionList.get(sectionList.size() - 1)).getId() + 1;
         }
     }
 
