@@ -21,7 +21,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-
 @Named
 @ConversationScoped
 public class RulesTestController implements Serializable {

@@ -296,13 +296,9 @@ public class QuestionRuleController implements Serializable {
                     answers.add(item.getValue());
                 }
                 break;
-            case GRID:
-                break;
             default:
         }
-        if (answer != null) {
-            answers.add(answer);
-        }
+        answers.add(answer);
         setAnswerAndIdToRule(answers);
         setChooseDependentQuestionListVisible(false);
         setCancelRuleEditionButtonIsVisible(false);
@@ -427,7 +423,7 @@ public class QuestionRuleController implements Serializable {
 
     public List<Question> getDependentQuestions(Question question) {
         if (question == null) {
-            return null;
+            return new ArrayList<Question>();
         }
         List<Question> questionsWithRules = getQuestionsWithRules();
         List<Question> result = new ArrayList<Question>();
@@ -488,7 +484,7 @@ public class QuestionRuleController implements Serializable {
 
     void setCurrentQuestion(@Observes @NewQuestion Question question) {
         if (currentRules == null) {
-            if (question.getRules() != null) {
+            if (question.getRules().size() != 0) {
                 currentRules = cloneRulesList(question.getRules());
             } else {
                 currentRules = new ArrayList<Rule>();
@@ -498,7 +494,7 @@ public class QuestionRuleController implements Serializable {
 
     List<Rule> cloneRulesList(List<Rule> input) {
         if (input == null) {
-            return null;
+            return new ArrayList<Rule>();
         }
         List<Rule> result = new ArrayList<Rule>();
         try {
