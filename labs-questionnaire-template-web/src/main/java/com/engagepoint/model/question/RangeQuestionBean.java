@@ -1,10 +1,10 @@
 package com.engagepoint.model.question;
 
-
 import com.engagepoint.model.question.utils.RangeItem;
 import com.engagepoint.model.questionnaire.GroupBean;
 
 import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlTransient;
 import javax.xml.bind.annotation.XmlType;
 
 @XmlType(name = "rangeQuestionBean", propOrder = {
@@ -23,11 +23,13 @@ public class RangeQuestionBean extends Question {
     public RangeQuestionBean() {
         super();
         rangeItem = new RangeItem();
+        getDefaultAnswers().add(0, "");
     }
 
     public RangeQuestionBean(GroupBean currentGroup) {
         super(currentGroup);
         rangeItem = new RangeItem();
+        getDefaultAnswers().add(0, "");
     }
 
     @XmlElement(name = "range")
@@ -37,5 +39,14 @@ public class RangeQuestionBean extends Question {
 
     public void setRangeItem(RangeItem rangeItem) {
         this.rangeItem = rangeItem;
+    }
+
+    @XmlTransient
+    public String getDefaultAnswer() {
+        return getDefaultAnswers().get(0);
+    }
+
+    public void setDefaultAnswer(String defaultAnswer) {
+        getDefaultAnswers().set(0, defaultAnswer);
     }
 }

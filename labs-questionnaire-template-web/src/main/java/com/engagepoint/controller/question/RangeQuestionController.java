@@ -1,18 +1,13 @@
 package com.engagepoint.controller.question;
 
-import com.engagepoint.controller.page.TemplateEditController;
 import com.engagepoint.model.question.Question;
 import com.engagepoint.model.question.RangeQuestionBean;
 import com.engagepoint.controller.page.QuestionEditController;
-import com.engagepoint.model.question.rules.Rule;
 import com.engagepoint.model.question.utils.RangeItem;
 import com.engagepoint.model.questionnaire.QuestionType;
 
 import javax.annotation.PostConstruct;
-import javax.enterprise.context.Conversation;
 import javax.enterprise.context.ConversationScoped;
-import javax.enterprise.context.RequestScoped;
-import javax.inject.Inject;
 import javax.inject.Named;
 
 @Named("rangeQuestion")

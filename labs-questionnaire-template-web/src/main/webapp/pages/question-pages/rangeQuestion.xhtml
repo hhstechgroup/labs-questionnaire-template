@@ -24,6 +24,11 @@
                     <f:validateLongRange minimum="#{rangeQuestion.currentQuestion.rangeItem.minValue}"/>
                 </h:inputText>
 
+                <h:outputText value="Default answer: "/>
+                <h:inputText size="50" id="defaultAnswer" value="#{rangeQuestion.currentQuestion.defaultAnswer}">
+
+                </h:inputText>
+
             </h:panelGrid>
 
             <ago:buttonsCommon qbuttons="#{rangeQuestion}" id="formWithSaveButtons"/>
