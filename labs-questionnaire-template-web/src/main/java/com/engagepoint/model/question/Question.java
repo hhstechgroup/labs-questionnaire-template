@@ -36,14 +36,13 @@ public abstract class Question extends BasicBean implements Cloneable {
     protected boolean requiredAnswer;        //is answer required or not
     protected String questionText = "";      //questiontext
     protected QuestionType questionType;     //questiontype from ENUM of questiontypes
-    protected List<Rule> rules;
     protected String helpText = "";          //Help texts for questions
     protected List<String> defaultAnswers;
 
     protected GroupBean groupBean;
 
     public Question() {
-        rules = new ArrayList<Rule>();
+        setRules(new ArrayList<Rule>());
         defaultAnswers = new ArrayList<String>();
     }
 
@@ -182,19 +181,31 @@ public abstract class Question extends BasicBean implements Cloneable {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Question)) return false;
-
-        Question question = (Question) o;
-
-        if (!questionId.equals(question.questionId)) return false;
-
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        Question that = (Question) o;
+        if (requiredAnswer != that.requiredAnswer) {
+            return false;
+        }
+        if (questionText != null ? !questionText.equals(that.questionText) : that.questionText != null) {
+            return false;
+        }
+        if (questionType != that.questionType) {
+            return false;
+        }
         return true;
     }
 
     @Override
     public int hashCode() {
-        return questionId.hashCode();
+        int result = questionText != null ? questionText.hashCode() : 0;
+        result = 31 * result + (requiredAnswer ? 1 : 0);
+        result = 31 * result + (questionType != null ? questionType.hashCode() : 0);
+        return result;
     }
 
     @Override

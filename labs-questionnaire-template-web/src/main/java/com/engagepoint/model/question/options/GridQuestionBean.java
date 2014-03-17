@@ -98,10 +98,6 @@ public class GridQuestionBean extends Question {
         }
     }
 
-    public void setSelect(int i, int j) {
-        setSelect(i, j, true);
-    }
-
     public void setSelect(int i, int j, boolean b) {
         selected[i][j] = b;
     }
