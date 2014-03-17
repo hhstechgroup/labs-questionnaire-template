@@ -9,7 +9,7 @@ import javax.xml.bind.annotation.XmlType;
         "requiredAnswer",
         "questionText",
         "questionType",
-        "rules",
+        "questionRules",
         "helpText",
         "options",
         "defaultAnswers"

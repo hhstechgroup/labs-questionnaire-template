@@ -7,23 +7,25 @@
         <pages>
             <page page-id="f1p1" page-number="1">
                 <page-name>Page 1</page-name>
+                <page-rules/>
                 <groups-of-questions>
                     <group group-id="f1p1g1">
                         <group-name>Personal data with default</group-name>
+                        <group-rules/>
                         <questions>
-                            <question xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="textQuestionBean" question-id="f1p1g1q1" answer-required="true">
+                            <question xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="textQuestionBean" answer-required="true" question-id="f1p1g1q1">
                                 <question-title>What's you're name?</question-title>
                                 <question-type>TEXT</question-type>
-                                <rules/>
+                                <question-rules/>
                                 <help-text>Enter first name</help-text>
                                 <default-answers>
                                     <default-answer>1</default-answer>
                                 </default-answers>
                             </question>
-                            <question xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="dateQuestionBean" question-id="f1p1g1q2" answer-required="true">
+                            <question xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="dateQuestionBean" answer-required="true" question-id="f1p1g1q2">
                                 <question-title>When is your birthday?</question-title>
                                 <question-type>DATE</question-type>
-                                <rules/>
+                                <question-rules/>
                                 <help-text/>
                                 <default-answers>
                                     <default-answer>16-03-2014</default-answer>
@@ -32,7 +34,7 @@
                             <question xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="multipleChoiceQuestionBean" question-id="f1p1g1q3" answer-required="true">
                                 <question-title>Happy birthday! Choose your present.</question-title>
                                 <question-type>MULTIPLECHOICE</question-type>
-                                <rules/>
+                                <question-rules/>
                                 <help-text>You can choose only one.</help-text>
                                 <options>
                                     <option>Car</option>
@@ -47,10 +49,12 @@
                     </group>
                     <group group-id="f1p1g2">
                         <group-name>Personal data without default</group-name>
+                        <group-rules/>
                         <questions/>
                     </group>
                     <group group-id="f1p1g3">
                         <group-name>Personal data with rules</group-name>
+                        <group-rules/>
                         <questions/>
                     </group>
                 </groups-of-questions>

@@ -15,8 +15,8 @@ import java.util.List;
 @XmlType(name = "", propOrder = {
         "id",
         "groupName",
-        "questionsList",
-        "rules"
+        "groupRules",
+        "questionsList"
 })
 public class GroupBean extends BasicBean
         implements Cloneable, BasicOperationWithBean {
@@ -26,8 +26,8 @@ public class GroupBean extends BasicBean
     private String groupName;
     private List<Question> questionsList = new ArrayList<Question>();
     private SectionBean sectionBean;
-    
 
+    private List<Rule> groupRules;
 
     public GroupBean() {
         setRules(new ArrayList<Rule>());
@@ -115,6 +115,16 @@ public class GroupBean extends BasicBean
 
     public void setGroupName(String groupName) {
         this.groupName = groupName;
+    }
+
+    @XmlElementWrapper(name = "group-rules")
+    @XmlElement(name = "group-rule")
+    public List<Rule> getGroupRules() {
+        return getRules();
+    }
+
+    public void setGroupRules(List<Rule> rules) {
+        setRules(rules);
     }
 
     @XmlElementWrapper(name = "questions")
