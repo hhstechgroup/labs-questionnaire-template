@@ -59,6 +59,12 @@
                                           style="cursor: pointer" />
                             <h:outputText id="treeDisplayedId" value="#{node.displayedId}"
                                           style="cursor: pointer" />
+                            <p:commandButton value="View rules" id="viewRules"
+                                             style="float:right;"
+                                             rendered="#{templateTreeController.editButtonRendering(node)}"
+                                             onclick="dlgRules.show();"
+                                             styleClass="small blue">
+                            </p:commandButton>
 							<p:commandButton value="Edit Name" id="editName"
 								style="float:right;"
                                 rendered="#{templateTreeController.editButtonRendering(node)}"
@@ -79,6 +85,19 @@
                             </p:dialog>
                         </p:column>
                     </p:treeTable>
+
+                    <p:dialog id="modalRules" widgetVar="dlgRules" modal="true"
+                              closable="false" height="100" resizeable="false">
+
+                       <uib:dataTable var="rule" value="#{templateTreeController.currentRules}">
+                              <uib:column >
+                                  #{rule}
+                              </uib:column>
+                       </uib:dataTable>
+                        <p:commandButton value="Cancel" id="cancelRules"
+                                         immediate="true"
+                                         onclick="dlgRules.hide()" />
+                    </p:dialog>
 
                     <p:panel id="buttonPanel">
                         <p:commandButton value="Add section"
