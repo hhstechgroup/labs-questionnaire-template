@@ -2,6 +2,7 @@ package com.engagepoint.bean;
 
 
 import com.engagepoint.mock.MockTemplate;
+import com.engagepoint.model.question.DateQuestionBean;
 import com.engagepoint.model.question.Question;
 import com.engagepoint.model.question.options.CheckBoxQuestionBean;
 import com.engagepoint.model.question.options.OptionsQuestion;
@@ -11,6 +12,7 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class GroupBeanTest {
@@ -75,9 +77,32 @@ public class GroupBeanTest {
     @Test
     public void eqFail(){
         GroupBean group = mock.creatorGroup();
+
         GroupBean group1 = mock.creatorGroup();
         group1 = null;
         Assert.assertFalse(group.equals(group1));
+
+    }
+    @Test
+    public void eqFail1(){
+        GroupBean group = mock.creatorGroup();
+
+        GroupBean group1 = mock.creatorGroup();
+
+
+        group1.setGroupName("Decadance");
+        group.setGroupName("Hi");
+        Assert.assertFalse(group1.equals(group));
+        CheckBoxQuestionBean question = (CheckBoxQuestionBean)mock.question();
+        question.setHelpText("dsdsd");
+        CheckBoxQuestionBean question1 = (CheckBoxQuestionBean)mock.question();
+        question1.setHelpText("dsdsasas");
+        List<Question> quest1 = new ArrayList<Question>();
+        quest1.add(question);
+        List<Question> quest2 = new ArrayList<Question>();
+        quest2.add(question1);
+        Assert.assertFalse(group1.equals(group));
+
     }
 }
 
