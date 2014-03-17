@@ -46,7 +46,7 @@ public abstract class Question extends BasicBean implements Cloneable {
         this();
         this.groupBean = groupBean;
         this.questionNumber = getNextQuestionNumberInGroup();
-        this.questionId = groupBean.getGroupId() + "q" + this.questionNumber;
+        this.questionId = groupBean.getId() + "q" + this.questionNumber;
     }
 
     public Question(String questionText, boolean requiredAnswer, QuestionType questionType) {
@@ -80,11 +80,13 @@ public abstract class Question extends BasicBean implements Cloneable {
     }
 
     @XmlAttribute(name = "question-id")
-    public String getQuestionId() {
+    @Override
+    public String getId() {
         return questionId;
     }
 
-    public void setQuestionId(String questionId) {
+    @Override
+    public void setId(String questionId) {
         this.questionId = questionId;
         //must set group number from xml
         if (questionNumber==null) {
@@ -165,7 +167,7 @@ public abstract class Question extends BasicBean implements Cloneable {
     public Object clone() throws CloneNotSupportedException {
         Question copy = (Question) super.clone();
         if (TemplateBean.duplicate) {
-            copy.setQuestionId(this.questionId);
+            copy.setId(this.questionId);
         }
         copy.setQuestionType(this.questionType);
         copy.setQuestionText(this.questionText);

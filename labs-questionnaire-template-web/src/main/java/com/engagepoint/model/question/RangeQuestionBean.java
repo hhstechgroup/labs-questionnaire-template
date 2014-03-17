@@ -8,7 +8,7 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
 
 @XmlType(name = "rangeQuestionBean", propOrder = {
-        "questionId",
+        "id",
         "requiredAnswer",
         "questionText",
         "questionType",

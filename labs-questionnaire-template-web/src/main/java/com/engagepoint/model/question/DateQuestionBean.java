@@ -15,7 +15,7 @@ import java.util.Date;
 import java.util.List;
 
 @XmlType(name = "dateQuestionBean", propOrder = {
-        "questionId",
+        "id",
         "requiredAnswer",
         "questionText",
         "questionType",

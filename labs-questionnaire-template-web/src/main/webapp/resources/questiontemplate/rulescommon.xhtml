@@ -64,8 +64,8 @@
 
                 <p:selectOneMenu value="#{questionRuleController.currentDependentQuestionId}">
                     <f:selectItem itemLabel="Select One" itemValue=""/>
-                    <f:selectItems value="#{questionRuleController.questions}" var="question" itemLabel="#{question.questionId}"
-                                   itemValue="#{question.questionId}"/>
+                    <f:selectItems value="#{questionRuleController.questions}" var="question" itemLabel="#{question.id}"
+                                   itemValue="#{question.id}"/>
                 </p:selectOneMenu>
                 <br/>
                 <p:commandButton value="Set Answer"

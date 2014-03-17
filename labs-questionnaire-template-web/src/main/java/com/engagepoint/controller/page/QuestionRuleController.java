@@ -373,7 +373,7 @@ public class QuestionRuleController implements Serializable {
             for (SectionBean sectionBean : templateEditController.getCurrentTemplate().getSectionsList())
                 for (GroupBean groupBean : sectionBean.getGroupsList())
                     for (Question question : groupBean.getQuestionsList())
-                        if (String.valueOf(question.getQuestionId()).equals(currentDependentQuestionId)) {
+                        if (String.valueOf(question.getId()).equals(currentDependentQuestionId)) {
                             dependentQuestion = question;
                             return question.getQuestionType().toString();
                         }
@@ -414,7 +414,7 @@ public class QuestionRuleController implements Serializable {
         }
         List<Question> result = new ArrayList<Question>();
         for(Question q : all){
-            if(idSet.contains(q.getQuestionId()))
+            if(idSet.contains(q.getId()))
                 result.add(q);
         }
 
@@ -428,7 +428,7 @@ public class QuestionRuleController implements Serializable {
         List<Question> result = new ArrayList<Question>();
         for(Question q : questionsWithRules){
             for(Rule rule : q.getRules()){
-                if(rule.getId().equals(question.getQuestionId())){
+                if(rule.getId().equals(question.getId())){
                     result.add(q);
                     break;
                 }
@@ -474,7 +474,7 @@ public class QuestionRuleController implements Serializable {
             case RENDERED:
                 RenderedRule renderedRule = (RenderedRule) currentRule;
                 renderedRule.setAnswers(answers);
-                renderedRule.setId(dependentQuestion.getQuestionId());
+                renderedRule.setId(dependentQuestion.getId());
                 break;
         }
 

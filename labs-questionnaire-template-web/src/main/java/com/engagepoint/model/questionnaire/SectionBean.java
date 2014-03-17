@@ -10,7 +10,7 @@ import java.util.List;
  * Class represents page tag.
  */
 @XmlType(name = "", propOrder = {
-        "pageId",
+        "id",
         "pageNumber",
         "pageName",
         "groupsList"
@@ -37,11 +37,13 @@ public class SectionBean extends BasicBean
     }
 
     @XmlAttribute(name = "page-id")
-    public String getPageId() {
+    @Override
+    public String getId() {
         return pageId;
     }
 
-    public void setPageId(String pageId) {
+    @Override
+    public void setId(String pageId) {
         this.pageId = pageId;
     }
 
@@ -151,7 +153,6 @@ public class SectionBean extends BasicBean
 
     @Override
     public String getDisplayedId() {
-        String id = " (ID: "+String.valueOf(this.pageId)+") ";
-        return id;
+        return " (ID: "+String.valueOf(this.pageId)+") ";
     }
 }

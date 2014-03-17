@@ -6,7 +6,7 @@ import javax.xml.bind.annotation.XmlTransient;
 import javax.xml.bind.annotation.XmlType;
 
 @XmlType(name = "textQuestionBean", propOrder = {
-        "questionId",
+        "id",
         "requiredAnswer",
         "questionText",
         "questionType",

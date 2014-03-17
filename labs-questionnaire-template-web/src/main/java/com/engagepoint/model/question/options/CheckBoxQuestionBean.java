@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @XmlType(name = "checkBoxQuestionBean", propOrder = {
-        "questionId",
+        "id",
         "requiredAnswer",
         "questionText",
         "questionType",

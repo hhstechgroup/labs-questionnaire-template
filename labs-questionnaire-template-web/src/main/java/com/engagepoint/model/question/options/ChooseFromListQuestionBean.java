@@ -5,7 +5,7 @@ import com.engagepoint.model.questionnaire.GroupBean;
 import javax.xml.bind.annotation.XmlType;
 
 @XmlType(name = "chooseFromListQuestionBean", propOrder = {
-        "questionId",
+        "id",
         "requiredAnswer",
         "questionText",
         "questionType",

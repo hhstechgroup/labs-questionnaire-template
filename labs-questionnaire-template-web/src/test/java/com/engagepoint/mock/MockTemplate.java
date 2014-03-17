@@ -136,7 +136,7 @@ public class MockTemplate {
     public void creator(Question question){
         question.setHelpText("its my help");
         question.setQuestionText("WHY UYoA ArE SO SAD?");
-        question.setQuestionId("1567");
+        question.setId("1567");
 
     }
 

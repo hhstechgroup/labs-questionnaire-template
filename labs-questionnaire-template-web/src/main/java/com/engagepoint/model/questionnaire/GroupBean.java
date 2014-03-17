@@ -11,7 +11,7 @@ import java.util.List;
  * Class represents group tag.
  */
 @XmlType(name = "", propOrder = {
-        "groupId",
+        "id",
         "groupName",
         "questionsList"
 })
@@ -32,7 +32,7 @@ public class GroupBean extends BasicBean
         this();
         this.sectionBean = sectionBean;
         this.groupNumber = getNextGroupNumberInSection();
-        this.groupId = sectionBean.getPageId() + "g" + this.groupNumber;
+        this.groupId = sectionBean.getId() + "g" + this.groupNumber;
         sectionBean.addToInnerList(this);
         setGroupName("Group " + groupNumber);
     }
@@ -49,11 +49,13 @@ public class GroupBean extends BasicBean
     }
 
     @XmlAttribute(name = "group-id")
-    public String getGroupId() {
+    @Override
+    public String getId() {
         return groupId;
     }
 
-    public void setGroupId(String groupId) {
+    @Override
+    public void setId(String groupId) {
         this.groupId = groupId;
         //must set group number from xml
         if (groupNumber==null) {
