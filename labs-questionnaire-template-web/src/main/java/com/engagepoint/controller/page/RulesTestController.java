@@ -24,19 +24,19 @@ import java.util.Map;
 @Named
 @ConversationScoped
 public class RulesTestController implements Serializable {
-	
-	
+
+
 	private List<Question> questionsList;
-	
+
 	@Inject
 	Conversation conversation;
-	
+
 	@Inject
 	ListController listController;
-	
+
 	private Map<Question, List<Long>> dependencies;
 	private Map<Question, String> styles;
-	
+
 	@PostConstruct
 	public void postconstruct(){
 		conversation.begin();
@@ -51,7 +51,7 @@ public class RulesTestController implements Serializable {
 	public void setQuestionsList(List<Question> questionsList) {
 		this.questionsList = questionsList;
 	}
-	
+
 	public ListController getListController() {
 		return listController;
 	}
@@ -67,7 +67,7 @@ public class RulesTestController implements Serializable {
 	public void setDependencies(Map<Question, List<Long>> dependencies) {
 		this.dependencies = dependencies;
 	}
-	
+
 	/**
 	 * build a list of all questions from current template
 	 */
@@ -81,9 +81,9 @@ public class RulesTestController implements Serializable {
 			}
 		}
 	}
-	
+
 	/**
-	 * build a map of dependencies which contains question element 
+	 * build a map of dependencies which contains question element
 	 * and a list of questions ids that are dependent on this question
 	 */
 	private void prepareDependencies() {
@@ -100,10 +100,10 @@ public class RulesTestController implements Serializable {
 			}
 		}
 	}
-	
+
 	/**
 	 * get a question object with specified ID
-	 * 
+	 *
 	 * @param id
 	 * @return
 	 */
@@ -116,7 +116,7 @@ public class RulesTestController implements Serializable {
 		return null;
 	}
 
-	
+
 	/**
      * Get page name and perform redirect.
      *
@@ -125,24 +125,24 @@ public class RulesTestController implements Serializable {
 	public static String income() {
         return PageNavigator.RULES_TEST_PAGE;
     }
-	
+
 	/**
 	 * close current conversation and go back to index
-	 * 
+	 *
 	 * @return
 	 */
 	public String backToIndex(){
 		conversation.end();
 		return PageNavigator.INDEX_PAGE;
 	}
-	
+
 	/**
-	 * TODO TEMP method for development phase, will 
-	 * 
+	 * TODO TEMP method for development phase, will
+	 *
 	 * @param q
 	 * @return
 	 */
-	
+
 	public String getDependentByQuestion(Question q){
 		List<Long> result=dependencies.get(q);
 		if(result==null){
@@ -150,24 +150,24 @@ public class RulesTestController implements Serializable {
 		}
 		return result.toString();
 	}
-	
+
 	/**
 	 * get String style for current Question to use in style field on page
-	 * 
+	 *
 	 * @param q
 	 * @return
 	 */
 	public String getStyle(Question q){
-		
+
 		if (styles!=null && styles.get(q)!=null)
-			return "background-color: "+styles.get(q)+";color: white;";
+        {return "background-color: "+styles.get(q)+";color: white;";}
 		return "";
 	}
-	
-	
+
+
 	/**
-	 * set style green for this question and red for depended questions 
-	 * 
+	 * set style green for this question and red for depended questions
+	 *
 	 * @param q
 	 */
 	public void setStyles(Question q){
@@ -177,7 +177,7 @@ public class RulesTestController implements Serializable {
 			styles.put(getQuestionById(l),"red");
 		}
 	}
-	
-	
+
+
 
 }
