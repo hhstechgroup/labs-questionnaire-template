@@ -75,10 +75,8 @@ public class GroupBeanTest {
     @Test
     public void eqFail(){
         GroupBean group = mock.creatorGroup();
-        List<Question> questions = new ArrayList<Question>();
-        group.setQuestionsList(questions);
         GroupBean group1 = mock.creatorGroup();
-        group1.setQuestionsList(questions);
+        group1 = null;
         Assert.assertFalse(group.equals(group1));
     }
 }
