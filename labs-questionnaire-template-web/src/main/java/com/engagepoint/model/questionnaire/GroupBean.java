@@ -2,9 +2,11 @@ package com.engagepoint.model.questionnaire;
 
 
 import com.engagepoint.model.question.Question;
+import com.engagepoint.model.question.rules.Rule;
 
 import javax.inject.Inject;
 import javax.xml.bind.annotation.*;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,7 +20,7 @@ public class GroupBean extends BasicBean
     private Long id;
     private List<Question> questionsList = new ArrayList<Question>();
     private SectionBean sectionBean;
-
+    
     public GroupBean() {
         id = lastId++;
     }
@@ -131,5 +133,6 @@ public class GroupBean extends BasicBean
     public String getDisplayedId() {
         return " (ID: " + String.valueOf(this.id) + ") ";
     }
+	
 }
 

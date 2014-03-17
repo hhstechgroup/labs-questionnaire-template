@@ -29,18 +29,18 @@ public abstract class Question extends BasicBean implements Cloneable {
     private boolean requiredAnswer;        //is answer required or not
     private QuestionType questionType;    //questiontype from ENUM of questiontypes
     private String helpText = "";            //Help texts for questions
-    private List<Rule> rules;
+    
     GroupBean groupBean;
 
     public Question() {
         this.id = lastId++;
-        rules = new ArrayList<Rule>();
+        setRules(new ArrayList<Rule>());
     }
 
     public Question(GroupBean groupBean) {
         this.groupBean = groupBean;
         id = Long.valueOf(groupBean.getId() + (lastId++).toString());
-        rules = new ArrayList<Rule>();
+        setRules(new ArrayList<Rule>());
     }
 
     @XmlElement(name = "question-title")
@@ -159,13 +159,5 @@ public abstract class Question extends BasicBean implements Cloneable {
     @Override
     public String getDisplayedId() {
         return " (ID: " + String.valueOf(this.id) + ") ";
-    }
-
-    public List<Rule> getRules() {
-        return rules;
-    }
-
-    public void setRules(List<Rule> rules) {
-        this.rules = rules;
     }
 }

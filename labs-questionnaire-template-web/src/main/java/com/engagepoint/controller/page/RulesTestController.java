@@ -10,6 +10,7 @@ import javax.inject.Named;
 import com.engagepoint.controller.utils.PageNavigator;
 import com.engagepoint.model.question.Question;
 import com.engagepoint.model.question.rules.Rule;
+import com.engagepoint.model.questionnaire.BasicBean;
 import com.engagepoint.model.questionnaire.GroupBean;
 import com.engagepoint.model.questionnaire.SectionBean;
 import com.engagepoint.model.questionnaire.TemplateBean;
@@ -25,8 +26,9 @@ import java.util.Map;
 @ConversationScoped
 public class RulesTestController implements Serializable {
 	
-	
-	private List<Question> questionsList;
+	private List<BasicBean> TemplateElementsList;
+	private Map<BasicBean, List<Long>> dependencies;
+	private Map<Question, String> styles;
 	
 	@Inject
 	Conversation conversation;
@@ -34,8 +36,6 @@ public class RulesTestController implements Serializable {
 	@Inject
 	ListController listController;
 	
-	private Map<Question, List<Long>> dependencies;
-	private Map<Question, String> styles;
 	
 	@PostConstruct
 	public void postconstruct(){
@@ -44,14 +44,27 @@ public class RulesTestController implements Serializable {
 		prepareDependencies();
 	}
 
-	public List<Question> getQuestionsList() {
-		return questionsList;
+	
+	public Map<BasicBean, List<Long>> getDependencies() {
+		return dependencies;
 	}
 
-	public void setQuestionsList(List<Question> questionsList) {
-		this.questionsList = questionsList;
+	public void setDependencies(Map<BasicBean, List<Long>> dependencies) {
+		this.dependencies = dependencies;
 	}
 	
+	public List<BasicBean> getTemplateElementsList() {
+		return TemplateElementsList;
+	}
+
+
+
+	public void setTemplateElementsList(List<BasicBean> templateElementsList) {
+		TemplateElementsList = templateElementsList;
+	}
+
+
+
 	public ListController getListController() {
 		return listController;
 	}
@@ -60,35 +73,67 @@ public class RulesTestController implements Serializable {
 		this.listController = listController;
 	}
 
-	public Map<Question, List<Long>> getDependencies() {
-		return dependencies;
-	}
-
-	public void setDependencies(Map<Question, List<Long>> dependencies) {
-		this.dependencies = dependencies;
-	}
 	
 	/**
 	 * build a list of all questions from current template
 	 */
 	private void prepareQuestionList() {
 		if(listController.getCurrentTemplate()!=null){
-			questionsList=new ArrayList<Question>();
+			TemplateElementsList=new ArrayList<BasicBean>();
 			for(SectionBean s : listController.getCurrentTemplate().getSectionsList()){
+				TemplateElementsList.add(s);
 				for(GroupBean gr : s.getGroupsList()){
-					questionsList.addAll(gr.getQuestionsList());
+					TemplateElementsList.add(gr);
+					TemplateElementsList.addAll(gr.getQuestionsList());
 				}
 			}
 		}
 	}
 	
 	/**
+	 * prepare a String presentation of Template template to display in table 
+	 * 
+	 * @param bb
+	 * @return
+	 */
+	public String displayTemplateElement(BasicBean bb){
+		//TODO change to element name
+		String result = bb.getDisplayedNodeType()+bb.getDisplayedId();
+		
+		switch (bb.getType()) {
+		case "section":
+			return result;
+			
+		case "group":
+			return "___"+result;
+			
+		case "question":
+			return "______"+result;
+		default:
+			return "";
+			
+		}
+	}
+	
+	
+	/**
 	 * build a map of dependencies which contains question element 
 	 * and a list of questions ids that are dependent on this question
 	 */
 	private void prepareDependencies() {
-		dependencies = new HashMap<Question, List<Long>>();
-		for (Question quest : questionsList) {
+		dependencies = new HashMap<BasicBean, List<Long>>();
+		
+		for (BasicBean bb : TemplateElementsList){
+			if ((bb.getRules() != null) && (!bb.getRules().isEmpty())) {
+				for (Rule r : bb.getRules()) {
+					
+				}
+			}
+			
+		}
+		
+		
+		/*	for (Question quest : questionsList) {
 			if ((quest.getRules() != null) && (!quest.getRules().isEmpty())) {
 				for (Rule r : quest.getRules()) {
 					Question parent=getQuestionById(r.getId());
@@ -98,7 +143,7 @@ public class RulesTestController implements Serializable {
 					dependencies.get(parent).add(quest.getId());
 				}
 			}
-		}
+		}*/
 	}
 	
 	/**
@@ -107,14 +152,14 @@ public class RulesTestController implements Serializable {
 	 * @param id
 	 * @return
 	 */
-	private Question getQuestionById(Long id) {
+	/*private Question getQuestionById(Long id) {
 		for (Question quest : questionsList) {
 			if (quest.getId() == id) {
 				return quest;
 			}
 		}
 		return null;
-	}
+	}*/
 
 	
 	/**
@@ -170,13 +215,13 @@ public class RulesTestController implements Serializable {
 	 * 
 	 * @param q
 	 */
-	public void setStyles(Question q){
+	/*public void setStyles(Question q){
 		styles = new HashMap<Question, String>();
 		styles.put(q, "green");
 		for(Long l : dependencies.get(q)){
 			styles.put(getQuestionById(l),"red");
 		}
-	}
+	}*/
 	
 	
 

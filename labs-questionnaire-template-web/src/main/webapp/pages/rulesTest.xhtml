@@ -15,25 +15,13 @@
 			<h:outputText value="#{rulesTestController.listController.currentTemplate.id}"/>
 			<br/>
 			
-			<uib:dataTable id="questionstable" var="question" 
-				value="#{rulesTestController.questionsList}">
-				<uib:column headerText="Questions">
-					<h:outputText value="#{question.id}" 
-					style="#{rulesTestController.getStyle(question)}"/>
-				</uib:column>
-				<uib:column headerText="Dependencies">
-					<h:outputText value="#{rulesTestController.getDependentByQuestion(question)}" />
-				</uib:column>
+			<uib:dataTable id="questionstable" var="templateEl" 
+				value="#{rulesTestController.templateElementsList}">
 				<uib:column>
-					<p:commandButton value="View" id="viewdeps"
-								style="float:center;"
-                                rendered="#{rulesTestController.dependencies.get(question)!=null}"
-								styleClass="small blue"
-								update="questionstable"
-								action="#{rulesTestController.setStyles(question)}">
-								
-					</p:commandButton>
+					<h:outputText value="#{rulesTestController.displayTemplateElement(templateEl)}" />
+					<!-- style="#{rulesTestController.getStyle(question)}"  --> 
 				</uib:column>
+				
 			</uib:dataTable>
 			
 			<br/>
