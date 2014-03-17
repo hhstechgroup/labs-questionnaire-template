@@ -3,6 +3,7 @@ package com.engagepoint.model.questionnaire;
 import java.util.List;
 
 import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlTransient;
 
 import com.engagepoint.model.question.rules.Rule;
@@ -45,6 +46,8 @@ public abstract class BasicBean {
      * 
      * @return
      */
+    @XmlElementWrapper(name = "rules")
+    @XmlElement(name = "rule")
 	public List<Rule> getRules() {
 		return rules;
 	}

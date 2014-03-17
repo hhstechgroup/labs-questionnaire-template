@@ -2,16 +2,16 @@
 <questionnaire-forms
         xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'
         xsi:noNamespaceSchemaLocation='XSDforWizard.xsd'>
-    <questionnaire-form form-id="f3">
+    <questionnaire-form form-id="f1">
         <form-name>Test template</form-name>
         <pages>
-            <page page-id="f3p1" page-number="1">
+            <page page-id="f1p1" page-number="1">
                 <page-name>Page 1</page-name>
                 <groups-of-questions>
-                    <group group-id="f3p1g1">
+                    <group group-id="f1p1g1">
                         <group-name>Personal data with default</group-name>
                         <questions>
-                            <question xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="textQuestionBean" question-id="f3p1g1q1" answer-required="true">
+                            <question xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="textQuestionBean" question-id="f1p1g1q1" answer-required="true">
                                 <question-title>What's you're name?</question-title>
                                 <question-type>TEXT</question-type>
                                 <rules/>
@@ -20,7 +20,7 @@
                                     <default-answer>1</default-answer>
                                 </default-answers>
                             </question>
-                            <question xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="dateQuestionBean" question-id="f3p1g1q2" answer-required="true">
+                            <question xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="dateQuestionBean" question-id="f1p1g1q2" answer-required="true">
                                 <question-title>When is your birthday?</question-title>
                                 <question-type>DATE</question-type>
                                 <rules/>
@@ -29,7 +29,7 @@
                                     <default-answer>16-03-2014</default-answer>
                                 </default-answers>
                             </question>
-                            <question xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="multipleChoiceQuestionBean" question-id="f3p1g1q3" answer-required="true">
+                            <question xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="multipleChoiceQuestionBean" question-id="f1p1g1q3" answer-required="true">
                                 <question-title>Happy birthday! Choose your present.</question-title>
                                 <question-type>MULTIPLECHOICE</question-type>
                                 <rules/>
@@ -45,11 +45,11 @@
                             </question>
                         </questions>
                     </group>
-                    <group group-id="f3p1g2">
+                    <group group-id="f1p1g2">
                         <group-name>Personal data without default</group-name>
                         <questions/>
                     </group>
-                    <group group-id="f3p1g3">
+                    <group group-id="f1p1g3">
                         <group-name>Personal data with rules</group-name>
                         <questions/>
                     </group>

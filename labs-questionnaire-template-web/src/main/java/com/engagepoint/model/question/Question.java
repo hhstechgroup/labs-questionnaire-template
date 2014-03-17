@@ -75,11 +75,11 @@ public abstract class Question extends BasicBean implements Cloneable {
     }
 
     @XmlTransient
-    private Long getQuestionNumber() {
+    public Long getQuestionNumber() {
         return questionNumber;
     }
 
-    private void setQuestionNumber(Long questionNumber) {
+    public void setQuestionNumber(Long questionNumber) {
         this.questionNumber = questionNumber;
     }
 
@@ -133,16 +133,6 @@ public abstract class Question extends BasicBean implements Cloneable {
         this.questionType = questionType;
     }
 
-    @XmlElementWrapper(name = "rules")
-    @XmlElement(name = "rule")
-    public List<Rule> getRules() {
-        return rules;
-    }
-
-    public void setRules(List<Rule> rules) {
-        this.rules = rules;
-    }
-
     @XmlElement(name = "help-text")
     public String getHelpText() {
         return helpText;
@@ -167,15 +157,21 @@ public abstract class Question extends BasicBean implements Cloneable {
         return groupBean;
     }
 
+    public void setGroupBean(GroupBean groupBean) {
+        this.groupBean = groupBean;
+    }
+
     @Override
     public Object clone() throws CloneNotSupportedException {
         Question copy = (Question) super.clone();
         if (TemplateBean.isDuplicate()) {
             copy.setId(this.questionId);
         }
-        copy.setQuestionType(this.questionType);
-        copy.setQuestionText(this.questionText);
         copy.setRequiredAnswer(this.requiredAnswer);
+        copy.setHelpText(this.helpText);
+        copy.setQuestionText(this.questionText);
+        copy.setQuestionType(this.questionType);
+        copy.setQuestionNumber(this.questionNumber);
         return copy;
     }
 
@@ -187,24 +183,40 @@ public abstract class Question extends BasicBean implements Cloneable {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        Question that = (Question) o;
-        if (requiredAnswer != that.requiredAnswer) {
+
+        Question question = (Question) o;
+
+        if (requiredAnswer != question.requiredAnswer) {
             return false;
         }
-        if (questionText != null ? !questionText.equals(that.questionText) : that.questionText != null) {
+        /*if (defaultAnswers != null ? !defaultAnswers.equals(question.defaultAnswers) : question.defaultAnswers != null)
+            return false;*/
+        if (helpText != null ? !helpText.equals(question.helpText) : question.helpText != null) {
             return false;
         }
-        if (questionType != that.questionType) {
+        if (!questionText.equals(question.questionText)) {
             return false;
         }
+        if (questionType != question.questionType) {
+            return false;
+        }
+        if (questionNumber != null ? !questionNumber.equals(question.questionNumber) : question.questionNumber != null) {
+            return false;
+        }
+        //if (rules != null ? !rules.equals(question.rules) : question.rules != null) return false;
+
         return true;
     }
 
     @Override
     public int hashCode() {
-        int result = questionText != null ? questionText.hashCode() : 0;
+        int result = questionNumber.hashCode();
         result = 31 * result + (requiredAnswer ? 1 : 0);
-        result = 31 * result + (questionType != null ? questionType.hashCode() : 0);
+        result = 31 * result + (helpText != null ? helpText.hashCode() : 0);
+        result = 31 * result + questionText.hashCode();
+        result = 31 * result + questionType.hashCode();
+        /*result = 31 * result + (rules != null ? rules.hashCode() : 0);
+        result = 31 * result + (defaultAnswers != null ? defaultAnswers.hashCode() : 0);*/
         return result;
     }
 

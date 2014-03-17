@@ -1,5 +1,7 @@
 package com.engagepoint.model.questionnaire;
 
+import com.engagepoint.model.question.rules.Rule;
+
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlType;
@@ -17,7 +19,8 @@ import java.util.List;
         "id",
         "pageNumber",
         "pageName",
-        "groupsList"
+        "groupsList",
+        "rules"
 })
 public class SectionBean extends BasicBean
         implements Cloneable, Serializable, BasicOperationWithBean {
@@ -30,6 +33,7 @@ public class SectionBean extends BasicBean
     private TemplateBean templateBean;
 
     public SectionBean() {
+        setRules(new ArrayList<Rule>());
     }
 
     public SectionBean(TemplateBean templateBean) {
@@ -39,6 +43,15 @@ public class SectionBean extends BasicBean
         this.pageId = templateBean.getFormId() + "p" + this.pageNumber;
         templateBean.addToInnerList(this);
         setPageName("Page " + pageNumber);
+    }
+
+    @XmlTransient
+    public TemplateBean getTemplateBean() {
+        return templateBean;
+    }
+
+    public void setTemplateBean(TemplateBean templateBean) {
+        this.templateBean = templateBean;
     }
 
     @XmlAttribute(name = "page-id")
@@ -97,35 +110,43 @@ public class SectionBean extends BasicBean
     @Override
     public Object clone() throws CloneNotSupportedException {
         SectionBean copy = (SectionBean) super.clone();
+        copy.setPageName(this.pageName);
+        copy.setPageNumber(this.pageNumber);
+
         List<GroupBean> copyGroupsList = null;
         if (groupsList != null) {
             copyGroupsList = new ArrayList<GroupBean>();
             for (GroupBean groupBean : groupsList) {
-                copyGroupsList.add((GroupBean) groupBean.clone());
+                GroupBean clonedGroup = (GroupBean) groupBean.clone();
+                clonedGroup.setSectionBean(copy);
+                copyGroupsList.add(clonedGroup);
             }
         }
         copy.setGroupsList(copyGroupsList);
+
         return copy;
     }
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
         SectionBean that = (SectionBean) o;
-        if (!pageId.equals(that.pageId)) {
-            return false;
-        }
+
+        if (groupsList != null ? !groupsList.equals(that.groupsList) : that.groupsList != null) return false;
+        if (pageNumber != null ? !pageNumber.equals(that.pageNumber) : that.pageNumber != null) return false;
+        if (pageName != null ? !pageName.equals(that.pageName) : that.pageName != null) return false;
+
         return true;
     }
 
     @Override
     public int hashCode() {
-        return pageId.hashCode();
+        int result = pageName.hashCode();
+        result = 31 * result + (pageNumber != null ? pageNumber.hashCode() : 0);
+        result = 31 * result + (groupsList != null ? groupsList.hashCode() : 0);
+        return result;
     }
 
     @Override

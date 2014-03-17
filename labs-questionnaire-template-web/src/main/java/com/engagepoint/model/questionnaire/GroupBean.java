@@ -2,6 +2,7 @@ package com.engagepoint.model.questionnaire;
 
 
 import com.engagepoint.model.question.Question;
+import com.engagepoint.model.question.rules.Rule;
 
 import javax.xml.bind.annotation.*;
 
@@ -14,7 +15,8 @@ import java.util.List;
 @XmlType(name = "", propOrder = {
         "id",
         "groupName",
-        "questionsList"
+        "questionsList",
+        "rules"
 })
 public class GroupBean extends BasicBean
         implements Cloneable, BasicOperationWithBean {
@@ -28,6 +30,7 @@ public class GroupBean extends BasicBean
 
 
     public GroupBean() {
+        setRules(new ArrayList<Rule>());
     }
 
     public GroupBean(SectionBean sectionBean) {
@@ -48,6 +51,15 @@ public class GroupBean extends BasicBean
         this(sectionBean);
         setGroupName(groupName);
         this.questionsList = questionsList;
+    }
+
+    @XmlTransient
+    public SectionBean getSectionBean() {
+        return sectionBean;
+    }
+
+    public void setSectionBean(SectionBean sectionBean) {
+        this.sectionBean = sectionBean;
     }
 
     @XmlAttribute(name = "group-id")
@@ -88,11 +100,11 @@ public class GroupBean extends BasicBean
     }
 
     @XmlTransient
-    private Long getGroupNumber() {
+    public Long getGroupNumber() {
         return groupNumber;
     }
 
-    private void setGroupNumber(Long groupNumber) {
+    public void setGroupNumber(Long groupNumber) {
         this.groupNumber = groupNumber;
     }
 
@@ -118,37 +130,46 @@ public class GroupBean extends BasicBean
     @Override
     public Object clone() throws CloneNotSupportedException {
         GroupBean copy = (GroupBean) super.clone();
-        copy.setGroupName(this.getGroupName());
+        copy.setGroupName(this.groupName);
+        copy.setGroupNumber(this.groupNumber);
+
         List<Question> copyQuestionsList = null;
         if (questionsList != null) {
             copyQuestionsList = new ArrayList<Question>();
             for (Question questionBean : questionsList) {
                 if (questionBean != null) {
-                    copyQuestionsList.add((Question) questionBean.clone());
+                    Question clonedQuestion = (Question) questionBean.clone();
+                    clonedQuestion.setGroupBean(copy);
+                    copyQuestionsList.add(clonedQuestion);
                 } else {
                     copyQuestionsList.add(null);
                 }
             }
         }
         copy.setQuestionsList(copyQuestionsList);
+
         return copy;
     }
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
         GroupBean groupBean = (GroupBean) o;
-        return groupId.equals(groupBean.groupId);
+
+        if (groupName != null ? !groupName.equals(groupBean.groupName) : groupBean.groupName != null) return false;
+        if (questionsList != null ? !questionsList.equals(groupBean.questionsList) : groupBean.questionsList != null)
+            return false;
+
+        return true;
     }
 
     @Override
     public int hashCode() {
-        return groupId.hashCode();
+        int result = groupName.hashCode();
+        result = 31 * result + (questionsList != null ? questionsList.hashCode() : 0);
+        return result;
     }
 
     @Override

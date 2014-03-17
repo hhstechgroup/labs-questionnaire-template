@@ -24,7 +24,7 @@ public class GroupBeanTest {
        questionBeanList.add(testBean1);
        questionBeanList.add(testBean);
        GroupBean groupTest = mock.creatorGroup();
-       groupTest.setId(new Long(1));
+       groupTest.setId(new String("1"));
        groupTest.setQuestionsList(questionBeanList);
 
        Assert.assertTrue(groupTest.equals(groupTest.clone()));
@@ -38,7 +38,7 @@ public class GroupBeanTest {
         questionBeanList.add(testBean1);
         questionBeanList.add(testBean);
         GroupBean groupTest = mock.creatorGroup();
-        groupTest.setId(new Long(1));
+        groupTest.setId(new String("1"));
         groupTest.setQuestionsList(questionBeanList);
         groupTest.deleteFromInnerList(testBean);
         Assert.assertTrue(groupTest.getQuestionsList().size() == 1);
@@ -62,13 +62,13 @@ public class GroupBeanTest {
         questionBeanList.add(testBean1);
         questionBeanList.add(testBean);
         GroupBean groupTest = mock.creatorGroup();
-        groupTest.setId(new Long(1));
+        groupTest.setId(new String("1"));
         groupTest.setQuestionsList(questionBeanList);
 
         questionBeanList.add(testBean1);
         questionBeanList.add(testBean);
         GroupBean groupTest2 = mock.creatorGroup();
-        groupTest2.setId(new Long(1));
+        groupTest2.setId(new String("1"));
         groupTest2.setQuestionsList(questionBeanList);
         Assert.assertTrue(groupTest.equals(groupTest2));
     }
