@@ -7,7 +7,6 @@ import javax.inject.Inject;
 import javax.inject.Named;
 
 import com.engagepoint.controller.utils.PageNavigator;
-import com.engagepoint.model.question.Question;
 import com.engagepoint.model.question.rules.Rule;
 import com.engagepoint.model.questionnaire.BasicBean;
 import com.engagepoint.model.questionnaire.GroupBean;
@@ -25,7 +24,7 @@ public class RulesTestController implements Serializable {
 	
 	private List<BasicBean> TemplateElementsList;
 	private Map<BasicBean, List<String>> dependencies;
-	private Map<Question, String> styles;
+	private Map<BasicBean, String> styles;
 	
 	@Inject
 	Conversation conversation;
@@ -54,13 +53,9 @@ public class RulesTestController implements Serializable {
 		return TemplateElementsList;
 	}
 
-
-
 	public void setTemplateElementsList(List<BasicBean> templateElementsList) {
 		TemplateElementsList = templateElementsList;
 	}
-
-
 
 	public ListController getListController() {
 		return listController;
@@ -72,7 +67,7 @@ public class RulesTestController implements Serializable {
 
 	
 	/**
-	 * build a list of all questions from current template
+	 * build a list of all template elements from current template
 	 */
 	private void prepareQuestionList() {
 		if(listController.getCurrentTemplate()!=null){
@@ -87,15 +82,15 @@ public class RulesTestController implements Serializable {
 		}
 	}
 	
+	
 	/**
-	 * prepare a String presentation of Template template to display in table 
+	 * prepare a String presentation of Template element to display in table 
 	 * 
 	 * @param bb
 	 * @return
 	 */
 	public String displayTemplateElement(BasicBean bb){
-		//TODO change to element name
-		String result = bb.getDisplayedNodeType()+bb.getDisplayedId();
+		String result = bb.getId();						//TODO change to element name
 
         String s = bb.getType();
         if (s.equals("section")) {
@@ -111,8 +106,8 @@ public class RulesTestController implements Serializable {
 	
 	
 	/**
-	 * build a map of dependencies which contains question element 
-	 * and a list of questions ids that are dependent on this question
+	 * build a map of dependencies which contains template element 
+	 * and a list of elements ids that are dependent on this question
 	 */
 	private void prepareDependencies() {
 		dependencies = new HashMap<BasicBean, List<String>>();
@@ -120,40 +115,31 @@ public class RulesTestController implements Serializable {
 		for (BasicBean bb : TemplateElementsList){
 			if ((bb.getRules() != null) && (!bb.getRules().isEmpty())) {
 				for (Rule r : bb.getRules()) {
-					
+					BasicBean parent=getElementById(r.getId());
+					if (dependencies.get(parent) == null) {
+						dependencies.put(parent, new ArrayList<String>());
+					}
+					dependencies.get(parent).add(bb.getId());
 				}
 			}
 			
 		}
-		
-		
-		/*	for (Question quest : questionsList) {
-			if ((quest.getRules() != null) && (!quest.getRules().isEmpty())) {
-				for (Rule r : quest.getRules()) {
-					Question parent=getQuestionById(r.getId());
-					if (dependencies.get(parent) == null) {
-						dependencies.put(parent, new ArrayList<Long>());
-					}
-					dependencies.get(parent).add(quest.getId());
-				}
-			}
-		}*/
 	}
 	
 	/**
-	 * get a question object with specified ID
+	 * get an Template element object with specified ID
 	 * 
 	 * @param id
 	 * @return
 	 */
-	/*private Question getQuestionById(String id) {
-		for (Question quest : questionsList) {
-			if (quest.getId() == id) {
-				return quest;
+	private BasicBean getElementById(String id) {
+		for (BasicBean bb : TemplateElementsList) {
+			if (bb.getId().equals(id)) {
+				return bb;
 			}
 		}
 		return null;
-	}*/
+	}
 
 	
 	/**
@@ -182,7 +168,7 @@ public class RulesTestController implements Serializable {
 	 * @return
 	 */
 	
-	public String getDependentByQuestion(Question q){
+	public String getDependentByQuestion(BasicBean q){
 		List<String> result=dependencies.get(q);
 		if(result==null){
 			return "";
@@ -196,7 +182,7 @@ public class RulesTestController implements Serializable {
 	 * @param q
 	 * @return
 	 */
-	public String getStyle(Question q){
+	public String getStyle(BasicBean q){
 		
 		if (styles!=null && styles.get(q)!=null)
 			return "background-color: "+styles.get(q)+";color: white;";
@@ -205,18 +191,39 @@ public class RulesTestController implements Serializable {
 	
 	
 	/**
-	 * set style green for this question and red for depended questions 
+	 * set style green for this question and red for depended elements 
 	 * 
 	 * @param q
 	 */
-	/*public void setStyles(Question q){
-		styles = new HashMap<Question, String>();
+	public void setStyles(BasicBean q){
+		styles = new HashMap<BasicBean, String>();
 		styles.put(q, "green");
-		for(String l : dependencies.get(q)){
-			styles.put(getQuestionById(l),"red");
+		List<String> dependent = dependencies.get(q); 
+		
+		for (int i=0; i<=dependent.size(); i++){					//TODO SHOULD BE TESTED!!!!
+			BasicBean bb = getElementById(dependent.get(i));
+			if(bb.getType().equals("question")){
+				styles.put(bb, "red");
+			} else	if(bb.getType().equals("qroup")){
+				styles.put(bb, "red");
+				i++;
+				while(!getElementById(dependent.get(i)).equals("group")){
+					styles.put(getElementById(dependent.get(i)), "red");
+					i++;
+				}
+			} else if (bb.getType().equals("section")){
+				styles.put(bb, "red");
+				i++;
+				while(!getElementById(dependent.get(i)).equals("section")){
+					styles.put(getElementById(dependent.get(i)), "red");
+					i++;
+				}
+			}
 		}
-	}*/
+		
+		/*for(String l : dependencies.get(q)){
+			styles.put(getElementById(l),"red");
+		}*/
+	}
 	
-	
-
 }

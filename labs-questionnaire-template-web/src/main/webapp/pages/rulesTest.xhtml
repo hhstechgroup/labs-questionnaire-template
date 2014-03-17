@@ -18,8 +18,22 @@
 			<uib:dataTable id="questionstable" var="templateEl" 
 				value="#{rulesTestController.templateElementsList}">
 				<uib:column>
-					<h:outputText value="#{rulesTestController.displayTemplateElement(templateEl)}" />
-					<!-- style="#{rulesTestController.getStyle(question)}"  --> 
+					<h:outputText value="#{rulesTestController.displayTemplateElement(templateEl)}" 
+					style="#{rulesTestController.getStyle(templateEl)}" />
+				</uib:column>
+				
+				<uib:column headerText="Dependencies">
+					<h:outputText value="#{rulesTestController.getDependentByQuestion(templateEl)}" />
+				</uib:column>
+				<uib:column>
+					<p:commandButton value="View" id="viewdeps"
+								style="float:center;"
+                                rendered="#{rulesTestController.dependencies.get(templateEl)!=null}"
+								styleClass="small blue"
+								update="questionstable"
+								action="#{rulesTestController.setStyles(templateEl)}"		>
+								
+					</p:commandButton>
 				</uib:column>
 				
 			</uib:dataTable>
