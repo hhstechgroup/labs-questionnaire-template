@@ -96,20 +96,17 @@ public class RulesTestController implements Serializable {
 	public String displayTemplateElement(BasicBean bb){
 		//TODO change to element name
 		String result = bb.getDisplayedNodeType()+bb.getDisplayedId();
-		
-		switch (bb.getType()) {
-		case "section":
-			return result;
-			
-		case "group":
-			return "___"+result;
-			
-		case "question":
-			return "______"+result;
-		default:
-			return "";
-			
-		}
+
+        String s = bb.getType();
+        if (s.equals("section")) {
+            return result;
+        } else if (s.equals("group")) {
+            return "___" + result;
+        } else if (s.equals("question")) {
+            return "______" + result;
+        } else {
+            return "";
+        }
 	}
 	
 	

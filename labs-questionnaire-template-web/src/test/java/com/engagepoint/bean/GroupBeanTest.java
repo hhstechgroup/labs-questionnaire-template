@@ -42,12 +42,35 @@ public class GroupBeanTest {
         groupTest.setQuestionsList(questionBeanList);
         groupTest.deleteFromInnerList(testBean);
         Assert.assertTrue(groupTest.getQuestionsList().size() == 1);
-        Assert.assertTrue(groupTest.getType().contains("group"));
         Assert.assertTrue(groupTest.getDisplayedNodeType().contains("Group"));
         Assert.assertTrue(groupTest.getDisplayedId().contains("ID"));
         OptionsQuestion optBean = (OptionsQuestion)mock.question();
         groupTest.addToInnerList(optBean);
         Assert.assertTrue(groupTest.getQuestionsList().size() == 2);
+    }
+    @Test
+    public void testType(){
+        GroupBean groupTest = mock.creatorGroup();
+        Assert.assertTrue(groupTest.getType().contains("group"));
+
+    }
+    @Test
+    public void testEquals(){
+        CheckBoxQuestionBean testBean = (CheckBoxQuestionBean)mock.question();
+        CheckBoxQuestionBean testBean1 = (CheckBoxQuestionBean)mock.question();
+        List<Question> questionBeanList = new ArrayList<Question>();
+        questionBeanList.add(testBean1);
+        questionBeanList.add(testBean);
+        GroupBean groupTest = mock.creatorGroup();
+        groupTest.setId(new Long(1));
+        groupTest.setQuestionsList(questionBeanList);
+
+        questionBeanList.add(testBean1);
+        questionBeanList.add(testBean);
+        GroupBean groupTest2 = mock.creatorGroup();
+        groupTest2.setId(new Long(1));
+        groupTest2.setQuestionsList(questionBeanList);
+        Assert.assertTrue(groupTest.equals(groupTest2));
     }
 }
 
