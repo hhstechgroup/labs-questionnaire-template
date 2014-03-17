@@ -3,24 +3,35 @@ package com.engagepoint.model.question.options;
 import com.engagepoint.model.question.utils.VariantItem;
 import com.engagepoint.model.questionnaire.GroupBean;
 
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlElementWrapper;
+import javax.xml.bind.annotation.XmlTransient;
+import javax.xml.bind.annotation.XmlType;
+import java.util.ArrayList;
 import java.util.List;
 
+@XmlType(name = "checkBoxQuestionBean", propOrder = {
+        "id",
+        "requiredAnswer",
+        "questionText",
+        "questionType",
+        "rules",
+        "helpText",
+        "options",
+        "defaultAnswers"
+})
 public class CheckBoxQuestionBean extends OptionsQuestion {
     //selected variants
     private List<VariantItem> defaultOptions;
 
     public CheckBoxQuestionBean() {
-
+        defaultOptions = new ArrayList<VariantItem>();
     }
 
     public CheckBoxQuestionBean(GroupBean currentGroup) {
         super(currentGroup);
+        defaultOptions = new ArrayList<VariantItem>();
     }
 
-    @XmlElementWrapper(name = "default-options")
-    @XmlElement(name = "default-option")
+    @XmlTransient
     public List<VariantItem> getDefaultOptions() {
         return defaultOptions;
     }
@@ -29,16 +40,21 @@ public class CheckBoxQuestionBean extends OptionsQuestion {
         this.defaultOptions = defaultOptions;
     }
 
-    @XmlElementWrapper(name = "checkboxes-options")
-    @XmlElement(name = "option")
     @Override
-    public List<VariantItem> getOptions() {
-        return this.options;
+    public List<String> getDefaultAnswers() {
+        List<String> list = new ArrayList<String>();
+        for (VariantItem curOption : defaultOptions) {
+            list.add(curOption.getValue());
+        }
+        return list;
     }
 
     @Override
-    public void setOptions(List<VariantItem> options) {
-        this.options = options;
+    public void setDefaultAnswers(List<String> list) {
+        defaultOptions = new ArrayList<VariantItem>();
+        for (String curAnswer : list) {
+            defaultOptions.add(new VariantItem(curAnswer));
+        }
     }
 
     @Override

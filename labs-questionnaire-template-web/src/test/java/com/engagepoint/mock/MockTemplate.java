@@ -12,7 +12,6 @@ import com.engagepoint.model.questionnaire.TemplateBean;
 import com.engagepoint.model.question.*;
 
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -51,14 +50,14 @@ public class MockTemplate {
             case TEXT:
                 question =  new TextQuestionBean();
                 TextQuestionBean tb =(TextQuestionBean)question;
-                tb.setDefaultAnswer("i don't know");
+                //tb.setDefaultAnswer("i don't know");
                 creator(question);
                 return question;
             case DATE:
                 question = new DateQuestionBean();
                 DateQuestionBean dateQuestionBean = (DateQuestionBean)question;
 
-                dateQuestionBean.setDefaultAnswer(new Date());
+                dateQuestionBean.setDefaultDate(new Date());
                 creator(question);
 
                 return question;
@@ -75,13 +74,13 @@ public class MockTemplate {
             case TIME:
                 question = new DateQuestionBean();
                 DateQuestionBean timeQuestionBean = (DateQuestionBean)question;
-                timeQuestionBean.setDefaultAnswer(new Date());
+                timeQuestionBean.setDefaultDate(new Date());
                 creator(question);
                 return question;
             case PARAGRAPHTEXT:
                 question = new TextQuestionBean();
                 TextQuestionBean paragraph =(TextQuestionBean)question;
-                paragraph.setDefaultAnswer("i don't know");
+                //paragraph.setDefaultAnswer("i don't know");
                 creator(question);
                 return question;
 
@@ -137,7 +136,7 @@ public class MockTemplate {
     public void creator(Question question){
         question.setHelpText("its my help");
         question.setQuestionText("WHY UYoA ArE SO SAD?");
-        question.setId(1567L);
+        question.setId("1567");
 
     }
 
@@ -150,7 +149,7 @@ public class MockTemplate {
     public GroupBean creatorGroup(){
         GroupBean groupBean = new GroupBean();
         groupBean.setQuestionsList(questionBeans);
-        groupBean.setDisplayedName("GroupName");
+        groupBean.setGroupName("GroupName");
         return groupBean;
     }
 

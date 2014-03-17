@@ -36,30 +36,30 @@ public class TemplateTreeController implements Serializable {
 
     private String nameOfCurrentNode = "";
 
-    public TreeNode getRoot() {
-        return root;
-    }
+	public TreeNode getRoot() {
+		return root;
+	}
 
-    public TreeNode getSelectedNode() {
-        return selectedNode;
-    }
+	public TreeNode getSelectedNode() {
+		return selectedNode;
+	}
 
-    public void setSelectedNode(TreeNode selectedNode) {
-        this.selectedNode = selectedNode;
-    }
+	public void setSelectedNode(TreeNode selectedNode) {
+		this.selectedNode = selectedNode;
+	}
 
-    public String getSelectedType() {
-        return selectedType;
-    }
+	public String getSelectedType() {
+		return selectedType;
+	}
 
-    public TemplateBean getTemplateBean() {
-        return templateBean;
-    }
+	public TemplateBean getTemplateBean() {
+		return templateBean;
+	}
 
-    public void setTemplateBean(TemplateBean templateBean) {
-        this.templateBean = templateBean;
-        setNodes();
-    }
+	public void setTemplateBean(TemplateBean templateBean) {
+		this.templateBean = templateBean;
+		setNodes();
+	}
 
     public GroupBean getCurrentGroup() {
         return currentGroup;
@@ -70,8 +70,8 @@ public class TemplateTreeController implements Serializable {
     }
 
     public void setCurrentQuestion(Question currentQuestion) {
-        this.currentQuestion = currentQuestion;
-    }
+		this.currentQuestion = currentQuestion;
+	}
 
     public String getNameOfCurrentNode() {
         return nameOfCurrentNode;
@@ -89,32 +89,31 @@ public class TemplateTreeController implements Serializable {
     public void onSelect() {
         selectedType = ((BasicBean) selectedNode.getData()).getType();
         if ("question".equals(selectedType)) {
-            Question question = (Question) selectedNode.getData();
-            currentQuestion = question;
+            currentQuestion = (Question) selectedNode.getData();
             //check if current group has not been changed
             GroupBean groupBean = (GroupBean) selectedNode.getParent().getData();
-            if (!currentGroup.equals(groupBean)) {
+            if (currentGroup==null || !currentGroup.equals(groupBean)) {
                 currentGroup = groupBean;
             }
             //check if current section has not been changed
             SectionBean sectionBean = (SectionBean) selectedNode.getParent().getParent().getData();
-            if (!currentSection.equals(sectionBean)) {
+            if (currentSection==null || !currentSection.equals(sectionBean)) {
                 currentSection = sectionBean;
             }
         } else if ("group".equals(selectedType)) {
             currentQuestion = null;
             currentGroup = (GroupBean) selectedNode.getData();
-            nameOfCurrentNode = currentGroup.getDisplayedName();
+            nameOfCurrentNode = currentGroup.getGroupName();
             //check if current section has not been changed
             SectionBean sectionBean = (SectionBean) selectedNode.getParent().getData();
-            if (!currentSection.equals(sectionBean)) {
+            if (currentSection==null || !currentSection.equals(sectionBean)) {
                 currentSection = sectionBean;
             }
         } else {
             currentQuestion = null;
             currentGroup = null;
             currentSection = (SectionBean) selectedNode.getData();
-            nameOfCurrentNode = currentSection.getDisplayedName();
+            nameOfCurrentNode = currentSection.getPageName();
         }
     }
 
@@ -147,20 +146,14 @@ public class TemplateTreeController implements Serializable {
 
     /**
      * Create new section and add it to current template.
-     *
-     * @return next page
      */
     public void addSection() {
-        FacesMessage msg = new FacesMessage("Selected");
-        FacesContext.getCurrentInstance().addMessage(null, msg);
         new SectionBean(templateBean);
         setNodes();
     }
 
     /**
      * Create new group and add it to current section.
-     *
-     * @return next page
      */
     public void addGroup() {
         new GroupBean(currentSection);
@@ -195,7 +188,7 @@ public class TemplateTreeController implements Serializable {
     /**
      * checks if EDIT button is rendered for this treenode object.
      *
-     * @param tr
+     * @param tr object in tree node
      * @return true only for selected node if it is group or section
      */
     public boolean editButtonRendering(Object tr) {
@@ -211,17 +204,18 @@ public class TemplateTreeController implements Serializable {
 
     public void revertNameOfCurrentNode() {
         if ("section".equals(selectedType)) {
-            setNameOfCurrentNode(currentSection.getDisplayedName());
+            setNameOfCurrentNode(currentSection.getPageName());
         } else if ("group".equals(selectedType)) {
-            setNameOfCurrentNode(currentGroup.getDisplayedName());
+            setNameOfCurrentNode(currentGroup.getGroupName());
         }
+
     }
 
     public void commitNameOfCurrentNode() {
         if ("section".equals(selectedType)) {
-            currentSection.setDisplayedName(nameOfCurrentNode);
+            currentSection.setPageName(nameOfCurrentNode);
         } else if ("group".equals(selectedType)) {
-            currentGroup.setDisplayedName(nameOfCurrentNode);
+            currentGroup.setGroupName(nameOfCurrentNode);
         }
         revertNameOfCurrentNode();
     }

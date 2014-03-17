@@ -2,6 +2,9 @@ package com.engagepoint.model.questionnaire;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElementWrapper;
+import javax.xml.bind.annotation.XmlType;
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlTransient;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -10,35 +13,43 @@ import java.util.List;
 /**
  * Class represents page tag.
  */
+@XmlType(name = "", propOrder = {
+        "id",
+        "pageNumber",
+        "pageName",
+        "groupsList"
+})
 public class SectionBean extends BasicBean
         implements Cloneable, Serializable, BasicOperationWithBean {
     private static Long lastId = 1L;
 
-    private Long id;
-    private Long pageNumber;
-    private String sectionName = "";
+    private String pageId; //absolutely unique and consists of template id and page number (f.e. f1p1)
+    private Long pageNumber; //unique in template
+    private String pageName = "";
     private List<GroupBean> groupsList = new ArrayList<GroupBean>();
     private TemplateBean templateBean;
 
     public SectionBean() {
-        id = lastId++;
     }
 
     public SectionBean(TemplateBean templateBean) {
-        id = lastId++;
+        this();
         this.templateBean = templateBean;
-        this.pageNumber = getNextSectionIdInTemplate();
+        this.pageNumber = getNextSectionNumberInTemplate();
+        this.pageId = templateBean.getFormId() + "p" + this.pageNumber;
         templateBean.addToInnerList(this);
-        super.setDisplayedName("Page");
+        setPageName("Page " + pageNumber);
     }
 
-    @XmlElement(name = "id")
-    public Long getId() {
-        return id;
+    @XmlAttribute(name = "page-id")
+    @Override
+    public String getId() {
+        return pageId;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    @Override
+    public void setId(String pageId) {
+        this.pageId = pageId;
     }
 
     /**
@@ -46,22 +57,31 @@ public class SectionBean extends BasicBean
      *
      * @return SectionId
      */
-    public Long getNextSectionIdInTemplate() {
+    public Long getNextSectionNumberInTemplate() {
         List<SectionBean> sectionList = templateBean.getSectionsList();
         if (sectionList.isEmpty()) {
             return 1L;
         } else {
-            return ((sectionList.get(sectionList.size() - 1)).getId() + 1);
+            return ((sectionList.get(sectionList.size() - 1)).getPageNumber() + 1);
         }
     }
 
-    @XmlElement(name = "page-number")
+    @XmlAttribute(name = "page-number")
     public Long getPageNumber() {
         return pageNumber;
     }
 
     public void setPageNumber(Long pageNumber) {
         this.pageNumber = pageNumber;
+    }
+
+    @XmlElement(name = "page-name")
+    public String getPageName() {
+        return pageName;
+    }
+
+    public void setPageName(String pageName) {
+        this.pageName = pageName;
     }
 
     @XmlElementWrapper(name = "groups-of-questions")
@@ -97,7 +117,7 @@ public class SectionBean extends BasicBean
             return false;
         }
         SectionBean that = (SectionBean) o;
-        if (!id.equals(that.id)) {
+        if (!pageId.equals(that.pageId)) {
             return false;
         }
         return true;
@@ -105,7 +125,7 @@ public class SectionBean extends BasicBean
 
     @Override
     public int hashCode() {
-        return id.hashCode();
+        return pageId.hashCode();
     }
 
     @Override
@@ -120,7 +140,7 @@ public class SectionBean extends BasicBean
 
     @Override
     public String toString() {
-        return "Page " + id;
+        return pageName;
     }
 
     @Override
@@ -134,17 +154,13 @@ public class SectionBean extends BasicBean
     }
 
     @Override
+    @XmlTransient
     public String getDisplayedName() {
-        return sectionName;
-    }
-
-    @Override
-    public void setDisplayedName(String displayedName) {
-        sectionName = displayedName;
+        return pageName;
     }
 
     @Override
     public String getDisplayedId() {
-        return " (ID: " + String.valueOf(this.id) + ") ";
+        return " (ID: "+String.valueOf(this.pageId)+") ";
     }
 }

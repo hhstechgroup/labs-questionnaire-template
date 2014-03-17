@@ -3,6 +3,9 @@ package com.engagepoint.model.questionnaire;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlType;
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlTransient;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,9 +13,15 @@ import java.util.List;
  * Class represents questionnaire-form tag.
  */
 @XmlRootElement(name = "questionnaire-form")
+@XmlType(name = "", propOrder = {
+        "formId",
+        "templateName",
+        "sectionsList"
+})
 public class TemplateBean implements Cloneable, Comparable<TemplateBean>, BasicOperationWithBean {
     private static Long lastId = 1L;
     private Long id;
+    private String formId;
     private String templateName = "";
     private List<SectionBean> sectionsList = new ArrayList<SectionBean>();
     private static boolean duplicate;
@@ -27,17 +36,17 @@ public class TemplateBean implements Cloneable, Comparable<TemplateBean>, BasicO
 
     public TemplateBean() {
         setId(getLastId());
-    }
-
-    public TemplateBean(String templateName, List<SectionBean> sectionsList) {
-        setId(getLastId());
-        this.templateName = templateName;
-        this.sectionsList = sectionsList;
+        formId = "f" + id;
     }
 
     public TemplateBean(String templateName) {
-        setId(getLastId());
+        this();
         this.templateName = templateName;
+    }
+
+    public TemplateBean(String templateName, List<SectionBean> sectionsList) {
+        this(templateName);
+        this.sectionsList = sectionsList;
     }
 
     public TemplateBean(Long id, String templateName, List<SectionBean> sectionsList) {
@@ -46,6 +55,16 @@ public class TemplateBean implements Cloneable, Comparable<TemplateBean>, BasicO
         this.sectionsList = sectionsList;
     }
 
+    @XmlAttribute(name = "form-id")
+    public String getFormId() {
+        return formId;
+    }
+
+    public void setFormId(String formId) {
+        this.formId = formId;
+    }
+
+    @XmlTransient
     public Long getId() {
         return id;
     }

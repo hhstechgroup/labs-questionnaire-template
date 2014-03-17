@@ -410,7 +410,7 @@ public class QuestionRuleController implements Serializable {
     public List<Question> getAllQuestionsThatSetDependence() {
         List<Question> all = getQuestions();
         List<Question> questionsWithRules = getQuestionsWithRules();
-        Set<Long> idSet = new HashSet<Long>();
+        Set<String> idSet = new HashSet<String>();
         for (Question q : questionsWithRules) {
             for (Rule rule : q.getRules()) {
                 idSet.add(rule.getId());
@@ -433,7 +433,7 @@ public class QuestionRuleController implements Serializable {
         List<Question> result = new ArrayList<Question>();
         for (Question q : questionsWithRules) {
             for (Rule rule : q.getRules()) {
-                if (rule.getId() == question.getId()) {
+                if (rule.getId().equals(question.getId())) {
                     result.add(q);
                     break;
                 }
