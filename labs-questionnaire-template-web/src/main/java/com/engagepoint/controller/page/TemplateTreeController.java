@@ -3,11 +3,13 @@ package com.engagepoint.controller.page;
 import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.List;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.inject.Named;
 
 import com.engagepoint.model.question.Question;
+import com.engagepoint.model.question.rules.Rule;
 import com.engagepoint.model.questionnaire.BasicBean;
 import com.engagepoint.model.questionnaire.GroupBean;
 import com.engagepoint.model.questionnaire.SectionBean;
@@ -224,5 +226,14 @@ public class TemplateTreeController implements Serializable {
             currentGroup.setDisplayedName(nameOfCurrentNode);
         }
         revertNameOfCurrentNode();
+    }
+
+    public List<Rule> getCurrentRules(){
+        if(currentGroup!=null) {
+           return this.currentGroup.getRules();
+        }else if (currentSection!=null){
+            return  this.currentSection.getRules();
+        }
+        return  null;
     }
 }
