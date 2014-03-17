@@ -42,12 +42,17 @@ public class GroupBeanTest {
         groupTest.setQuestionsList(questionBeanList);
         groupTest.deleteFromInnerList(testBean);
         Assert.assertTrue(groupTest.getQuestionsList().size() == 1);
-        Assert.assertTrue(groupTest.getType().contains("group"));
         Assert.assertTrue(groupTest.getDisplayedNodeType().contains("Group"));
         Assert.assertTrue(groupTest.getDisplayedId().contains("ID"));
         OptionsQuestion optBean = (OptionsQuestion)mock.question();
         groupTest.addToInnerList(optBean);
         Assert.assertTrue(groupTest.getQuestionsList().size() == 2);
+    }
+    @Test
+    public void testType(){
+        GroupBean groupTest = mock.creatorGroup();
+        Assert.assertTrue(groupTest.getType().contains("group"));
+
     }
 }
 
