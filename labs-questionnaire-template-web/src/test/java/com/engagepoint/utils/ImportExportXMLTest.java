@@ -108,6 +108,6 @@ public class ImportExportXMLTest {
         FileInputStream stream = new FileInputStream(file.getAbsolutePath());
         List<TemplateBean> newTempsList = new ArrayList<TemplateBean>();
         newTempsList.addAll(XmlImportExport.importXmlTemplate(stream));
-        //Assert.assertTrue(tempList.equals(newTempsList));
+        Assert.assertTrue(tempList.equals(newTempsList));
     }
 }

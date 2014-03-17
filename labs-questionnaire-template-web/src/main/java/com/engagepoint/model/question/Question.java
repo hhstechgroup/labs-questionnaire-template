@@ -41,6 +41,8 @@ public abstract class Question extends BasicBean implements Cloneable {
 
     protected GroupBean groupBean;
 
+    private List<Rule> questionRules;
+
     public Question() {
         setRules(new ArrayList<Rule>());
         defaultAnswers = new ArrayList<String>();
@@ -131,6 +133,16 @@ public abstract class Question extends BasicBean implements Cloneable {
 
     public void setQuestionType(QuestionType questionType) {
         this.questionType = questionType;
+    }
+
+    @XmlElementWrapper(name = "question-rules")
+    @XmlElement(name = "question-rule")
+    public List<Rule> getQuestionRules() {
+        return getRules();
+    }
+
+    public void setQuestionRules(List<Rule> rules) {
+        setRules(rules);
     }
 
     @XmlElement(name = "help-text")

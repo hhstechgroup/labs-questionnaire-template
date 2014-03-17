@@ -13,7 +13,7 @@ import java.util.List;
         "requiredAnswer",
         "questionText",
         "questionType",
-        "rules",
+        "questionRules",
         "helpText",
         "options",
         "defaultAnswers"

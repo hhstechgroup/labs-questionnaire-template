@@ -1,13 +1,11 @@
 <?xml version="1.0"?>
-<!--
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
--->
+<!-- To change this license header, choose License Headers in Project Properties. 
+	To change this template file, choose Tools | Templates and open the template 
+	in the editor. -->
 
 
-<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified"
-           xmlns:xs="http://www.w3.org/2001/XMLSchema">
+<xs:schema attributeFormDefault="unqualified"
+           elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
     <xs:element name="questionnaire-forms">
         <xs:complexType>
             <xs:sequence>
@@ -22,6 +20,23 @@ and open the template in the editor.
                                             <xs:complexType>
                                                 <xs:sequence>
                                                     <xs:element type="xs:string" name="page-name"/>
+                                                    <xs:element name="page-rules">
+                                                        <xs:complexType>
+                                                            <xs:sequence>
+                                                                <xs:element name="page-rule"
+                                                                            maxOccurs="unbounded">
+                                                                    <xs:complexType>
+                                                                        <xs:sequence>
+                                                                            <xs:element type="xs:string"
+                                                                                        name="parentId"/>
+                                                                            <xs:element type="xs:string"
+                                                                                        name="method"/>
+                                                                        </xs:sequence>
+                                                                    </xs:complexType>
+                                                                </xs:element>
+                                                            </xs:sequence>
+                                                        </xs:complexType>
+                                                    </xs:element>
                                                     <xs:element name="groups-of-questions">
                                                         <xs:complexType>
                                                             <xs:sequence>
@@ -30,6 +45,25 @@ and open the template in the editor.
                                                                         <xs:sequence>
                                                                             <xs:element type="xs:string"
                                                                                         name="group-name"/>
+                                                                            <xs:element name="group-rules">
+                                                                                <xs:complexType>
+                                                                                    <xs:sequence>
+                                                                                        <xs:element name="group-rule"
+                                                                                                    maxOccurs="unbounded">
+                                                                                            <xs:complexType>
+                                                                                                <xs:sequence>
+                                                                                                    <xs:element
+                                                                                                            type="xs:string"
+                                                                                                            name="parentId"/>
+                                                                                                    <xs:element
+                                                                                                            type="xs:string"
+                                                                                                            name="method"/>
+                                                                                                </xs:sequence>
+                                                                                            </xs:complexType>
+                                                                                        </xs:element>
+                                                                                    </xs:sequence>
+                                                                                </xs:complexType>
+                                                                            </xs:element>
                                                                             <xs:element name="questions">
                                                                                 <xs:complexType>
                                                                                     <xs:sequence>
@@ -44,11 +78,17 @@ and open the template in the editor.
                                                                                                             type="q-type"
                                                                                                             name="question-type"/>
                                                                                                     <xs:element
-                                                                                                            name="rules">
+                                                                                                            type="xs:boolean"
+                                                                                                            name="grid-oneInCol"/>
+                                                                                                    <xs:element
+                                                                                                            type="xs:boolean"
+                                                                                                            name="grid-oneInRow"/>
+                                                                                                    <xs:element
+                                                                                                            name="question-rules">
                                                                                                         <xs:complexType>
                                                                                                             <xs:sequence>
                                                                                                                 <xs:element
-                                                                                                                        name="rule"
+                                                                                                                        name="question-rule"
                                                                                                                         maxOccurs="unbounded">
                                                                                                                     <xs:complexType>
                                                                                                                         <xs:sequence>
@@ -135,25 +175,30 @@ and open the template in the editor.
                                                                                                 </xs:sequence>
                                                                                                 <xs:attribute
                                                                                                         type="xs:boolean"
-                                                                                                        name="answer-required" use="required"/>
+                                                                                                        name="answer-required"
+                                                                                                        use="required"/>
                                                                                                 <xs:attribute
                                                                                                         type="xs:string"
-                                                                                                        name="question-id" use="required"/>
+                                                                                                        name="question-id"
+                                                                                                        use="required"/>
                                                                                             </xs:complexType>
                                                                                         </xs:element>
                                                                                     </xs:sequence>
                                                                                 </xs:complexType>
                                                                             </xs:element>
                                                                         </xs:sequence>
-                                                                        <xs:attribute type="xs:string" name="group-id" use="required"/>
+                                                                        <xs:attribute type="xs:string" name="group-id"
+                                                                                      use="required"/>
                                                                     </xs:complexType>
                                                                 </xs:element>
                                                             </xs:sequence>
                                                         </xs:complexType>
                                                     </xs:element>
                                                 </xs:sequence>
-                                                <xs:attribute type="xs:string" name="page-id" use="required"/>
-                                                <xs:attribute type="xs:int" name="page-number" use="required"/>
+                                                <xs:attribute type="xs:string" name="page-id"
+                                                              use="required"/>
+                                                <xs:attribute type="xs:int" name="page-number"
+                                                              use="required"/>
                                             </xs:complexType>
                                         </xs:element>
                                     </xs:sequence>

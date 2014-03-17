@@ -117,4 +117,9 @@ public class TemplateBeanTest {
         Assert.assertTrue(testTemplate.equals(testTemplate1));
 
     }
+    @Test
+    public void testEqFalse() throws CloneNotSupportedException {
+        TemplateBean temp = mock.template();
+        Assert.assertFalse(temp.equals(temp.clone()));
+    }
 }

@@ -19,8 +19,8 @@ import java.util.List;
         "id",
         "pageNumber",
         "pageName",
-        "groupsList",
-        "rules"
+        "pageRules",
+        "groupsList"
 })
 public class SectionBean extends BasicBean
         implements Cloneable, Serializable, BasicOperationWithBean {
@@ -31,6 +31,8 @@ public class SectionBean extends BasicBean
     private String pageName = "";
     private List<GroupBean> groupsList = new ArrayList<GroupBean>();
     private TemplateBean templateBean;
+
+    private List<Rule> pageRules;
 
     public SectionBean() {
         setRules(new ArrayList<Rule>());
@@ -95,6 +97,16 @@ public class SectionBean extends BasicBean
 
     public void setPageName(String pageName) {
         this.pageName = pageName;
+    }
+
+    @XmlElementWrapper(name = "page-rules")
+    @XmlElement(name = "page-rule")
+    public List<Rule> getPageRules() {
+        return getRules();
+    }
+
+    public void setPageRules(List<Rule> rules) {
+        setRules(rules);
     }
 
     @XmlElementWrapper(name = "groups-of-questions")

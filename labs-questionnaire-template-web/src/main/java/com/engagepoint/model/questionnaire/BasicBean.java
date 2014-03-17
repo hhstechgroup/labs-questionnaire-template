@@ -46,8 +46,7 @@ public abstract class BasicBean {
      * 
      * @return
      */
-    @XmlElementWrapper(name = "rules")
-    @XmlElement(name = "rule")
+    @XmlTransient
 	public List<Rule> getRules() {
 		return rules;
 	}
