@@ -217,7 +217,7 @@ public class RulesTestController implements Serializable {
 				if (bb.getType().equals("question")) {
 					styles.put(bb, "red");
 					setRedColour(bb);			//set Red to all dependent elements from this question
-				} else if (bb.getType().equals("qroup")) {
+				} else if (bb.getType().equals("group")) {
 					styles.put(bb, "red");
 					i++;
 					while (i != dependent.size() && dependent.get(i).getType().equals("question")) {
