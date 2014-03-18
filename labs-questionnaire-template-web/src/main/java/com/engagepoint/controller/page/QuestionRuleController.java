@@ -299,6 +299,7 @@ public class QuestionRuleController extends RuleController implements Serializab
 
     public void cancelAll() {
         currentRules = null;
+        currentQuestion = null;
     }
 
     public List<Question> getAllQuestionsThatSetDependence() {
@@ -370,10 +371,13 @@ public class QuestionRuleController extends RuleController implements Serializab
     void saveRuleToQuestion(@Observes @SaveQuestion Question question) {
         question.setRules(currentRules);
         currentRules = null;
+        currentQuestion = null;
     }
 
     void setCurrentQuestion(@Observes @NewQuestion Question question) {
-        currentQuestion = question;
+        if(currentQuestion==null){
+            currentQuestion = question;
+        }
         if (currentRules == null) {
             if (question.getRules().size() != 0) {
                 currentRules = cloneRulesList(question.getRules());
