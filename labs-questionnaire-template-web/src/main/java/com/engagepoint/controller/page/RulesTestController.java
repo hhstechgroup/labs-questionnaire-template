@@ -18,12 +18,13 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+
 @Named
 @ConversationScoped
 public class RulesTestController implements Serializable {
 	
 	private List<BasicBean> TemplateElementsList;
-	private Map<BasicBean, List<String>> dependencies;
+	private Map<BasicBean, List<BasicBean>> dependencies;
 	private Map<BasicBean, String> styles;
 	
 	@Inject
@@ -41,14 +42,16 @@ public class RulesTestController implements Serializable {
 	}
 
 	
-	public Map<BasicBean, List<String>> getDependencies() {
+	public Map<BasicBean, List<BasicBean>> getDependencies() {
 		return dependencies;
 	}
 
-	public void setDependencies(Map<BasicBean, List<String>> dependencies) {
+
+	public void setDependencies(Map<BasicBean, List<BasicBean>> dependencies) {
 		this.dependencies = dependencies;
 	}
-	
+
+
 	public List<BasicBean> getTemplateElementsList() {
 		return TemplateElementsList;
 	}
@@ -110,16 +113,16 @@ public class RulesTestController implements Serializable {
 	 * and a list of elements ids that are dependent on this question
 	 */
 	private void prepareDependencies() {
-		dependencies = new HashMap<BasicBean, List<String>>();
+		dependencies = new HashMap<BasicBean, List<BasicBean>>();
 		
 		for (BasicBean bb : TemplateElementsList){
 			if ((bb.getRules() != null) && (!bb.getRules().isEmpty())) {
 				for (Rule r : bb.getRules()) {
 					BasicBean parent=getElementById(r.getId());
 					if (dependencies.get(parent) == null) {
-						dependencies.put(parent, new ArrayList<String>());
+						dependencies.put(parent, new ArrayList<BasicBean>());
 					}
-					dependencies.get(parent).add(bb.getId());
+					dependencies.get(parent).add(bb);
 				}
 			}
 			
@@ -169,11 +172,16 @@ public class RulesTestController implements Serializable {
 	 */
 	
 	public String getDependentByQuestion(BasicBean q){
-		List<String> result=dependencies.get(q);
+		List<BasicBean> result=dependencies.get(q);
 		if(result==null){
 			return "";
 		}
-		return result.toString();
+		
+		String res="";
+		
+		for(BasicBean bb : result)
+			res+=bb.getId()+" ";
+		return res;
 	}
 	
 	/**
@@ -195,35 +203,42 @@ public class RulesTestController implements Serializable {
 	 * 
 	 * @param q
 	 */
-	public void setStyles(BasicBean q){
+	public void setStyles(BasicBean basicBean){
 		styles = new HashMap<BasicBean, String>();
-		styles.put(q, "green");
-		List<String> dependent = dependencies.get(q); 
+		styles.put(basicBean, "green");
+		setRedColour(basicBean);
+	}
+	
+	private void setRedColour(BasicBean basicBean) {
+		List<BasicBean> dependent = dependencies.get(basicBean);
 		
-		for (int i=0; i<=dependent.size(); i++){					//TODO SHOULD BE TESTED!!!!
-			BasicBean bb = getElementById(dependent.get(i));
-			if(bb.getType().equals("question")){
-				styles.put(bb, "red");
-			} else	if(bb.getType().equals("qroup")){
-				styles.put(bb, "red");
-				i++;
-				while(!getElementById(dependent.get(i)).equals("group")){
-					styles.put(getElementById(dependent.get(i)), "red");
+		if (dependent != null) {
+			for (int i = 0; i <= dependent.size(); i++) { // TODO SHOULD BE
+															// TESTED!!!!
+				BasicBean bb = dependent.get(i);
+				if (bb.getType().equals("question")) {
+					styles.put(bb, "red");
+					setRedColour(bb);			//set Red to all dependent elements from this question
+				} else if (bb.getType().equals("qroup")) {
+					styles.put(bb, "red");
 					i++;
-				}
-			} else if (bb.getType().equals("section")){
-				styles.put(bb, "red");
-				i++;
-				while(!getElementById(dependent.get(i)).equals("section")){
-					styles.put(getElementById(dependent.get(i)), "red");
+					while (i != dependent.size() && dependent.get(i).getType().equals("question")) {
+						styles.put(dependent.get(i), "red");
+						setRedColour(dependent.get(i));
+						i++;
+					}
+				} else if (bb.getType().equals("section")) {
+					styles.put(bb, "red");
 					i++;
+					while (i!=dependent.size() && (dependent.get(i).getType().equals("group") || 
+							dependent.get(i).getType().equals("question") )) {
+						styles.put(dependent.get(i), "red");
+						setRedColour(dependent.get(i));
+						i++;
+					}
 				}
 			}
 		}
-		
-		/*for(String l : dependencies.get(q)){
-			styles.put(getElementById(l),"red");
-		}*/
 	}
 	
 }
