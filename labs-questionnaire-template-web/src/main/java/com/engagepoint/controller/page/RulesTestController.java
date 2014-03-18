@@ -20,77 +20,77 @@ import java.util.Map;
 
 @Named
 @ConversationScoped
-public class RulesTestController implements Serializable {
-	
-	private List<BasicBean> TemplateElementsList;
-	private Map<BasicBean, List<String>> dependencies;
-	private Map<BasicBean, String> styles;
-	
-	@Inject
-	Conversation conversation;
-	
-	@Inject
-	ListController listController;
-	
-	
-	@PostConstruct
-	public void postconstruct(){
-		conversation.begin();
-		prepareQuestionList();
-		prepareDependencies();
-	}
+public class RulesTestController extends RuleController implements Serializable {
 
-	
-	public Map<BasicBean, List<String>> getDependencies() {
-		return dependencies;
-	}
+    private List<BasicBean> TemplateElementsList;
+    private Map<BasicBean, List<String>> dependencies;
+    private Map<BasicBean, String> styles;
 
-	public void setDependencies(Map<BasicBean, List<String>> dependencies) {
-		this.dependencies = dependencies;
-	}
-	
-	public List<BasicBean> getTemplateElementsList() {
-		return TemplateElementsList;
-	}
+    @Inject
+    Conversation conversation;
 
-	public void setTemplateElementsList(List<BasicBean> templateElementsList) {
-		TemplateElementsList = templateElementsList;
-	}
+    @Inject
+    ListController listController;
 
-	public ListController getListController() {
-		return listController;
-	}
 
-	public void setListController(ListController listController) {
-		this.listController = listController;
-	}
+    @PostConstruct
+    public void postconstruct() {
+        conversation.begin();
+        prepareQuestionList();
+        prepareDependencies();
+    }
 
-	
-	/**
-	 * build a list of all template elements from current template
-	 */
-	private void prepareQuestionList() {
-		if(listController.getCurrentTemplate()!=null){
-			TemplateElementsList=new ArrayList<BasicBean>();
-			for(SectionBean s : listController.getCurrentTemplate().getSectionsList()){
-				TemplateElementsList.add(s);
-				for(GroupBean gr : s.getGroupsList()){
-					TemplateElementsList.add(gr);
-					TemplateElementsList.addAll(gr.getQuestionsList());
-				}
-			}
-		}
-	}
-	
-	
-	/**
-	 * prepare a String presentation of Template element to display in table 
-	 * 
-	 * @param bb
-	 * @return
-	 */
-	public String displayTemplateElement(BasicBean bb){
-		String result = bb.getId();						//TODO change to element name
+
+    public Map<BasicBean, List<String>> getDependencies() {
+        return dependencies;
+    }
+
+    public void setDependencies(Map<BasicBean, List<String>> dependencies) {
+        this.dependencies = dependencies;
+    }
+
+    public List<BasicBean> getTemplateElementsList() {
+        return TemplateElementsList;
+    }
+
+    public void setTemplateElementsList(List<BasicBean> templateElementsList) {
+        TemplateElementsList = templateElementsList;
+    }
+
+    public ListController getListController() {
+        return listController;
+    }
+
+    public void setListController(ListController listController) {
+        this.listController = listController;
+    }
+
+
+    /**
+     * build a list of all template elements from current template
+     */
+    private void prepareQuestionList() {
+        if (listController.getCurrentTemplate() != null) {
+            TemplateElementsList = new ArrayList<BasicBean>();
+            for (SectionBean s : listController.getCurrentTemplate().getSectionsList()) {
+                TemplateElementsList.add(s);
+                for (GroupBean gr : s.getGroupsList()) {
+                    TemplateElementsList.add(gr);
+                    TemplateElementsList.addAll(gr.getQuestionsList());
+                }
+            }
+        }
+    }
+
+
+    /**
+     * prepare a String presentation of Template element to display in table
+     *
+     * @param bb
+     * @return
+     */
+    public String displayTemplateElement(BasicBean bb) {
+        String result = bb.getId();                        //TODO change to element name
 
         String s = bb.getType();
         if (s.equals("section")) {
@@ -102,128 +102,128 @@ public class RulesTestController implements Serializable {
         } else {
             return "";
         }
-	}
-	
-	
-	/**
-	 * build a map of dependencies which contains template element 
-	 * and a list of elements ids that are dependent on this question
-	 */
-	private void prepareDependencies() {
-		dependencies = new HashMap<BasicBean, List<String>>();
-		
-		for (BasicBean bb : TemplateElementsList){
-			if ((bb.getRules() != null) && (!bb.getRules().isEmpty())) {
-				for (Rule r : bb.getRules()) {
-					BasicBean parent=getElementById(r.getId());
-					if (dependencies.get(parent) == null) {
-						dependencies.put(parent, new ArrayList<String>());
-					}
-					dependencies.get(parent).add(bb.getId());
-				}
-			}
-			
-		}
-	}
-	
-	/**
-	 * get an Template element object with specified ID
-	 * 
-	 * @param id
-	 * @return
-	 */
-	private BasicBean getElementById(String id) {
-		for (BasicBean bb : TemplateElementsList) {
-			if (bb.getId().equals(id)) {
-				return bb;
-			}
-		}
-		return null;
-	}
+    }
 
-	
-	/**
+
+    /**
+     * build a map of dependencies which contains template element
+     * and a list of elements ids that are dependent on this question
+     */
+    private void prepareDependencies() {
+        dependencies = new HashMap<BasicBean, List<String>>();
+
+        for (BasicBean bb : TemplateElementsList) {
+            if ((bb.getRules() != null) && (!bb.getRules().isEmpty())) {
+                for (Rule r : bb.getRules()) {
+                    BasicBean parent = getElementById(r.getId());
+                    if (dependencies.get(parent) == null) {
+                        dependencies.put(parent, new ArrayList<String>());
+                    }
+                    dependencies.get(parent).add(bb.getId());
+                }
+            }
+
+        }
+    }
+
+    /**
+     * get an Template element object with specified ID
+     *
+     * @param id
+     * @return
+     */
+    private BasicBean getElementById(String id) {
+        for (BasicBean bb : TemplateElementsList) {
+            if (bb.getId().equals(id)) {
+                return bb;
+            }
+        }
+        return null;
+    }
+
+
+    /**
      * Get page name and perform redirect.
      *
      * @return page name
      */
-	public static String income() {
+    public static String income() {
         return PageNavigator.RULES_TEST_PAGE;
     }
-	
-	/**
-	 * close current conversation and go back to index
-	 * 
-	 * @return
-	 */
-	public String backToIndex(){
-		conversation.end();
-		return PageNavigator.INDEX_PAGE;
-	}
-	
-	/**
-	 * TODO TEMP method for development phase, will 
-	 * 
-	 * @param q
-	 * @return
-	 */
-	
-	public String getDependentByQuestion(BasicBean q){
-		List<String> result=dependencies.get(q);
-		if(result==null){
-			return "";
-		}
-		return result.toString();
-	}
-	
-	/**
-	 * get String style for current Question to use in style field on page
-	 * 
-	 * @param q
-	 * @return
-	 */
-	public String getStyle(BasicBean q){
-		
-		if (styles!=null && styles.get(q)!=null)
-			return "background-color: "+styles.get(q)+";color: white;";
-		return "";
-	}
-	
-	
-	/**
-	 * set style green for this question and red for depended elements 
-	 * 
-	 * @param q
-	 */
-	public void setStyles(BasicBean q){
-		styles = new HashMap<BasicBean, String>();
-		styles.put(q, "green");
-		List<String> dependent = dependencies.get(q); 
-		
-		for (int i=0; i<=dependent.size(); i++){					//TODO SHOULD BE TESTED!!!!
-			BasicBean bb = getElementById(dependent.get(i));
-			if(bb.getType().equals("question")){
-				styles.put(bb, "red");
-			} else	if(bb.getType().equals("qroup")){
-				styles.put(bb, "red");
-				i++;
-				while(!getElementById(dependent.get(i)).equals("group")){
-					styles.put(getElementById(dependent.get(i)), "red");
-					i++;
-				}
-			} else if (bb.getType().equals("section")){
-				styles.put(bb, "red");
-				i++;
-				while(!getElementById(dependent.get(i)).equals("section")){
-					styles.put(getElementById(dependent.get(i)), "red");
-					i++;
-				}
-			}
-		}
-		
+
+    /**
+     * close current conversation and go back to index
+     *
+     * @return
+     */
+    public String backToIndex() {
+        conversation.end();
+        return PageNavigator.INDEX_PAGE;
+    }
+
+    /**
+     * TODO TEMP method for development phase, will
+     *
+     * @param q
+     * @return
+     */
+
+    public String getDependentByQuestion(BasicBean q) {
+        List<String> result = dependencies.get(q);
+        if (result == null) {
+            return "";
+        }
+        return result.toString();
+    }
+
+    /**
+     * get String style for current Question to use in style field on page
+     *
+     * @param q
+     * @return
+     */
+    public String getStyle(BasicBean q) {
+
+        if (styles != null && styles.get(q) != null)
+            return "background-color: " + styles.get(q) + ";color: white;";
+        return "";
+    }
+
+
+    /**
+     * set style green for this question and red for depended elements
+     *
+     * @param q
+     */
+    public void setStyles(BasicBean q) {
+        styles = new HashMap<BasicBean, String>();
+        styles.put(q, "green");
+        List<String> dependent = dependencies.get(q);
+
+        for (int i = 0; i <= dependent.size(); i++) {                    //TODO SHOULD BE TESTED!!!!
+            BasicBean bb = getElementById(dependent.get(i));
+            if (bb.getType().equals("question")) {
+                styles.put(bb, "red");
+            } else if (bb.getType().equals("qroup")) {
+                styles.put(bb, "red");
+                i++;
+                while (!getElementById(dependent.get(i)).equals("group")) {
+                    styles.put(getElementById(dependent.get(i)), "red");
+                    i++;
+                }
+            } else if (bb.getType().equals("section")) {
+                styles.put(bb, "red");
+                i++;
+                while (!getElementById(dependent.get(i)).equals("section")) {
+                    styles.put(getElementById(dependent.get(i)), "red");
+                    i++;
+                }
+            }
+        }
+
 		/*for(String l : dependencies.get(q)){
 			styles.put(getElementById(l),"red");
 		}*/
-	}
-	
+    }
+
 }
