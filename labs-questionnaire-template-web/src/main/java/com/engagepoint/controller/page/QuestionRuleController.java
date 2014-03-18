@@ -274,13 +274,13 @@ public class QuestionRuleController implements Serializable {
                 answer = getTextData();
                 break;
             case DATE:
-                answer = getDateData().toString();
+                answer = DateQuestionBean.DATE_FORMAT.format(getDateData());
                 break;
             case RANGE:
                 answer = (new RangeItem(getMinValue(), getMaxValue())).toString();
                 break;
             case TIME:
-                answer = getTextData();
+                answer = DateQuestionBean.TIME_FORMAT.format(getDateData());
                 break;
             case PARAGRAPHTEXT:
                 answer = getTextData();

@@ -24,6 +24,14 @@ import java.util.List;
         "defaultAnswers"
 })
 public class DateQuestionBean extends Question {
+    public static SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("dd-MM-yyyy");
+    public static SimpleDateFormat TIME_FORMAT = new SimpleDateFormat("HH:mm");
+
+    //Parses given string to produce a date in given format.
+    public static Date parseStringToDate(String target, SimpleDateFormat format) throws ParseException{
+        return format.parse(target);
+    }
+
     private Date defaultDate;
 
     public DateQuestionBean() {
@@ -57,8 +65,7 @@ public class DateQuestionBean extends Question {
     @Override
     public void setDefaultAnswers(List<String> list) {
         try {
-            String target = list.get(0);
-            defaultDate =  getDateFormat().parse(target);
+            defaultDate = parseStringToDate(list.get(0), getDateFormat());
         }catch (StringIndexOutOfBoundsException e) {
             //log that string of default answer in XML is empty
         }catch (ParseException pe) {
@@ -66,10 +73,10 @@ public class DateQuestionBean extends Question {
         }
     }
 
-    private DateFormat getDateFormat() {
-        DateFormat df = new SimpleDateFormat("dd-MM-yyyy");
+    public SimpleDateFormat getDateFormat() {
+        SimpleDateFormat df = DATE_FORMAT;
         if (this.getQuestionType() == QuestionType.TIME) {
-            df = new SimpleDateFormat("HH:mm");
+            df = TIME_FORMAT;
         }
         return df;
     }
