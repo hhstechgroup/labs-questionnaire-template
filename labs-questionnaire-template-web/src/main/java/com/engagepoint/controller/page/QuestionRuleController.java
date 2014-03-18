@@ -53,6 +53,7 @@ public class QuestionRuleController extends RuleController implements Serializab
     private boolean chooseDependentQuestionListVisible;
     private Rule currentRule;
     private List<Rule> currentRules;
+    private Question currentQuestion;
     //logger
     private static final Logger LOG = Logger.getLogger(QuestionRuleController.class);
 
@@ -236,10 +237,14 @@ public class QuestionRuleController extends RuleController implements Serializab
      */
     public List<Question> getQuestions() {
         List<Question> list = new ArrayList<Question>();
+        parsingQuestions:
         for (SectionBean sectionBean : templateEditController.getCurrentTemplate().getSectionsList()) {
             for (GroupBean groupBean : sectionBean.getGroupsList()) {
                 for (Question question : groupBean.getQuestionsList()) {
-                    list.add(question);
+                    if(currentQuestion.getId().equals(question.getId())){
+                        break parsingQuestions;
+                    }
+                        list.add(question);
                 }
             }
         }
@@ -355,6 +360,7 @@ public class QuestionRuleController extends RuleController implements Serializab
     }
 
     void setCurrentQuestion(@Observes @NewQuestion Question question) {
+        currentQuestion = question;
         if (currentRules == null) {
             if (question.getRules().size() != 0) {
                 currentRules = cloneRulesList(question.getRules());
