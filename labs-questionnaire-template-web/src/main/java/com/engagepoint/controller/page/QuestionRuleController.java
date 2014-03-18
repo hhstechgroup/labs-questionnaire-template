@@ -188,7 +188,25 @@ public class QuestionRuleController extends RuleController implements Serializab
             default:
         }
         answers.add(answer);
-        setAnswerAndIdToRule(answers);
+        if (templateTreeController.getSelectedType().equals("question")) {
+            setAnswerAndIdToRule(answers);
+        }
+        if(templateTreeController.getSelectedType().equals("group"))
+        {
+            RenderedRule renderedRule = (RenderedRule) currentRule;
+            renderedRule.setAnswers(answers);
+            renderedRule.setId(dependentQuestion.getId());
+            ((GroupBean)templateTreeController.getSelectedNode().getData()).getRules().add(renderedRule);
+
+        }
+        if(templateTreeController.getSelectedType().equals("section"))
+        {
+            RenderedRule renderedRule = (RenderedRule) currentRule;
+            renderedRule.setAnswers(answers);
+            renderedRule.setId(dependentQuestion.getId());
+            ((SectionBean)templateTreeController.getSelectedNode().getData()).getRules().add(renderedRule);
+        }
+
         setChooseDependentQuestionListVisible(false);
         setCancelRuleEditionButtonIsVisible(false);
         setAddRulesTableIsVisible(false);
@@ -199,7 +217,7 @@ public class QuestionRuleController extends RuleController implements Serializab
      * Action on click Set Answer button.
      */
     public void setDependentQuestionAnswer() {
-        if (templateTreeController.getSelectedType().equals("question")) {
+
             switch (dependentQuestion.getQuestionType()) {
                 case TEXT:
                     setTextQuestionBean((TextQuestionBean) dependentQuestion);
@@ -232,16 +250,7 @@ public class QuestionRuleController extends RuleController implements Serializab
                     break;
                 default:
             }
-        }
-        if(templateTreeController.getSelectedType().equals("group"))
-        {
-            ((GroupBean)templateTreeController.getSelectedNode().getData()).getDisplayedName();
 
-        }
-        if(templateTreeController.getSelectedType().equals("section"))
-        {
-            ((SectionBean)templateTreeController.getSelectedNode().getData()).getDisplayedName();
-        }
     }
 
     /**
