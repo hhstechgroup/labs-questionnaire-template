@@ -1,9 +1,15 @@
 package com.engagepoint.model.question.rules;
 
 
+import javax.xml.bind.annotation.XmlTransient;
+import javax.xml.bind.annotation.XmlType;
 import java.util.ArrayList;
 import java.util.List;
 
+@XmlType(name = "rule", propOrder = {
+        "nameXML",
+        "id"
+})
 public class RenderedRule extends Rule {
 
     private List<String> answers;
@@ -14,6 +20,23 @@ public class RenderedRule extends Rule {
         type = RuleType.RENDERED;
         update();
         answers = new ArrayList<String>();
+    }
+
+    @Override
+    public void parseRuleViewToAnswer(String nameXML) {
+        int beginIndex = nameXML.lastIndexOf("['")+2;
+        int endIndex = nameXML.lastIndexOf("']");
+        if (beginIndex==-1 || endIndex==-1) {
+            //log or throw exception that string is not correct
+            return;
+        }
+        String answer="";
+        try {
+            answer = nameXML.substring(beginIndex,endIndex);
+        } catch (StringIndexOutOfBoundsException e) {
+            //log or throw exception that string is not correct
+        }
+        answers.add(answer);
     }
 
     public void setId(String id) {
@@ -31,6 +54,7 @@ public class RenderedRule extends Rule {
         update();
     }
 
+    @XmlTransient
     public List<String> getAnswers() {
         return answers;
     }
