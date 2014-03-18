@@ -22,7 +22,12 @@ import java.util.List;
         "sectionsList"
 })
 public class TemplateBean implements Cloneable, Comparable<TemplateBean>, BasicOperationWithBean {
-    private static Long lastId = 1L;
+    private static ThreadLocal<Long> lastId =
+            new ThreadLocal<Long>() {
+                @Override public Long initialValue() {
+                    return 1L;
+                }
+            };
     private Long id;
     private String formId;
     private String templateName = "";
@@ -34,7 +39,8 @@ public class TemplateBean implements Cloneable, Comparable<TemplateBean>, BasicO
     }
 
     public static Long getLastId() {
-        return lastId++;
+        lastId.set(lastId.get()+1);
+        return lastId.get();
     }
 
     public TemplateBean() {

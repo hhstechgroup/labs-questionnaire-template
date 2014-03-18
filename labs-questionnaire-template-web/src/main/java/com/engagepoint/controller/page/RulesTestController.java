@@ -18,7 +18,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-
 @Named
 @ConversationScoped
 public class RulesTestController implements Serializable {
@@ -196,8 +195,7 @@ public class RulesTestController implements Serializable {
 			return "background-color: "+styles.get(q)+";color: white;";
 		return "";
 	}
-	
-	
+		
 	/**
 	 * set style green for this question and red for depended elements 
 	 * 

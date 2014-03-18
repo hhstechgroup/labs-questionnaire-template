@@ -5,7 +5,7 @@
                 xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:f="http://java.sun.com/jsf/core"
                 xmlns:uib="http://engagepoint.com/uib"
-                xmlns:F="http://java.sun.com/jsp/jstl/sql"
+                xmlns:ago="http://java.sun.com/jsf/composite/questiontemplate"
                 template="/templates/templateEdit.xhtml">
 
     <f:metadata>
@@ -92,16 +92,10 @@
                     </p:treeTable>
 
                     <p:dialog id="modalRules" widgetVar="dlgRules" modal="true"
-                              closable="false" height="100" resizeable="false">
+                              closable="true"  resizeable="true" height="500">
 
-                       <uib:dataTable var="rule" value="#{templateTreeController.currentRules}">
-                              <uib:column >
-                                  #{rule}
-                              </uib:column>
-                       </uib:dataTable>
-                        <p:commandButton value="Cancel" id="cancelRules"
-                                         immediate="true"
-                                         onclick="dlgRules.hide()" />
+                        <ago:rulescommon controller="#{optionsQuestionEditController}"/>
+
                     </p:dialog>
 
                     <p:panel id="buttonPanel">
