@@ -23,6 +23,7 @@ import org.apache.log4j.Logger;
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.Conversation;
 import javax.enterprise.context.ConversationScoped;
+import javax.enterprise.context.SessionScoped;
 import javax.enterprise.event.Observes;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -33,12 +34,10 @@ import java.util.*;
  * Controller for question rules.
  */
 @Named
-@ConversationScoped
+@SessionScoped
 public class QuestionRuleController extends RuleController implements Serializable {
     @Inject
     private TemplateEditController templateEditController;
-    @Inject
-    private Conversation conversation;
     //dependent question data
     private String currentDependentQuestionId;
     private Question dependentQuestion;
@@ -60,11 +59,6 @@ public class QuestionRuleController extends RuleController implements Serializab
     public QuestionRuleController() {
         rulesContainer = new RulesContainer();
         addRuleButtonIsVisible = true;
-    }
-
-    @PostConstruct
-    public void init() {
-        beginConversation();
     }
 
     public String getCurrentDependentQuestionId() {
@@ -291,7 +285,6 @@ public class QuestionRuleController extends RuleController implements Serializab
 
     public void cancelAll() {
         currentRules = null;
-        endConversation();
     }
 
     public List<Question> getAllQuestionsThatSetDependence() {
@@ -338,18 +331,6 @@ public class QuestionRuleController extends RuleController implements Serializab
             }
         }
         return result;
-    }
-
-    private void endConversation() {
-        if (!conversation.isTransient()) {
-            conversation.end();
-        }
-    }
-
-    private void beginConversation() {
-        if (conversation.isTransient()) {
-            conversation.begin();
-        }
     }
 
     private void setAnswerAndIdToRule(List<String> answers) {
