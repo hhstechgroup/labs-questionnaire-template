@@ -21,12 +21,15 @@ import java.util.List;
  * Class represents question tag.
  */
 @XmlSeeAlso({
+
         TextQuestionBean.class,
         DateQuestionBean.class,
         RangeQuestionBean.class,
         ChooseFromListQuestionBean.class,
         MultipleChoiceQuestionBean.class,
         CheckBoxQuestionBean.class
+
+
 })
 @XmlTransient
 public abstract class Question extends BasicBean implements Cloneable {

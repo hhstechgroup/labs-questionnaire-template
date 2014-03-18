@@ -55,6 +55,7 @@ public class QuestionRuleController extends RuleController implements Serializab
     private List<Rule> currentRules;
     private Question currentQuestion;
     //logger
+
     private static final Logger LOG = Logger.getLogger(QuestionRuleController.class);
 
     public QuestionRuleController() {
