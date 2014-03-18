@@ -38,6 +38,8 @@ import java.util.*;
 public class QuestionRuleController extends RuleController implements Serializable {
     @Inject
     private TemplateEditController templateEditController;
+    @Inject
+    private TemplateTreeController templateTreeController;
     //dependent question data
     private String currentDependentQuestionId;
     private Question dependentQuestion;
@@ -197,37 +199,48 @@ public class QuestionRuleController extends RuleController implements Serializab
      * Action on click Set Answer button.
      */
     public void setDependentQuestionAnswer() {
-        switch (dependentQuestion.getQuestionType()) {
-            case TEXT:
-                setTextQuestionBean((TextQuestionBean) dependentQuestion);
-                break;
-            case DATE:
-                setDateQuestionBean((DateQuestionBean) dependentQuestion);
-                break;
-            case RANGE:
-                setRangeQuestionBean((RangeQuestionBean) dependentQuestion);
-                break;
-            case TIME:
-                setDateQuestionBean((DateQuestionBean) dependentQuestion);
-                break;
-            case PARAGRAPHTEXT:
-                setTextQuestionBean((TextQuestionBean) dependentQuestion);
-                break;
-            case CHOOSEFROMLIST:
-                setOptionsQuestion((ChooseFromListQuestionBean) dependentQuestion);
-                setDataModel(new ListOfOptionsDataModel(getOptionsQuestion().getOptions()));
-                break;
-            case MULTIPLECHOICE:
-                setOptionsQuestion((MultipleChoiceQuestionBean) dependentQuestion);
-                setDataModel(new ListOfOptionsDataModel(getOptionsQuestion().getOptions()));
-                break;
-            case CHECKBOX:
-                setOptionsQuestion((CheckBoxQuestionBean) dependentQuestion);
-                setDataModel(new ListOfOptionsDataModel(getOptionsQuestion().getOptions()));
-                break;
-            case GRID:
-                break;
-            default:
+        if (templateTreeController.getSelectedType().equals("question")) {
+            switch (dependentQuestion.getQuestionType()) {
+                case TEXT:
+                    setTextQuestionBean((TextQuestionBean) dependentQuestion);
+                    break;
+                case DATE:
+                    setDateQuestionBean((DateQuestionBean) dependentQuestion);
+                    break;
+                case RANGE:
+                    setRangeQuestionBean((RangeQuestionBean) dependentQuestion);
+                    break;
+                case TIME:
+                    setDateQuestionBean((DateQuestionBean) dependentQuestion);
+                    break;
+                case PARAGRAPHTEXT:
+                    setTextQuestionBean((TextQuestionBean) dependentQuestion);
+                    break;
+                case CHOOSEFROMLIST:
+                    setOptionsQuestion((ChooseFromListQuestionBean) dependentQuestion);
+                    setDataModel(new ListOfOptionsDataModel(getOptionsQuestion().getOptions()));
+                    break;
+                case MULTIPLECHOICE:
+                    setOptionsQuestion((MultipleChoiceQuestionBean) dependentQuestion);
+                    setDataModel(new ListOfOptionsDataModel(getOptionsQuestion().getOptions()));
+                    break;
+                case CHECKBOX:
+                    setOptionsQuestion((CheckBoxQuestionBean) dependentQuestion);
+                    setDataModel(new ListOfOptionsDataModel(getOptionsQuestion().getOptions()));
+                    break;
+                case GRID:
+                    break;
+                default:
+            }
+        }
+        if(templateTreeController.getSelectedType().equals("group"))
+        {
+            ((GroupBean)templateTreeController.getSelectedNode().getData()).getDisplayedName();
+
+        }
+        if(templateTreeController.getSelectedType().equals("section"))
+        {
+            ((SectionBean)templateTreeController.getSelectedNode().getData()).getDisplayedName();
         }
     }
 
