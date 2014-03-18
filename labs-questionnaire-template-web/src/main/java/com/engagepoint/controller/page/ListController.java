@@ -9,12 +9,14 @@ import org.primefaces.event.FileUploadEvent;
 
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.SessionScoped;
+import javax.enterprise.event.Observes;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.inject.Named;
 
 import java.io.*;
 import java.util.*;
+import java.util.concurrent.atomic.AtomicLong;
 
 /**
  * Used for controlling index.xhtml
@@ -32,6 +34,7 @@ public class ListController implements Serializable {
     private static final Logger LOG = Logger.getLogger(ListController.class);
 
     public ListController() {
+        //setLastId();
         list = new ArrayList<TemplateBean>();
     }
 
@@ -43,7 +46,25 @@ public class ListController implements Serializable {
         //adding Templates from XML file
         addAllTemplates(XmlImportExport.importXmlTemplate(xmlPath));
         templatesModel = new ListOfTemplatesDataModel(list);
+
     }
+
+//    private void setLastId(){
+//        //return lastId.incrementAndGet();
+//        //return lastId++;
+//        Long lastId = null;
+//        if(list!=null && ! list.isEmpty()){
+//            lastId = list.get(0).getId();
+//            for(TemplateBean bean : list){
+//                if(bean.getId()>lastId)
+//                    lastId = bean.getId();
+//            }
+//            TemplateBean.setLastId(++lastId);
+//        }else{
+//            TemplateBean.setLastId(1L);
+//        }
+//
+//    }
 
     public ListOfTemplatesDataModel getTemplatesModel() {
         return templatesModel;

@@ -1,8 +1,15 @@
 package com.engagepoint.model.questionnaire;
 
+import com.engagepoint.controller.page.ListController;
 import com.engagepoint.model.question.DateQuestionBean;
 import com.engagepoint.model.question.Question;
 
+import javax.annotation.PostConstruct;
+import javax.el.ELContext;
+import javax.enterprise.event.Event;
+import javax.faces.FacesException;
+import javax.faces.context.FacesContext;
+import javax.inject.Inject;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -11,6 +18,7 @@ import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlTransient;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicLong;
 
 /**
  * Class represents questionnaire-form tag.
@@ -22,25 +30,20 @@ import java.util.List;
         "sectionsList"
 })
 public class TemplateBean implements Cloneable, Comparable<TemplateBean>, BasicOperationWithBean {
-    private static ThreadLocal<Long> lastId =
-            new ThreadLocal<Long>() {
-                @Override public Long initialValue() {
-                    return 1L;
-                }
-            };
     private Long id;
     private String formId;
     private String templateName = "";
     private List<SectionBean> sectionsList = new ArrayList<SectionBean>();
     private static boolean duplicate;
+    private static Long lastId = 1L;
 
     public static boolean isDuplicate() {
         return duplicate;
     }
 
-    public static Long getLastId() {
-        lastId.set(lastId.get()+1);
-        return lastId.get();
+
+    public  Long getLastId() {
+        return lastId++;
     }
 
     public TemplateBean() {
@@ -71,6 +74,11 @@ public class TemplateBean implements Cloneable, Comparable<TemplateBean>, BasicO
     }
 
     public void setFormId(String formId) {
+        //lastId =
+        this.id = Long.valueOf(formId.substring(1));
+        if(id>=lastId){
+            lastId=++id;
+        }
         this.formId = formId;
     }
 

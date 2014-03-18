@@ -15,6 +15,7 @@ import com.engagepoint.model.question.rules.Rule;
 import com.engagepoint.model.question.rules.RulesContainer;
 import com.engagepoint.model.question.utils.RangeItem;
 import com.engagepoint.model.question.utils.VariantItem;
+import com.engagepoint.model.questionnaire.BasicBean;
 import com.engagepoint.model.questionnaire.GroupBean;
 import com.engagepoint.model.questionnaire.SectionBean;
 import com.engagepoint.model.table.ListOfOptionsDataModel;
@@ -248,6 +249,17 @@ public class QuestionRuleController extends RuleController implements Serializab
         return list;
     }
 
+    public List<Question> getQuestionsForRule(){
+        List<Question> list = new ArrayList<Question>();
+        for (Question question : getQuestions()){
+            if(currentQuestion.getId().equals(question.getId()))
+                break;
+            list.add(question);
+        }
+
+        return list;
+    }
+
     /**
      * Get current dependent question type.
      *
@@ -333,6 +345,10 @@ public class QuestionRuleController extends RuleController implements Serializab
             }
         }
         return result;
+    }
+
+    public void deleteBean(BasicBean bean){
+
     }
 
     private void setAnswerAndIdToRule(List<String> answers) {
