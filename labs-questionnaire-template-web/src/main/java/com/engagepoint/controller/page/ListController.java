@@ -34,7 +34,6 @@ public class ListController implements Serializable {
     private static final Logger LOG = Logger.getLogger(ListController.class);
 
     public ListController() {
-        //setLastId();
         list = new ArrayList<TemplateBean>();
     }
 
@@ -48,23 +47,6 @@ public class ListController implements Serializable {
         templatesModel = new ListOfTemplatesDataModel(list);
 
     }
-
-//    private void setLastId(){
-//        //return lastId.incrementAndGet();
-//        //return lastId++;
-//        Long lastId = null;
-//        if(list!=null && ! list.isEmpty()){
-//            lastId = list.get(0).getId();
-//            for(TemplateBean bean : list){
-//                if(bean.getId()>lastId)
-//                    lastId = bean.getId();
-//            }
-//            TemplateBean.setLastId(++lastId);
-//        }else{
-//            TemplateBean.setLastId(1L);
-//        }
-//
-//    }
 
     public ListOfTemplatesDataModel getTemplatesModel() {
         return templatesModel;

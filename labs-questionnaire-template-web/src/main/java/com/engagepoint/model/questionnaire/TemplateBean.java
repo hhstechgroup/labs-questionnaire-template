@@ -74,8 +74,9 @@ public class TemplateBean implements Cloneable, Comparable<TemplateBean>, BasicO
     }
 
     public void setFormId(String formId) {
-        //lastId =
-        this.id = Long.valueOf(formId.substring(1));
+        if(formId!=null && formId.length()>0){
+            this.id = Long.valueOf(formId.substring(1));
+        }
         if(id>=lastId){
             lastId=++id;
         }
