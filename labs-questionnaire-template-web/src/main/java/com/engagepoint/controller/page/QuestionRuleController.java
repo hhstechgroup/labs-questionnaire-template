@@ -55,6 +55,7 @@ public class QuestionRuleController extends RuleController implements Serializab
     private List<Rule> currentRules;
     private Question currentQuestion;
     //logger
+
     private static final Logger LOG = Logger.getLogger(QuestionRuleController.class);
 
     public QuestionRuleController() {
@@ -237,14 +238,10 @@ public class QuestionRuleController extends RuleController implements Serializab
      */
     public List<Question> getQuestions() {
         List<Question> list = new ArrayList<Question>();
-        parsingQuestions:
         for (SectionBean sectionBean : templateEditController.getCurrentTemplate().getSectionsList()) {
             for (GroupBean groupBean : sectionBean.getGroupsList()) {
                 for (Question question : groupBean.getQuestionsList()) {
-                    if(currentQuestion.getId().equals(question.getId())){
-                        break parsingQuestions;
-                    }
-                        list.add(question);
+                    list.add(question);
                 }
             }
         }

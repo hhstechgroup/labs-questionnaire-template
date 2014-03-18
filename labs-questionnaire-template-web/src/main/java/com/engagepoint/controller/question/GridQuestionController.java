@@ -20,8 +20,7 @@ public class GridQuestionController extends QuestionEditController implements Se
     GridQuestionBean currentQuestion;
     int currentI;
     int currentJ;
-    int editI = -1;
-    int editJ = -1;
+    List<String> params;
 
     @Inject
     TemplateEditController templateEditController;
@@ -73,12 +72,12 @@ public class GridQuestionController extends QuestionEditController implements Se
         return currentQuestion.getCols().get(Integer.parseInt(j));
     }
 
-    public void addRow() {
-        currentQuestion.addRow("New");
+    public void editRows() {
+        params = currentQuestion.getRows();
     }
 
-    public void addColumn() {
-        currentQuestion.addCol("New");
+    public void editColumns() {
+        params = currentQuestion.getCols();
     }
 
     public GridQuestionController setCurrentPosition(String i, String j) {
@@ -111,25 +110,13 @@ public class GridQuestionController extends QuestionEditController implements Se
         this.currentQuestion.setOnlyOneSelectInCol(onlyOneSelectInCol);
     }
 
-    public String getEditI() {
-        return "" + editI;
-    }
-
-    public String getEditJ() {
-        return "" + editJ;
-    }
-
-    public void setEditI(String editI) {
-        this.editI = Integer.parseInt(editI);
-    }
-
-    public void setEditJ(String editJ) {
-        this.editJ = Integer.parseInt(editJ);
-    }
-
     @Override
     public String actionSave() {
         getTemplateTreeController().setCurrentQuestion(currentQuestion);
         return super.actionSave();
+    }
+
+    public List<String> getParams() {
+        return params;
     }
 }

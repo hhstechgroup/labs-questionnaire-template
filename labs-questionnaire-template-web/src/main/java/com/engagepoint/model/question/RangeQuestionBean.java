@@ -24,12 +24,14 @@ public class RangeQuestionBean extends Question {
         super();
         rangeItem = new RangeItem();
         getDefaultAnswers().add(0, "");
+        getDefaultAnswers().add(1, "");
     }
 
     public RangeQuestionBean(GroupBean currentGroup) {
         super(currentGroup);
         rangeItem = new RangeItem();
         getDefaultAnswers().add(0, "");
+        getDefaultAnswers().add(1, "");
     }
 
     @XmlElement(name = "range")
@@ -42,11 +44,20 @@ public class RangeQuestionBean extends Question {
     }
 
     @XmlTransient
-    public String getDefaultAnswer() {
+    public String getDefaultMin() {
         return getDefaultAnswers().get(0);
     }
 
-    public void setDefaultAnswer(String defaultAnswer) {
+    public void setDefaultMin(String defaultAnswer) {
         getDefaultAnswers().set(0, defaultAnswer);
+    }
+
+    @XmlTransient
+    public String getDefaultMax() {
+        return getDefaultAnswers().get(1);
+    }
+
+    public void setDefaultMax(String defaultAnswer) {
+        getDefaultAnswers().set(1, defaultAnswer);
     }
 }

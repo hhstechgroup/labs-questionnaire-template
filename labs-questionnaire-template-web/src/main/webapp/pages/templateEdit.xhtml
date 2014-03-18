@@ -64,7 +64,7 @@
                             <p:commandButton value="View rules" id="viewRules"
                                              style="float:right;"
                                              rendered="#{templateTreeController.editButtonRendering(node)}"
-                                             onclick="dlgRules.show();"
+                                             action="#{templateController.goToRulePage}"
                                              styleClass="small blue">
                             </p:commandButton>
 							<p:commandButton value="Edit Name" id="editName"
@@ -90,13 +90,6 @@
                             </p:dialog>
                         </p:column>
                     </p:treeTable>
-
-                    <p:dialog id="modalRules" widgetVar="dlgRules" modal="true"
-                              closable="true"  resizeable="true" height="500">
-
-                        <ago:rulescommon controller="#{optionsQuestionEditController}"/>
-
-                    </p:dialog>
 
                     <p:panel id="buttonPanel">
                         <p:commandButton value="Add section"

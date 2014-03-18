@@ -6,27 +6,32 @@ import java.util.List;
 
 import com.engagepoint.model.question.Question;
 import com.engagepoint.model.questionnaire.GroupBean;
-
-import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElementWrapper;
+import javax.xml.bind.annotation.XmlTransient;
+import javax.xml.bind.annotation.XmlType;
 
+@XmlType(name = "gridQuestionBean", propOrder = {
+        "id",
+        "requiredAnswer",
+        "questionText",
+        "questionType",
+        "questionRules",
+        "helpText",
+        "grid",
+        "defaultAnswers"
+})
 public class GridQuestionBean extends Question {
-    List<String> rows;
-    /**
-     * List of columns
-     */
-    List<String> cols;
+    Grid grid;
     boolean[][] selected;
     boolean onlyOneSelectInRow;
     boolean onlyOneSelectInCol;
 
     public void clear() {
-        rows = new ArrayList<String>();
-        cols = new ArrayList<String>();
+        grid = new Grid();
+        grid.clear();
         selected = new boolean[0][0];
     }
-
     public GridQuestionBean() {
         clear();
     }
@@ -35,34 +40,27 @@ public class GridQuestionBean extends Question {
         super(currentGroup);
         clear();
     }
-
-    @XmlElementWrapper(name = "Rows")
-    @XmlElement(name = "row")
-    public List<String> getRows() {
-        return rows;
+    @XmlElement(name = "grid")
+    public Grid getGrid() {
+        return grid;
     }
 
-    public void setRows(List<String> rows) {
-        this.rows = rows;
+    public void setGrid(Grid grid) {
+        this.grid = grid;
     }
 
-    @XmlElementWrapper(name = "Columns")
-    @XmlElement(name = "column")
-    public List<String> getCols() {
-        return cols;
-    }
-
+    @Override
     @XmlElementWrapper(name = "default-answers")
     @XmlElement(name = "default-answer")
-    public List<String> getSelected() {
+    public List<String> getDefaultAnswers() {
         List<String>defaultAnswers =new ArrayList<String>();
         for (int i = 0; i <selected.length; i++) {
             String defaultAnswer ="";
             defaultAnswers.add(defaultAnswer);
             for (int j = 0; j <selected[i].length ; j++) {
-                if (i < rows.size()){
+                if (i < grid.getRows().size()){
                     defaultAnswer +=selected[i][j]+",";
-                defaultAnswers.set(i,defaultAnswer);
+                    defaultAnswers.set(i,defaultAnswer);
                 }else {
                     defaultAnswer +=selected[i][j];
                     defaultAnswers.set(i, defaultAnswer);
@@ -71,18 +69,35 @@ public class GridQuestionBean extends Question {
 
         }
         return defaultAnswers;
+
+    }
+    @XmlTransient
+    public List<String> getCols() {
+        return grid.getCols();
+    }
+
+    public void setCols(List<String> cols) {
+        this.grid.setCols(cols);
+    }
+    @XmlTransient
+    public List<String> getRows() {
+        return grid.getRows();
+    }
+
+    public void setRows(List<String> rows) {
+        this.grid.setRows(rows);
     }
 
     public void addRow(String name) {
-        rows.add(name);
-        selected = Arrays.copyOf(selected, rows.size());
-        selected[rows.size() - 1] = new boolean[cols.size()];
+        grid.getRows().add(name);
+        selected = Arrays.copyOf(selected, grid.getRows().size());
+        selected[grid.getRows().size() - 1] = new boolean[grid.getCols().size()];
     }
 
     public void addCol(String name) {
-        cols.add(name);
+        grid.getCols().add(name);
         for (int i = 0; i < selected.length; i++) {
-            selected[i] = Arrays.copyOf(selected[i], cols.size());
+            selected[i] = Arrays.copyOf(selected[i], grid.getCols().size());
         }
     }
 
@@ -105,7 +120,7 @@ public class GridQuestionBean extends Question {
     public void unsetSelect(int i, int j) {
         selected[i][j] = false;
     }
-
+    @XmlTransient
     public boolean isSelect(int i, int j) {
         return selected[i][j];
     }
@@ -127,4 +142,6 @@ public class GridQuestionBean extends Question {
     public void setOnlyOneSelectInCol(boolean onlyOneSelectInCol) {
         this.onlyOneSelectInCol = onlyOneSelectInCol;
     }
+
+
 }
