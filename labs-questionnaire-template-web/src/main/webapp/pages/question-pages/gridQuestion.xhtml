@@ -4,7 +4,7 @@
                 xmlns:p="http://primefaces.org/ui"
                 xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:f="http://java.sun.com/jsf/core"
-                xmlns:ago="http://java.sun.com/jsf/composite/questiontemplate"
+                xmlns:ago="http://java.sun.com/jsf/composite/questiontemplate" xmlns:uib="http://java.sun.com/jsf/html"
                 template="/templates/questionEdit.xhtml">
 
     <ui:define name="page">
@@ -23,11 +23,17 @@
                                      value="#{gridQuestionController.onlyOneSelectInRow}"/>
 
             <br/>
-            <p:commandButton id="cmdAddRow" value="Add row" action="#{gridQuestionController.addRow}"
-                             update="gridTable"/>
+            <p:commandButton id="cmdEditRow"
+                             value="Edit rows"
+                             action="#{gridQuestionController.editRows()}"
+                             update=":dlgEditListForm"
+                             oncomplete="dlgEditList.show();"/>
             <h:outputText value=" "/>
-            <p:commandButton id="cmdAddCol" value="Add column" action="#{gridQuestionController.addColumn}"
-                             update="gridTable"/>
+            <p:commandButton id="cmdEditCol"
+                             value="Edit columns"
+                             action="#{gridQuestionController.editColumns()}"
+                             update=":dlgEditListForm"
+                             oncomplete="dlgEditList.show();"/>
 
             <p/>
             <p:dataTable id="gridTable"
@@ -39,22 +45,14 @@
                         <p:outputLabel value="" style="width: 200px;"/>
                     </f:facet>
                     <p:outputLabel value="#{gridQuestionController.getRow(row)}"
-                                   style="width: 200px"
-                                   rendered="#{!row.equals(gridQuestionController.editI)}"/>
-                    <p:inputText value="rrrr"
-                                 style="width: 200px"
-                                 rendered="#{row.equals(gridQuestionController.editI)}"/>
+                                   style="width: 200px"/>
                 </p:column>
 
                 <p:columns var="column"
                            value="#{gridQuestionController.columnsSize}">
                     <f:facet name="header">
                         <p:outputLabel value="#{gridQuestionController.getColumn(column)}"
-                                       style="width: 200px;"
-                                       rendered="#{!column.equals(gridQuestionController.editJ)}" />
-                        <p:inputText value="rrrr"
-                                     style="width: 200px"
-                                     rendered="#{column.equals(gridQuestionController.editJ)}"/>
+                                       style="width: 200px;"/>
                     </f:facet>
                     <p:selectBooleanCheckbox
                             value="#{gridQuestionController.setCurrentPosition(row, column).currentSelected}"
@@ -65,5 +63,37 @@
             <br/>
             <ago:buttonsCommon qbuttons="#{gridQuestionController}" id="formWithSaveButtons"/>
         </h:form>
+
+        <p:dialog id="dlgEditListDialog"
+                  header="Edit ..."
+                  widgetVar="dlgEditList"
+                  modal="true" height="200" width="800">
+            <h:form id="dlgEditListForm">
+                <uib:dataTable id="dlgEditListTable"
+                               var="iterator"
+                               value="#{gridEditParamsController.positions}">
+                    <p:column headerText="Delete">
+                        <p:selectBooleanCheckbox
+                                value="#{gridEditParamsController.setPosition(iterator).markAsDelete}"/>
+                    </p:column>
+                    <p:column>
+                        <p:inputText value="#{gridEditParamsController.setPosition(iterator).param}"/>
+                    </p:column>
+                </uib:dataTable>
+
+                <br/>
+                <p:commandButton id="cmdAddParam"
+                                 value="Add"
+                                 action="#{gridEditParamsController.add}"
+                                 update=":dlgEditListForm:dlgEditListTable"/>
+                <h:outputText value=" "/>
+                <p:commandButton id="cmdOk"
+                                 value="OK"
+                                 onclick="submit()"
+                                 oncomplete="dlgEditList.hide()"
+                                 update=":form:gridTable"/>
+            </h:form>
+        </p:dialog>
+
     </ui:define>
 </ui:composition>
