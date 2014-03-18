@@ -24,10 +24,11 @@
                     <f:validateLongRange minimum="#{rangeQuestion.currentQuestion.rangeItem.minValue}"/>
                 </h:inputText>
 
-                <h:outputText value="Default answer: "/>
-                <h:inputText size="50" id="defaultAnswer" value="#{rangeQuestion.currentQuestion.defaultAnswer}">
+                <h:outputText value="Default minimum: "/>
+                <h:inputText size="50" id="defaultMin" value="#{rangeQuestion.currentQuestion.defaultMin}"/>
 
-                </h:inputText>
+                <h:outputText value="Default maximum: "/>
+                <h:inputText size="50" id="defaultMax" value="#{rangeQuestion.currentQuestion.defaultMax}"/>
 
             </h:panelGrid>
 
