@@ -187,6 +187,6 @@ public class TemplateEditController implements Serializable {
 
     public String goToRulePage()
     {
-        return "/pages/ruleEdit.xhtml?faces-redirect=true&includeViewParams=true";
+        return PageNavigator.RULE_EDIT_GROUP_PAGE;
     }
 }
