@@ -106,7 +106,12 @@
                     </group>
                     <group group-id="f1p1g2">
                         <group-name>Personal data without default</group-name>
-                        <group-rules/>
+                        <group-rules>
+                            <group-rule xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="rule">
+                                <parentId>f1p1g1q1</parentId>
+                                <method>this.ruleExecutor.renderedRule('%s', ['123'])</method>
+                            </group-rule>
+                        </group-rules>
                         <questions>
                             <question xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="textQuestionBean" question-id="f1p1g2q1" answer-required="true">
                                 <question-title>What's you're name?</question-title>
