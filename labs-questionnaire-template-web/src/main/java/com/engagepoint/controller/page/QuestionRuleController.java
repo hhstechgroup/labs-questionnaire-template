@@ -191,22 +191,22 @@ public class QuestionRuleController extends RuleController implements Serializab
         if (templateTreeController.getSelectedType().equals("question")) {
             setAnswerAndIdToRule(answers);
         }
-        if(templateTreeController.getSelectedType().equals("group"))
-        {
+        if (templateTreeController.getSelectedType().equals("group")) {
             RenderedRule renderedRule = (RenderedRule) currentRule;
             renderedRule.setAnswers(answers);
             renderedRule.setId(dependentQuestion.getId());
-            ((GroupBean)templateTreeController.getSelectedNode().getData()).getRules().add(renderedRule);
-
+            GroupBean groupBean = (GroupBean) templateTreeController.getSelectedNode().getData();
+            groupBean.getRules().add(renderedRule);
+            setCurrentRules(groupBean.getRules());
         }
-        if(templateTreeController.getSelectedType().equals("section"))
-        {
+        if (templateTreeController.getSelectedType().equals("section")) {
             RenderedRule renderedRule = (RenderedRule) currentRule;
             renderedRule.setAnswers(answers);
             renderedRule.setId(dependentQuestion.getId());
-            ((SectionBean)templateTreeController.getSelectedNode().getData()).getRules().add(renderedRule);
+            SectionBean sectionBean = (SectionBean) templateTreeController.getSelectedNode().getData();
+            sectionBean.getRules().add(renderedRule);
+            setCurrentRules(sectionBean.getRules());
         }
-
         setChooseDependentQuestionListVisible(false);
         setCancelRuleEditionButtonIsVisible(false);
         setAddRulesTableIsVisible(false);
@@ -218,38 +218,38 @@ public class QuestionRuleController extends RuleController implements Serializab
      */
     public void setDependentQuestionAnswer() {
 
-            switch (dependentQuestion.getQuestionType()) {
-                case TEXT:
-                    setTextQuestionBean((TextQuestionBean) dependentQuestion);
-                    break;
-                case DATE:
-                    setDateQuestionBean((DateQuestionBean) dependentQuestion);
-                    break;
-                case RANGE:
-                    setRangeQuestionBean((RangeQuestionBean) dependentQuestion);
-                    break;
-                case TIME:
-                    setDateQuestionBean((DateQuestionBean) dependentQuestion);
-                    break;
-                case PARAGRAPHTEXT:
-                    setTextQuestionBean((TextQuestionBean) dependentQuestion);
-                    break;
-                case CHOOSEFROMLIST:
-                    setOptionsQuestion((ChooseFromListQuestionBean) dependentQuestion);
-                    setDataModel(new ListOfOptionsDataModel(getOptionsQuestion().getOptions()));
-                    break;
-                case MULTIPLECHOICE:
-                    setOptionsQuestion((MultipleChoiceQuestionBean) dependentQuestion);
-                    setDataModel(new ListOfOptionsDataModel(getOptionsQuestion().getOptions()));
-                    break;
-                case CHECKBOX:
-                    setOptionsQuestion((CheckBoxQuestionBean) dependentQuestion);
-                    setDataModel(new ListOfOptionsDataModel(getOptionsQuestion().getOptions()));
-                    break;
-                case GRID:
-                    break;
-                default:
-            }
+        switch (dependentQuestion.getQuestionType()) {
+            case TEXT:
+                setTextQuestionBean((TextQuestionBean) dependentQuestion);
+                break;
+            case DATE:
+                setDateQuestionBean((DateQuestionBean) dependentQuestion);
+                break;
+            case RANGE:
+                setRangeQuestionBean((RangeQuestionBean) dependentQuestion);
+                break;
+            case TIME:
+                setDateQuestionBean((DateQuestionBean) dependentQuestion);
+                break;
+            case PARAGRAPHTEXT:
+                setTextQuestionBean((TextQuestionBean) dependentQuestion);
+                break;
+            case CHOOSEFROMLIST:
+                setOptionsQuestion((ChooseFromListQuestionBean) dependentQuestion);
+                setDataModel(new ListOfOptionsDataModel(getOptionsQuestion().getOptions()));
+                break;
+            case MULTIPLECHOICE:
+                setOptionsQuestion((MultipleChoiceQuestionBean) dependentQuestion);
+                setDataModel(new ListOfOptionsDataModel(getOptionsQuestion().getOptions()));
+                break;
+            case CHECKBOX:
+                setOptionsQuestion((CheckBoxQuestionBean) dependentQuestion);
+                setDataModel(new ListOfOptionsDataModel(getOptionsQuestion().getOptions()));
+                break;
+            case GRID:
+                break;
+            default:
+        }
 
     }
 
