@@ -70,7 +70,7 @@ public abstract class Question extends BasicBean implements Cloneable {
      * Gets next number of page for current template
      * @return SectionId
      */
-    public Long getNextQuestionNumberInGroup() {
+    public final Long getNextQuestionNumberInGroup() {
         List<Question> questionList = groupBean.getQuestionsList();
         if (questionList.isEmpty()) {
             return 1L;
