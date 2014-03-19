@@ -95,4 +95,21 @@ public class RenderedRule extends Rule {
         String answer = answerToString();
         nameXML = xmlTemplate + "(" + "'%s', " + answer + ")";
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof RenderedRule)) return false;
+
+        RenderedRule that = (RenderedRule) o;
+
+        if (answers != null ? !answers.equals(that.answers) : that.answers != null) return false;
+
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        return answers != null ? answers.hashCode() : 0;
+    }
 }

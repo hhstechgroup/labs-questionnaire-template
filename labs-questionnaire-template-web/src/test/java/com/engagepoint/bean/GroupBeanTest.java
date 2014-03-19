@@ -88,8 +88,9 @@ public class GroupBeanTest {
         GroupBean group = mock.creatorGroup();
 
         GroupBean group1 = mock.creatorGroup();
+        group1.setGroupName("blahblah");
 
-
+        Assert.assertFalse(group.equals(group1));
         group1.setGroupName("Decadance");
         group.setGroupName("Hi");
         Assert.assertFalse(group1.equals(group));
@@ -102,7 +103,10 @@ public class GroupBeanTest {
         List<Question> quest2 = new ArrayList<Question>();
         quest2.add(question1);
         Assert.assertFalse(group1.equals(group));
+        group1.setQuestionsList(null);
+        Assert.assertFalse(group1.equals(group));
 
     }
+
 }
 
