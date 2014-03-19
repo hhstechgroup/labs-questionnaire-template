@@ -35,14 +35,18 @@
 								
 					</p:commandButton>
 				</uib:column>
-				
+				<uib:column>
+					<p:commandButton value="Test" id="testdep"
+								style="float:center;"
+                                rendered="#{rulesTestController.dependencies.get(templateEl)!=null}"
+								styleClass="small blue"
+								update="questionstable"/>
+				</uib:column>
 			</uib:dataTable>
-			
 			<br/>
 			<p:commandButton id="back" value="Back" title="Back"
 				action="#{rulesTestController.backToIndex()}">
 			</p:commandButton>
 		</h:form>
-
 	</ui:define>
 </ui:composition>
