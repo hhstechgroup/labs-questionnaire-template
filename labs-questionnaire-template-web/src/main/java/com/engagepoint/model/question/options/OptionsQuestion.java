@@ -65,7 +65,7 @@ public abstract class OptionsQuestion extends Question implements Cloneable {
             defaultOption = new VariantItem(list.get(0));
         }
         catch (StringIndexOutOfBoundsException e) {
-            LOG.warn("String of default answer in XML is empty");
+            LOG.warn("String of default answer in XML is empty", e);
         }
     }
 

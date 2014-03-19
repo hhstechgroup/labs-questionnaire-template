@@ -79,7 +79,7 @@ public class GroupBean extends BasicBean
                 int indexOfP = groupId.lastIndexOf("g");
                 setGroupNumber(Long.valueOf(groupId.substring(indexOfP+1)));
             } catch (NullPointerException e) {
-                LOG.warn("Group Id is null, e");
+                LOG.warn("Group Id is null", e );
             }
             catch (NumberFormatException e) {
                 LOG.warn("Group id is incorrect", e);
