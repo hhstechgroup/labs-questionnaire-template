@@ -9,7 +9,6 @@ import com.engagepoint.model.question.TextQuestionBean;
 import com.engagepoint.model.question.options.CheckBoxQuestionBean;
 import com.engagepoint.model.question.options.ChooseFromListQuestionBean;
 import com.engagepoint.model.question.options.MultipleChoiceQuestionBean;
-import com.engagepoint.model.question.options.OptionsQuestion;
 import com.engagepoint.model.question.rules.RenderedRule;
 import com.engagepoint.model.question.rules.Rule;
 import com.engagepoint.model.question.rules.RulesContainer;
@@ -20,9 +19,6 @@ import com.engagepoint.model.questionnaire.SectionBean;
 import com.engagepoint.model.table.ListOfOptionsDataModel;
 import org.apache.log4j.Logger;
 
-import javax.annotation.PostConstruct;
-import javax.enterprise.context.Conversation;
-import javax.enterprise.context.ConversationScoped;
 import javax.enterprise.context.SessionScoped;
 import javax.enterprise.event.Observes;
 import javax.inject.Inject;
@@ -252,12 +248,18 @@ public class QuestionRuleController extends RuleController implements Serializab
      */
     public List<Question> getQuestions() {
         if(templateTreeController!=null && "question".equals(templateTreeController.getSelectedType())){
-            return getQuestionsForRule();
+            return getQuestionsForQuestionRule();
+        }
+        if(templateTreeController!=null && "group".equals(templateTreeController.getSelectedType())){
+            return getQuestionsForGroupRule();
+        }
+        if(templateTreeController!=null && "section".equals(templateTreeController.getSelectedType())){
+            return getQuestionsForSectionRule();
         }
         return getQuestions1();
     }
 
-    public List<Question> getQuestionsForRule(){
+    private List<Question> getQuestionsForQuestionRule(){
         List<Question> list = new ArrayList<Question>();
         for (Question question : getQuestions1()){
             if(currentQuestion.getId().equals(question.getId())){
@@ -266,6 +268,40 @@ public class QuestionRuleController extends RuleController implements Serializab
             list.add(question);
         }
 
+        return list;
+    }
+
+    private List<Question> getQuestionsForGroupRule(){
+        List<Question> list = new ArrayList<Question>();
+        ITERATION:
+        for (SectionBean sectionBean : getTemplateEditController().getCurrentTemplate().getSectionsList()) {
+            for (GroupBean groupBean : sectionBean.getGroupsList()) {
+                if(groupBean.getId().equals(((GroupBean) templateTreeController.getSelectedNode().getData()).getId())){
+                    break ITERATION;
+                }
+
+                for (Question question : groupBean.getQuestionsList()) {
+                    list.add(question);
+                }
+            }
+        }
+        return list;
+    }
+
+    private List<Question> getQuestionsForSectionRule(){
+        List<Question> list = new ArrayList<Question>();
+        for (SectionBean sectionBean : getTemplateEditController().getCurrentTemplate().getSectionsList()) {
+            if(sectionBean.getId().equals(((SectionBean) templateTreeController.getSelectedNode().getData()).getId())){
+                break;
+            }
+            for (GroupBean groupBean : sectionBean.getGroupsList()) {
+
+
+                for (Question question : groupBean.getQuestionsList()) {
+                    list.add(question);
+                }
+            }
+        }
         return list;
     }
 

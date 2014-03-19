@@ -94,7 +94,7 @@ public class RenderedRule extends Rule {
      * Update rule.
      */
     private void update() {
-        description = "This Question Will be rendered if question with " + "id=" + id + " will have answer=" + answerToString();
+        description = "This Item Will be rendered if question with " + "id=" + id + " will have answer=" + answerToString();
         String answer = answerToString();
         nameXML = xmlTemplate + "(" + "'%s', " + answer + ")";
     }

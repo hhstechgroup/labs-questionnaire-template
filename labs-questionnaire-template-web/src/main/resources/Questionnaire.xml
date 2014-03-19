@@ -366,12 +366,12 @@
 					</page-rule>
 				</page-rules>
 				<groups-of-questions>
-					<group group-id="f2p2g1">
+					<group group-id="f1p2g1">
 						<group-name>Group 1</group-name>
 						<group-rules />
 						<questions>
 							<question xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-								xsi:type="textQuestionBean" question-id="f2p2g1q1"
+								xsi:type="textQuestionBean" question-id="f1p2g1q1"
 								answer-required="false">
 								<question-title>65656</question-title>
 								<question-type>TEXT</question-type>
