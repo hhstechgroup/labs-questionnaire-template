@@ -36,13 +36,10 @@ import java.util.*;
 @Named
 @SessionScoped
 public class QuestionRuleController extends RuleController implements Serializable {
-    @Inject
-    private TemplateEditController templateEditController;
+
     @Inject
     private TemplateTreeController templateTreeController;
-    //dependent question data
-    private String currentDependentQuestionId;
-    private Question dependentQuestion;
+
     //contains all rules
     private RulesContainer rulesContainer;
     //show add rule button
@@ -65,21 +62,6 @@ public class QuestionRuleController extends RuleController implements Serializab
         addRuleButtonIsVisible = true;
     }
 
-    public String getCurrentDependentQuestionId() {
-        return currentDependentQuestionId;
-    }
-
-    public void setCurrentDependentQuestionId(String currentDependentQuestionId) {
-        this.currentDependentQuestionId = currentDependentQuestionId;
-    }
-
-    public Question getDependentQuestion() {
-        return dependentQuestion;
-    }
-
-    public void setDependentQuestion(Question dependentQuestion) {
-        this.dependentQuestion = dependentQuestion;
-    }
 
     public RulesContainer getRulesContainer() {
         return rulesContainer;
@@ -158,7 +140,7 @@ public class QuestionRuleController extends RuleController implements Serializab
     public void saveRuleAnswerAction() {
         List<String> answers = new ArrayList<String>();
         String answer = null;
-        switch (dependentQuestion.getQuestionType()) {
+        switch (getDependentQuestion().getQuestionType()) {
             case TEXT:
                 answer = getTextData();
                 break;
@@ -219,7 +201,7 @@ public class QuestionRuleController extends RuleController implements Serializab
     private RenderedRule createRuleObject(List<String> answers) {
         RenderedRule renderedRule = (RenderedRule) currentRule;
         renderedRule.setAnswers(answers);
-        renderedRule.setId(dependentQuestion.getId());
+        renderedRule.setId(getDependentQuestion().getId());
         return renderedRule;
     }
 
@@ -228,38 +210,39 @@ public class QuestionRuleController extends RuleController implements Serializab
      */
     public void setDependentQuestionAnswer() {
 
-        switch (dependentQuestion.getQuestionType()) {
+        switch (getDependentQuestion().getQuestionType()) {
             case TEXT:
-                setTextQuestionBean((TextQuestionBean) dependentQuestion);
+                setTextQuestionBean((TextQuestionBean) getDependentQuestion());
                 break;
             case DATE:
-                setDateQuestionBean((DateQuestionBean) dependentQuestion);
+                setDateQuestionBean((DateQuestionBean) getDependentQuestion());
                 break;
             case RANGE:
-                setRangeQuestionBean((RangeQuestionBean) dependentQuestion);
+                setRangeQuestionBean((RangeQuestionBean) getDependentQuestion());
                 break;
             case TIME:
-                setDateQuestionBean((DateQuestionBean) dependentQuestion);
+                setDateQuestionBean((DateQuestionBean) getDependentQuestion());
                 break;
             case PARAGRAPHTEXT:
-                setTextQuestionBean((TextQuestionBean) dependentQuestion);
+                setTextQuestionBean((TextQuestionBean) getDependentQuestion());
                 break;
             case CHOOSEFROMLIST:
-                setOptionsQuestion((ChooseFromListQuestionBean) dependentQuestion);
+                setOptionsQuestion((ChooseFromListQuestionBean) getDependentQuestion());
                 setDataModel(new ListOfOptionsDataModel(getOptionsQuestion().getOptions()));
                 break;
             case MULTIPLECHOICE:
-                setOptionsQuestion((MultipleChoiceQuestionBean) dependentQuestion);
+                setOptionsQuestion((MultipleChoiceQuestionBean) getDependentQuestion());
                 setDataModel(new ListOfOptionsDataModel(getOptionsQuestion().getOptions()));
                 break;
             case CHECKBOX:
-                setOptionsQuestion((CheckBoxQuestionBean) dependentQuestion);
+                setOptionsQuestion((CheckBoxQuestionBean) getDependentQuestion());
                 setDataModel(new ListOfOptionsDataModel(getOptionsQuestion().getOptions()));
                 break;
             case GRID:
                 break;
             default:
         }
+
     }
 
     /**
@@ -269,7 +252,7 @@ public class QuestionRuleController extends RuleController implements Serializab
      */
     public List<Question> getQuestions() {
         List<Question> list = new ArrayList<Question>();
-        for (SectionBean sectionBean : templateEditController.getCurrentTemplate().getSectionsList()) {
+        for (SectionBean sectionBean : getTemplateEditController().getCurrentTemplate().getSectionsList()) {
             for (GroupBean groupBean : sectionBean.getGroupsList()) {
                 for (Question question : groupBean.getQuestionsList()) {
                     list.add(question);
@@ -279,37 +262,6 @@ public class QuestionRuleController extends RuleController implements Serializab
         return list;
     }
 
-    public List<Question> getQuestionsForRule(){
-        List<Question> list = new ArrayList<Question>();
-        for (Question question : getQuestions()){
-            if(currentQuestion.getId().equals(question.getId()))
-                break;
-            list.add(question);
-        }
-
-        return list;
-    }
-
-    /**
-     * Get current dependent question type.
-     *
-     * @return question type
-     */
-    public String getCurrentDependentQuestionType() {
-        if (currentDependentQuestionId != null) {
-            for (SectionBean sectionBean : templateEditController.getCurrentTemplate().getSectionsList()) {
-                for (GroupBean groupBean : sectionBean.getGroupsList()) {
-                    for (Question question : groupBean.getQuestionsList()) {
-                        if (String.valueOf(question.getId()).equals(currentDependentQuestionId)) {
-                            dependentQuestion = question;
-                            return question.getQuestionType().toString();
-                        }
-                    }
-                }
-            }
-        }
-        return "question type is not chose";
-    }
 
     public List<Rule> getCurrentRules() {
         if (templateTreeController.getSelectedType().equals("section")) {
@@ -335,7 +287,6 @@ public class QuestionRuleController extends RuleController implements Serializab
 
     public void cancelAll() {
         currentRules = null;
-        currentQuestion = null;
     }
 
     public List<Question> getAllQuestionsThatSetDependence() {
@@ -389,7 +340,7 @@ public class QuestionRuleController extends RuleController implements Serializab
             case RENDERED:
                 RenderedRule renderedRule = (RenderedRule) currentRule;
                 renderedRule.setAnswers(answers);
-                renderedRule.setId(dependentQuestion.getId());
+                renderedRule.setId(getDependentQuestion().getId());
                 break;
             default:
         }
@@ -403,13 +354,10 @@ public class QuestionRuleController extends RuleController implements Serializab
     void saveRuleToQuestion(@Observes @SaveQuestion Question question) {
         question.setRules(currentRules);
         currentRules = null;
-        currentQuestion = null;
     }
 
     void setCurrentQuestion(@Observes @NewQuestion Question question) {
-        if(currentQuestion==null){
-            currentQuestion = question;
-        }
+        currentQuestion = question;
         currentRules = question.getRules();
         if (currentRules == null) {
             if (question.getRules().size() != 0) {
