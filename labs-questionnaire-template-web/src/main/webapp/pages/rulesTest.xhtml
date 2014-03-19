@@ -12,7 +12,7 @@
 
 		<h:form id="form1">
 			<h:outputText value="TEMPLATE ID: "/>
-			<h:outputText value="#{rulesTestController.listController.currentTemplate.id}"/>
+			<h:outputText value="#{rulesTestController.currentTemplate.id}"/>
 			<br/>
 			
 			<uib:dataTable id="questionstable" var="templateEl" 
@@ -46,10 +46,11 @@
 			</uib:dataTable>
 			<br/>
 			<p:commandButton id="back" value="Back" title="Back"
-				action="#{rulesTestController.backToIndex()}">
+				action="#{listController.income()}">
 			</p:commandButton>
-
-            <p:dialog widgetVar="dlgSetAnswer"
+			
+			
+			 <p:dialog widgetVar="dlgSetAnswer"
                       modal="true" closable="true">
                 <p:panel id="SetAnswerPanel">
                     <br/>
@@ -114,6 +115,9 @@
                     <p:commandButton value="Save" onclick="dlgSetAnswer.hide()" />
                 </p:panel>
             </p:dialog>
+
+
+           
 
 		</h:form>
 	</ui:define>

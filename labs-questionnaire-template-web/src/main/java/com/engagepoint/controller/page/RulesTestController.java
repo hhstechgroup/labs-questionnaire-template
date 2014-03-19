@@ -2,7 +2,7 @@ package com.engagepoint.controller.page;
 
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.Conversation;
-import javax.enterprise.context.ConversationScoped;
+import javax.enterprise.context.SessionScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
@@ -11,6 +11,7 @@ import com.engagepoint.model.question.rules.Rule;
 import com.engagepoint.model.questionnaire.BasicBean;
 import com.engagepoint.model.questionnaire.GroupBean;
 import com.engagepoint.model.questionnaire.SectionBean;
+import com.engagepoint.model.questionnaire.TemplateBean;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -19,25 +20,22 @@ import java.util.List;
 import java.util.Map;
 
 @Named
-@ConversationScoped
-public class RulesTestController extends RuleController implements Serializable{
+@SessionScoped
+public class RulesTestController extends RuleController implements Serializable { 
 
 	private List<BasicBean> templateElementsList;
 	private Map<BasicBean, List<BasicBean>> dependencies;
 	private Map<BasicBean, String> styles;
 
-	@Inject
-	Conversation conversation;
-
-	@Inject
-	ListController listController;
-
-	@PostConstruct
-	public void postconstruct() {
-		conversation.begin();
+	private TemplateBean currentTemplate;
+	
+	public void resetRulerList(){
 		prepareQuestionList();
 		prepareDependencies();
+		if(styles!=null)
+			styles.clear();
 	}
+	
 
 	public Map<BasicBean, List<BasicBean>> getDependencies() {
 		return dependencies;
@@ -55,22 +53,14 @@ public class RulesTestController extends RuleController implements Serializable{
 		this.templateElementsList = templateElementsList;
 	}
 
-	public ListController getListController() {
-		return listController;
-	}
-
-	public void setListController(ListController listController) {
-		this.listController = listController;
-	}
-
+	
 	/**
 	 * build a list of all template elements from current template
 	 */
 	private void prepareQuestionList() {
-		if (listController.getCurrentTemplate() != null) {
+		if (currentTemplate != null) {
 			templateElementsList = new ArrayList<BasicBean>();
-			for (SectionBean s : listController.getCurrentTemplate()
-					.getSectionsList()) {
+			for (SectionBean s : currentTemplate.getSectionsList()) {
 				templateElementsList.add(s);
 				for (GroupBean gr : s.getGroupsList()) {
 					templateElementsList.add(gr);
@@ -147,16 +137,6 @@ public class RulesTestController extends RuleController implements Serializable{
 	}
 
 	/**
-	 * close current conversation and go back to index
-	 * 
-	 * @return
-	 */
-	public String backToIndex() {
-		conversation.end();
-		return PageNavigator.INDEX_PAGE;
-	}
-
-	/**
 	 * TODO TEMP method for development phase, will
 	 * 
 	 * @param q
@@ -202,11 +182,13 @@ public class RulesTestController extends RuleController implements Serializable{
 		setRedColour(basicBean);
 	}
 
+	
+	
 	private void setRedColour(BasicBean basicBean) {
 		List<BasicBean> dependent = dependencies.get(basicBean);
 
 		if (dependent != null) {
-			for (int i = 0; i <= dependent.size(); i++) { // TODO SHOULD BE
+			for (int i = 0; i < dependent.size(); i++) { // TODO SHOULD BE
 															// TESTED!!!!
 				BasicBean bb = dependent.get(i);
 				if ("question".equals(bb.getType())) {
@@ -242,6 +224,18 @@ public class RulesTestController extends RuleController implements Serializable{
 			setRedColour(templateElementsList.get(i));
 		}
 
+	}
+
+
+	public TemplateBean getCurrentTemplate() {
+		return currentTemplate;
+	}
+
+
+	public void setCurrentTemplate(TemplateBean currentTemplate) {
+		this.currentTemplate = currentTemplate;
+		resetRulerList();				//TODO change to invocation
+		
 	}
 
 }

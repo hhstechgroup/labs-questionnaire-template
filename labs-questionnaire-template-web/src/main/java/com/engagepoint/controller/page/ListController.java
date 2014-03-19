@@ -30,7 +30,7 @@ public class ListController implements Serializable {
     private List<TemplateBean> selectedTemplates;
     private ListOfTemplatesDataModel templatesModel;
     private String filterValue = "";
-    private TemplateBean currentTemplate;
+    
     private static final Logger LOG = Logger.getLogger(ListController.class);
 
     public ListController() {
@@ -247,13 +247,5 @@ public class ListController implements Serializable {
      */
     public static String income() {
         return PageNavigator.INDEX_PAGE;
-    }
-
-    public TemplateBean getCurrentTemplate() {
-        return currentTemplate;
-    }
-
-    public void setCurrentTemplate(TemplateBean currentTemplate) {
-        this.currentTemplate = currentTemplate;
     }
 }
