@@ -67,8 +67,10 @@ public class DateQuestionBean extends Question {
         try {
             defaultDate = parseStringToDate(list.get(0), getDateFormat());
         }catch (StringIndexOutOfBoundsException e) {
+            System.out.println("Hi");
             //log that string of default answer in XML is empty
         }catch (ParseException pe) {
+            System.out.println("Hi");
             //log that format of date is incorrect
         }
     }
