@@ -185,8 +185,7 @@ public class TemplateEditController implements Serializable {
         return PageNavigator.TEMPLATE_EDIT_PAGE;
     }
 
-    public String goToRulePage()
-    {
+    public String goToRulePage(){
         return PageNavigator.RULE_EDIT_GROUP_PAGE;
     }
 }

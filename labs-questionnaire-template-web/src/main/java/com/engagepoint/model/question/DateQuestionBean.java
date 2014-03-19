@@ -26,8 +26,8 @@ import java.util.List;
 })
 public class DateQuestionBean extends Question {
     private static final Logger LOG = Logger.getLogger(DateQuestionBean.class);
-    public static SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("dd-MM-yyyy");
-    public static SimpleDateFormat TIME_FORMAT = new SimpleDateFormat("HH:mm");
+    public static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("dd-MM-yyyy");
+    public static final SimpleDateFormat TIME_FORMAT = new SimpleDateFormat("HH:mm");
 
     //Parses given string to produce a date in given format.
     public static Date parseStringToDate(String target, SimpleDateFormat format) throws ParseException{

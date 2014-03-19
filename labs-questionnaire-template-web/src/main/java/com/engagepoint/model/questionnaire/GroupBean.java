@@ -78,10 +78,7 @@ public class GroupBean extends BasicBean
             try {
                 int indexOfP = groupId.lastIndexOf("g");
                 setGroupNumber(Long.valueOf(groupId.substring(indexOfP+1)));
-            } catch (NullPointerException e) {
-                LOG.warn("Group Id is null", e );
-            }
-            catch (NumberFormatException e) {
+            } catch (NumberFormatException e) {
                 LOG.warn("Group id is incorrect", e);
             }
         }
@@ -95,9 +92,8 @@ public class GroupBean extends BasicBean
         List<GroupBean> groupList = sectionBean.getGroupsList();
         if (groupList.isEmpty()) {
             return 1L;
-        }
-        else {
-            return ((groupList.get(groupList.size()-1)).getGroupNumber()+1);
+        }else {
+            return groupList.get(groupList.size()-1).getGroupNumber()+1;
         }
     }
 

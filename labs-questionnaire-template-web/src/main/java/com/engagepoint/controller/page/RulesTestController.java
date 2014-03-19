@@ -209,13 +209,13 @@ public class RulesTestController extends RuleController implements Serializable{
 			for (int i = 0; i <= dependent.size(); i++) { // TODO SHOULD BE
 															// TESTED!!!!
 				BasicBean bb = dependent.get(i);
-				if (bb.getType().equals("question")) {
+				if ("question".equals(bb.getType())) {
 					styles.put(bb, "red");
 					setRedColour(bb); // set Red to all dependent elements from
 										// this question
-				} else if (bb.getType().equals("group")) {
+				} else if ("group".equals(bb.getType())) {
 					setRedGroup(bb);
-				} else if (bb.getType().equals("section")) {
+				} else if ("section".equals(bb.getType())) {
 					setRedSection(bb);
 				}
 			}
@@ -226,8 +226,7 @@ public class RulesTestController extends RuleController implements Serializable{
 		styles.put(bb, "red");
 		for (int i = templateElementsList.indexOf(bb) + 1; i < templateElementsList
 				.size()
-				&& (templateElementsList.get(i).getType().equals("group") || templateElementsList
-						.get(i).getType().equals("question")); i++) {
+				&& ("group".equals(templateElementsList.get(i).getType()) || "question".equals(templateElementsList.get(i).getType())); i++) {
 			styles.put(templateElementsList.get(i), "red");
 			setRedColour(templateElementsList.get(i));
 		}
@@ -238,7 +237,7 @@ public class RulesTestController extends RuleController implements Serializable{
 		styles.put(bb, "red");
 		for (int i = templateElementsList.indexOf(bb) + 1; i < templateElementsList
 				.size()
-				&& templateElementsList.get(i).getType().equals("question"); i++) {
+				&& "question".equals(templateElementsList.get(i).getType()); i++) {
 			styles.put(templateElementsList.get(i), "red");
 			setRedColour(templateElementsList.get(i));
 		}

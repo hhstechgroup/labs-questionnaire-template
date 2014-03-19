@@ -9,9 +9,6 @@ import static com.engagepoint.model.question.rules.RuleType.RENDERED;
  * Contains all rules.
  */
 public class RulesContainer {
-    public static void main(String[] args) {
-
-    }
     private Map<String, RuleType> supportedRules;
 
     public RulesContainer() {

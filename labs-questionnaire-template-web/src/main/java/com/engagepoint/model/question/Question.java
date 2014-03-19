@@ -75,9 +75,8 @@ public abstract class Question extends BasicBean implements Cloneable {
         List<Question> questionList = groupBean.getQuestionsList();
         if (questionList.isEmpty()) {
             return 1L;
-        }
-        else {
-            return ((questionList.get(questionList.size()-1)).getQuestionNumber()+1);
+        }else {
+            return questionList.get(questionList.size()-1).getQuestionNumber()+1;
         }
     }
 
@@ -104,11 +103,8 @@ public abstract class Question extends BasicBean implements Cloneable {
             try {
                 int indexOfP = questionId.lastIndexOf("q");
                 setQuestionNumber(Long.valueOf(questionId.substring(indexOfP+1)));
-            } catch (NullPointerException e) {
-                LOG.warn("NullPointerException", e);
-            }
-            catch (NumberFormatException e) {
-                LOG.warn("Id is not correct", e);
+            } catch (NumberFormatException e) {
+              LOG.warn("Id is not correct", e);
             }
         }
     }
@@ -206,8 +202,7 @@ public abstract class Question extends BasicBean implements Cloneable {
         if (requiredAnswer != question.requiredAnswer) {
             return false;
         }
-        /*if (defaultAnswers != null ? !defaultAnswers.equals(question.defaultAnswers) : question.defaultAnswers != null)
-            return false;*/
+
         if (helpText != null ? !helpText.equals(question.helpText) : question.helpText != null) {
             return false;
         }
@@ -220,7 +215,7 @@ public abstract class Question extends BasicBean implements Cloneable {
         if (questionNumber != null ? !questionNumber.equals(question.questionNumber) : question.questionNumber != null) {
             return false;
         }
-        //if (rules != null ? !rules.equals(question.rules) : question.rules != null) return false;
+
 
         return true;
     }
@@ -232,8 +227,7 @@ public abstract class Question extends BasicBean implements Cloneable {
         result = 31 * result + (helpText != null ? helpText.hashCode() : 0);
         result = 31 * result + questionText.hashCode();
         result = 31 * result + questionType.hashCode();
-        /*result = 31 * result + (rules != null ? rules.hashCode() : 0);
-        result = 31 * result + (defaultAnswers != null ? defaultAnswers.hashCode() : 0);*/
+
         return result;
     }
 

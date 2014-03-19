@@ -24,7 +24,7 @@ import java.util.List;
 })
 public class SectionBean extends BasicBean
         implements Cloneable, Serializable, BasicOperationWithBean {
-    private static Long lastId = 1L;
+
 
     private String pageId; //absolutely unique and consists of template id and page number (f.e. f1p1)
     private Long pageNumber; //unique in template

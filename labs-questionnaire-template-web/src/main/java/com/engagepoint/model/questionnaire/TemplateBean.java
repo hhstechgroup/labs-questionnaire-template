@@ -114,14 +114,12 @@ public class TemplateBean implements Cloneable, Comparable<TemplateBean>, BasicO
     @Override
     public Object clone() throws CloneNotSupportedException {
         TemplateBean copy = clone1(getLastId());
-        //copy.setId();
         return copy;
     }
 
     public TemplateBean duplicate() throws CloneNotSupportedException {
         duplicate = true;
         TemplateBean copy = clone1(this.id);
-        //copy.setId();
         duplicate = false;
         return copy;
     }

@@ -171,17 +171,17 @@ public class QuestionRuleController extends RuleController implements Serializab
         }
         answers.add(answer);
         //save rule for question
-        if (templateTreeController.getSelectedType().equals("question")) {
+        if ("question".equals(templateTreeController.getSelectedType())) {
             setAnswerAndIdToRule(answers);
         }
         //save rule for group
-        if (templateTreeController.getSelectedType().equals("group")) {
+        if ("group".equals(templateTreeController.getSelectedType())) {
             GroupBean groupBean = (GroupBean) templateTreeController.getSelectedNode().getData();
             groupBean.getRules().add(createRuleObject(answers));
             setCurrentRules(groupBean.getRules());
         }
         //save rule for section
-        if (templateTreeController.getSelectedType().equals("section")) {
+        if ("section".equals(templateTreeController.getSelectedType())) {
             SectionBean sectionBean = (SectionBean) templateTreeController.getSelectedNode().getData();
             sectionBean.getRules().add(createRuleObject(answers));
             setCurrentRules(sectionBean.getRules());
@@ -251,7 +251,7 @@ public class QuestionRuleController extends RuleController implements Serializab
      * @return list of questions.
      */
     public List<Question> getQuestions() {
-        if(templateTreeController!=null && templateTreeController.getSelectedType().equals("question")){
+        if(templateTreeController!=null && "question".equals(templateTreeController.getSelectedType())){
             return getQuestionsForRule();
         }
         return getQuestions1();
@@ -271,10 +271,10 @@ public class QuestionRuleController extends RuleController implements Serializab
 
 
     public List<Rule> getCurrentRules() {
-        if (templateTreeController.getSelectedType().equals("section")) {
+        if ("section".equals(templateTreeController.getSelectedType())) {
             currentRules = ((SectionBean) templateTreeController.getSelectedNode().getData()).getPageRules();
         }
-        if (templateTreeController.getSelectedType().equals("group")) {
+        if ("group".equals(templateTreeController.getSelectedType())) {
             currentRules = ((GroupBean) templateTreeController.getSelectedNode().getData()).getGroupRules();
         }
         return currentRules;
@@ -381,7 +381,6 @@ public class QuestionRuleController extends RuleController implements Serializab
         if(currentQuestion==null){
             currentQuestion = question;
         }
-        //currentRules = question.getRules();
         if (currentRules == null) {
             if (question.getRules().size() != 0) {
                 currentRules = cloneRulesList(question.getRules());
