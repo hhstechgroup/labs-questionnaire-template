@@ -38,6 +38,8 @@ import java.util.*;
 public class QuestionRuleController extends RuleController implements Serializable {
     @Inject
     private TemplateEditController templateEditController;
+    @Inject
+    private TemplateTreeController templateTreeController;
     //dependent question data
     private String currentDependentQuestionId;
     private Question dependentQuestion;
@@ -186,7 +188,22 @@ public class QuestionRuleController extends RuleController implements Serializab
             default:
         }
         answers.add(answer);
-        setAnswerAndIdToRule(answers);
+        //save rule for question
+        if (templateTreeController.getSelectedType().equals("question")) {
+            setAnswerAndIdToRule(answers);
+        }
+        //save rule for group
+        if (templateTreeController.getSelectedType().equals("group")) {
+            GroupBean groupBean = (GroupBean) templateTreeController.getSelectedNode().getData();
+            groupBean.getRules().add(createRuleObject(answers));
+            setCurrentRules(groupBean.getRules());
+        }
+        //save rule for section
+        if (templateTreeController.getSelectedType().equals("section")) {
+            SectionBean sectionBean = (SectionBean) templateTreeController.getSelectedNode().getData();
+            sectionBean.getRules().add(createRuleObject(answers));
+            setCurrentRules(sectionBean.getRules());
+        }
         setChooseDependentQuestionListVisible(false);
         setCancelRuleEditionButtonIsVisible(false);
         setAddRulesTableIsVisible(false);
@@ -194,9 +211,23 @@ public class QuestionRuleController extends RuleController implements Serializab
     }
 
     /**
+     * Create rule object.
+     *
+     * @param answers answers for rule.
+     * @return
+     */
+    private RenderedRule createRuleObject(List<String> answers) {
+        RenderedRule renderedRule = (RenderedRule) currentRule;
+        renderedRule.setAnswers(answers);
+        renderedRule.setId(dependentQuestion.getId());
+        return renderedRule;
+    }
+
+    /**
      * Action on click Set Answer button.
      */
     public void setDependentQuestionAnswer() {
+
         switch (dependentQuestion.getQuestionType()) {
             case TEXT:
                 setTextQuestionBean((TextQuestionBean) dependentQuestion);
@@ -229,6 +260,7 @@ public class QuestionRuleController extends RuleController implements Serializab
                 break;
             default:
         }
+
     }
 
     /**
@@ -270,6 +302,12 @@ public class QuestionRuleController extends RuleController implements Serializab
     }
 
     public List<Rule> getCurrentRules() {
+        if (templateTreeController.getSelectedType().equals("section")) {
+            currentRules = ((SectionBean) templateTreeController.getSelectedNode().getData()).getPageRules();
+        }
+        if (templateTreeController.getSelectedType().equals("group")) {
+            currentRules = ((GroupBean) templateTreeController.getSelectedNode().getData()).getGroupRules();
+        }
         return currentRules;
     }
 
@@ -358,6 +396,7 @@ public class QuestionRuleController extends RuleController implements Serializab
 
     void setCurrentQuestion(@Observes @NewQuestion Question question) {
         currentQuestion = question;
+        currentRules = question.getRules();
         if (currentRules == null) {
             if (question.getRules().size() != 0) {
                 currentRules = cloneRulesList(question.getRules());
