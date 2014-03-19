@@ -20,7 +20,6 @@ public class GridQuestionController extends QuestionEditController implements Se
     GridQuestionBean currentQuestion;
     int currentI;
     int currentJ;
-    List<String> params;
 
     @Inject
     TemplateEditController templateEditController;
@@ -33,8 +32,6 @@ public class GridQuestionController extends QuestionEditController implements Se
             setNew(true);
             currentQuestion = new GridQuestionBean(getTemplateTreeController().getCurrentGroup());
             currentQuestion.setQuestionType(templateEditController.getSelectedQuestionType());
-            currentQuestion.addRow("First row");
-            currentQuestion.addCol("First column");
         } else {
             currentQuestion = (GridQuestionBean) question;
         }
@@ -65,19 +62,17 @@ public class GridQuestionController extends QuestionEditController implements Se
     }
 
     public String getRow(String i) {
+        if (currentQuestion.getRows().get(Integer.parseInt(i)).length() > 10) {
+            return currentQuestion.getRows().get(Integer.parseInt(i)).substring(0, 10) + "...";
+        }
         return currentQuestion.getRows().get(Integer.parseInt(i));
     }
 
     public String getColumn(String j) {
+        if (currentQuestion.getCols().get(Integer.parseInt(j)).length() > 10) {
+            return currentQuestion.getCols().get(Integer.parseInt(j)).substring(0, 10) + "...";
+        }
         return currentQuestion.getCols().get(Integer.parseInt(j));
-    }
-
-    public void editRows() {
-        params = currentQuestion.getRows();
-    }
-
-    public void editColumns() {
-        params = currentQuestion.getCols();
     }
 
     public GridQuestionController setCurrentPosition(String i, String j) {
@@ -116,7 +111,19 @@ public class GridQuestionController extends QuestionEditController implements Se
         return super.actionSave();
     }
 
-    public List<String> getParams() {
-        return params;
+    public void setAddRow(String name) {
+        currentQuestion.addRow(name);
+    }
+
+    public String getAddRow() {
+        return "";
+    }
+
+    public void setAddCol(String name) {
+        currentQuestion.addCol(name);
+    }
+
+    public String getAddCol() {
+        return "";
     }
 }
