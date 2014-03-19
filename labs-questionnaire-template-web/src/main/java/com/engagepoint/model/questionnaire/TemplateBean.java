@@ -128,14 +128,24 @@ public class TemplateBean implements Cloneable, Comparable<TemplateBean>, BasicO
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o){
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
 
         TemplateBean that = (TemplateBean) o;
 
-        if (!formId.equals(that.formId)) return false;
-        if (sectionsList != null ? !sectionsList.equals(that.sectionsList) : that.sectionsList != null) return false;
-        if (!templateName.equals(that.templateName)) return false;
+        if (!formId.equals(that.formId)) {
+            return false;
+        }
+        if (sectionsList != null ? !sectionsList.equals(that.sectionsList) : that.sectionsList != null){
+            return false;
+        }
+        if (!templateName.equals(that.templateName)) {
+            return false;
+        }
 
         return true;
     }

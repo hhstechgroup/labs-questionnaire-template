@@ -141,14 +141,24 @@ public class SectionBean extends BasicBean
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o){
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
 
         SectionBean that = (SectionBean) o;
 
-        if (groupsList != null ? !groupsList.equals(that.groupsList) : that.groupsList != null) return false;
-        if (pageNumber != null ? !pageNumber.equals(that.pageNumber) : that.pageNumber != null) return false;
-        if (pageName != null ? !pageName.equals(that.pageName) : that.pageName != null) return false;
+        if (groupsList != null ? !groupsList.equals(that.groupsList) : that.groupsList != null) {
+            return false;
+        }
+        if (pageNumber != null ? !pageNumber.equals(that.pageNumber) : that.pageNumber != null){
+            return false;
+        }
+        if (pageName != null ? !pageName.equals(that.pageName) : that.pageName != null){
+            return false;
+        }
 
         return true;
     }

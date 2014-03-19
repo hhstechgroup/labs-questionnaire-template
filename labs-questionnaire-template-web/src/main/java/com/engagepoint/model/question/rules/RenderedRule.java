@@ -101,12 +101,18 @@ public class RenderedRule extends Rule {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof RenderedRule)) return false;
+        if (this == o){
+            return true;
+        }
+        if (!(o instanceof RenderedRule)){
+            return false;
+        }
 
         RenderedRule that = (RenderedRule) o;
 
-        if (answers != null ? !answers.equals(that.answers) : that.answers != null) return false;
+        if (answers != null ? !answers.equals(that.answers) : that.answers != null) {
+            return false;
+        }
 
         return true;
     }

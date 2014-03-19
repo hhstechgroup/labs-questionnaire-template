@@ -165,15 +165,21 @@ public class GroupBean extends BasicBean
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()){
+            return false;
+        }
 
         GroupBean groupBean = (GroupBean) o;
 
-        if (groupName != null ? !groupName.equals(groupBean.groupName) : groupBean.groupName != null) return false;
-        if (questionsList != null ? !questionsList.equals(groupBean.questionsList) : groupBean.questionsList != null)
+        if (groupName != null ? !groupName.equals(groupBean.groupName) : groupBean.groupName != null){
             return false;
-
+        }
+        if (questionsList != null ? !questionsList.equals(groupBean.questionsList) : groupBean.questionsList != null){
+            return false;
+        }
         return true;
     }
 

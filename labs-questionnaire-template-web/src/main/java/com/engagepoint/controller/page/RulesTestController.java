@@ -171,8 +171,9 @@ public class RulesTestController extends RuleController implements Serializable{
 
 		String res = "";
 
-		for (BasicBean bb : result)
+		for (BasicBean bb : result){
 			res += bb.getId() + " ";
+        }
 		return res;
 	}
 
@@ -184,15 +185,16 @@ public class RulesTestController extends RuleController implements Serializable{
 	 */
 	public String getStyle(BasicBean q) {
 
-		if (styles != null && styles.get(q) != null)
+		if (styles != null && styles.get(q) != null){
 			return "background-color: " + styles.get(q) + ";color: white;";
+        }
 		return "";
 	}
 
 	/**
 	 * set style green for this question and red for depended elements
 	 * 
-	 * @param q
+	 * @param
 	 */
 	public void setStyles(BasicBean basicBean) {
 		styles = new HashMap<BasicBean, String>();

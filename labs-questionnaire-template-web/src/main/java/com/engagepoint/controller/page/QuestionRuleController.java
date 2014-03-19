@@ -260,8 +260,9 @@ public class QuestionRuleController extends RuleController implements Serializab
     public List<Question> getQuestionsForRule(){
         List<Question> list = new ArrayList<Question>();
         for (Question question : getQuestions1()){
-            if(currentQuestion.getId().equals(question.getId()))
+            if(currentQuestion.getId().equals(question.getId())){
                 break;
+            }
             list.add(question);
         }
 
