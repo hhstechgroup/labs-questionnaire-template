@@ -100,7 +100,7 @@ public abstract class Question extends BasicBean implements Cloneable {
         //must set group number from xml
         if (questionNumber==null) {
             try {
-                int indexOfP = questionId.lastIndexOf("q");
+                int indexOfP = questionId.lastIndexOf('q');
                 setQuestionNumber(Long.valueOf(questionId.substring(indexOfP+1)));
             } catch (NumberFormatException e) {
               LOG.warn("Id is not correct", e);

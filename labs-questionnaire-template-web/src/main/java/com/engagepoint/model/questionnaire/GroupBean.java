@@ -76,7 +76,7 @@ public class GroupBean extends BasicBean
         //must set group number from xml
         if (groupNumber==null) {
             try {
-                int indexOfP = groupId.lastIndexOf("g");
+                int indexOfP = groupId.lastIndexOf('g');
                 setGroupNumber(Long.valueOf(groupId.substring(indexOfP+1)));
             } catch (NumberFormatException e) {
                 LOG.warn("Group id is incorrect", e);
