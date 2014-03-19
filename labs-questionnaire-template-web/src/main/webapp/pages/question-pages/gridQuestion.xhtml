@@ -24,16 +24,12 @@
 
             <br/>
             <p:commandButton id="cmdEditRow"
-                             value="Edit rows"
-                             action="#{gridQuestionController.editRows()}"
-                             update=":dlgEditListForm"
-                             oncomplete="dlgEditList.show();"/>
+                             value="Add row"
+                             oncomplete="dlgAddRow.show();"/>
             <h:outputText value=" "/>
             <p:commandButton id="cmdEditCol"
-                             value="Edit columns"
-                             action="#{gridQuestionController.editColumns()}"
-                             update=":dlgEditListForm"
-                             oncomplete="dlgEditList.show();"/>
+                             value="Add column"
+                             oncomplete="dlgAddCol.show();"/>
 
             <p/>
             <p:dataTable id="gridTable"
@@ -42,58 +38,54 @@
                          scrollable="true">
                 <p:column>
                     <f:facet name="header">
-                        <p:outputLabel value="" style="width: 200px;"/>
+                        <p:outputLabel value="" style="width: 100px;"/>
                     </f:facet>
                     <p:outputLabel value="#{gridQuestionController.getRow(row)}"
-                                   style="width: 200px"/>
+                                   style="width: 100px"/>
                 </p:column>
 
                 <p:columns var="column"
                            value="#{gridQuestionController.columnsSize}">
                     <f:facet name="header">
                         <p:outputLabel value="#{gridQuestionController.getColumn(column)}"
-                                       style="width: 200px;"/>
+                                       style="width: 100px;"/>
                     </f:facet>
                     <p:selectBooleanCheckbox
                             value="#{gridQuestionController.setCurrentPosition(row, column).currentSelected}"
-                            style="width: 200px;"/>
+                            style="width: 100px;"/>
                 </p:columns>
             </p:dataTable>
 
             <br/>
             <ago:buttonsCommon qbuttons="#{gridQuestionController}" id="formWithSaveButtons"/>
+
         </h:form>
 
-        <p:dialog id="dlgEditListDialog"
-                  header="Edit ..."
-                  widgetVar="dlgEditList"
-                  modal="true" height="200" width="800">
-            <h:form id="dlgEditListForm">
-                <uib:dataTable id="dlgEditListTable"
-                               var="iterator"
-                               value="#{gridEditParamsController.positions}">
-                    <p:column headerText="Delete">
-                        <p:selectBooleanCheckbox
-                                value="#{gridEditParamsController.setPosition(iterator).markAsDelete}"/>
-                    </p:column>
-                    <p:column>
-                        <p:inputText value="#{gridEditParamsController.setPosition(iterator).param}"/>
-                    </p:column>
-                </uib:dataTable>
-
-                <br/>
-                <p:commandButton id="cmdAddParam"
-                                 value="Add"
-                                 action="#{gridEditParamsController.add}"
-                                 update=":dlgEditListForm:dlgEditListTable"/>
-                <h:outputText value=" "/>
-                <p:commandButton id="cmdOk"
-                                 value="OK"
-                                 onclick="submit()"
-                                 oncomplete="dlgEditList.hide()"
+        <h:form>
+            <p:dialog id="dlgAddRow"
+                      header="Enter new row name"
+                      widgetVar="dlgAddRow"
+                      modal="true" height="100" width="600">
+                <p:inputText id="inpAddRow" value="#{gridQuestionController.addRow}"/>
+                <p:commandButton id="cmdAddRowOk"
+                                 value="Save"
+                                 oncomplete="dlgAddRow.hide()"
                                  update=":form:gridTable"/>
-            </h:form>
-        </p:dialog>
+            </p:dialog>
+        </h:form>
+
+        <h:form>
+            <p:dialog id="dlgAddCol"
+                      header="Enter new column name"
+                      widgetVar="dlgAddCol"
+                      modal="true" height="200" width="800">
+                <p:inputText id="inpAddCol" value="#{gridQuestionController.addCol}"/>
+                <p:commandButton id="cmdAddColOk"
+                                 value="Save"
+                                 oncomplete="dlgAddCol.hide()"
+                                 update=":form:gridTable"/>
+            </p:dialog>
+        </h:form>
 
     </ui:define>
 </ui:composition>
