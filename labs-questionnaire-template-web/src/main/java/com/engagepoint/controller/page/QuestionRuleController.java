@@ -251,14 +251,20 @@ public class QuestionRuleController extends RuleController implements Serializab
      * @return list of questions.
      */
     public List<Question> getQuestions() {
-        List<Question> list = new ArrayList<Question>();
-        for (SectionBean sectionBean : getTemplateEditController().getCurrentTemplate().getSectionsList()) {
-            for (GroupBean groupBean : sectionBean.getGroupsList()) {
-                for (Question question : groupBean.getQuestionsList()) {
-                    list.add(question);
-                }
-            }
+        if(templateTreeController!=null && templateTreeController.getSelectedType().equals("question")){
+            return getQuestionsForRule();
         }
+        return getQuestions1();
+    }
+
+    public List<Question> getQuestionsForRule(){
+        List<Question> list = new ArrayList<Question>();
+        for (Question question : getQuestions1()){
+            if(currentQuestion.getId().equals(question.getId()))
+                break;
+            list.add(question);
+        }
+
         return list;
     }
 
@@ -287,6 +293,7 @@ public class QuestionRuleController extends RuleController implements Serializab
 
     public void cancelAll() {
         currentRules = null;
+        currentQuestion = null;
     }
 
     public List<Question> getAllQuestionsThatSetDependence() {
@@ -351,14 +358,29 @@ public class QuestionRuleController extends RuleController implements Serializab
         setCurrentRules(list);
     }
 
+    private List<Question> getQuestions1() {
+        List<Question> list = new ArrayList<Question>();
+        for (SectionBean sectionBean : getTemplateEditController().getCurrentTemplate().getSectionsList()) {
+            for (GroupBean groupBean : sectionBean.getGroupsList()) {
+                for (Question question : groupBean.getQuestionsList()) {
+                    list.add(question);
+                }
+            }
+        }
+        return list;
+    }
+
     void saveRuleToQuestion(@Observes @SaveQuestion Question question) {
         question.setRules(currentRules);
         currentRules = null;
+        currentQuestion = null;
     }
 
     void setCurrentQuestion(@Observes @NewQuestion Question question) {
-        currentQuestion = question;
-        currentRules = question.getRules();
+        if(currentQuestion==null){
+            currentQuestion = question;
+        }
+        //currentRules = question.getRules();
         if (currentRules == null) {
             if (question.getRules().size() != 0) {
                 currentRules = cloneRulesList(question.getRules());
