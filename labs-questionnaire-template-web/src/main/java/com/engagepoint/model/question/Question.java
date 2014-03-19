@@ -1,6 +1,7 @@
 package com.engagepoint.model.question;
 
 
+import com.engagepoint.model.question.options.GridQuestionBean;
 import com.engagepoint.model.question.options.*;
 import com.engagepoint.model.question.rules.Rule;
 import com.engagepoint.model.questionnaire.BasicBean;
@@ -22,15 +23,13 @@ import java.util.List;
  * Class represents question tag.
  */
 @XmlSeeAlso({
-
         TextQuestionBean.class,
         DateQuestionBean.class,
         RangeQuestionBean.class,
         ChooseFromListQuestionBean.class,
         MultipleChoiceQuestionBean.class,
-        CheckBoxQuestionBean.class
-
-
+        CheckBoxQuestionBean.class,
+        GridQuestionBean.class
 })
 @XmlTransient
 public abstract class Question extends BasicBean implements Cloneable {
