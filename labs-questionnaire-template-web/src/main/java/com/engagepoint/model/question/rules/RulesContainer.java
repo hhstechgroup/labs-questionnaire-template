@@ -37,7 +37,7 @@ public class RulesContainer {
      */
     public Rule createRule(String description) {
         if (description != null){
-        switch (supportedRules.get(description)) {
+        switch (supportedRules.get("1. " + description)) {
             case RENDERED:
                 return new RenderedRule();
             default:
