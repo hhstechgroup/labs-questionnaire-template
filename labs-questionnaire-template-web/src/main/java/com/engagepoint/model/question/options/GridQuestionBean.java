@@ -16,6 +16,8 @@ import javax.xml.bind.annotation.XmlType;
         "requiredAnswer",
         "questionText",
         "questionType",
+        "onlyOneSelectInCol",
+        "onlyOneSelectInRow",
         "questionRules",
         "helpText",
         "grid",
@@ -24,21 +26,19 @@ import javax.xml.bind.annotation.XmlType;
 public class GridQuestionBean extends Question {
     Grid grid;
     boolean[][] selected;
-    boolean onlyOneSelectInRow;
-    boolean onlyOneSelectInCol;
+    private boolean onlyOneSelectInRow;
+    private boolean onlyOneSelectInCol;
 
-    public void clear() {
-        grid = new Grid();
-        grid.clear();
-        selected = new boolean[0][0];
-    }
+
     public GridQuestionBean() {
-        clear();
+        grid = new Grid();
+        selected = new boolean[0][0];
     }
 
     public GridQuestionBean(GroupBean currentGroup) {
         super(currentGroup);
-        clear();
+        grid = new Grid();
+        selected = new boolean[0][0];
     }
     @XmlElement(name = "grid")
     public Grid getGrid() {
@@ -71,6 +71,7 @@ public class GridQuestionBean extends Question {
         return defaultAnswers;
 
     }
+
     @XmlTransient
     public List<String> getCols() {
         return grid.getCols();
@@ -79,6 +80,7 @@ public class GridQuestionBean extends Question {
     public void setCols(List<String> cols) {
         this.grid.setCols(cols);
     }
+
     @XmlTransient
     public List<String> getRows() {
         return grid.getRows();
@@ -120,12 +122,12 @@ public class GridQuestionBean extends Question {
     public void unsetSelect(int i, int j) {
         selected[i][j] = false;
     }
-    @XmlTransient
+
     public boolean isSelect(int i, int j) {
         return selected[i][j];
     }
 
-    @XmlElement(name = "OnlyOneInRow")
+    @XmlElement(name = "grid-oneInRow")
     public boolean isOnlyOneSelectInRow() {
         return onlyOneSelectInRow;
     }
@@ -134,7 +136,7 @@ public class GridQuestionBean extends Question {
         this.onlyOneSelectInRow = onlyOneSelectInRow;
     }
 
-    @XmlElement(name = "OnlyOneInCol")
+    @XmlElement(name = "grid-oneInCol")
     public boolean isOnlyOneSelectInCol() {
         return onlyOneSelectInCol;
     }

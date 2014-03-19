@@ -4,8 +4,6 @@
                 xmlns:p="http://primefaces.org/ui"
                 xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:f="http://java.sun.com/jsf/core"
-                xmlns:uib="http://engagepoint.com/uib"
-                xmlns:ago="http://java.sun.com/jsf/composite/questiontemplate"
                 template="/templates/templateEdit.xhtml">
 
     <f:metadata>
@@ -20,9 +18,9 @@
             <p:panelGrid columns="1">
 
                 <f:facet name="header">
-                    <h:outputText value="Template" 
+                    <h:outputText value="Template"
                                   rendered="#{!templateController.isNew()}"/>
-                    <h:outputText value="New template" 
+                    <h:outputText value="New template"
                                   rendered="#{templateController.isNew()}"/>
                 </f:facet>
 
@@ -68,7 +66,7 @@
                                              styleClass="small blue">
                             </p:commandButton>
 							<p:commandButton value="Edit Name" id="editName"
-								style="float:right;"
+								style="float:right;margin: 0 2px 0 0;"
                                 rendered="#{templateTreeController.editButtonRendering(node)}"
 								onclick="dlg.show();"
 								styleClass="small blue">

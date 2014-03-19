@@ -80,11 +80,11 @@ public class RulesTestController extends RuleController implements Serializable 
 		String result = bb.getId(); // TODO change to element name
 
 		String s = bb.getType();
-		if (s.equals("section")) {
+		if ("section".equals(s)) {
 			return result;
-		} else if (s.equals("group")) {
+		} else if ("group".equals(s)) {
 			return "___" + result;
-		} else if (s.equals("question")) {
+		} else if ("question".equals(s)) {
 			return "______" + result;
 		} else {
 			return "";

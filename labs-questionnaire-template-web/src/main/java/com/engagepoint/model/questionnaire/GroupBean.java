@@ -76,7 +76,7 @@ public class GroupBean extends BasicBean
         //must set group number from xml
         if (groupNumber==null) {
             try {
-                int indexOfP = groupId.lastIndexOf("g");
+                int indexOfP = groupId.lastIndexOf('g');
                 setGroupNumber(Long.valueOf(groupId.substring(indexOfP+1)));
             } catch (NumberFormatException e) {
                 LOG.warn("Group id is incorrect", e);
@@ -88,7 +88,7 @@ public class GroupBean extends BasicBean
      * Gets next number of page for current template
      * @return SectionId
      */
-    public Long getNextGroupNumberInSection() {
+    public final Long getNextGroupNumberInSection() {
         List<GroupBean> groupList = sectionBean.getGroupsList();
         if (groupList.isEmpty()) {
             return 1L;
@@ -102,7 +102,7 @@ public class GroupBean extends BasicBean
         return groupNumber;
     }
 
-    public void setGroupNumber(Long groupNumber) {
+    public final void setGroupNumber(Long groupNumber) {
         this.groupNumber = groupNumber;
     }
 
@@ -111,7 +111,7 @@ public class GroupBean extends BasicBean
         return this.groupName;
     }
 
-    public void setGroupName(String groupName) {
+    public final void setGroupName(String groupName) {
         this.groupName = groupName;
     }
 

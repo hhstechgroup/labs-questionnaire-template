@@ -72,7 +72,7 @@ public class SectionBean extends BasicBean
      *
      * @return SectionId
      */
-    public Long getNextSectionNumberInTemplate() {
+    public final Long getNextSectionNumberInTemplate() {
         List<SectionBean> sectionList = templateBean.getSectionsList();
         if (sectionList.isEmpty()) {
             return 1L;
@@ -82,7 +82,7 @@ public class SectionBean extends BasicBean
     }
 
     @XmlAttribute(name = "page-number")
-    public Long getPageNumber() {
+    public final Long getPageNumber() {
         return pageNumber;
     }
 
@@ -95,7 +95,7 @@ public class SectionBean extends BasicBean
         return pageName;
     }
 
-    public void setPageName(String pageName) {
+    public final void setPageName(String pageName) {
         this.pageName = pageName;
     }
 

@@ -33,13 +33,10 @@ public class Grid {
     public void setCols(List<String> cols) {
         this.cols = cols;
     }
-    public void clear() {
-        rows =  new ArrayList<String>();
-        cols = new ArrayList<String>();
-    }
 
     public Grid() {
-
+        rows = new ArrayList<String>();
+        cols = new ArrayList<String>();
     }
 
 }

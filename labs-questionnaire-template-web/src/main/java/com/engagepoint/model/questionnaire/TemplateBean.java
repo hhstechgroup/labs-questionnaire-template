@@ -42,7 +42,7 @@ public class TemplateBean implements Cloneable, Comparable<TemplateBean>, BasicO
     }
 
 
-    public  Long getLastId() {
+    public final Long getLastId() {
         return lastId++;
     }
 
@@ -88,7 +88,7 @@ public class TemplateBean implements Cloneable, Comparable<TemplateBean>, BasicO
         return id;
     }
 
-    public void setId(Long id) {
+    public final void setId(Long id) {
         this.id = id;
     }
 

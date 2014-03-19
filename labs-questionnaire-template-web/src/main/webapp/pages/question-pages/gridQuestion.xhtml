@@ -35,7 +35,9 @@
             <p:dataTable id="gridTable"
                          var="row"
                          value="#{gridQuestionController.rowsSize}"
-                         scrollable="true">
+                         scrollable="#{gridQuestionController.getColumnsSize().size() > 4 ||
+                                     gridQuestionController.getRowsSize().size() > 7}"
+                         scrollHeight="300">
                 <p:column>
                     <f:facet name="header">
                         <p:outputLabel value="" style="width: 100px;"/>
@@ -58,7 +60,6 @@
 
             <br/>
             <ago:buttonsCommon qbuttons="#{gridQuestionController}" id="formWithSaveButtons"/>
-
         </h:form>
 
         <h:form>
