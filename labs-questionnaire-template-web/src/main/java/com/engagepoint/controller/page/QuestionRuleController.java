@@ -42,7 +42,7 @@ public class QuestionRuleController extends RuleController implements Serializab
     private TemplateTreeController templateTreeController;
     //dependent question data
     private String currentDependentQuestionId;
-    private Question dependentQuestion;
+
     //contains all rules
     private RulesContainer rulesContainer;
     //show add rule button
@@ -71,14 +71,6 @@ public class QuestionRuleController extends RuleController implements Serializab
 
     public void setCurrentDependentQuestionId(String currentDependentQuestionId) {
         this.currentDependentQuestionId = currentDependentQuestionId;
-    }
-
-    public Question getDependentQuestion() {
-        return dependentQuestion;
-    }
-
-    public void setDependentQuestion(Question dependentQuestion) {
-        this.dependentQuestion = dependentQuestion;
     }
 
     public RulesContainer getRulesContainer() {
@@ -158,7 +150,7 @@ public class QuestionRuleController extends RuleController implements Serializab
     public void saveRuleAnswerAction() {
         List<String> answers = new ArrayList<String>();
         String answer = null;
-        switch (dependentQuestion.getQuestionType()) {
+        switch (getDependentQuestion().getQuestionType()) {
             case TEXT:
                 answer = getTextData();
                 break;
@@ -219,7 +211,7 @@ public class QuestionRuleController extends RuleController implements Serializab
     private RenderedRule createRuleObject(List<String> answers) {
         RenderedRule renderedRule = (RenderedRule) currentRule;
         renderedRule.setAnswers(answers);
-        renderedRule.setId(dependentQuestion.getId());
+        renderedRule.setId(getDependentQuestion().getId());
         return renderedRule;
     }
 
@@ -228,32 +220,32 @@ public class QuestionRuleController extends RuleController implements Serializab
      */
     public void setDependentQuestionAnswer() {
 
-        switch (dependentQuestion.getQuestionType()) {
+        switch (getDependentQuestion().getQuestionType()) {
             case TEXT:
-                setTextQuestionBean((TextQuestionBean) dependentQuestion);
+                setTextQuestionBean((TextQuestionBean) getDependentQuestion());
                 break;
             case DATE:
-                setDateQuestionBean((DateQuestionBean) dependentQuestion);
+                setDateQuestionBean((DateQuestionBean) getDependentQuestion());
                 break;
             case RANGE:
-                setRangeQuestionBean((RangeQuestionBean) dependentQuestion);
+                setRangeQuestionBean((RangeQuestionBean) getDependentQuestion());
                 break;
             case TIME:
-                setDateQuestionBean((DateQuestionBean) dependentQuestion);
+                setDateQuestionBean((DateQuestionBean) getDependentQuestion());
                 break;
             case PARAGRAPHTEXT:
-                setTextQuestionBean((TextQuestionBean) dependentQuestion);
+                setTextQuestionBean((TextQuestionBean) getDependentQuestion());
                 break;
             case CHOOSEFROMLIST:
-                setOptionsQuestion((ChooseFromListQuestionBean) dependentQuestion);
+                setOptionsQuestion((ChooseFromListQuestionBean) getDependentQuestion());
                 setDataModel(new ListOfOptionsDataModel(getOptionsQuestion().getOptions()));
                 break;
             case MULTIPLECHOICE:
-                setOptionsQuestion((MultipleChoiceQuestionBean) dependentQuestion);
+                setOptionsQuestion((MultipleChoiceQuestionBean) getDependentQuestion());
                 setDataModel(new ListOfOptionsDataModel(getOptionsQuestion().getOptions()));
                 break;
             case CHECKBOX:
-                setOptionsQuestion((CheckBoxQuestionBean) dependentQuestion);
+                setOptionsQuestion((CheckBoxQuestionBean) getDependentQuestion());
                 setDataModel(new ListOfOptionsDataModel(getOptionsQuestion().getOptions()));
                 break;
             case GRID:
@@ -291,7 +283,7 @@ public class QuestionRuleController extends RuleController implements Serializab
                 for (GroupBean groupBean : sectionBean.getGroupsList()) {
                     for (Question question : groupBean.getQuestionsList()) {
                         if (String.valueOf(question.getId()).equals(currentDependentQuestionId)) {
-                            dependentQuestion = question;
+                            setDependentQuestion(question);
                             return question.getQuestionType().toString();
                         }
                     }
@@ -378,7 +370,7 @@ public class QuestionRuleController extends RuleController implements Serializab
             case RENDERED:
                 RenderedRule renderedRule = (RenderedRule) currentRule;
                 renderedRule.setAnswers(answers);
-                renderedRule.setId(dependentQuestion.getId());
+                renderedRule.setId(getDependentQuestion().getId());
                 break;
             default:
         }

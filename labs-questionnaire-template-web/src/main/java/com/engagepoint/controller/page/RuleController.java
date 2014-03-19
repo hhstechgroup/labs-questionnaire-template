@@ -2,6 +2,7 @@ package com.engagepoint.controller.page;
 
 
 import com.engagepoint.model.question.DateQuestionBean;
+import com.engagepoint.model.question.Question;
 import com.engagepoint.model.question.RangeQuestionBean;
 import com.engagepoint.model.question.TextQuestionBean;
 import com.engagepoint.model.question.options.CheckBoxQuestionBean;
@@ -32,6 +33,8 @@ public abstract class RuleController {
     //for range
     private String minValue;
     private String maxValue;
+    //
+    private Question dependentQuestion;
 
     RuleController() {
         //set questions
@@ -127,5 +130,13 @@ public abstract class RuleController {
 
     public void setMaxValue(String maxValue) {
         this.maxValue = maxValue;
+    }
+
+    public Question getDependentQuestion() {
+        return dependentQuestion;
+    }
+
+    public void setDependentQuestion(Question dependentQuestion) {
+        this.dependentQuestion = dependentQuestion;
     }
 }
