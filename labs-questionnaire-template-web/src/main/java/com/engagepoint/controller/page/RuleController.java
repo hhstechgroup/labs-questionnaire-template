@@ -8,8 +8,11 @@ import com.engagepoint.model.question.TextQuestionBean;
 import com.engagepoint.model.question.options.CheckBoxQuestionBean;
 import com.engagepoint.model.question.options.OptionsQuestion;
 import com.engagepoint.model.question.utils.VariantItem;
+import com.engagepoint.model.questionnaire.GroupBean;
+import com.engagepoint.model.questionnaire.SectionBean;
 import com.engagepoint.model.table.ListOfOptionsDataModel;
 
+import javax.inject.Inject;
 import java.util.Date;
 import java.util.List;
 
@@ -17,6 +20,8 @@ import java.util.List;
  * Basic controller for setting answers
  */
 public abstract class RuleController {
+    @Inject
+    private TemplateEditController templateEditController;
     //question objects
     private OptionsQuestion optionsQuestion;
     private DateQuestionBean dateQuestionBean;
@@ -35,6 +40,8 @@ public abstract class RuleController {
     private String maxValue;
     //
     private Question dependentQuestion;
+    //dependent question data
+    private String currentDependentQuestionId;
 
     RuleController() {
         //set questions
@@ -138,5 +145,38 @@ public abstract class RuleController {
 
     public void setDependentQuestion(Question dependentQuestion) {
         this.dependentQuestion = dependentQuestion;
+    }
+
+    public String getCurrentDependentQuestionId() {
+        return currentDependentQuestionId;
+    }
+
+    public void setCurrentDependentQuestionId(String currentDependentQuestionId) {
+        this.currentDependentQuestionId = currentDependentQuestionId;
+    }
+
+    public TemplateEditController getTemplateEditController() {
+        return templateEditController;
+    }
+
+    /**
+     * Get current dependent question type.
+     *
+     * @return question type
+     */
+    public String getCurrentDependentQuestionType() {
+        if (currentDependentQuestionId != null) {
+            for (SectionBean sectionBean : templateEditController.getCurrentTemplate().getSectionsList()) {
+                for (GroupBean groupBean : sectionBean.getGroupsList()) {
+                    for (Question question : groupBean.getQuestionsList()) {
+                        if (String.valueOf(question.getId()).equals(currentDependentQuestionId)) {
+                            setDependentQuestion(question);
+                            return question.getQuestionType().toString();
+                        }
+                    }
+                }
+            }
+        }
+        return "question type is not chose";
     }
 }

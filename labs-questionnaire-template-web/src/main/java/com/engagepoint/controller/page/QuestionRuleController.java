@@ -36,12 +36,9 @@ import java.util.*;
 @Named
 @SessionScoped
 public class QuestionRuleController extends RuleController implements Serializable {
-    @Inject
-    private TemplateEditController templateEditController;
+
     @Inject
     private TemplateTreeController templateTreeController;
-    //dependent question data
-    private String currentDependentQuestionId;
 
     //contains all rules
     private RulesContainer rulesContainer;
@@ -65,13 +62,6 @@ public class QuestionRuleController extends RuleController implements Serializab
         addRuleButtonIsVisible = true;
     }
 
-    public String getCurrentDependentQuestionId() {
-        return currentDependentQuestionId;
-    }
-
-    public void setCurrentDependentQuestionId(String currentDependentQuestionId) {
-        this.currentDependentQuestionId = currentDependentQuestionId;
-    }
 
     public RulesContainer getRulesContainer() {
         return rulesContainer;
@@ -262,7 +252,7 @@ public class QuestionRuleController extends RuleController implements Serializab
      */
     public List<Question> getQuestions() {
         List<Question> list = new ArrayList<Question>();
-        for (SectionBean sectionBean : templateEditController.getCurrentTemplate().getSectionsList()) {
+        for (SectionBean sectionBean : getTemplateEditController().getCurrentTemplate().getSectionsList()) {
             for (GroupBean groupBean : sectionBean.getGroupsList()) {
                 for (Question question : groupBean.getQuestionsList()) {
                     list.add(question);
@@ -272,26 +262,6 @@ public class QuestionRuleController extends RuleController implements Serializab
         return list;
     }
 
-    /**
-     * Get current dependent question type.
-     *
-     * @return question type
-     */
-    public String getCurrentDependentQuestionType() {
-        if (currentDependentQuestionId != null) {
-            for (SectionBean sectionBean : templateEditController.getCurrentTemplate().getSectionsList()) {
-                for (GroupBean groupBean : sectionBean.getGroupsList()) {
-                    for (Question question : groupBean.getQuestionsList()) {
-                        if (String.valueOf(question.getId()).equals(currentDependentQuestionId)) {
-                            setDependentQuestion(question);
-                            return question.getQuestionType().toString();
-                        }
-                    }
-                }
-            }
-        }
-        return "question type is not chose";
-    }
 
     public List<Rule> getCurrentRules() {
         if (templateTreeController.getSelectedType().equals("section")) {

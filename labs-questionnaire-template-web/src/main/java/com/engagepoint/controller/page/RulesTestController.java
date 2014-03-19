@@ -20,7 +20,7 @@ import java.util.Map;
 
 @Named
 @ConversationScoped
-public class RulesTestController implements Serializable {
+public class RulesTestController extends RuleController implements Serializable{
 
 	private List<BasicBean> templateElementsList;
 	private Map<BasicBean, List<BasicBean>> dependencies;
