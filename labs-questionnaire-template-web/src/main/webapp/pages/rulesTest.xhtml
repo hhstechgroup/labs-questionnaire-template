@@ -40,6 +40,7 @@
 								style="float:center;"
                                 rendered="#{rulesTestController.dependencies.get(templateEl)!=null}"
 								styleClass="small blue"
+                                oncomplete="dlgSetAnswer.show();"
 								update="questionstable"/>
 				</uib:column>
 			</uib:dataTable>
@@ -47,6 +48,73 @@
 			<p:commandButton id="back" value="Back" title="Back"
 				action="#{rulesTestController.backToIndex()}">
 			</p:commandButton>
+
+            <p:dialog widgetVar="dlgSetAnswer"
+                      modal="true" closable="true">
+                <p:panel id="SetAnswerPanel">
+                    <br/>
+                    <h:outputText value="Question text: "/>
+                    <p:outputLabel value=" #{rulesTestController.dependentQuestion.questionText}"/>
+                    <br/>
+                    <h:outputText value="Help text: "/>
+                    <p:outputLabel value="#{rulesTestController.dependentQuestion.helpText}"/>
+                    <br/>
+                    <br/>
+                    <h:outputText value="Please set answer."/>
+                    <br/>
+                    <br/>
+
+                    <p:inputText size="50" rendered="#{rulesTestController.currentDependentQuestionType eq 'TEXT'}"
+                                 value="#{rulesTestController.textData}"/>
+
+                    <p:inputTextarea rows="8"
+                                     cols="555"
+                                     rendered="#{rulesTestController.currentDependentQuestionType eq 'PARAGRAPHTEXT'}"
+                                     value="#{rulesTestController.textData}"/>
+
+                    <p:calendar title="calendar" pattern="HH:mm" showOn="button" timeOnly="true"
+                                rendered="#{rulesTestController.currentDependentQuestionType eq 'TIME'}"
+                                value="#{rulesTestController.dateData}"/>
+
+                    <p:calendar title="calendar" pattern="dd-MM-yyyy" showOn="button"
+                                rendered="#{rulesTestController.currentDependentQuestionType eq 'DATE'}"
+                                value="#{rulesTestController.dateData}"/>
+
+                    <p:panel rendered="#{rulesTestController.currentDependentQuestionType eq 'RANGE'}">
+                        <h:outputText value="Set minimum value"/>
+                        <h:inputText id="minRangeValue" value="#{rulesTestController.minValue}"/>
+                        <h:outputText value="Set maximum value"/>
+                        <h:inputText id="maxRangeValue" value="#{rulesTestController.maxValue}"/>
+                    </p:panel>
+
+                    <uib:dataTable var="option"
+                                   value="#{rulesTestController.dataModel}"
+                                   selection="#{rulesTestController.defaultOption}"
+                                   rendered="#{rulesTestController.currentDependentQuestionType eq 'CHOOSEFROMLIST' or questionRuleController.currentDependentQuestionType eq 'MULTIPLECHOICE'}">
+                        <uib:column headerText="Default"
+                                    selectionMode="single"/>
+                        <uib:column headerText="Options">
+                            <h:outputText value="#{option.value}" style="width:100%"/>
+                        </uib:column>
+                    </uib:dataTable>
+
+                    <uib:dataTable var="option"
+                                   value="#{rulesTestController.dataModel}"
+                                   selection="#{rulesTestController.defaultOptions}"
+                                   rendered="#{rulesTestController.currentDependentQuestionType eq 'CHECKBOX'}">
+                        <uib:column headerText=""
+                                    selectionMode="multiple"/>
+                        <uib:column headerText="Options">
+                            <h:outputText value="#{option.value}" style="width:100%"/>
+                        </uib:column>
+                    </uib:dataTable>
+
+                    <br/>
+                    <br/>
+                    <p:commandButton value="Save" onclick="dlgSetAnswer.hide()" />
+                </p:panel>
+            </p:dialog>
+
 		</h:form>
 	</ui:define>
 </ui:composition>
