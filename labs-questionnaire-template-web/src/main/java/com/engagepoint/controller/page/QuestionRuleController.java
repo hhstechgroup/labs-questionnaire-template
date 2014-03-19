@@ -188,29 +188,39 @@ public class QuestionRuleController extends RuleController implements Serializab
             default:
         }
         answers.add(answer);
+        //save rule for question
         if (templateTreeController.getSelectedType().equals("question")) {
             setAnswerAndIdToRule(answers);
         }
+        //save rule for group
         if (templateTreeController.getSelectedType().equals("group")) {
-            RenderedRule renderedRule = (RenderedRule) currentRule;
-            renderedRule.setAnswers(answers);
-            renderedRule.setId(dependentQuestion.getId());
             GroupBean groupBean = (GroupBean) templateTreeController.getSelectedNode().getData();
-            groupBean.getRules().add(renderedRule);
+            groupBean.getRules().add(createRuleObject(answers));
             setCurrentRules(groupBean.getRules());
         }
+        //save rule for section
         if (templateTreeController.getSelectedType().equals("section")) {
-            RenderedRule renderedRule = (RenderedRule) currentRule;
-            renderedRule.setAnswers(answers);
-            renderedRule.setId(dependentQuestion.getId());
             SectionBean sectionBean = (SectionBean) templateTreeController.getSelectedNode().getData();
-            sectionBean.getRules().add(renderedRule);
+            sectionBean.getRules().add(createRuleObject(answers));
             setCurrentRules(sectionBean.getRules());
         }
         setChooseDependentQuestionListVisible(false);
         setCancelRuleEditionButtonIsVisible(false);
         setAddRulesTableIsVisible(false);
         setAddRuleButtonIsVisible(true);
+    }
+
+    /**
+     * Create rule object.
+     *
+     * @param answers answers for rule.
+     * @return
+     */
+    private RenderedRule createRuleObject(List<String> answers) {
+        RenderedRule renderedRule = (RenderedRule) currentRule;
+        renderedRule.setAnswers(answers);
+        renderedRule.setId(dependentQuestion.getId());
+        return renderedRule;
     }
 
     /**
