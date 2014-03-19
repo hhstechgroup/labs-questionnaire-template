@@ -1,12 +1,8 @@
 package com.engagepoint.utils;
 
-import com.engagepoint.controller.page.FileController;
+import com.engagepoint.controller.page.FileDownloadController;
 import com.engagepoint.mock.MockTemplate;
-import com.engagepoint.model.question.Question;
-import com.engagepoint.model.question.options.CheckBoxQuestionBean;
-import com.engagepoint.model.questionnaire.GroupBean;
 import com.engagepoint.model.questionnaire.QuestionType;
-import com.engagepoint.model.questionnaire.SectionBean;
 import com.engagepoint.model.questionnaire.TemplateBean;
 import org.junit.Assert;
 import org.junit.Test;
@@ -99,7 +95,7 @@ public class ImportExportXMLTest {
         //-----------------------------------------------------------------------------------------
         File file = null;
         try {
-            file = FileController.createTempXml(tempList);
+            file = FileDownloadController.createTempXml(tempList);
         }
         catch (IOException e) {
             Assert.fail();

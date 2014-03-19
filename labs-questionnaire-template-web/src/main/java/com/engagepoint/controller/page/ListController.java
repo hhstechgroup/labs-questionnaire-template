@@ -5,18 +5,14 @@ import com.engagepoint.model.questionnaire.TemplateBean;
 import com.engagepoint.model.table.ListOfTemplatesDataModel;
 import com.engagepoint.utils.XmlImportExport;
 import org.apache.log4j.Logger;
-import org.primefaces.event.FileUploadEvent;
 
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.SessionScoped;
-import javax.enterprise.event.Observes;
-import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.inject.Named;
 
 import java.io.*;
 import java.util.*;
-import java.util.concurrent.atomic.AtomicLong;
 
 /**
  * Used for controlling index.xhtml
@@ -173,8 +169,6 @@ public class ListController implements Serializable {
 
     /**
      * Delete template from lists.
-     *
-     * @param template template to be deleted
      */
     public void deleteTemplate(TemplateBean template) {
         list.remove(template);
@@ -198,20 +192,13 @@ public class ListController implements Serializable {
      * Create temporary XML file before downloading
      */
     public void onExportXML() {
-        Collections.sort(selectedTemplates);
+        //Collections.sort(selectedTemplates);
         try {
-            File tmpFile = FileController.createTempXml(selectedTemplates);
-            FileController.setPathToTempFile(tmpFile.getPath());
+            File tmpFile = FileDownloadController.createTempXml(selectedTemplates);
+            FileDownloadController.setPathToTempFile(tmpFile.getPath());
         } catch (IOException e) {
             LOG.error("Export XML List Exception", e);
         }
-    }
-
-    /**
-     * Perform import questionnaire from XML file.
-     */
-    public void importFromXML(FileUploadEvent event) throws IOException {
-        addAllTemplates(XmlImportExport.importXmlTemplate(event.getFile().getInputstream()));
     }
 
     /**
