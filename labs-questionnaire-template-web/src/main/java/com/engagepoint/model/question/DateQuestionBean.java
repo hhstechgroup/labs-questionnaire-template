@@ -2,6 +2,7 @@ package com.engagepoint.model.question;
 
 import com.engagepoint.model.questionnaire.GroupBean;
 import com.engagepoint.model.questionnaire.QuestionType;
+import org.apache.log4j.Logger;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElementWrapper;
@@ -24,6 +25,7 @@ import java.util.List;
         "defaultAnswers"
 })
 public class DateQuestionBean extends Question {
+    private static final Logger LOG = Logger.getLogger(DateQuestionBean.class);
     public static SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("dd-MM-yyyy");
     public static SimpleDateFormat TIME_FORMAT = new SimpleDateFormat("HH:mm");
 
@@ -67,11 +69,10 @@ public class DateQuestionBean extends Question {
         try {
             defaultDate = parseStringToDate(list.get(0), getDateFormat());
         }catch (StringIndexOutOfBoundsException e) {
-            System.out.println("Hi");
-            //log that string of default answer in XML is empty
+
+            LOG.warn("StringIndexOutOFBoundsException", e);
         }catch (ParseException pe) {
-            System.out.println("Hi");
-            //log that format of date is incorrect
+           LOG.warn("ParseException", pe);
         }
     }
 

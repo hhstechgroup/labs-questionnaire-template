@@ -1,6 +1,8 @@
 package com.engagepoint.model.question.rules;
 
 
+import org.apache.log4j.Logger;
+
 import javax.xml.bind.annotation.XmlTransient;
 import javax.xml.bind.annotation.XmlType;
 import java.util.ArrayList;
@@ -11,6 +13,7 @@ import java.util.List;
         "id"
 })
 public class RenderedRule extends Rule {
+    private static final Logger LOG = Logger.getLogger(RenderedRule.class);
 
     private List<String> answers;
     private String xmlTemplate = "this.ruleExecutor.renderedRule";
@@ -34,7 +37,7 @@ public class RenderedRule extends Rule {
         try {
             answer = nameXML.substring(beginIndex,endIndex);
         } catch (StringIndexOutOfBoundsException e) {
-            //log or throw exception that string is not correct
+            LOG.warn("Answer string is not correct", e);
         }
         answers.add(answer);
     }

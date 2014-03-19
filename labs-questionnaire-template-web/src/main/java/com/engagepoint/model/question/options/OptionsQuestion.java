@@ -3,6 +3,7 @@ package com.engagepoint.model.question.options;
 import com.engagepoint.model.question.Question;
 import com.engagepoint.model.question.utils.VariantItem;
 import com.engagepoint.model.questionnaire.GroupBean;
+import org.apache.log4j.Logger;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElementWrapper;
@@ -16,6 +17,7 @@ public abstract class OptionsQuestion extends Question implements Cloneable {
     protected List<VariantItem> options;
     //selected variant for multiple choice,grid,choose from list question.
     protected VariantItem defaultOption;
+    private static final Logger LOG = Logger.getLogger(OptionsQuestion.class);
 
     public OptionsQuestion() {
         super();
@@ -63,7 +65,7 @@ public abstract class OptionsQuestion extends Question implements Cloneable {
             defaultOption = new VariantItem(list.get(0));
         }
         catch (StringIndexOutOfBoundsException e) {
-            //log that string of default answer in XML is empty
+            LOG.warn("String of default answer in XML is empty");
         }
     }
 

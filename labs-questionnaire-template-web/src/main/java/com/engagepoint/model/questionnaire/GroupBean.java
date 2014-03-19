@@ -3,6 +3,7 @@ package com.engagepoint.model.questionnaire;
 
 import com.engagepoint.model.question.Question;
 import com.engagepoint.model.question.rules.Rule;
+import org.apache.log4j.Logger;
 
 import javax.xml.bind.annotation.*;
 
@@ -26,6 +27,7 @@ public class GroupBean extends BasicBean
     private String groupName;
     private List<Question> questionsList = new ArrayList<Question>();
     private SectionBean sectionBean;
+    private static final Logger LOG = Logger.getLogger(GroupBean.class);
 
     private List<Rule> groupRules;
 
@@ -77,10 +79,10 @@ public class GroupBean extends BasicBean
                 int indexOfP = groupId.lastIndexOf("g");
                 setGroupNumber(Long.valueOf(groupId.substring(indexOfP+1)));
             } catch (NullPointerException e) {
-                //log that groupId is null
+                LOG.warn("Group Id is null, e");
             }
             catch (NumberFormatException e) {
-                //log that groupId is not correct
+                LOG.warn("Group id is incorrect", e);
             }
         }
     }

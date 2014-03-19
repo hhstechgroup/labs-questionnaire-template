@@ -7,6 +7,7 @@ import com.engagepoint.model.questionnaire.BasicBean;
 import com.engagepoint.model.questionnaire.GroupBean;
 import com.engagepoint.model.questionnaire.QuestionType;
 import com.engagepoint.model.questionnaire.TemplateBean;
+import org.apache.log4j.Logger;
 
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
@@ -43,6 +44,7 @@ public abstract class Question extends BasicBean implements Cloneable {
     protected List<String> defaultAnswers;
 
     protected GroupBean groupBean;
+    private static final Logger LOG = Logger.getLogger(Question.class);
 
     private List<Rule> questionRules;
 
@@ -103,10 +105,10 @@ public abstract class Question extends BasicBean implements Cloneable {
                 int indexOfP = questionId.lastIndexOf("q");
                 setQuestionNumber(Long.valueOf(questionId.substring(indexOfP+1)));
             } catch (NullPointerException e) {
-                //log that questionId is null
+                LOG.warn("NullPointerException", e);
             }
             catch (NumberFormatException e) {
-                //log that questionId is not correct
+                LOG.warn("Id is not correct", e);
             }
         }
     }
