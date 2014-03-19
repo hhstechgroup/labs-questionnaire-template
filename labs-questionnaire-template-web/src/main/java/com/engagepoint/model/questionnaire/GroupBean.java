@@ -111,7 +111,7 @@ public class GroupBean extends BasicBean
         return this.groupName;
     }
 
-    public void setGroupName(String groupName) {
+    public final void setGroupName(String groupName) {
         this.groupName = groupName;
     }
 

@@ -82,7 +82,7 @@ public class SectionBean extends BasicBean
     }
 
     @XmlAttribute(name = "page-number")
-    public Long getPageNumber() {
+    public final Long getPageNumber() {
         return pageNumber;
     }
 
