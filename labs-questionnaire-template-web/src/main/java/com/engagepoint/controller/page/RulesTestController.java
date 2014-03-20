@@ -31,8 +31,9 @@ public class RulesTestController extends RuleController implements Serializable 
 	public void resetRulerList(){
 		prepareQuestionList();
 		prepareDependencies();
-		if(styles!=null)
+		if(styles!=null){
 			styles.clear();
+        }
 	}
 	
 
