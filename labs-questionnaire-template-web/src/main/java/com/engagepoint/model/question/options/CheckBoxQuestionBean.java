@@ -5,67 +5,46 @@ import com.engagepoint.model.questionnaire.GroupBean;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElementWrapper;
+import javax.xml.bind.annotation.XmlTransient;
+import javax.xml.bind.annotation.XmlType;
+import java.util.ArrayList;
 import java.util.List;
 
+@XmlType(name = "checkBoxQuestionBean", propOrder = {
+        "id",
+        "requiredAnswer",
+        "questionText",
+        "questionType",
+        "questionRules",
+        "helpText",
+        "options",
+        "defaultAnswers"
+})
 public class CheckBoxQuestionBean extends OptionsQuestion {
-    //selected variants
-    private List<VariantItem> defaultOptions;
 
     public CheckBoxQuestionBean() {
-
+        super();
     }
 
     public CheckBoxQuestionBean(GroupBean currentGroup) {
         super(currentGroup);
     }
 
-    @XmlElementWrapper(name = "default-options")
-    @XmlElement(name = "default-option")
+    @XmlTransient
     public List<VariantItem> getDefaultOptions() {
+        List<String> defaultAnswers = getDefaultAnswers();
+        List<VariantItem> defaultOptions = new ArrayList<VariantItem>();
+        for (String curAnswer : defaultAnswers) {
+            defaultOptions.add(new VariantItem(curAnswer));
+        }
         return defaultOptions;
     }
 
     public void setDefaultOptions(List<VariantItem> defaultOptions) {
-        this.defaultOptions = defaultOptions;
-    }
-
-    @XmlElementWrapper(name = "checkboxes-options")
-    @XmlElement(name = "option")
-    @Override
-    public List<VariantItem> getOptions() {
-        return this.options;
-    }
-
-    @Override
-    public void setOptions(List<VariantItem> options) {
-        this.options = options;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof CheckBoxQuestionBean)) return false;
-        if (!super.equals(o)) return false;
-
-        CheckBoxQuestionBean that = (CheckBoxQuestionBean) o;
-
-        if (!defaultOptions.equals(that.defaultOptions)) return false;
-        if (!options.equals(that.options)) return false;
-
-        return true;
-    }
-
-    @Override
-    public int hashCode() {
-        int result = super.hashCode();
-        result = 31 * result + defaultOptions.hashCode();
-        return result;
-    }
-
-    @Override
-    public Object clone() throws CloneNotSupportedException {
-        CheckBoxQuestionBean copy = (CheckBoxQuestionBean) super.clone();
-        copy.setDefaultOptions(this.defaultOptions);
-        return copy;
+        List<String> defaultAnswers = new ArrayList<String>();
+        for (VariantItem curOption : defaultOptions) {
+            defaultAnswers.add(curOption.getValue());
+        }
+        setDefaultAnswers(defaultAnswers);
     }
 }

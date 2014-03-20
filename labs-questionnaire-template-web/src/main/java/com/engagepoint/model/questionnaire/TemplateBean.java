@@ -1,57 +1,90 @@
 package com.engagepoint.model.questionnaire;
 
+
+import com.engagepoint.model.question.Question;
+
+
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlType;
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlTransient;
 import java.util.ArrayList;
 import java.util.List;
+
 
 /**
  * Class represents questionnaire-form tag.
  */
 @XmlRootElement(name = "questionnaire-form")
+@XmlType(name = "", propOrder = {
+        "formId",
+        "templateName",
+        "sectionsList"
+})
 public class TemplateBean implements Cloneable, Comparable<TemplateBean>, BasicOperationWithBean {
+    private Long id;
+    private String formId;
+    private String templateName = "";
+    private List<SectionBean> sectionsList = new ArrayList<SectionBean>();
+    private static boolean duplicate;
     private static Long lastId = 1L;
 
-    public static Long getLastId() {
+    public static boolean isDuplicate() {
+        return duplicate;
+    }
+
+
+    public final Long getLastId() {
         return lastId++;
     }
 
-    private Long id;
-    private String templateName = "";
-    private List<SectionBean> sectionsList = new ArrayList<SectionBean>();
-
-    public static boolean duplicate;
-
     public TemplateBean() {
         setId(getLastId());
-    }
-
-    public TemplateBean(String templateName, List<SectionBean> sectionsList) {
-        setId(getLastId());
-        this.templateName = templateName;
-        this.sectionsList = sectionsList;
+        formId = "f" + id;
     }
 
     public TemplateBean(String templateName) {
-        setId(getLastId());
+        this();
         this.templateName = templateName;
+    }
+
+    public TemplateBean(String templateName, List<SectionBean> sectionsList) {
+        this(templateName);
+        this.sectionsList = sectionsList;
     }
 
     public TemplateBean(Long id, String templateName, List<SectionBean> sectionsList) {
         this.id = id;
+        formId = "f" + id;
         this.templateName = templateName;
         this.sectionsList = sectionsList;
     }
 
+    @XmlAttribute(name = "form-id")
+    public String getFormId() {
+        return formId;
+    }
+
+    public void setFormId(String formId) {
+        if(formId!=null && formId.length()>0){
+            this.id = Long.valueOf(formId.substring(1));
+        }
+        if(id>=lastId){
+            lastId=++id;
+        }
+        this.formId = formId;
+    }
+
+    @XmlTransient
     public Long getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public final void setId(Long id) {
         this.id = id;
     }
-
 
     @XmlElement(name = "form-name")
     public String getTemplateName() {
@@ -74,33 +107,45 @@ public class TemplateBean implements Cloneable, Comparable<TemplateBean>, BasicO
 
     @Override
     public Object clone() throws CloneNotSupportedException {
-        TemplateBean copy = clone1();
-        copy.setId(getLastId());
-        return copy;
+        return clone1(getLastId());
     }
 
     public TemplateBean duplicate() throws CloneNotSupportedException {
-        duplicate=true;
-        TemplateBean copy = clone1();
-        copy.setId(this.id);
-        duplicate=false;
+        duplicate = true;
+        TemplateBean copy = clone1(this.id);
+        duplicate = false;
         return copy;
     }
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o){
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
 
         TemplateBean that = (TemplateBean) o;
 
-        return that.getId().equals(this.getId());
+        if (!formId.equals(that.formId)) {
+            return false;
+        }
+        if (sectionsList != null ? !sectionsList.equals(that.sectionsList) : that.sectionsList != null){
+            return false;
+        }
+        if (!templateName.equals(that.templateName)) {
+            return false;
+        }
+
+        return true;
     }
 
     @Override
     public int hashCode() {
-        int result = id != null ? id.hashCode() : 0;
-        result = 31 * result;
+        int result = formId.hashCode();
+        result = 31 * result + templateName.hashCode();
+        result = 31 * result + (sectionsList != null ? sectionsList.hashCode() : 0);
         return result;
     }
 
@@ -131,16 +176,33 @@ public class TemplateBean implements Cloneable, Comparable<TemplateBean>, BasicO
         return null;
     }
 
-    private TemplateBean clone1() throws CloneNotSupportedException {
+    private TemplateBean clone1(Long id) throws CloneNotSupportedException {
         TemplateBean copy = (TemplateBean) super.clone();
+        copy.setId(id);
+        copy.setFormId("f" + id.toString());
+
         List<SectionBean> copySectionsList = null;
-        if(sectionsList!=null){
+        if (sectionsList != null) {
             copySectionsList = new ArrayList<SectionBean>();
             for (SectionBean sectionBean : sectionsList) {
-                copySectionsList.add((SectionBean) sectionBean.clone());
+                SectionBean clonedSection = (SectionBean) sectionBean.clone();
+                clonedSection.setTemplateBean(copy);
+                copySectionsList.add(clonedSection);
+            }
+
+            //change id of all children due to cloned template
+            for (SectionBean sectionBean : copySectionsList) {
+                sectionBean.setId(copy.formId + "p" + sectionBean.getPageNumber());
+                for (GroupBean groupBean : sectionBean.getGroupsList()) {
+                    groupBean.setId(sectionBean.getId() + "g" + groupBean.getGroupNumber());
+                    for (Question questionBean : groupBean.getQuestionsList()) {
+                        questionBean.setId(groupBean.getId() + "q" + questionBean.getQuestionNumber());
+                    }
+                }
             }
         }
         copy.setSectionsList(copySectionsList);
+        copy.setTemplateName(this.templateName);
         return copy;
     }
 }

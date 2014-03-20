@@ -15,44 +15,29 @@ import javax.faces.context.FacesContext;
 public class TopMenuBarBean {
 
     private MenuModel model;
-    private UIViewRoot viewRoot;
 
     @PostConstruct
     public void initModel() {
         model = new DefaultMenuModel();
-        viewRoot = FacesContext.getCurrentInstance().getViewRoot();
+        UIViewRoot viewRoot = FacesContext.getCurrentInstance().getViewRoot();
         String viewId = viewRoot.getViewId();
-
-        MenuItem menuItem = new MenuItem();
-        menuItem.setId("bootstrapItem");
-        if (viewId.startsWith("/bootstrap")) {
-            menuItem.setStyleClass("active");
-        }
-        menuItem.setValue("But but 1");
-        menuItem.setUrl("/bootstrap/button/index.xhtml");
-        model.addMenuItem(menuItem);
-
-        menuItem = new MenuItem();
-        menuItem.setId("demoItem");
-        if (viewId.startsWith("/demo")) {
-            menuItem.setStyleClass("active");
-        }
-        menuItem.setValue("But but 2");
-        menuItem.setUrl("/demo/default.xhtml");
-        model.addMenuItem(menuItem);
-
-        menuItem = new MenuItem();
-        menuItem.setId("toolsItem");
-        if (viewId.startsWith("/tools")) {
-            menuItem.setStyleClass("active");
-        }
-        menuItem.setValue("But but 3");
-        menuItem.setUrl("/tools/grid/index.xhtml");
-        model.addMenuItem(menuItem);
+        addMenuItem(viewId, "bootstrapItem", "/bootstrap", "But but 1", "/bootstrap/button/index.xhtml");
+        addMenuItem(viewId, "demoItem", "/demo", "But but 2", "/demo/default.xhtml");
+        addMenuItem(viewId, "toolsItem", "/tools", "But but 3", "/tools/grid/index.xhtml");
     }
 
     public MenuModel getModel() {
         return model;
     }
 
+    private void addMenuItem(String viewId, String id, String startsWith, String value, String url) {
+        MenuItem menuItem = new MenuItem();
+        menuItem.setId(id);
+        if (viewId.startsWith(startsWith)) {
+            menuItem.setStyleClass("active");
+        }
+        menuItem.setValue(value);
+        menuItem.setUrl(url);
+        model.addMenuItem(menuItem);
+    }
 }

@@ -1,6 +1,5 @@
 package com.engagepoint.controller.page;
 
-
 import com.engagepoint.controller.utils.PageNavigator;
 import com.engagepoint.model.questionnaire.TemplateBean;
 import com.engagepoint.model.table.ListOfTemplatesDataModel;
@@ -8,18 +7,19 @@ import com.engagepoint.utils.XmlImportExport;
 import org.apache.log4j.Logger;
 import org.primefaces.event.FileUploadEvent;
 
+import javax.annotation.PostConstruct;
 import javax.enterprise.context.SessionScoped;
-import javax.faces.application.FacesMessage;
+
 import javax.faces.context.FacesContext;
 import javax.inject.Named;
 
 import java.io.*;
 import java.util.*;
 
+
 /**
  * Used for controlling index.xhtml
  */
-
 @Named
 @SessionScoped
 public class ListController implements Serializable {
@@ -29,23 +29,28 @@ public class ListController implements Serializable {
     private List<TemplateBean> selectedTemplates;
     private ListOfTemplatesDataModel templatesModel;
     private String filterValue = "";
+    
     private static final Logger LOG = Logger.getLogger(ListController.class);
 
     public ListController() {
         list = new ArrayList<TemplateBean>();
+    }
+
+    @PostConstruct
+    void init() {
         //searching path of XML file in glassfish
         ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
         String xmlPath = classLoader.getResource("Questionnaire.xml").getPath();
         //adding Templates from XML file
         addAllTemplates(XmlImportExport.importXmlTemplate(xmlPath));
         templatesModel = new ListOfTemplatesDataModel(list);
+        selectedTemplates = new ArrayList<TemplateBean>();
     }
 
     public ListOfTemplatesDataModel getTemplatesModel() {
         return templatesModel;
     }
 
-    //operations on list
     public List<TemplateBean> getTemplates() {
         return list;
     }
@@ -62,7 +67,6 @@ public class ListController implements Serializable {
         this.selectedTemplates = selectedTemplates;
     }
 
-    //operations on filtered list
     public List<TemplateBean> getFilteredTemplates() {
         return filteredList;
     }
@@ -82,8 +86,6 @@ public class ListController implements Serializable {
     private boolean containsFilterValue(String name) {
         return name.toLowerCase().contains(filterValue.toLowerCase());
     }
-
-    //operations on both lists
 
     /**
      * Add template to list if it is not already there.
@@ -117,14 +119,10 @@ public class ListController implements Serializable {
      * @param template template to be added
      */
     public void addTemplateToFilteredListIfNeed(TemplateBean template) {
-        if (filteredList != null) {
-            if (!filteredList.contains(template)) {
-                //check if template with the same id exists
-                if (containsFilterValue(template.getTemplateName())) {
-                    //check if template satisfies current filter
-                    filteredList.add(template);
-                }
-            }
+        if (filteredList != null && !filteredList.contains(template) && containsFilterValue(template.getTemplateName())) {
+            //check if template with the same id exists
+            //check if template satisfies current filter
+            filteredList.add(template);
         }
     }
 
@@ -162,14 +160,14 @@ public class ListController implements Serializable {
         sort();
     }
 
-
     /**
      * Sort both lists of templates.
      */
     public void sort() {
         Collections.sort(list);
-        if (filteredList != null)
+        if (filteredList != null) {
             Collections.sort(filteredList);
+        }
     }
 
     /**
@@ -191,6 +189,7 @@ public class ListController implements Serializable {
     public void clone(TemplateBean template) throws CloneNotSupportedException {
         TemplateBean newTemplate = (TemplateBean) template.clone();
         newTemplate.setTemplateName(newTemplate.getTemplateName() + " - clone");
+        newTemplate.setFormId("f"+newTemplate.getId());
         addTemplateAndUpdateLists(newTemplate);
     }
 
@@ -200,30 +199,11 @@ public class ListController implements Serializable {
     public void onExportXML() {
         Collections.sort(selectedTemplates);
         try {
-            File tmpFile = FileController.createTempXml(selectedTemplates);
-            FileController.setPathToTempFile(tmpFile.getPath());
+            File tmpFile = FileDownloadController.createTempXml(selectedTemplates);
+            FileDownloadController.setPathToTempFile(tmpFile.getPath());
         } catch (IOException e) {
             LOG.error("Export XML List Exception", e);
         }
-    }
-
-    /**
-     * Perform import questionnaire from XML file.
-     */
-    public void importFromXML(FileUploadEvent event) throws IOException {
-        addAllTemplates(XmlImportExport.importXmlTemplate(event.getFile().getInputstream()));
-    }
-
-
-    /**
-     * Show message on default page.
-     *
-     * @param propertyKey key of messages.properties
-     */
-    private void addMessage(String propertyKey) {
-        String summary = getMessageProperty(propertyKey);
-        FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, summary, null);
-        FacesContext.getCurrentInstance().addMessage(null, message);
     }
 
     /**
@@ -243,8 +223,7 @@ public class ListController implements Serializable {
      */
     public static String getResourceBundleString(
             String resourceBundleName,
-            String resourceBundleKey)
-            throws MissingResourceException {
+            String resourceBundleKey) {
         FacesContext facesContext = FacesContext.getCurrentInstance();
         ResourceBundle bundle =
                 facesContext.getApplication().getResourceBundle(
@@ -260,5 +239,4 @@ public class ListController implements Serializable {
     public static String income() {
         return PageNavigator.INDEX_PAGE;
     }
-
 }

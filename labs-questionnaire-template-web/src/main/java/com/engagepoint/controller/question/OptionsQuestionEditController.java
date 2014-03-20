@@ -5,13 +5,12 @@ import com.engagepoint.controller.page.TemplateEditController;
 import com.engagepoint.model.question.*;
 import com.engagepoint.controller.page.QuestionEditController;
 import com.engagepoint.model.question.options.*;
-import com.engagepoint.model.question.rules.Rule;
+
 import com.engagepoint.model.question.utils.VariantItem;
 import com.engagepoint.model.table.ListOfOptionsDataModel;
 import org.apache.log4j.Logger;
 
 import javax.annotation.PostConstruct;
-import javax.enterprise.context.Conversation;
 import javax.enterprise.context.ConversationScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -114,6 +113,7 @@ public class OptionsQuestionEditController extends QuestionEditController {
             case MULTIPLECHOICE:
                 currentQuestion = new MultipleChoiceQuestionBean(getTemplateTreeController().getCurrentGroup());
                 break;
+            default:
         }
         currentQuestion.setQuestionType(templateEditController.getSelectedQuestionType());
     }

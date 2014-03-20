@@ -6,82 +6,114 @@ import java.util.List;
 
 import com.engagepoint.model.question.Question;
 import com.engagepoint.model.questionnaire.GroupBean;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlElementWrapper;
+import javax.xml.bind.annotation.XmlTransient;
+import javax.xml.bind.annotation.XmlType;
 
+@XmlType(name = "gridQuestionBean", propOrder = {
+        "id",
+        "requiredAnswer",
+        "questionText",
+        "questionType",
+        "onlyOneSelectInCol",
+        "onlyOneSelectInRow",
+        "questionRules",
+        "helpText",
+        "grid",
+        "defaultAnswers"
+})
 public class GridQuestionBean extends Question {
-    List<String> rows;
-    /** List of columns */
-    List<String> cols;
+    Grid grid;
     boolean[][] selected;
-    boolean onlyOneSelectInRow;
-    boolean onlyOneSelectInCol;
+    private boolean onlyOneSelectInRow;
+    private boolean onlyOneSelectInCol;
 
-    public void clear() {
-        rows = new ArrayList<String>();
-        cols = new ArrayList<String>();
-        selected = new boolean[rows.size()][cols.size()];
-    }
 
     public GridQuestionBean() {
-        rows = new ArrayList<String>();
-        rows.add("row1");
-        rows.add("row2");
-        rows.add("row3");
-        cols = new ArrayList<String>();
-        cols.add("col1");
-        cols.add("col2");
-        cols.add("col3");
-        selected = new boolean[rows.size()][cols.size()];
-        setSelect(1, 1);
+        grid = new Grid();
+        selected = new boolean[0][0];
     }
 
     public GridQuestionBean(GroupBean currentGroup) {
         super(currentGroup);
-        rows = new ArrayList<String>();
-        rows.add("row1");
-        rows.add("row2");
-        rows.add("row3");
-        cols = new ArrayList<String>();
-        cols.add("col1");
-        cols.add("col2");
-        cols.add("col3");
-        selected = new boolean[rows.size()][cols.size()];
-        setSelect(1, 1);
+        grid = new Grid();
+        selected = new boolean[0][0];
+    }
+    @XmlElement(name = "grid")
+    public Grid getGrid() {
+        return grid;
     }
 
-    public List<String> getRows() {
-        return rows;
+    public void setGrid(Grid grid) {
+        this.grid = grid;
     }
 
-    public void setRows(List<String> rows) {
-        this.rows = rows;
+    @Override
+    @XmlElementWrapper(name = "default-answers")
+    @XmlElement(name = "default-answer")
+    public List<String> getDefaultAnswers() {
+        List<String>defaultAnswers =new ArrayList<String>();
+        for (int i = 0; i <selected.length; i++) {
+            String defaultAnswer ="";
+            defaultAnswers.add(defaultAnswer);
+            for (int j = 0; j <selected[i].length ; j++) {
+                if (i < grid.getRows().size() - 1){
+                    defaultAnswer +=selected[i][j]+",";
+                    defaultAnswers.set(i,defaultAnswer);
+                }else {
+                    defaultAnswer +=selected[i][j];
+                    defaultAnswers.set(i, defaultAnswer);
+                }
+            }
+
+        }
+        return defaultAnswers;
+
     }
 
+    @Override
+    public void setDefaultAnswers(List<String> defaultAnswers) {
+       this.defaultAnswers = defaultAnswers;
+        for (int i = 0; i <defaultAnswers.size() ; i++) {
+            String[] inRow = defaultAnswers.get(i).split(",");
+            for (int j = 0; j < inRow.length; j++) {
+                selected[i][j]= Boolean.parseBoolean(inRow[j]);
+            }
+
+            
+        }
+
+    }
+
+    @XmlTransient
     public List<String> getCols() {
-        return cols;
+        return grid.getCols();
     }
 
     public void setCols(List<String> cols) {
-        this.cols = cols;
+        this.grid.setCols(cols);
     }
 
-    public boolean[][] getSelected() {
-        return selected;
+    @XmlTransient
+    public List<String> getRows() {
+        return grid.getRows();
     }
 
-    public void setSelected(boolean[][] selected) {
-        this.selected = selected;
+    public void setRows(List<String> rows) {
+        this.grid.setRows(rows);
     }
 
     public void addRow(String name) {
-        rows.add(name);
-        selected = Arrays.copyOf(selected, rows.size());
-        selected[rows.size() - 1] = new boolean[cols.size()];
+        grid.getRows().add(name);
+        selected = Arrays.copyOf(selected, grid.getRows().size());
+        selected[grid.getRows().size() - 1] = new boolean[grid.getCols().size()];
     }
 
     public void addCol(String name) {
-        cols.add(name);
+        grid.getCols().add(name);
         for (int i = 0; i < selected.length; i++) {
-            selected[i] = Arrays.copyOf(selected[i], cols.size());
+            selected[i] = Arrays.copyOf(selected[i], grid.getCols().size());
         }
     }
 
@@ -97,10 +129,6 @@ public class GridQuestionBean extends Question {
         }
     }
 
-    public void setSelect(int i, int j) {
-        setSelect(i, j, true);
-    }
-
     public void setSelect(int i, int j, boolean b) {
         selected[i][j] = b;
     }
@@ -113,6 +141,7 @@ public class GridQuestionBean extends Question {
         return selected[i][j];
     }
 
+    @XmlElement(name = "grid-oneInRow")
     public boolean isOnlyOneSelectInRow() {
         return onlyOneSelectInRow;
     }
@@ -121,6 +150,7 @@ public class GridQuestionBean extends Question {
         this.onlyOneSelectInRow = onlyOneSelectInRow;
     }
 
+    @XmlElement(name = "grid-oneInCol")
     public boolean isOnlyOneSelectInCol() {
         return onlyOneSelectInCol;
     }
@@ -129,21 +159,5 @@ public class GridQuestionBean extends Question {
         this.onlyOneSelectInCol = onlyOneSelectInCol;
     }
 
-    private boolean isSelectedInCol (int i) {
-        for (boolean[] booleans : selected) {
-            if (booleans[i]) {
-                return true;
-            }
-        }
-        return false;
-    }
 
-    private boolean isSelectedInRow (int i) {
-        for (boolean booleans : selected[i]) {
-            if (booleans) {
-                return true;
-            }
-        }
-        return false;
-    }
 }

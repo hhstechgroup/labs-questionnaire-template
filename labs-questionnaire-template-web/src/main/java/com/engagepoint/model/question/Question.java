@@ -1,49 +1,120 @@
 package com.engagepoint.model.question;
 
 
-import com.engagepoint.controller.page.TemplateTreeController;
-import com.engagepoint.model.question.options.OptionsQuestion;
+import com.engagepoint.model.question.options.GridQuestionBean;
+import com.engagepoint.model.question.options.*;
 import com.engagepoint.model.question.rules.Rule;
-import com.engagepoint.model.question.rules.RulesContainer;
 import com.engagepoint.model.questionnaire.BasicBean;
 import com.engagepoint.model.questionnaire.GroupBean;
 import com.engagepoint.model.questionnaire.QuestionType;
 import com.engagepoint.model.questionnaire.TemplateBean;
+import org.apache.log4j.Logger;
 
-import javax.inject.Inject;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlSeeAlso;
+import javax.xml.bind.annotation.XmlTransient;
+import javax.xml.bind.annotation.XmlElementWrapper;
+
 import java.util.ArrayList;
 import java.util.List;
-
 
 /**
  * Class represents question tag.
  */
-@XmlSeeAlso({TextQuestionBean.class, DateQuestionBean.class, OptionsQuestion.class, RangeQuestionBean.class})
+@XmlSeeAlso({
+        TextQuestionBean.class,
+        DateQuestionBean.class,
+        RangeQuestionBean.class,
+        ChooseFromListQuestionBean.class,
+        MultipleChoiceQuestionBean.class,
+        CheckBoxQuestionBean.class,
+        GridQuestionBean.class
+})
+@XmlTransient
 public abstract class Question extends BasicBean implements Cloneable {
-    private static Long lastId=1L;
 
-    private Long id;                    //id of the question
-    protected String questionText = "";        //questiontext
-    private boolean requiredAnswer;        //is answer required or not
-    private QuestionType questionType;    //questiontype from ENUM of questiontypes
-    private String helpText = "";            //Help texts for questions
-    private List<Rule> rules;
-    private GroupBean groupBean;
+    protected String questionId;
+    protected Long questionNumber;
+    protected boolean requiredAnswer;
+    protected String questionText = "";
+    protected QuestionType questionType;
+    protected String helpText = "";
+    protected List<String> defaultAnswers;
 
-    //Dependent questions
+    protected GroupBean groupBean;
+    private static final Logger LOG = Logger.getLogger(Question.class);
+
+    private List<Rule> questionRules;
 
     public Question() {
-        this.id = lastId++;
-        rules = new ArrayList<Rule>();
+        setRules(new ArrayList<Rule>());
+        defaultAnswers = new ArrayList<String>();
     }
 
     public Question(GroupBean groupBean) {
+        this();
         this.groupBean = groupBean;
-        id = Long.valueOf(groupBean.getId() + (lastId++).toString());
-        rules = new ArrayList<Rule>();
+        this.questionNumber = getNextQuestionNumberInGroup();
+        this.questionId = groupBean.getId() + "q" + this.questionNumber;
+    }
+
+    public Question(String questionText, boolean requiredAnswer, QuestionType questionType) {
+        this();
+        this.questionText = questionText;
+        this.requiredAnswer = requiredAnswer;
+        this.questionType = questionType;
+    }
+
+    /**
+     * Gets next number of page for current template
+     * @return SectionId
+     */
+    public final Long getNextQuestionNumberInGroup() {
+        List<Question> questionList = groupBean.getQuestionsList();
+        if (questionList.isEmpty()) {
+            return 1L;
+        }else {
+            return questionList.get(questionList.size()-1).getQuestionNumber()+1;
+        }
+    }
+
+    @XmlTransient
+    public Long getQuestionNumber() {
+        return questionNumber;
+    }
+
+    public void setQuestionNumber(Long questionNumber) {
+        this.questionNumber = questionNumber;
+    }
+
+    @XmlAttribute(name = "question-id")
+    @Override
+    public String getId() {
+        return questionId;
+    }
+
+    @Override
+    public void setId(String questionId) {
+        this.questionId = questionId;
+        //must set group number from xml
+        if (questionNumber==null) {
+            try {
+                int indexOfP = questionId.lastIndexOf('q');
+                setQuestionNumber(Long.valueOf(questionId.substring(indexOfP+1)));
+            } catch (NumberFormatException e) {
+              LOG.warn("Id is not correct", e);
+            }
+        }
+    }
+
+    @XmlAttribute(name = "answer-required")
+    public boolean isRequiredAnswer() {
+        return requiredAnswer;
+    }
+
+    public void setRequiredAnswer(boolean requiredAnswer) {
+        this.requiredAnswer = requiredAnswer;
     }
 
     @XmlElement(name = "question-title")
@@ -55,33 +126,6 @@ public abstract class Question extends BasicBean implements Cloneable {
 		this.questionText = questionText;
 	}
 
-    @XmlElement(name = "help-text")
-    public String getHelpText() {
-        return helpText;
-    }
-
-    public void setHelpText(String helpText) {
-        this.helpText = helpText;
-    }
-
-    @XmlAttribute(name = "id")
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    @XmlAttribute(required = true)
-    public boolean isRequiredAnswer() {
-        return requiredAnswer;
-    }
-
-    public void setRequiredAnswer(boolean requiredAnswer) {
-        this.requiredAnswer = requiredAnswer;
-    }
-
     @XmlElement(name = "question-type")
     public QuestionType getQuestionType() {
         return questionType;
@@ -91,51 +135,104 @@ public abstract class Question extends BasicBean implements Cloneable {
         this.questionType = questionType;
     }
 
-    public Question(String questionText, boolean requiredAnswer, QuestionType questionType) {
-        this.questionText = questionText;
-        this.requiredAnswer = requiredAnswer;
-        this.questionType = questionType;
+    @XmlElementWrapper(name = "question-rules")
+    @XmlElement(name = "question-rule")
+    public List<Rule> getQuestionRules() {
+        return getRules();
+    }
+
+    public void setQuestionRules(List<Rule> rules) {
+        setRules(rules);
+    }
+
+    @XmlElement(name = "help-text")
+    public String getHelpText() {
+        return helpText;
+    }
+
+    public void setHelpText(String helpText) {
+        this.helpText = helpText;
+    }
+
+    @XmlElementWrapper(name = "default-answers")
+    @XmlElement(name = "default-answer")
+    public List<String> getDefaultAnswers() {
+        return defaultAnswers;
+    }
+
+    public void setDefaultAnswers(List<String> defaultAnswers) {
+        this.defaultAnswers = defaultAnswers;
+    }
+
+    @XmlTransient
+    public GroupBean getGroupBean() {
+        return groupBean;
+    }
+
+    public void setGroupBean(GroupBean groupBean) {
+        this.groupBean = groupBean;
     }
 
     @Override
     public Object clone() throws CloneNotSupportedException {
         Question copy = (Question) super.clone();
-        if (TemplateBean.duplicate)
-            copy.setId(this.id);
-        copy.setQuestionType(this.questionType);
-        copy.setQuestionText(this.questionText);
+        if (TemplateBean.isDuplicate()) {
+            copy.setId(this.questionId);
+        }
         copy.setRequiredAnswer(this.requiredAnswer);
+        copy.setHelpText(this.helpText);
+        copy.setQuestionText(this.questionText);
+        copy.setQuestionType(this.questionType);
+        copy.setQuestionNumber(this.questionNumber);
         return copy;
     }
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        Question that = (Question) o;
-
-        if (requiredAnswer != that.requiredAnswer) return false;
-
-        if (questionText != null ? !questionText.equals(that.questionText) : that.questionText != null)
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
             return false;
-        if (questionType != that.questionType) return false;
+        }
+
+        Question question = (Question) o;
+
+        if (requiredAnswer != question.requiredAnswer) {
+            return false;
+        }
+
+        if (helpText != null ? !helpText.equals(question.helpText) : question.helpText != null) {
+            return false;
+        }
+        if (!questionText.equals(question.questionText)) {
+            return false;
+        }
+        if (questionType != question.questionType) {
+            return false;
+        }
+        if (questionNumber != null ? !questionNumber.equals(question.questionNumber) : question.questionNumber != null) {
+            return false;
+        }
+
 
         return true;
     }
 
     @Override
     public int hashCode() {
-        int result = id != null ? id.hashCode() : 0;
-        result = 31 * result + (questionText != null ? questionText.hashCode() : 0);
+        int result = questionNumber.hashCode();
         result = 31 * result + (requiredAnswer ? 1 : 0);
-        result = 31 * result + (questionType != null ? questionType.hashCode() : 0);
+        result = 31 * result + (helpText != null ? helpText.hashCode() : 0);
+        result = 31 * result + questionText.hashCode();
+        result = 31 * result + questionType.hashCode();
+
         return result;
     }
 
     @Override
     public String toString() {
-        return "Question " + id;
+        return questionText;
     }
 
     @Override
@@ -149,21 +246,19 @@ public abstract class Question extends BasicBean implements Cloneable {
     }
 
     @Override
+    @XmlTransient
     public String getDisplayedName() {
-        return questionText.length()>9 ? questionText.substring(0, 9)+"..." : questionText; //TODO: make property for quantity of symbols
+        return cutTextToNSymbols(questionText,9);
+        //TODO: make property for quantity of symbols
     }
 
     @Override
     public String getDisplayedId() {
-        String id = " (ID: "+String.valueOf(this.id)+") ";
-        return id;
+        return " (ID: " + this.questionId + ") ";
     }
 
-    public List<Rule> getRules() {
-        return rules;
+    private String cutTextToNSymbols(String text, int n) {
+        return text.length()>n ? text.substring(0, n)+"..." : text;
     }
 
-    public void setRules(List<Rule> rules) {
-        this.rules = rules;
-    }
 }

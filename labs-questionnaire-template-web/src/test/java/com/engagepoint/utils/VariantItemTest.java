@@ -18,5 +18,9 @@ public class VariantItemTest {
         VariantItem var1 = new VariantItem("blahblah");
         VariantItem var2 = new VariantItem("blahblah");
         Assert.assertTrue(var1.equals(var2));
+        VariantItem var3 = new VariantItem("jjj");
+        String varFake = "dsdsdsdsds";
+        Assert.assertFalse(var1.equals(var3));
+        Assert.assertFalse(var1.equals(varFake));
     }
 }

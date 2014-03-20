@@ -1,46 +1,92 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:p="http://primefaces.org/ui"
-	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:f="http://java.sun.com/jsf/core"
-	template="/templates/questionEdit.xhtml">
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ago="http://java.sun.com/jsf/composite/questiontemplate" xmlns:uib="http://java.sun.com/jsf/html"
+                template="/templates/questionEdit.xhtml">
 
-	<ui:define name="page">
+    <ui:define name="page">
+
+        <f:metadata>
+            <f:viewParam name="template" value="#{templateController.currentTemplate.id}"/>
+            <f:viewParam name="question" value="#{gridQuestionController.currentQuestion.id}"/>
+        </f:metadata>
 
         <h:form id="form">
-            <p:selectBooleanCheckbox itemLabel="onlyOneSelectInCol"
-                                     value="#{gridQuestionController.onlyOneSelectInCol}"
-                                     onchange="submit()"/>
-            <h:outputText value="  " />
-            <p:selectBooleanCheckbox itemLabel="onlyOneSelectInRow"
-                                     value="#{gridQuestionController.onlyOneSelectInRow}"
-                                     onchange="submit()"/>
+            <ago:questioncommon qb="#{gridQuestionController.currentQuestion}" id="formWithCommonProps"/>
+            <p:selectBooleanCheckbox itemLabel="Only one selection in column"
+                                     value="#{gridQuestionController.onlyOneSelectInCol}"/>
+            <br/>
+            <p:selectBooleanCheckbox itemLabel="Only one selection in row"
+                                     value="#{gridQuestionController.onlyOneSelectInRow}"/>
 
             <br/>
-            <p:commandButton id="cmdAddRow" value="Add row" action="#{gridQuestionController.addRow}" update="gridTable" />
-            <h:outputText value=" " />
-            <p:commandButton id="cmdAddCol" value="Add column" action="#{gridQuestionController.addColumn}" update="gridTable"/>
+            <p:commandButton id="cmdEditRow"
+                             value="Add row"
+                             oncomplete="dlgAddRow.show();"/>
+            <h:outputText value=" "/>
+            <p:commandButton id="cmdEditCol"
+                             value="Add column"
+                             oncomplete="dlgAddCol.show();"/>
 
             <p/>
-            <p:dataTable id="gridTable" var="row" value="#{gridQuestionController.rowsSize}">
+            <p:dataTable id="gridTable"
+                         var="row"
+                         value="#{gridQuestionController.rowsSize}"
+                         scrollable="#{gridQuestionController.getColumnsSize().size() > 4 ||
+                                     gridQuestionController.getRowsSize().size() > 7}"
+                         scrollHeight="300">
                 <p:column>
                     <f:facet name="header">
-                        <p:outputLabel value="first column"/>
+                        <p:outputLabel value="" style="width: 100px;"/>
                     </f:facet>
-                    <p:outputLabel value="#{gridQuestionController.getRow(row)}"/>
+                    <p:outputLabel value="#{gridQuestionController.getRow(row)}"
+                                   style="width: 100px"/>
                 </p:column>
 
-                <p:columns var="column" value="#{gridQuestionController.columnsSize}">
+                <p:columns var="column"
+                           value="#{gridQuestionController.columnsSize}">
                     <f:facet name="header">
-                        <p:outputLabel value="#{gridQuestionController.getColumn(column)}"/>
+                        <p:outputLabel value="#{gridQuestionController.getColumn(column)}"
+                                       style="width: 100px;"/>
                     </f:facet>
-                    <p:selectBooleanCheckbox value="#{gridQuestionController.setCurrentPosition(row, column).currentSelected}"
-                                             onchange="submit()">
-                        <!--<p:ajax event="click" update=":form:gridTable"/>-->
-                    </p:selectBooleanCheckbox>
+                    <p:selectBooleanCheckbox
+                            value="#{gridQuestionController.setCurrentPosition(row, column).currentSelected}"
+                            style="width: 100px;"/>
                 </p:columns>
             </p:dataTable>
+
+            <br/>
+            <ago:buttonsCommon qbuttons="#{gridQuestionController}" id="formWithSaveButtons"/>
         </h:form>
-	</ui:define>
+
+        <h:form>
+            <p:dialog id="dlgAddRow"
+                      header="Enter new row name"
+                      widgetVar="dlgAddRow"
+                      modal="true" height="100" width="600">
+                <p:inputText id="inpAddRow" value="#{gridQuestionController.addRow}"/>
+                <p:commandButton id="cmdAddRowOk"
+                                 value="Save"
+                                 oncomplete="dlgAddRow.hide()"
+                                 update=":form:gridTable"/>
+            </p:dialog>
+        </h:form>
+
+        <h:form>
+            <p:dialog id="dlgAddCol"
+                      header="Enter new column name"
+                      widgetVar="dlgAddCol"
+                      modal="true" height="200" width="800">
+                <p:inputText id="inpAddCol" value="#{gridQuestionController.addCol}"/>
+                <p:commandButton id="cmdAddColOk"
+                                 value="Save"
+                                 oncomplete="dlgAddCol.hide()"
+                                 update=":form:gridTable"/>
+            </p:dialog>
+        </h:form>
+
+    </ui:define>
 </ui:composition>

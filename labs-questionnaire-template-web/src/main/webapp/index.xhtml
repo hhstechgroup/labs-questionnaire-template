@@ -41,7 +41,7 @@
                     <h:outputText value="#{template.templateName}"/>
                 </uib:column>
 
-                <uib:column style="width:260px;">
+                <uib:column style="width:380px;">
                     <uib:buttonGroup>
                         <p:commandButton id="btnEdit"
                                          value="Edit"
@@ -61,26 +61,35 @@
                                          styleClass="secondary small"
                                          icon="ui-icon-add-v2"/>
 
-                        <p:commandButton id="DeleteDialogButton" value="Delete"
-                                         title="Delete"
-                                         update="modalDialogDelete" oncomplete="dlg2.show();"
-                                         styleClass="secondary small"
-                                         icon="ui-icon-remove">
-                        </p:commandButton>
-                    </uib:buttonGroup>
+						<p:commandButton id="DeleteDialogButton" value="Delete"
+							title="Delete" update="modalDialogDelete"
+							oncomplete="dlg2.show();" styleClass="secondary small"
+							icon="ui-icon-remove">
+						</p:commandButton>
 
-                    <p:dialog id="modalDialogDelete" widgetVar="dlg2"
-                              modal="true" height="100" closable="false" resizeable="false">
-                        <h:outputFormat value="#{msgs.msgOnDelete}">
-                            <f:param value="#{template.templateName}"/>
-                        </h:outputFormat>
-                        <br/>
-                        <p:commandButton value="Yes, delete it"
-                                         id="yes"
-                                         action="#{listController.deleteTemplate(template)}"
-                                         update=":form1:table,:form1:paginator" onclick="dlg2.hide()"/>
-                        <p:commandButton value="No, cancel" onclick="dlg2.hide()"/>
-                    </p:dialog>
+                        <p:dialog id="modalDialogDelete" widgetVar="dlg2"
+                                  modal="true" height="100" closable="false" resizeable="false">
+                            <h:outputFormat value="#{msgs.msgOnDelete}">
+                                <f:param value="#{template.templateName}"/>
+                            </h:outputFormat>
+                            <br/>
+                            <p:commandButton value="Yes, delete it"
+                                             id="yes"
+                                             actionListener="#{listController.deleteTemplate(template)}"
+                                             update=":form1:table,:form1:paginator" onclick="dlg2.hide()"/>
+                            <p:commandButton value="No, cancel" onclick="dlg2.hide()"/>
+                        </p:dialog>
+						
+						<p:commandButton value="Test Rules" 
+											id="testrules" 
+											title="Test"
+											styleClass="secondary small"
+											icon="ui-icon-rotate-table"
+											action="#{rulesTestController.income()}">
+											<f:setPropertyActionListener value="#{template}"
+                                                         target="#{rulesTestController.currentTemplate}"/>
+						</p:commandButton>
+					</uib:buttonGroup>
 
                 </uib:column>
 
@@ -97,14 +106,14 @@
 
             <p:menuButton value="Options" id="Options">
                 <p:menuitem value="Export" id="export"
+                            name="Export"
+                            update=":form2:ExportDialog"
                             icon="ui-icon-disk"
-                            ajax="false"
-                            actionListener="#{listController.onExportXML}">
-                    <p:fileDownload value="#{fileController.downloadFile}"/>
+                            oncomplete="downloadXML.show()">
                 </p:menuitem>
-                <p:menuitem value="Import"
+                <p:menuitem value="Import" id="import"
                             name="Import"
-                            update="ImportDialog"
+                            update=":form2:ImportDialog"
                             icon="ui-icon-arrowrefresh-1-w"
                             oncomplete="uploadXML.show()"/>
             </p:menuButton>
@@ -115,18 +124,67 @@
                              styleClass="fl-right">
             </p:commandButton>
 
+        </h:form>
+
+        <h:form id="form2" enctype="multipart/form-data">
+
+            <p:dialog id="ExportDialog"
+                      header="Export Dialog"
+                      widgetVar="downloadXML"
+                      modal="true" height="200" width="800">
+
+                <p:outputLabel value="Exported templates"/> <br/>
+                <p:dataList id="exportedTemplates"
+                            value="#{listController.selectedTemplates}"
+                            var="template">
+                    #{template.templateName}
+                </p:dataList>
+
+                <h:commandButton id="download_button"
+                                 class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only"
+                                 style="margin-left: 20px;"
+                                 value="Download"
+                                 actionListener="#{listController.onExportXML}"
+                                 onclick="downloadXML.hide()">
+                    <p:fileDownload value="#{fileDownloadController.downloadFile}"/>
+                </h:commandButton>
+
+            </p:dialog>
+
             <p:dialog id="ImportDialog"
                       header="Import Dialog"
                       widgetVar="uploadXML"
                       modal="true" height="200" width="800">
-                <p:fileUpload value="#{fileController.uploadFile}"
-                              fileUploadListener="#{listController.importFromXML}"
-                              multiple="true"
-                              oncomplete="uploadXML.hide()"
-                              update=":form1:table, :form1:paginator"/>
+
+                <h:commandButton value="Choose File" id="butt_choose"
+                                 style="position: relative; "
+                                 class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only"
+                                 action="#">
+                </h:commandButton>
+
+                <h:inputFile id="fileid"
+                             style="position:
+                                        relative; margin-left: -150px;
+                                        opacity:0;
+                                        height: 34px;
+                                        width: 150px;"
+                             title="Please choose xml"
+                             value="#{fileUploadController.uploadFile}">
+                </h:inputFile>
+
+
+                <h:commandButton id="upload_button"
+                                 class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only"
+                                 style="margin-left: 20px;"
+                                 value="Upload"
+                                 actionListener="#{fileUploadController.importFromXML}"
+                                 onclick="uploadXML.hide()">
+                </h:commandButton>
+
             </p:dialog>
 
         </h:form>
+
     </ui:define>
 
 </ui:composition>

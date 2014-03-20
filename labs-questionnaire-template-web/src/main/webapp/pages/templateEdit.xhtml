@@ -4,12 +4,10 @@
                 xmlns:p="http://primefaces.org/ui"
                 xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:f="http://java.sun.com/jsf/core"
-                xmlns:uib="http://engagepoint.com/uib"
-                xmlns:F="http://java.sun.com/jsp/jstl/sql"
                 template="/templates/templateEdit.xhtml">
 
     <f:metadata>
-        <f:viewParam name="template" 
+        <f:viewParam name="templateId"
                      value="#{templateController.currentTemplate.id}"/>
     </f:metadata>
 
@@ -20,9 +18,9 @@
             <p:panelGrid columns="1">
 
                 <f:facet name="header">
-                    <h:outputText value="Template" 
+                    <h:outputText value="Template"
                                   rendered="#{!templateController.isNew()}"/>
-                    <h:outputText value="New template" 
+                    <h:outputText value="New template"
                                   rendered="#{templateController.isNew()}"/>
                 </f:facet>
 
@@ -49,7 +47,9 @@
 
                         <p:ajax event="expand" update=":formTemplate:form:buttonPanel"/>
                         <p:ajax event="collapse" update=":formTemplate:form:buttonPanel"/>
-                        <p:ajax event="select" update=":formTemplate:form:buttonPanel, :formTemplate:form:treeMultiple" listener="#{templateTreeController.onSelect}"/>
+                        <p:ajax event="select"
+                                update=":formTemplate:form:buttonPanel, :formTemplate:form:treeMultiple"
+                                listener="#{templateTreeController.onSelect}"/>
                         <p:ajax event="unselect" update=":formTemplate:form:buttonPanel"/>
 
 						<p:column style="#{templateTreeController.getStyle(node)}">
@@ -59,10 +59,17 @@
                                           style="cursor: pointer" />
                             <h:outputText id="treeDisplayedId" value="#{node.displayedId}"
                                           style="cursor: pointer" />
+                            <p:commandButton value="View rules" id="viewRules"
+                                             style="float:right;"
+                                             rendered="#{templateTreeController.editButtonRendering(node)}"
+                                             action="#{templateController.goToRulePage}"
+                                             styleClass="small blue">
+                            </p:commandButton>
 							<p:commandButton value="Edit Name" id="editName"
-								style="float:right;"
+								style="float:right;margin: 0 2px 0 0;"
                                 rendered="#{templateTreeController.editButtonRendering(node)}"
-								onclick="dlg.show();">
+								onclick="dlg.show();"
+								styleClass="small blue">
 						    </p:commandButton>
                             <p:dialog id="modalDialogEdit" widgetVar="dlg" modal="true"
                                       closable="false" height="100" resizeable="false">
@@ -70,9 +77,12 @@
                                 <h:inputText id="nameOfCurrentNode"
                                              value="#{templateTreeController.nameOfCurrentNode}"/> <br/>
 
-                                <p:commandButton value="OK" id="yesEditName" action="#{templateTreeController.commitNameOfCurrentNode}"
-                                                 update=":formTemplate:form:treeMultiple" onclick="dlg.hide()" />
-                                <p:commandButton value="Cancel" id="notEditName" action="#{templateTreeController.revertNameOfCurrentNode}"
+                                <p:commandButton value="OK" id="yesEditName"
+                                                 action="#{templateTreeController.commitNameOfCurrentNode}"
+                                                 update=":formTemplate:form:treeMultiple, treeDisplayedName"
+                                                 onclick="dlg.hide()" />
+                                <p:commandButton value="Cancel" id="notEditName"
+                                                 action="#{templateTreeController.revertNameOfCurrentNode}"
                                                  immediate="true"
                                                  onclick="dlg.hide()" />
                             </p:dialog>
@@ -95,6 +105,7 @@
                                          rendered="#{templateTreeController.selectedNode!=null}"
                                          id="btnDisplayDelete"
                                          styleClass="secondary"
+                                         actionListener="#{rulesTestController.cleanDependencies}"
                                          icon="ui-icon-remove"/>
                         <h:outputText value=" "/>
 

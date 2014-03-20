@@ -6,7 +6,7 @@ import javax.xml.bind.annotation.XmlValue;
  * Representation of answer variant for a question.
  */
 public class VariantItem implements Cloneable {
-    private String value;
+    private String value="";
 
     public VariantItem() {
     }
@@ -33,13 +33,16 @@ public class VariantItem implements Cloneable {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof VariantItem)) return false;
-
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof VariantItem)) {
+            return false;
+        }
         VariantItem that = (VariantItem) o;
-
-        if (!value.equals(that.value)) return false;
-
+        if (!value.equals(that.value)) {
+            return false;
+        }
         return true;
     }
 

@@ -33,10 +33,20 @@ public class RulesContainer {
      * @return rule object.
      */
     public Rule createRule(String description) {
-        switch (supportedRules.get(description)) {
+        if (description != null){
+            switch (supportedRules.get(description)) {
             case RENDERED:
                 return new RenderedRule();
+            default:
+
+
+
         }
-        return null;
+        }
+
+       return null;
     }
-}
+    }
+
+
+

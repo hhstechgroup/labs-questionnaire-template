@@ -13,6 +13,12 @@ import java.util.List;
 
 public class XmlImportExport {
     private static final Logger LOG = Logger.getLogger(XmlImportExport.class);
+    private static final String IMPORT_XML_EXCEPTION = "Import XML Exception";
+    private static final String EXPORT_XML_EXCEPTION = "Export XML Exception";
+
+    private XmlImportExport() {
+
+    }
 
     /**
      * Unmarshal XML to Wrapper from file and return List value.
@@ -61,7 +67,7 @@ public class XmlImportExport {
             Unmarshaller unmarshaller = jc.createUnmarshaller();
             list = unmarshal(unmarshaller, filePath);
         } catch (JAXBException e) {
-            LOG.error("Import XML exception", e);
+            LOG.error(IMPORT_XML_EXCEPTION, e);
         }
         return list;
     }
@@ -79,7 +85,7 @@ public class XmlImportExport {
             Unmarshaller unmarshaller = jc.createUnmarshaller();
             list = unmarshal(unmarshaller, inputStream);
         } catch (JAXBException e) {
-            LOG.error("Import XML exception", e);
+            LOG.error(IMPORT_XML_EXCEPTION, e);
         }
         return list;
     }
@@ -99,12 +105,12 @@ public class XmlImportExport {
             stream = new FileOutputStream(path);
             marshal(marshaller, listTemplateBean, "questionnaire-forms", stream);
         } catch (Exception e) {
-            LOG.error("Export XML exception", e);
+            LOG.error(EXPORT_XML_EXCEPTION, e);
         } finally {
             try {
                 stream.close();
             } catch (IOException e) {
-                LOG.error("Export XML exception", e);
+                LOG.error(EXPORT_XML_EXCEPTION, e);
             }
         }
     }

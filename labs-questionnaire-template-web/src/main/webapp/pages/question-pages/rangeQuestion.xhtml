@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
-                xmlns:p="http://primefaces.org/ui"
                 xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:f="http://java.sun.com/jsf/core"
                 xmlns:ago="http://java.sun.com/jsf/composite/questiontemplate"
@@ -24,6 +23,12 @@
                 <h:inputText id="maxRangeValue" value="#{rangeQuestion.currentQuestion.rangeItem.maxValue}">
                     <f:validateLongRange minimum="#{rangeQuestion.currentQuestion.rangeItem.minValue}"/>
                 </h:inputText>
+
+                <h:outputText value="Default minimum: "/>
+                <h:inputText size="50" id="defaultMin" value="#{rangeQuestion.currentQuestion.defaultMin}"/>
+
+                <h:outputText value="Default maximum: "/>
+                <h:inputText size="50" id="defaultMax" value="#{rangeQuestion.currentQuestion.defaultMax}"/>
 
             </h:panelGrid>
 
