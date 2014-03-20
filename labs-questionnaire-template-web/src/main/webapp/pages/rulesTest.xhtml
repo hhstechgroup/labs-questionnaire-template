@@ -26,6 +26,14 @@
 					<h:outputText value="#{rulesTestController.getDependentByQuestion(templateEl)}" />
 				</uib:column>
 				<uib:column>
+                    <p:commandButton value="Rules" id="viewRules"
+                                     style="float:center;"
+                                     rendered="#{rulesTestController.getViewRuleButton(templateEl)}"
+                                     styleClass="small blue"
+                                     update="questionstable"
+                                     action="#{rulesTestController.showRuleForQuestionButton(templateEl)}"
+                            >
+                    </p:commandButton>
 					<p:commandButton value="View" id="viewdeps"
 								style="float:center;"
                                 rendered="#{rulesTestController.dependencies.get(templateEl)!=null}"
@@ -49,6 +57,18 @@
 			<p:commandButton id="back" value="Back" title="Back"
 				action="#{listController.income()}">
 			</p:commandButton>
+
+
+            <p:dialog widgetVar="showRulesdialog" modal="true" closable="true">
+                <uib:dataTable id="rules" var="rule"
+                               value="#{rulesTestController.rulesForQuestion}">
+                    <uib:column headerText="Rules">
+                        <h:outputText value="#{rule.description}"/>
+                    </uib:column>
+
+                </uib:dataTable>
+
+            </p:dialog>
 			
 			
 			 <p:dialog id="answer" widgetVar="dlgSetAnswer"

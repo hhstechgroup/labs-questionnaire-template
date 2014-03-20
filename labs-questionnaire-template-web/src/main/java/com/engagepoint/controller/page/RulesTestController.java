@@ -2,6 +2,7 @@ package com.engagepoint.controller.page;
 
 
 import javax.enterprise.context.SessionScoped;
+import org.primefaces.context.RequestContext;
 import javax.inject.Named;
 import com.engagepoint.controller.utils.PageNavigator;
 import com.engagepoint.model.question.Question;
@@ -22,22 +23,24 @@ public class RulesTestController extends RuleController implements Serializable 
 
 	private List<BasicBean> templateElementsList;
 	private Map<BasicBean, List<BasicBean>> dependencies;
+    private List<BasicBean> beansWithRules;
 	private Map<BasicBean, String> styles;
     private static final String QUESTION = "question";
     private static final String GROUP = "group";
     private static final String SECTION = "section";
 	private TemplateBean currentTemplate;
+    private BasicBean currentBean;
 	
 	public void resetRulerList(){
 		prepareQuestionList();
 		prepareDependencies();
+        prepareRules();
 		if(styles!=null){
 			styles.clear();
         }
 	}
-	
 
-	public Map<BasicBean, List<BasicBean>> getDependencies() {
+    public Map<BasicBean, List<BasicBean>> getDependencies() {
 		return dependencies;
 	}
 
@@ -112,6 +115,14 @@ public class RulesTestController extends RuleController implements Serializable 
 
 		}
 	}
+
+    private void prepareRules() {
+        beansWithRules = new ArrayList<BasicBean>();
+        for(BasicBean bean : templateElementsList){
+            if(bean.getRules()!=null && ! bean.getRules().isEmpty())
+                beansWithRules.add(bean);
+        }
+    }
 
 	/**
 	 * get an Template element object with specified ID
@@ -256,6 +267,25 @@ public class RulesTestController extends RuleController implements Serializable 
 		}
 
 	}
+
+    public boolean getViewRuleButton(BasicBean q){
+        if(beansWithRules.contains(q))
+            return true;
+        return false;
+    }
+
+    public void showRuleForQuestionButton(BasicBean bean){
+        currentBean = bean;
+
+        RequestContext.getCurrentInstance().execute("showRulesdialog.show()");
+        RequestContext.getCurrentInstance().update("form1:rules");  //execute("rulesForm:rules.show()");
+    }
+
+    public List<Rule> getRulesForQuestion(){
+        if(currentBean!=null)
+            return currentBean.getRules();
+        return null;
+    }
 	
 
     public void cleanDependencies(){
