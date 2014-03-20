@@ -1,5 +1,6 @@
 package com.engagepoint.model.questionnaire;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -14,7 +15,7 @@ import com.engagepoint.model.question.rules.Rule;
 @XmlTransient
 public abstract class BasicBean {
     private String displayedName="";
-    private List<Rule> rules;
+    private List<Rule> rules = new ArrayList<Rule>();
 
     /** Return type of bean */
     public abstract String getType();
