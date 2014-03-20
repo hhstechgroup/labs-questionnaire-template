@@ -58,7 +58,7 @@ public class GridQuestionBean extends Question {
             String defaultAnswer ="";
             defaultAnswers.add(defaultAnswer);
             for (int j = 0; j <selected[i].length ; j++) {
-                if (i < grid.getRows().size()){
+                if (i < grid.getRows().size() - 1){
                     defaultAnswer +=selected[i][j]+",";
                     defaultAnswers.set(i,defaultAnswer);
                 }else {
@@ -69,6 +69,20 @@ public class GridQuestionBean extends Question {
 
         }
         return defaultAnswers;
+
+    }
+
+    @Override
+    public void setDefaultAnswers(List<String> defaultAnswers) {
+       this.defaultAnswers = defaultAnswers;
+        for (int i = 0; i <defaultAnswers.size() ; i++) {
+            String[] inRow = defaultAnswers.get(i).split(",");
+            for (int j = 0; j < inRow.length; j++) {
+                selected[i][j]= Boolean.parseBoolean(inRow[j]);
+            }
+
+            
+        }
 
     }
 
