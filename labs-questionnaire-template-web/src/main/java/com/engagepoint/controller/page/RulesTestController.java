@@ -1,11 +1,8 @@
 package com.engagepoint.controller.page;
 
-import javax.annotation.PostConstruct;
-import javax.enterprise.context.Conversation;
-import javax.enterprise.context.SessionScoped;
-import javax.inject.Inject;
-import javax.inject.Named;
 
+import javax.enterprise.context.SessionScoped;
+import javax.inject.Named;
 import com.engagepoint.controller.utils.PageNavigator;
 import com.engagepoint.model.question.Question;
 import com.engagepoint.model.question.rules.Rule;
@@ -24,7 +21,9 @@ public class RulesTestController extends RuleController implements Serializable 
 	private List<BasicBean> templateElementsList;
 	private Map<BasicBean, List<BasicBean>> dependencies;
 	private Map<BasicBean, String> styles;
-
+    private static final String QUESTION = "question";
+    private static final String GROUP = "group";
+    private static final String SECTION = "section";
 	private TemplateBean currentTemplate;
 	
 	public void resetRulerList(){
@@ -75,14 +74,15 @@ public class RulesTestController extends RuleController implements Serializable 
 	 * @return
 	 */
 	public String displayTemplateElement(BasicBean bb) {
-		String result = bb.getId(); // TODO change to element name
+		String result = bb.getId();
+		// TODO change to element name
 
 		String s = bb.getType();
-		if ("section".equals(s)) {
+		if (SECTION.equals(s)) {
 			return result;
-		} else if ("group".equals(s)) {
+		} else if (GROUP.equals(s)) {
 			return "___" + result;
-		} else if ("question".equals(s)) {
+		} else if (QUESTION.equals(s)) {
 			return "______" + result;
 		} else {
 			return "";
@@ -186,16 +186,17 @@ public class RulesTestController extends RuleController implements Serializable 
 		List<BasicBean> dependent = dependencies.get(basicBean);
 
 		if (dependent != null) {
-			for (int i = 0; i < dependent.size(); i++) { // TODO SHOULD BE
-															// TESTED!!!!
+			for (int i = 0; i < dependent.size(); i++) {
+			// TODO SHOULD BE TESTED
+
 				BasicBean bb = dependent.get(i);
-				if ("question".equals(bb.getType())) {
+				if (QUESTION.equals(bb.getType())) {
 					styles.put(bb, "red");
-					setRedColour(bb); // set Red to all dependent elements from
-										// this question
-				} else if ("group".equals(bb.getType())) {
+					setRedColour(bb);
+					// set Red to all dependent elements from this question
+				} else if (GROUP.equals(bb.getType())) {
 					setRedGroup(bb);
-				} else if ("section".equals(bb.getType())) {
+				} else if (SECTION.equals(bb.getType())) {
 					setRedSection(bb);
 				}
 			}
@@ -206,7 +207,7 @@ public class RulesTestController extends RuleController implements Serializable 
 		styles.put(bb, "red");
 		for (int i = templateElementsList.indexOf(bb) + 1; i < templateElementsList
 				.size()
-				&& ("group".equals(templateElementsList.get(i).getType()) || "question".equals(templateElementsList.get(i).getType())); i++) {
+				&& (GROUP.equals(templateElementsList.get(i).getType()) || QUESTION.equals(templateElementsList.get(i).getType())); i++) {
 			styles.put(templateElementsList.get(i), "red");
 			setRedColour(templateElementsList.get(i));
 		}
@@ -217,7 +218,7 @@ public class RulesTestController extends RuleController implements Serializable 
 		styles.put(bb, "red");
 		for (int i = templateElementsList.indexOf(bb) + 1; i < templateElementsList
 				.size()
-				&& "question".equals(templateElementsList.get(i).getType()); i++) {
+				&& QUESTION.equals(templateElementsList.get(i).getType()); i++) {
 			styles.put(templateElementsList.get(i), "red");
 			setRedColour(templateElementsList.get(i));
 		}
@@ -256,13 +257,13 @@ public class RulesTestController extends RuleController implements Serializable 
     public void cleanDependencies(){
         currentTemplate = templateTreeController.getTemplateBean();
         resetRulerList();
-        if(templateTreeController!=null && "question".equals(templateTreeController.getSelectedType())){
+        if(templateTreeController!=null && QUESTION.equals(templateTreeController.getSelectedType())){
             cleanFromQuestionDelete((BasicBean) templateTreeController.getSelectedNode().getData());
         }else
-        if(templateTreeController!=null && "group".equals(templateTreeController.getSelectedType())){
+        if(templateTreeController!=null && GROUP.equals(templateTreeController.getSelectedType())){
             cleanFromGroupDelete((BasicBean) templateTreeController.getSelectedNode().getData());
         }else
-        if(templateTreeController!=null && "section".equals(templateTreeController.getSelectedType())){
+        if(templateTreeController!=null && SECTION.equals(templateTreeController.getSelectedType())){
             cleanFromSectionDelete((BasicBean) templateTreeController.getSelectedNode().getData());
         }
     }
