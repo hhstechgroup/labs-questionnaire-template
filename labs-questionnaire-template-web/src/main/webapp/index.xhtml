@@ -133,6 +133,13 @@
                       widgetVar="downloadXML"
                       modal="true" height="200" width="800">
 
+                <p:outputLabel value="Exported templates"/> <br/>
+                <p:dataList id="exportedTemplates"
+                            value="#{listController.selectedTemplates}"
+                            var="template">
+                    #{template.templateName}
+                </p:dataList>
+
                 <h:commandButton id="download_button"
                                  class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only"
                                  style="margin-left: 20px;"
@@ -161,7 +168,7 @@
                                         opacity:0;
                                         height: 34px;
                                         width: 150px;"
-                             title="Please choose your zip archive"
+                             title="Please choose xml"
                              value="#{fileUploadController.uploadFile}">
                 </h:inputFile>
 
