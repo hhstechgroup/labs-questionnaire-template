@@ -109,7 +109,7 @@
                     <uib:dataTable var="option"
                                    value="#{rulesTestController.dataModel}"
                                    selection="#{rulesTestController.defaultOption}"
-                                   rendered="#{rulesTestController.dependentQuestion.questionType eq 'CHOOSEFROMLIST' or questionRuleController.currentDependentQuestionType eq 'MULTIPLECHOICE'}">
+                                   rendered="#{rulesTestController.dependentQuestion.questionType eq 'CHOOSEFROMLIST' or rulesTestController.dependentQuestion.questionType eq 'MULTIPLECHOICE'}">
                         <uib:column headerText="Default"
                                     selectionMode="single"/>
                         <uib:column headerText="Options">
