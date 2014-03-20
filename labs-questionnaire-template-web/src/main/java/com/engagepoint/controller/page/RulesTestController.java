@@ -238,20 +238,18 @@ public class RulesTestController extends RuleController implements Serializable 
 	}
 	
 	
-	//TODO complete
+	// TODO complete
 	public void testRule() {
-		String answer="";
+		String answer = "";
 		styles = new HashMap<BasicBean, String>();
-		for(BasicBean bb : dependencies.get(getDependentQuestion())){
-			for(Rule r : bb.getRules()) {
-				if(r.getDescription().equals(answer)){
+		for (BasicBean bb : dependencies.get(getDependentQuestion())) {
+			for (Rule r : bb.getRules()) {
+				if (r.getDescription().equals(answer)) {
 					setRedColour(getElementById(r.getId()));
 				}
+			}
 		}
-		}
-			
-		
-		
+
 	}
 	
 
