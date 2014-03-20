@@ -176,48 +176,47 @@ public class RulesTestController extends RuleController implements Serializable 
 		return res;
 	}
 
-	private void setRedtoElement(BasicBean basicBean){
+	private void addElementToNotRendered(BasicBean basicBean){
 		if (QUESTION.equals(basicBean.getType())) {
 			notRenderedSet.add(basicBean);
-			setRedtoDependent(basicBean);
+			addDependentToNotRendered(basicBean);
 			// set Red to all dependent elements from this question
 		} else if (GROUP.equals(basicBean.getType())) {
-			setRedGroup(basicBean);
+			addGroupToNotRendered(basicBean);
 		} else if (SECTION.equals(basicBean.getType())) {
-			setRedSection(basicBean);
+			addSectionToNotRendered(basicBean);
 		}
 		
 	}
 	
-	private void setRedtoDependent(BasicBean basicBean) {
+	private void addDependentToNotRendered(BasicBean basicBean) {
 		List<BasicBean> dependent = dependencies.get(basicBean);
 
 		if (dependent != null) {
 			for (int i = 0; i < dependent.size(); i++) {
-			// TODO SHOULD BE TESTED
-				setRedtoElement(dependent.get(i));
+				addElementToNotRendered(dependent.get(i));
 			}
 		}
 	}
 
-	private void setRedSection(BasicBean bb) {
+	private void addSectionToNotRendered(BasicBean bb) {
 		notRenderedSet.add(bb);
 		for (int i = templateElementsList.indexOf(bb) + 1; i < templateElementsList
 				.size()
 				&& (GROUP.equals(templateElementsList.get(i).getType()) || QUESTION.equals(templateElementsList.get(i).getType())); i++) {
 			notRenderedSet.add(templateElementsList.get(i));
-			setRedtoDependent(templateElementsList.get(i));
+			addDependentToNotRendered(templateElementsList.get(i));
 		}
 
 	}
 
-	private void setRedGroup(BasicBean bb) {
+	private void addGroupToNotRendered(BasicBean bb) {
 		notRenderedSet.add(bb);
 		for (int i = templateElementsList.indexOf(bb) + 1; i < templateElementsList
 				.size()
 				&& QUESTION.equals(templateElementsList.get(i).getType()); i++) {
 			notRenderedSet.add(templateElementsList.get(i));
-			setRedtoDependent(templateElementsList.get(i));
+			addDependentToNotRendered(templateElementsList.get(i));
 		}
 
 	}
@@ -236,7 +235,10 @@ public class RulesTestController extends RuleController implements Serializable 
 	}
 	
 	
-	// TODO complete
+	/**
+	 * tests Rules, dependent from current question and add 
+	 * 
+	 */
 	public void testRule() {
 		notRenderedSet = new HashSet<BasicBean>();
 		for (BasicBean bb : dependencies.get(getDependentQuestion())) {
@@ -244,8 +246,8 @@ public class RulesTestController extends RuleController implements Serializable 
                 QuestionAnswer rAnswer = new QuestionAnswer();
                 rAnswer.setAnswer(r);
                 if(rAnswer.equals(answerForTests)) {
-                	setRedtoElement(bb);
-					setRedtoDependent(bb);
+                	addElementToNotRendered(bb);
+					addDependentToNotRendered(bb);
 				}
 			}
 		}
