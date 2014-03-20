@@ -6,7 +6,6 @@ import org.primefaces.context.RequestContext;
 import javax.inject.Named;
 import com.engagepoint.controller.utils.PageNavigator;
 import com.engagepoint.model.question.Question;
-import com.engagepoint.model.question.rules.RenderedRule;
 import com.engagepoint.model.question.rules.Rule;
 import com.engagepoint.model.question.utils.QuestionAnswer;
 import com.engagepoint.model.questionnaire.BasicBean;
@@ -24,7 +23,7 @@ public class RulesTestController extends RuleController implements Serializable 
 	private List<BasicBean> templateElementsList;
 	private Map<BasicBean, List<BasicBean>> dependencies;
     private List<BasicBean> beansWithRules;
-	private Map<BasicBean, String> styles;
+	private Set<BasicBean> notRenderedSet;
     private static final String QUESTION = "question";
     private static final String GROUP = "group";
     private static final String SECTION = "section";
@@ -35,8 +34,8 @@ public class RulesTestController extends RuleController implements Serializable 
 		prepareQuestionList();
 		prepareDependencies();
         prepareRules();
-		if(styles!=null){
-			styles.clear();
+		if(notRenderedSet!=null){
+			notRenderedSet.clear();
         }
 	}
 
@@ -57,6 +56,14 @@ public class RulesTestController extends RuleController implements Serializable 
 	}
 
 	
+	public Set<BasicBean> getNotRenderedSet() {
+		return notRenderedSet;
+	}
+
+	public void setNotRenderedSet(Set<BasicBean> notRenderedSet) {
+		this.notRenderedSet = notRenderedSet;
+	}
+
 	/**
 	 * build a list of all template elements from current template
 	 */
@@ -169,72 +176,48 @@ public class RulesTestController extends RuleController implements Serializable 
 		return res;
 	}
 
-	/**
-	 * get String style for current Question to use in style field on page
-	 * 
-	 * @param q
-	 * @return
-	 */
-	public String getStyle(BasicBean q) {
-
-		if (styles != null && styles.get(q) != null){
-			return "background-color: " + styles.get(q) + ";color: white;";
-        }
-		return "";
+	private void setRedtoElement(BasicBean basicBean){
+		if (QUESTION.equals(basicBean.getType())) {
+			notRenderedSet.add(basicBean);
+			setRedtoDependent(basicBean);
+			// set Red to all dependent elements from this question
+		} else if (GROUP.equals(basicBean.getType())) {
+			setRedGroup(basicBean);
+		} else if (SECTION.equals(basicBean.getType())) {
+			setRedSection(basicBean);
+		}
+		
 	}
-
-	/**
-	 * set style green for this question and red for depended elements
-	 * 
-	 * @param
-	 */
-	public void setStyles(BasicBean basicBean) {
-		styles = new HashMap<BasicBean, String>();
-		styles.put(basicBean, "green");
-		setRedColour(basicBean);
-	}
-
 	
-	
-	private void setRedColour(BasicBean basicBean) {
+	private void setRedtoDependent(BasicBean basicBean) {
 		List<BasicBean> dependent = dependencies.get(basicBean);
 
 		if (dependent != null) {
 			for (int i = 0; i < dependent.size(); i++) {
 			// TODO SHOULD BE TESTED
-
-				BasicBean bb = dependent.get(i);
-				if (QUESTION.equals(bb.getType())) {
-					styles.put(bb, "red");
-					setRedColour(bb);
-					// set Red to all dependent elements from this question
-				} else if (GROUP.equals(bb.getType())) {
-					setRedGroup(bb);
-				} else if (SECTION.equals(bb.getType())) {
-					setRedSection(bb);
-				}
+				setRedtoElement(dependent.get(i));
 			}
 		}
 	}
 
 	private void setRedSection(BasicBean bb) {
-		styles.put(bb, "red");
+		notRenderedSet.add(bb);
 		for (int i = templateElementsList.indexOf(bb) + 1; i < templateElementsList
 				.size()
 				&& (GROUP.equals(templateElementsList.get(i).getType()) || QUESTION.equals(templateElementsList.get(i).getType())); i++) {
-			styles.put(templateElementsList.get(i), "red");
-			setRedColour(templateElementsList.get(i));
+			notRenderedSet.add(templateElementsList.get(i));
+			setRedtoDependent(templateElementsList.get(i));
 		}
 
 	}
 
 	private void setRedGroup(BasicBean bb) {
-		styles.put(bb, "red");
+		notRenderedSet.add(bb);
 		for (int i = templateElementsList.indexOf(bb) + 1; i < templateElementsList
 				.size()
 				&& QUESTION.equals(templateElementsList.get(i).getType()); i++) {
-			styles.put(templateElementsList.get(i), "red");
-			setRedColour(templateElementsList.get(i));
+			notRenderedSet.add(templateElementsList.get(i));
+			setRedtoDependent(templateElementsList.get(i));
 		}
 
 	}
@@ -255,13 +238,14 @@ public class RulesTestController extends RuleController implements Serializable 
 	
 	// TODO complete
 	public void testRule() {
-		styles = new HashMap<BasicBean, String>();
+		notRenderedSet = new HashSet<BasicBean>();
 		for (BasicBean bb : dependencies.get(getDependentQuestion())) {
 			for (Rule r : bb.getRules()) {
                 QuestionAnswer rAnswer = new QuestionAnswer();
                 rAnswer.setAnswer(r);
                 if(rAnswer.equals(answerForTests)) {
-					setRedColour(getElementById(r.getId()));
+                	setRedtoElement(bb);
+					setRedtoDependent(bb);
 				}
 			}
 		}

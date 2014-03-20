@@ -18,8 +18,12 @@
 			<uib:dataTable id="questionstable" var="templateEl" 
 				value="#{rulesTestController.templateElementsList}">
 				<uib:column>
-					<h:outputText value="#{rulesTestController.displayTemplateElement(templateEl)}" 
-					style="#{rulesTestController.getStyle(templateEl)}" />
+				<p:commandButton icon="ui-icon-close"
+				 rendered="#{rulesTestController.notRenderedSet.contains(templateEl)}"
+				 styleClass="small blue"/>
+				</uib:column>
+				<uib:column>
+					<h:outputText value="#{rulesTestController.displayTemplateElement(templateEl)}"/>
 				</uib:column>
 				
 				<uib:column headerText="Dependencies">
@@ -34,14 +38,7 @@
                                      action="#{rulesTestController.showRuleForQuestionButton(templateEl)}"
                             >
                     </p:commandButton>
-					<p:commandButton value="View" id="viewdeps"
-								style="float:center;"
-                                rendered="#{rulesTestController.dependencies.get(templateEl)!=null}"
-								styleClass="small blue"
-								update="questionstable"
-								action="#{rulesTestController.setStyles(templateEl)}" >
-								
-					</p:commandButton>
+					
 				</uib:column>
 				<uib:column>
 					<p:commandButton value="Test" id="testdep"
@@ -133,7 +130,7 @@
 
                     <br/>
                     <br/>
-                    <p:commandButton value="Save" onclick="dlgSetAnswer.hide()" 
+                    <p:commandButton value="Apply value" onclick="dlgSetAnswer.hide()" 
                     update="questionstable"
                     actionListener="#{rulesTestController.saveRuleAnswerAction}"
                     action="#{rulesTestController.testRule}"/>
