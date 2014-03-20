@@ -45,8 +45,8 @@
 								style="float:center;"
                                 rendered="#{rulesTestController.dependencies.get(templateEl)!=null}"
 								styleClass="small blue"
-                                action="#{rulesTestController.setDependentQuestion(templateEl)}"
-                                update=":form1:answer"
+                                action="#{rulesTestController.initTestQuestion(templateEl)}"
+                                update=":form1:answer,@([id$=SetAnswerPanel])"
                                 oncomplete="dlgSetAnswer.show();" />
 				</uib:column>
 			</uib:dataTable>
