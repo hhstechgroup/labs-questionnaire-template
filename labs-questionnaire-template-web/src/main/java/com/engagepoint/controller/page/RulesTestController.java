@@ -63,6 +63,18 @@ public class RulesTestController extends RuleController implements Serializable 
 	public void setNotRenderedSet(Set<BasicBean> notRenderedSet) {
 		this.notRenderedSet = notRenderedSet;
 	}
+	
+	public TemplateBean getCurrentTemplate() {
+		return currentTemplate;
+	}
+
+
+	public void setCurrentTemplate(TemplateBean currentTemplate) {
+		this.currentTemplate = currentTemplate;
+		//TODO change to invocation
+		resetRulerList();
+		
+	}
 
 	/**
 	 * build a list of all template elements from current template
@@ -122,7 +134,8 @@ public class RulesTestController extends RuleController implements Serializable 
 
 		}
 	}
-
+	
+	
     private void prepareRules() {
         beansWithRules = new ArrayList<BasicBean>();
         for(BasicBean bean : templateElementsList){
@@ -156,12 +169,11 @@ public class RulesTestController extends RuleController implements Serializable 
 	}
 
 	/**
-	 * TODO TEMP method for development phase, will
+	 * view string list of questions, that are dependent from this
 	 * 
-	 * @param q
+	 * @param
 	 * @return
 	 */
-
 	public String getDependentByQuestion(BasicBean q) {
 		List<BasicBean> result = dependencies.get(q);
 		if (result == null) {
@@ -176,6 +188,13 @@ public class RulesTestController extends RuleController implements Serializable 
 		return res;
 	}
 
+	
+	/**
+	 * add BasicBean element to notRendered Set
+	 * if section or group - add all elements
+	 * 
+	 * @param basicBean
+	 */
 	private void addElementToNotRendered(BasicBean basicBean){
 		if (QUESTION.equals(basicBean.getType())) {
 			notRenderedSet.add(basicBean);
@@ -189,6 +208,11 @@ public class RulesTestController extends RuleController implements Serializable 
 		
 	}
 	
+	/**
+	 * add all elements that are dependent from this to notRendered Set
+	 * 
+	 * @param basicBean
+	 */
 	private void addDependentToNotRendered(BasicBean basicBean) {
 		List<BasicBean> dependent = dependencies.get(basicBean);
 
@@ -199,6 +223,11 @@ public class RulesTestController extends RuleController implements Serializable 
 		}
 	}
 
+	/**
+	 * add all elements from this section to notRendered Set
+	 * 
+	 * @param bb
+	 */
 	private void addSectionToNotRendered(BasicBean bb) {
 		notRenderedSet.add(bb);
 		for (int i = templateElementsList.indexOf(bb) + 1; i < templateElementsList
@@ -210,6 +239,11 @@ public class RulesTestController extends RuleController implements Serializable 
 
 	}
 
+	/**
+	 * add all elements from this group to notRendered Set
+	 * 
+	 * @param bb
+	 */
 	private void addGroupToNotRendered(BasicBean bb) {
 		notRenderedSet.add(bb);
 		for (int i = templateElementsList.indexOf(bb) + 1; i < templateElementsList
@@ -221,18 +255,6 @@ public class RulesTestController extends RuleController implements Serializable 
 
 	}
 
-
-	public TemplateBean getCurrentTemplate() {
-		return currentTemplate;
-	}
-
-
-	public void setCurrentTemplate(TemplateBean currentTemplate) {
-		this.currentTemplate = currentTemplate;
-		//TODO change to invocation
-		resetRulerList();
-		
-	}
 	
 	
 	/**
@@ -251,9 +273,9 @@ public class RulesTestController extends RuleController implements Serializable 
 				}
 			}
 		}
-
 	}
 
+	
     public boolean getViewRuleButton(BasicBean q){
         if(beansWithRules.contains(q))
             return true;
