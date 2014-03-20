@@ -5,6 +5,7 @@ import com.engagepoint.model.questionnaire.TemplateBean;
 import com.engagepoint.model.table.ListOfTemplatesDataModel;
 import com.engagepoint.utils.XmlImportExport;
 import org.apache.log4j.Logger;
+import org.primefaces.event.FileUploadEvent;
 
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.SessionScoped;
@@ -222,8 +223,7 @@ public class ListController implements Serializable {
      */
     public static String getResourceBundleString(
             String resourceBundleName,
-            String resourceBundleKey)
-            throws MissingResourceException {
+            String resourceBundleKey) {
         FacesContext facesContext = FacesContext.getCurrentInstance();
         ResourceBundle bundle =
                 facesContext.getApplication().getResourceBundle(
