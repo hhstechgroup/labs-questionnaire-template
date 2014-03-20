@@ -7,7 +7,7 @@ GivenStories: base_stories/openDefaultPage.story
 Scenario: create and fill
 Meta: @testName         LQE-8
       @sectionName      Page 1
-      @groupName        GROUP_1
+      @groupName        Group 1
       @questionType     TEXT
       @questionText     Question text LQE-8
       @helpText         Help text LQE-8
@@ -24,8 +24,8 @@ When the user fills 'form2:defaultAnswer' field with 'Default answer LQE-8'
 Scenario: save and check
 Meta: @testName         LQE-8
       @sectionName      Page 1
-      @groupName        GROUP_1
-      @questionName     Question 1
+      @groupName        Group 1
+      @questionName     Question ...
       @questionText     Question text LQE-8
       @helpText         Help text LQE-8
 GivenStories: base_stories/question/saveQuestion.story,
@@ -47,8 +47,8 @@ When the user fills 'form2:defaultAnswer' field with 'Default answer LQE-8 edit'
 Scenario: check and save
 Meta: @testName         LQE-8
       @sectionName      Page 1
-      @groupName        GROUP_1
-      @questionName     Question 1
+      @groupName        Group 1
+      @questionName     Question ...
       @questionText     Question text LQE-8 edit
       @helpText         Help text LQE-8 edit
 GivenStories: base_stories/question/saveQuestion.story,

@@ -126,7 +126,7 @@ public class QuestionRuleController extends RuleController implements Serializab
     /**
      * Set elements visibility after create rule button was clicked.
      *
-     * @param ruleName
+     * @param ruleName name of rule
      */
     public void createRuleAction(String ruleName) {
         setAddRulesTableIsVisible(false);
@@ -196,7 +196,7 @@ public class QuestionRuleController extends RuleController implements Serializab
      * Create rule object.
      *
      * @param answers answers for rule.
-     * @return
+     * @return rendered rule
      */
     private RenderedRule createRuleObject(List<String> answers) {
         RenderedRule renderedRule = (RenderedRule) currentRule;
@@ -424,7 +424,7 @@ public class QuestionRuleController extends RuleController implements Serializab
             currentQuestion = question;
         }
         if (currentRules == null) {
-            if (question.getRules().size() != 0) {
+            if (question.getRules()!=null && question.getRules().size() != 0) {
                 currentRules = cloneRulesList(question.getRules());
             } else {
                 currentRules = new ArrayList<Rule>();

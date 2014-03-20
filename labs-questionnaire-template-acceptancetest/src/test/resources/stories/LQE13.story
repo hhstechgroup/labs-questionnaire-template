@@ -7,7 +7,7 @@ GivenStories: base_stories/openDefaultPage.story
 Scenario: create and fill
 Meta: @testName         LQE-13
       @sectionName      Page 1
-      @groupName        GROUP_1
+      @groupName        Group 1
       @questionType     RANGE
       @questionText     Question text LQE-13
       @helpText         Help text LQE-13
@@ -26,8 +26,8 @@ Scenario: save and check
 
 Meta: @testName         LQE-13
       @sectionName      Page 1
-      @groupName        GROUP_1
-      @questionName     Question 1
+      @groupName        Group 1
+      @questionName     Question ...
       @questionText     Question text LQE-13
       @helpText         Help text LQE-13
 GivenStories: base_stories/question/saveQuestion.story,
@@ -51,8 +51,8 @@ When the user fills 'form2:maxRangeValue' field with '6'
 Scenario: check and save
 Meta: @testName         LQE-13
       @sectionName      Page 1
-      @groupName        GROUP_1
-      @questionName     Question 1
+      @groupName        Group 1
+      @questionName     Question ...
       @questionText     Question text LQE-13 edit
       @helpText         Help text LQE-13 edit
 

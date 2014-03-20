@@ -4,7 +4,7 @@
                 xmlns:p="http://primefaces.org/ui"
                 xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:f="http://java.sun.com/jsf/core"
-                xmlns:ago="http://java.sun.com/jsf/composite/questiontemplate" xmlns:uib="http://java.sun.com/jsf/html"
+                xmlns:ago="http://java.sun.com/jsf/composite/questiontemplate"
                 template="/templates/questionEdit.xhtml">
 
     <ui:define name="page">
@@ -14,7 +14,7 @@
             <f:viewParam name="question" value="#{gridQuestionController.currentQuestion.id}"/>
         </f:metadata>
 
-        <h:form id="form">
+        <h:form id="form2">
             <ago:questioncommon qb="#{gridQuestionController.currentQuestion}" id="formWithCommonProps"/>
             <p:selectBooleanCheckbox itemLabel="Only one selection in column"
                                      value="#{gridQuestionController.onlyOneSelectInCol}"/>
@@ -62,7 +62,7 @@
             <ago:buttonsCommon qbuttons="#{gridQuestionController}" id="formWithSaveButtons"/>
         </h:form>
 
-        <h:form>
+        <h:form id="formAddRow">
             <p:dialog id="dlgAddRow"
                       header="Enter new row name"
                       widgetVar="dlgAddRow"
@@ -71,11 +71,11 @@
                 <p:commandButton id="cmdAddRowOk"
                                  value="Save"
                                  oncomplete="dlgAddRow.hide()"
-                                 update=":form:gridTable"/>
+                                 update=":form2:gridTable"/>
             </p:dialog>
         </h:form>
 
-        <h:form>
+        <h:form id="formAddCol">
             <p:dialog id="dlgAddCol"
                       header="Enter new column name"
                       widgetVar="dlgAddCol"
@@ -84,7 +84,7 @@
                 <p:commandButton id="cmdAddColOk"
                                  value="Save"
                                  oncomplete="dlgAddCol.hide()"
-                                 update=":form:gridTable"/>
+                                 update=":form2:gridTable"/>
             </p:dialog>
         </h:form>
 

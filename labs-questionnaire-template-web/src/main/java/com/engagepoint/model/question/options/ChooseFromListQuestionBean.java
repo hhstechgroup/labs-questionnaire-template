@@ -34,7 +34,9 @@ public class ChooseFromListQuestionBean extends OptionsQuestion {
     }
 
     public void setDefaultOption(VariantItem defaultAnswer) {
-        getDefaultAnswers().set(0, defaultAnswer.getValue());
+        if (defaultAnswer != null) {
+            getDefaultAnswers().set(0, defaultAnswer.getValue());
+        }
     }
 
 }

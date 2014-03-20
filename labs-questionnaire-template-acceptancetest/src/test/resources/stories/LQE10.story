@@ -8,7 +8,7 @@ GivenStories: base_stories/openDefaultPage.story
 Scenario: create and fill
 Meta: @testName         LQE-10
       @sectionName      Page 1
-      @groupName        GROUP_1
+      @groupName        Group 1
       @questionType     MULTIPLECHOICE
       @questionText     Question text LQE-10
       @helpText         Help text LQE-10
@@ -37,8 +37,8 @@ Then wait until all animations on page completed
 Scenario: save and check
 Meta: @testName         LQE-10
       @sectionName      Page 1
-      @groupName        GROUP_1
-      @questionName     Question 1
+      @groupName        Group 1
+      @questionName     Question ...
       @questionText     Question text LQE-10
       @helpText         Help text LQE-10
       @optionName       Test option 3
@@ -64,8 +64,8 @@ Then wait until all animations on page completed
 Scenario: check and save
 Meta: @testName         LQE-10
       @sectionName      Page 1
-      @groupName        GROUP_1
-      @questionName     Question 1
+      @groupName        Group 1
+      @questionName     Question ...
       @questionText     Question text LQE-10 edit
       @helpText         Help text LQE-10 edit
       @optionName       Test option 3

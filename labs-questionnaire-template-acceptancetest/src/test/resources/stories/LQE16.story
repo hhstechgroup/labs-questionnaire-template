@@ -6,7 +6,7 @@ GivenStories: base_stories/openDefaultPage.story
 Scenario: create and fill
 Meta: @testName         LQE-16
       @sectionName      Page 1
-      @groupName        GROUP_1
+      @groupName        Group 1
       @questionType     DATE
       @questionText     Question text LQE-16
       @helpText         Help text LQE-16
@@ -25,8 +25,8 @@ Scenario: save and check
 
 Meta: @testName         LQE-16
       @sectionName      Page 1
-      @groupName        GROUP_1
-      @questionName     Question 1
+      @groupName        Group 1
+      @questionName     Question ...
       @questionText     Question text LQE-16
       @helpText         Help text LQE-16
 GivenStories: base_stories/question/saveQuestion.story,
@@ -48,8 +48,8 @@ When the user fills 'form2:calendar_input' field with '08/12/2013'
 Scenario: check and save
 Meta: @testName         LQE-16
       @sectionName      Page 1
-      @groupName        GROUP_1
-      @questionName     Question 1
+      @groupName        Group 1
+      @questionName     Question ...
       @questionText     Question text LQE-16 edit
       @helpText         Help text LQE-16 edit
 
