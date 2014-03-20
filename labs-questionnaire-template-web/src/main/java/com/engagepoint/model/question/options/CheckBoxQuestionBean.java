@@ -21,72 +21,30 @@ import java.util.List;
         "defaultAnswers"
 })
 public class CheckBoxQuestionBean extends OptionsQuestion {
-    //selected variants
-    private List<VariantItem> defaultOptions;
 
     public CheckBoxQuestionBean() {
-        defaultOptions = new ArrayList<VariantItem>();
+        super();
     }
 
     public CheckBoxQuestionBean(GroupBean currentGroup) {
         super(currentGroup);
-        defaultOptions = new ArrayList<VariantItem>();
     }
 
     @XmlTransient
     public List<VariantItem> getDefaultOptions() {
+        List<String> defaultAnswers = getDefaultAnswers();
+        List<VariantItem> defaultOptions = new ArrayList<VariantItem>();
+        for (String curAnswer : defaultAnswers) {
+            defaultOptions.add(new VariantItem(curAnswer));
+        }
         return defaultOptions;
     }
 
     public void setDefaultOptions(List<VariantItem> defaultOptions) {
-        this.defaultOptions = defaultOptions;
-    }
-
-    @Override
-    @XmlElementWrapper(name = "default-answers")
-    @XmlElement(name = "default-answer")
-    public List<String> getDefaultAnswers() {
-        List<String> list = new ArrayList<String>();
+        List<String> defaultAnswers = new ArrayList<String>();
         for (VariantItem curOption : defaultOptions) {
-            list.add(curOption.getValue());
+            defaultAnswers.add(curOption.getValue());
         }
-        return list;
-    }
-
-    @Override
-    public void setDefaultAnswers(List<String> list) {
-        defaultOptions = new ArrayList<VariantItem>();
-        for (String curAnswer : list) {
-            defaultOptions.add(new VariantItem(curAnswer));
-        }
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (!(o instanceof CheckBoxQuestionBean)) {
-            return false;
-        }
-        if (!super.equals(o)) {
-            return false;
-        }
-        CheckBoxQuestionBean that = (CheckBoxQuestionBean) o;
-        if (!defaultOptions.equals(that.defaultOptions) && !options.equals(that.options)) {
-            return false;
-        }
-        return true;
-    }
-
-    @Override
-    public int hashCode() {
-        int result = super.hashCode();
-        result = 31 * result + defaultOptions.hashCode();
-        return result;
-    }
-
-    @Override
-    public Object clone() throws CloneNotSupportedException {
-        CheckBoxQuestionBean copy = (CheckBoxQuestionBean) super.clone();
-        copy.setDefaultOptions(this.defaultOptions);
-        return copy;
+        setDefaultAnswers(defaultAnswers);
     }
 }

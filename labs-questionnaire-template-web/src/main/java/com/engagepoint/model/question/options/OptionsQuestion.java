@@ -13,22 +13,20 @@ import java.util.List;
 
 @XmlTransient
 public abstract class OptionsQuestion extends Question implements Cloneable {
+
+    private static final Logger LOG = Logger.getLogger(OptionsQuestion.class);
+
     //list of variants
     protected List<VariantItem> options;
-    //selected variant for multiple choice,grid,choose from list question.
-    protected VariantItem defaultOption;
-    private static final Logger LOG = Logger.getLogger(OptionsQuestion.class);
 
     public OptionsQuestion() {
         super();
         this.options = new ArrayList<VariantItem>();
-        defaultOption = new VariantItem();
     }
 
     public OptionsQuestion(GroupBean groupBean) {
         super(groupBean);
         this.options = new ArrayList<VariantItem>();
-        defaultOption = new VariantItem();
     }
 
     @XmlElementWrapper(name = "options")
@@ -42,45 +40,20 @@ public abstract class OptionsQuestion extends Question implements Cloneable {
     }
 
     @XmlTransient
-    public VariantItem getDefaultOption() {
-        return defaultOption;
-    }
+    public VariantItem getDefaultOption() {return null;}
 
-    public void setDefaultOption(VariantItem defaultOption) {
-        this.defaultOption = defaultOption;
-    }
-
-    @Override
-    @XmlElementWrapper(name = "default-answers")
-    @XmlElement(name = "default-answer")
-    public List<String> getDefaultAnswers() {
-        List<String> list = new ArrayList<String>();
-        list.add(defaultOption.getValue());
-        return list;
-    }
-
-    @Override
-    public void setDefaultAnswers(List<String> list) {
-        try {
-            defaultOption = new VariantItem(list.get(0));
-        }catch (StringIndexOutOfBoundsException e) {
-            LOG.warn("String of default answer in XML is empty", e);
-        }
-    }
+    public void setDefaultOption(VariantItem defaultOption) {}
 
     /**
      * For multiple choice,grid,choose from list question.
      */
     @XmlTransient
-    public List<VariantItem> getDefaultOptions() {
-        return new ArrayList<VariantItem>();
-    }
+    public List<VariantItem> getDefaultOptions() {return null;}
 
     /**
      * For multiple choice,grid,choose from list question.
      */
-    public void setDefaultOptions(List<VariantItem> defaultOptions) {
-    }
+    public void setDefaultOptions(List<VariantItem> defaultOptions) {}
 
     @Override
     public boolean equals(Object o) {
@@ -96,9 +69,6 @@ public abstract class OptionsQuestion extends Question implements Cloneable {
 
         OptionsQuestion that = (OptionsQuestion) o;
 
-        if (defaultOption != null ? !defaultOption.equals(that.defaultOption) : that.defaultOption != null){
-            return false;
-        }
         if (options != null ? !options.equals(that.options) : that.options != null){
             return false;
         }
@@ -110,7 +80,6 @@ public abstract class OptionsQuestion extends Question implements Cloneable {
     public int hashCode() {
         int result = super.hashCode();
         result = 31 * result + (options != null ? options.hashCode() : 0);
-        result = 31 * result + (defaultOption != null ? defaultOption.hashCode() : 0);
         return result;
     }
 
@@ -118,7 +87,6 @@ public abstract class OptionsQuestion extends Question implements Cloneable {
     public Object clone() throws CloneNotSupportedException {
         OptionsQuestion copy = (OptionsQuestion) super.clone();
         copy.setOptions(this.options);
-        copy.setDefaultOption(this.defaultOption);
         return copy;
     }
 }
