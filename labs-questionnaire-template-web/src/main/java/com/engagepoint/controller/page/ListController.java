@@ -5,7 +5,6 @@ import com.engagepoint.model.questionnaire.TemplateBean;
 import com.engagepoint.model.table.ListOfTemplatesDataModel;
 import com.engagepoint.utils.XmlImportExport;
 import org.apache.log4j.Logger;
-import org.primefaces.event.FileUploadEvent;
 
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.SessionScoped;
@@ -44,7 +43,7 @@ public class ListController implements Serializable {
         //adding Templates from XML file
         addAllTemplates(XmlImportExport.importXmlTemplate(xmlPath));
         templatesModel = new ListOfTemplatesDataModel(list);
-
+        selectedTemplates = new ArrayList<TemplateBean>();
     }
 
     public ListOfTemplatesDataModel getTemplatesModel() {
@@ -199,18 +198,11 @@ public class ListController implements Serializable {
     public void onExportXML() {
         Collections.sort(selectedTemplates);
         try {
-            File tmpFile = FileController.createTempXml(selectedTemplates);
-            FileController.setPathToTempFile(tmpFile.getPath());
+            File tmpFile = FileDownloadController.createTempXml(selectedTemplates);
+            FileDownloadController.setPathToTempFile(tmpFile.getPath());
         } catch (IOException e) {
             LOG.error("Export XML List Exception", e);
         }
-    }
-
-    /**
-     * Perform import questionnaire from XML file.
-     */
-    public void importFromXML(FileUploadEvent event) throws IOException {
-        addAllTemplates(XmlImportExport.importXmlTemplate(event.getFile().getInputstream()));
     }
 
     /**
@@ -231,7 +223,7 @@ public class ListController implements Serializable {
     public static String getResourceBundleString(
             String resourceBundleName,
             String resourceBundleKey)
-             {
+            throws MissingResourceException {
         FacesContext facesContext = FacesContext.getCurrentInstance();
         ResourceBundle bundle =
                 facesContext.getApplication().getResourceBundle(
