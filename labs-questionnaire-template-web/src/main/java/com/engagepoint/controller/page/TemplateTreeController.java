@@ -140,11 +140,11 @@ public class TemplateTreeController implements Serializable {
                 // Iterator LEVEL_2 for filling questions of choosed section
                 for (Question question : groupBean.getQuestionsList()) {
                     new DefaultTreeNode(question, group);
-                } // END of QUESTION Iterator
-            } // END of GROUP Iterator
-        } // END of SECTION Iterator
+                }
+            }
+        }
 
-    } // END of setNodes() METHOD
+    }
 
     /**
      * Create new section and add it to current template.

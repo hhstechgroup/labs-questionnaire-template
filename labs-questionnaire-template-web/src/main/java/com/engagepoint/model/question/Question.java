@@ -34,12 +34,12 @@ import java.util.List;
 @XmlTransient
 public abstract class Question extends BasicBean implements Cloneable {
 
-    protected String questionId;             //absolutely unique and consists of template id, page number, group number and question number (f.e. f1p1g1q1)
-    protected Long questionNumber;           //unique in group
-    protected boolean requiredAnswer;        //is answer required or not
-    protected String questionText = "";      //questiontext
-    protected QuestionType questionType;     //questiontype from ENUM of questiontypes
-    protected String helpText = "";          //Help texts for questions
+    protected String questionId;
+    protected Long questionNumber;
+    protected boolean requiredAnswer;
+    protected String questionText = "";
+    protected QuestionType questionType;
+    protected String helpText = "";
     protected List<String> defaultAnswers;
 
     protected GroupBean groupBean;

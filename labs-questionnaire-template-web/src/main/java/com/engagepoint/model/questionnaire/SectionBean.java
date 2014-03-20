@@ -26,8 +26,8 @@ public class SectionBean extends BasicBean
         implements Cloneable, Serializable, BasicOperationWithBean {
 
 
-    private String pageId; //absolutely unique and consists of template id and page number (f.e. f1p1)
-    private Long pageNumber; //unique in template
+    private String pageId;
+    private Long pageNumber;
     private String pageName = "";
     private List<GroupBean> groupsList = new ArrayList<GroupBean>();
     private TemplateBean templateBean;
