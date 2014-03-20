@@ -234,8 +234,27 @@ public class RulesTestController extends RuleController implements Serializable 
 
 	public void setCurrentTemplate(TemplateBean currentTemplate) {
 		this.currentTemplate = currentTemplate;
-		resetRulerList();				//TODO change to invocation
+		//TODO change to invocation
+		resetRulerList();
 		
 	}
+	
+	
+	//TODO complete
+	public void testRule() {
+		String answer="";
+		styles = new HashMap<BasicBean, String>();
+		for(BasicBean bb : dependencies.get(getDependentQuestion())){
+			for(Rule r : bb.getRules()) {
+				if(r.getDescription().equals(answer)){
+					setRedColour(getElementById(r.getId()));
+				}
+		}
+		}
+			
+		
+		
+	}
+	
 
 }

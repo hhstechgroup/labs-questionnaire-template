@@ -31,7 +31,7 @@
                                 rendered="#{rulesTestController.dependencies.get(templateEl)!=null}"
 								styleClass="small blue"
 								update="questionstable"
-								action="#{rulesTestController.setStyles(templateEl)}"		>
+								action="#{rulesTestController.setStyles(templateEl)}" >
 								
 					</p:commandButton>
 				</uib:column>
@@ -40,8 +40,9 @@
 								style="float:center;"
                                 rendered="#{rulesTestController.dependencies.get(templateEl)!=null}"
 								styleClass="small blue"
-                                oncomplete="dlgSetAnswer.show();"
-								update="questionstable"/>
+                                action="#{rulesTestController.setDependentQuestion(templateEl)}"
+                                update=":form1:answer"
+                                oncomplete="dlgSetAnswer.show();" />
 				</uib:column>
 			</uib:dataTable>
 			<br/>
@@ -50,7 +51,7 @@
 			</p:commandButton>
 			
 			
-			 <p:dialog widgetVar="dlgSetAnswer"
+			 <p:dialog id="answer" widgetVar="dlgSetAnswer"
                       modal="true" closable="true">
                 <p:panel id="SetAnswerPanel">
                     <br/>
@@ -65,23 +66,23 @@
                     <br/>
                     <br/>
 
-                    <p:inputText size="50" rendered="#{rulesTestController.currentDependentQuestionType eq 'TEXT'}"
+                    <p:inputText size="50" rendered="#{rulesTestController.dependentQuestion.questionType eq 'TEXT'}"
                                  value="#{rulesTestController.textData}"/>
 
                     <p:inputTextarea rows="8"
                                      cols="555"
-                                     rendered="#{rulesTestController.currentDependentQuestionType eq 'PARAGRAPHTEXT'}"
+                                     rendered="#{rulesTestController.dependentQuestion.questionType eq 'PARAGRAPHTEXT'}"
                                      value="#{rulesTestController.textData}"/>
 
                     <p:calendar title="calendar" pattern="HH:mm" showOn="button" timeOnly="true"
-                                rendered="#{rulesTestController.currentDependentQuestionType eq 'TIME'}"
+                                rendered="#{rulesTestController.dependentQuestion.questionType eq 'TIME'}"
                                 value="#{rulesTestController.dateData}"/>
 
                     <p:calendar title="calendar" pattern="dd-MM-yyyy" showOn="button"
-                                rendered="#{rulesTestController.currentDependentQuestionType eq 'DATE'}"
+                                rendered="#{rulesTestController.dependentQuestion.questionType eq 'DATE'}"
                                 value="#{rulesTestController.dateData}"/>
 
-                    <p:panel rendered="#{rulesTestController.currentDependentQuestionType eq 'RANGE'}">
+                    <p:panel rendered="#{rulesTestController.dependentQuestion.questionType eq 'RANGE'}">
                         <h:outputText value="Set minimum value"/>
                         <h:inputText id="minRangeValue" value="#{rulesTestController.minValue}"/>
                         <h:outputText value="Set maximum value"/>
@@ -91,7 +92,7 @@
                     <uib:dataTable var="option"
                                    value="#{rulesTestController.dataModel}"
                                    selection="#{rulesTestController.defaultOption}"
-                                   rendered="#{rulesTestController.currentDependentQuestionType eq 'CHOOSEFROMLIST' or questionRuleController.currentDependentQuestionType eq 'MULTIPLECHOICE'}">
+                                   rendered="#{rulesTestController.dependentQuestion.questionType eq 'CHOOSEFROMLIST' or questionRuleController.currentDependentQuestionType eq 'MULTIPLECHOICE'}">
                         <uib:column headerText="Default"
                                     selectionMode="single"/>
                         <uib:column headerText="Options">
@@ -102,7 +103,7 @@
                     <uib:dataTable var="option"
                                    value="#{rulesTestController.dataModel}"
                                    selection="#{rulesTestController.defaultOptions}"
-                                   rendered="#{rulesTestController.currentDependentQuestionType eq 'CHECKBOX'}">
+                                   rendered="#{rulesTestController.dependentQuestion.questionType eq 'CHECKBOX'}">
                         <uib:column headerText=""
                                     selectionMode="multiple"/>
                         <uib:column headerText="Options">
@@ -112,7 +113,9 @@
 
                     <br/>
                     <br/>
-                    <p:commandButton value="Save" onclick="dlgSetAnswer.hide()" />
+                    <p:commandButton value="Save" onclick="dlgSetAnswer.hide()" 
+                    update="questionstable"
+                     action="#{rulesTestController.testRule}"/>  
                 </p:panel>
             </p:dialog>
 
