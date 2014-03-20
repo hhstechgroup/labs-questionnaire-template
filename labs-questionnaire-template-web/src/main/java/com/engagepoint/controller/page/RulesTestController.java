@@ -7,6 +7,7 @@ import javax.inject.Inject;
 import javax.inject.Named;
 
 import com.engagepoint.controller.utils.PageNavigator;
+import com.engagepoint.model.question.Question;
 import com.engagepoint.model.question.rules.Rule;
 import com.engagepoint.model.questionnaire.BasicBean;
 import com.engagepoint.model.questionnaire.GroupBean;
@@ -14,10 +15,7 @@ import com.engagepoint.model.questionnaire.SectionBean;
 import com.engagepoint.model.questionnaire.TemplateBean;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Named
 @SessionScoped
@@ -237,5 +235,48 @@ public class RulesTestController extends RuleController implements Serializable 
 		resetRulerList();				//TODO change to invocation
 		
 	}
+
+    public void cleanDependencies(){
+        currentTemplate = templateTreeController.getTemplateBean();
+        resetRulerList();
+        if(templateTreeController!=null && "question".equals(templateTreeController.getSelectedType())){
+            cleanFromQuestionDelete((BasicBean) templateTreeController.getSelectedNode().getData());
+        }else
+        if(templateTreeController!=null && "group".equals(templateTreeController.getSelectedType())){
+            cleanFromGroupDelete((BasicBean) templateTreeController.getSelectedNode().getData());
+        }else
+        if(templateTreeController!=null && "section".equals(templateTreeController.getSelectedType())){
+            cleanFromSectionDelete((BasicBean) templateTreeController.getSelectedNode().getData());
+        }
+    }
+
+    private void cleanFromQuestionDelete(BasicBean question) {
+        Map<BasicBean, List<BasicBean>> map = getDependencies();
+        List<BasicBean> list = map.get(question);
+        if(list!=null){
+            for (BasicBean basicBean : list) {
+                for (Iterator<Rule> iterator = basicBean.getRules().iterator();
+                                               iterator.hasNext(); ) {
+                    if(iterator.next().getId().equals(question.getId())){
+                        iterator.remove();
+                    }
+                }
+            }
+        }
+    }
+
+    private void cleanFromGroupDelete(BasicBean group){
+        GroupBean temp = (GroupBean) group;
+        for (Question question : temp.getQuestionsList()) {
+            cleanFromQuestionDelete(question);
+        }
+    }
+
+    private void cleanFromSectionDelete(BasicBean section){
+        SectionBean temp = (SectionBean) section;
+        for (GroupBean group : temp.getGroupsList()) {
+            cleanFromQuestionDelete(group);
+        }
+    }
 
 }
