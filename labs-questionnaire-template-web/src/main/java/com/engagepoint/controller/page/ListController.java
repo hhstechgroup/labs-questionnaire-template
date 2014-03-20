@@ -41,7 +41,7 @@ public class ListController implements Serializable {
         //adding Templates from XML file
         addAllTemplates(XmlImportExport.importXmlTemplate(xmlPath));
         templatesModel = new ListOfTemplatesDataModel(list);
-
+        selectedTemplates = new ArrayList<TemplateBean>();
     }
 
     public ListOfTemplatesDataModel getTemplatesModel() {
@@ -192,7 +192,7 @@ public class ListController implements Serializable {
      * Create temporary XML file before downloading
      */
     public void onExportXML() {
-        //Collections.sort(selectedTemplates);
+        Collections.sort(selectedTemplates);
         try {
             File tmpFile = FileDownloadController.createTempXml(selectedTemplates);
             FileDownloadController.setPathToTempFile(tmpFile.getPath());

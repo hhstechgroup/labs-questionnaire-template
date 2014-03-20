@@ -101,22 +101,17 @@
                                     jumpToPageBackward="3" jumpToPageForward="3">
             </ui-paginator:paginator>
 
-        </h:form>
-
-        <h:form id="form2" enctype="multipart/form-data">
-
             <br/>
             <p:growl id="messages"/>
 
             <p:menuButton value="Options" id="Options">
                 <p:menuitem value="Export" id="export"
+                            name="Export"
+                            update=":form2:ExportDialog"
                             icon="ui-icon-disk"
-                            ajax="false"
-                            update=":form1"
-                            actionListener="#{listController.onExportXML}">
-                    <p:fileDownload value="#{fileDownloadController.downloadFile}"/>
+                            oncomplete="downloadXML.show()">
                 </p:menuitem>
-                <p:menuitem value="Import"
+                <p:menuitem value="Import" id="import"
                             name="Import"
                             update=":form2:ImportDialog"
                             icon="ui-icon-arrowrefresh-1-w"
@@ -128,6 +123,26 @@
                              action="#{templateController.newTemplate}"
                              styleClass="fl-right">
             </p:commandButton>
+
+        </h:form>
+
+        <h:form id="form2" enctype="multipart/form-data">
+
+            <p:dialog id="ExportDialog"
+                      header="Export Dialog"
+                      widgetVar="downloadXML"
+                      modal="true" height="200" width="800">
+
+                <h:commandButton id="download_button"
+                                 class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only"
+                                 style="margin-left: 20px;"
+                                 value="Download"
+                                 actionListener="#{listController.onExportXML}"
+                                 onclick="downloadXML.hide()">
+                    <p:fileDownload value="#{fileDownloadController.downloadFile}"/>
+                </h:commandButton>
+
+            </p:dialog>
 
             <p:dialog id="ImportDialog"
                       header="Import Dialog"
