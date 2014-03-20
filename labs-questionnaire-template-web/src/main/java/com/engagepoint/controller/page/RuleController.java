@@ -7,12 +7,17 @@ import com.engagepoint.model.question.RangeQuestionBean;
 import com.engagepoint.model.question.TextQuestionBean;
 import com.engagepoint.model.question.options.CheckBoxQuestionBean;
 import com.engagepoint.model.question.options.OptionsQuestion;
+import com.engagepoint.model.question.rules.RenderedRule;
+import com.engagepoint.model.question.rules.Rule;
+import com.engagepoint.model.question.utils.QuestionAnswer;
+import com.engagepoint.model.question.utils.RangeItem;
 import com.engagepoint.model.question.utils.VariantItem;
 import com.engagepoint.model.questionnaire.GroupBean;
 import com.engagepoint.model.questionnaire.SectionBean;
 import com.engagepoint.model.table.ListOfOptionsDataModel;
 
 import javax.inject.Inject;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -45,6 +50,8 @@ public abstract class RuleController {
     private Question dependentQuestion;
     //dependent question data
     private String currentDependentQuestionId;
+
+    protected QuestionAnswer answerForTests;
 
     RuleController() {
         //set questions
@@ -181,5 +188,37 @@ public abstract class RuleController {
             }
         }
         return "question type is not chose";
+    }
+
+
+    public void saveRuleAnswerAction() {
+        answerForTests = new QuestionAnswer();
+        switch (getDependentQuestion().getQuestionType()) {
+            case TEXT:
+                answerForTests.setAnswer(getTextData());
+                break;
+            case DATE:
+                answerForTests.setAnswer(DateQuestionBean.DATE_FORMAT.format(getDateData()));
+                break;
+            case RANGE:
+                answerForTests.setAnswer(new RangeItem(getMinValue(), getMaxValue()));
+                break;
+            case TIME:
+                answerForTests.setAnswer(DateQuestionBean.TIME_FORMAT.format(getDateData()));
+                break;
+            case PARAGRAPHTEXT:
+                answerForTests.setAnswer(getTextData());
+                break;
+            case CHOOSEFROMLIST:
+                answerForTests.setAnswer(getDefaultOption());
+                break;
+            case MULTIPLECHOICE:
+                answerForTests.setAnswer(getDefaultOption());
+                break;
+            case CHECKBOX:
+                answerForTests.setAnswer(getDefaultOptions());
+                break;
+            default:
+        }
     }
 }

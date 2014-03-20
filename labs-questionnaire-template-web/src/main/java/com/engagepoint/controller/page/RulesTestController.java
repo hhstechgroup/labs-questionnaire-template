@@ -5,7 +5,9 @@ import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
 import com.engagepoint.controller.utils.PageNavigator;
 import com.engagepoint.model.question.Question;
+import com.engagepoint.model.question.rules.RenderedRule;
 import com.engagepoint.model.question.rules.Rule;
+import com.engagepoint.model.question.utils.QuestionAnswer;
 import com.engagepoint.model.questionnaire.BasicBean;
 import com.engagepoint.model.questionnaire.GroupBean;
 import com.engagepoint.model.questionnaire.SectionBean;
@@ -241,11 +243,12 @@ public class RulesTestController extends RuleController implements Serializable 
 	
 	// TODO complete
 	public void testRule() {
-		String answer = "";
 		styles = new HashMap<BasicBean, String>();
 		for (BasicBean bb : dependencies.get(getDependentQuestion())) {
 			for (Rule r : bb.getRules()) {
-				if (r.getDescription().equals(answer)) {
+                QuestionAnswer rAnswer = new QuestionAnswer();
+                rAnswer.setAnswer(r);
+                if(rAnswer.equals(answerForTests)) {
 					setRedColour(getElementById(r.getId()));
 				}
 			}

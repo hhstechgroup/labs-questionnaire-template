@@ -75,7 +75,7 @@ public class RenderedRule extends Rule {
      *
      * @return answer as String
      */
-    private String answerToString() {
+    public String answerToString() {
         StringBuilder answer = new StringBuilder();
         answer.append("[");
         if (answers != null) {

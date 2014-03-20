@@ -115,7 +115,8 @@
                     <br/>
                     <p:commandButton value="Save" onclick="dlgSetAnswer.hide()" 
                     update="questionstable"
-                     action="#{rulesTestController.testRule}"/>  
+                    actionListener="#{rulesTestController.saveRuleAnswerAction}"
+                    action="#{rulesTestController.testRule}"/>
                 </p:panel>
             </p:dialog>
 

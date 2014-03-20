@@ -12,6 +12,7 @@ import com.engagepoint.model.question.options.MultipleChoiceQuestionBean;
 import com.engagepoint.model.question.rules.RenderedRule;
 import com.engagepoint.model.question.rules.Rule;
 import com.engagepoint.model.question.rules.RulesContainer;
+import com.engagepoint.model.question.utils.QuestionAnswer;
 import com.engagepoint.model.question.utils.RangeItem;
 import com.engagepoint.model.question.utils.VariantItem;
 import com.engagepoint.model.questionnaire.GroupBean;
@@ -388,6 +389,8 @@ public class QuestionRuleController extends RuleController implements Serializab
                 RenderedRule renderedRule = (RenderedRule) currentRule;
                 renderedRule.setAnswers(answers);
                 renderedRule.setId(getDependentQuestion().getId());
+                answerForTests = new QuestionAnswer();
+                answerForTests.setAnswer(renderedRule);
                 break;
             default:
         }
