@@ -6,6 +6,8 @@ import java.util.List;
 
 import com.engagepoint.model.question.Question;
 import com.engagepoint.model.questionnaire.GroupBean;
+import org.apache.log4j.Logger;
+
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlTransient;
@@ -24,6 +26,9 @@ import javax.xml.bind.annotation.XmlType;
         "defaultAnswers"
 })
 public class GridQuestionBean extends Question {
+
+    private static final Logger LOG = Logger.getLogger(GridQuestionBean.class);
+
     Grid grid;
     boolean[][] selected;
     private boolean onlyOneSelectInRow;
@@ -66,10 +71,8 @@ public class GridQuestionBean extends Question {
                     defaultAnswers.set(i, defaultAnswer);
                 }
             }
-
         }
         return defaultAnswers;
-
     }
 
     @Override
@@ -80,10 +83,7 @@ public class GridQuestionBean extends Question {
             for (int j = 0; j < inRow.length; j++) {
                 selected[i][j]= Boolean.parseBoolean(inRow[j]);
             }
-
-            
         }
-
     }
 
     @XmlTransient
@@ -138,7 +138,12 @@ public class GridQuestionBean extends Question {
     }
 
     public boolean isSelect(int i, int j) {
-        return selected[i][j];
+        try {
+            return selected[i][j];
+        } catch (ArrayIndexOutOfBoundsException e) {
+            LOG.error("Array of selected is not correct.");
+        }
+        return false;
     }
 
     @XmlElement(name = "grid-oneInRow")

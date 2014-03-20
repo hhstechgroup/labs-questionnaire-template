@@ -102,32 +102,6 @@
                                     <default-answer>15:10</default-answer>
                                 </default-answers>
                             </question>
-                            <question xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="gridQuestionBean" question-id="f1p1g1q9" answer-required="true">
-                                <question-title>Choose your skill level</question-title>
-                                <question-type>GRID</question-type>
-                                <grid-oneInCol>false</grid-oneInCol>
-                                <grid-oneInRow>true</grid-oneInRow>
-                                <question-rules/>
-                                <help-text>NOPE</help-text>
-                                <grid>
-                                    <columns>
-                                        <column>LOW</column>
-                                        <column>Medium</column>
-                                        <column>hight</column>
-                                        <column>nightmare</column>
-                                    </columns>
-                                    <rows>
-                                        <row>JSF</row>
-                                        <row>cdi</row>
-                                        <row>jpa</row>
-                                    </rows>
-                                </grid>
-                                <default-answers>
-                                    <default-answer>false,true,false,false,</default-answer>
-                                    <default-answer>true,false,false,false,</default-answer>
-                                    <default-answer>false,false,false,true,</default-answer>
-                                </default-answers>
-                            </question>
                         </questions>
                     </group>
                     <group group-id="f1p1g2">
@@ -329,30 +303,6 @@
                                 <help-text>(without default)</help-text>
                                 <default-answers>
                                     <default-answer>15:10</default-answer>
-                                </default-answers>
-                            </question>
-                            <question xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="gridQuestionBean" question-id="f1p1g3q9" answer-required="true">
-                                <question-title>Choose your skill level</question-title>
-                                <question-type>GRID</question-type>
-                                <grid-oneInCol>false</grid-oneInCol>
-                                <grid-oneInRow>true</grid-oneInRow>
-                                <question-rules/>
-                                <help-text>nope</help-text>
-                                <grid>
-                                    <columns>
-                                        <column>low</column>
-                                        <column>medium</column>
-                                        <column>hight</column>
-                                        <column>column</column>
-                                    </columns>
-                                    <rows>
-                                        <row>JSF</row>
-                                        <row>cdi</row>
-                                    </rows>
-                                </grid>
-                                <default-answers>
-                                    <default-answer>false,false,false,false,</default-answer>
-                                    <default-answer>false,false,false,false,</default-answer>
                                 </default-answers>
                             </question>
                         </questions>
