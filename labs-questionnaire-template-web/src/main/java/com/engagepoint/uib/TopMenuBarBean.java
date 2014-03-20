@@ -21,9 +21,9 @@ public class TopMenuBarBean {
         model = new DefaultMenuModel();
         UIViewRoot viewRoot = FacesContext.getCurrentInstance().getViewRoot();
         String viewId = viewRoot.getViewId();
-        addMenuItem(viewId, "bootstrapItem", "/bootstrap", "But but 1", "/bootstrap/button/index.xhtml");
-        addMenuItem(viewId, "demoItem", "/demo", "But but 2", "/demo/default.xhtml");
-        addMenuItem(viewId, "toolsItem", "/tools", "But but 3", "/tools/grid/index.xhtml");
+        addMenuItem(viewId, "bootstrapItem", "/bootstrap", "Team A", "/bootstrap/button/index.xhtml");
+        addMenuItem(viewId, "demoItem", "/demo", "Questionnaire", "/demo/default.xhtml");
+        addMenuItem(viewId, "toolsItem", "/tools", "Editor", "/tools/grid/index.xhtml");
     }
 
     public MenuModel getModel() {
