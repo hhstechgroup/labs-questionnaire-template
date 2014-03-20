@@ -21,6 +21,9 @@ import java.util.List;
  */
 public abstract class RuleController {
     @Inject
+    protected TemplateTreeController templateTreeController;
+
+    @Inject
     private TemplateEditController templateEditController;
     //question objects
     private OptionsQuestion optionsQuestion;

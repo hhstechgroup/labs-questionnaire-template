@@ -22,8 +22,8 @@ import java.util.List;
 public class GroupBean extends BasicBean
         implements Cloneable, BasicOperationWithBean {
 
-    private String groupId; //absolutely unique and consists of template id, page number and group number (f.e. f1p1g1)
-    private Long groupNumber; //unique in section
+    private String groupId;
+    private Long groupNumber;
     private String groupName;
     private List<Question> questionsList = new ArrayList<Question>();
     private SectionBean sectionBean;

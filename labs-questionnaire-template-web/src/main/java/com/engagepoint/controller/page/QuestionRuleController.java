@@ -33,9 +33,6 @@ import java.util.*;
 @SessionScoped
 public class QuestionRuleController extends RuleController implements Serializable {
 
-    @Inject
-    private TemplateTreeController templateTreeController;
-
     //contains all rules
     private RulesContainer rulesContainer;
     //show add rule button
