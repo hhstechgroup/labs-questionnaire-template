@@ -33,6 +33,12 @@ import java.util.*;
 @SessionScoped
 public class QuestionRuleController extends RuleController implements Serializable {
 
+    @Inject
+    private TemplateTreeController templateTreeController;
+    private static final String QUESTION = "question";
+    private static final String GROUP = "group";
+    private static final String SECTION = "section";
+
     //contains all rules
     private RulesContainer rulesContainer;
     //show add rule button
@@ -164,17 +170,17 @@ public class QuestionRuleController extends RuleController implements Serializab
         }
         answers.add(answer);
         //save rule for question
-        if ("question".equals(templateTreeController.getSelectedType())) {
+        if (QUESTION.equals(templateTreeController.getSelectedType())) {
             setAnswerAndIdToRule(answers);
         }
         //save rule for group
-        if ("group".equals(templateTreeController.getSelectedType())) {
+        if (GROUP.equals(templateTreeController.getSelectedType())) {
             GroupBean groupBean = (GroupBean) templateTreeController.getSelectedNode().getData();
             groupBean.getRules().add(createRuleObject(answers));
             setCurrentRules(groupBean.getRules());
         }
         //save rule for section
-        if ("section".equals(templateTreeController.getSelectedType())) {
+        if (SECTION.equals(templateTreeController.getSelectedType())) {
             SectionBean sectionBean = (SectionBean) templateTreeController.getSelectedNode().getData();
             sectionBean.getRules().add(createRuleObject(answers));
             setCurrentRules(sectionBean.getRules());
@@ -304,10 +310,10 @@ public class QuestionRuleController extends RuleController implements Serializab
 
 
     public List<Rule> getCurrentRules() {
-        if ("section".equals(templateTreeController.getSelectedType())) {
+        if (SECTION.equals(templateTreeController.getSelectedType())) {
             currentRules = ((SectionBean) templateTreeController.getSelectedNode().getData()).getPageRules();
         }
-        if ("group".equals(templateTreeController.getSelectedType())) {
+        if (GROUP.equals(templateTreeController.getSelectedType())) {
             currentRules = ((GroupBean) templateTreeController.getSelectedNode().getData()).getGroupRules();
         }
         return currentRules;

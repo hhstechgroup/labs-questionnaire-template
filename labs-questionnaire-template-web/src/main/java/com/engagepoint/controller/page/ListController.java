@@ -9,14 +9,13 @@ import org.primefaces.event.FileUploadEvent;
 
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.SessionScoped;
-import javax.enterprise.event.Observes;
-import javax.faces.application.FacesMessage;
+
 import javax.faces.context.FacesContext;
 import javax.inject.Named;
 
 import java.io.*;
 import java.util.*;
-import java.util.concurrent.atomic.AtomicLong;
+
 
 /**
  * Used for controlling index.xhtml
@@ -232,7 +231,7 @@ public class ListController implements Serializable {
     public static String getResourceBundleString(
             String resourceBundleName,
             String resourceBundleKey)
-            throws MissingResourceException {
+             {
         FacesContext facesContext = FacesContext.getCurrentInstance();
         ResourceBundle bundle =
                 facesContext.getApplication().getResourceBundle(

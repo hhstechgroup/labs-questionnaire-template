@@ -1,20 +1,14 @@
 package com.engagepoint.controller.page;
 
 import com.engagepoint.controller.utils.PageNavigator;
-import com.engagepoint.model.question.Question;
-import com.engagepoint.model.questionnaire.GroupBean;
 import com.engagepoint.model.questionnaire.QuestionType;
-import com.engagepoint.model.questionnaire.SectionBean;
 import com.engagepoint.model.questionnaire.TemplateBean;
 import org.apache.log4j.Logger;
-
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
-
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
+
 
 /**
  * Used for controlling questform.xhtml
@@ -28,8 +22,10 @@ public class TemplateEditController implements Serializable {
     @Inject
     private TemplateTreeController templateTreeController;
 
-    private TemplateBean currentTemplate; //real template
-    private TemplateBean duplicateTemplate; //copy of real template, contains all unsaved changes
+    private TemplateBean currentTemplate;
+    //real template
+    private TemplateBean duplicateTemplate;
+    //copy of real template, contains all unsaved changes
     private QuestionType selectedQuestionType;
     private static final Logger LOG = Logger.getLogger(TemplateEditController.class);
 

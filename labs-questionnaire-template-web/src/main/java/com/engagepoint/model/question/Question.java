@@ -248,12 +248,13 @@ public abstract class Question extends BasicBean implements Cloneable {
     @Override
     @XmlTransient
     public String getDisplayedName() {
-        return cutTextToNSymbols(questionText,9); //TODO: make property for quantity of symbols
+        return cutTextToNSymbols(questionText,9);
+        //TODO: make property for quantity of symbols
     }
 
     @Override
     public String getDisplayedId() {
-        return " (ID: " + String.valueOf(this.questionId) + ") ";
+        return " (ID: " + this.questionId + ") ";
     }
 
     private String cutTextToNSymbols(String text, int n) {

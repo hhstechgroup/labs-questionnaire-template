@@ -204,6 +204,6 @@ public class SectionBean extends BasicBean
 
     @Override
     public String getDisplayedId() {
-        return " (ID: "+String.valueOf(this.pageId)+") ";
+        return " (ID: " + this.pageId + ") ";
     }
 }

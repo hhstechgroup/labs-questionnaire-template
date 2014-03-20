@@ -1,15 +1,9 @@
 package com.engagepoint.model.questionnaire;
 
-import com.engagepoint.controller.page.ListController;
-import com.engagepoint.model.question.DateQuestionBean;
+
 import com.engagepoint.model.question.Question;
 
-import javax.annotation.PostConstruct;
-import javax.el.ELContext;
-import javax.enterprise.event.Event;
-import javax.faces.FacesException;
-import javax.faces.context.FacesContext;
-import javax.inject.Inject;
+
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -18,7 +12,7 @@ import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlTransient;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.atomic.AtomicLong;
+
 
 /**
  * Class represents questionnaire-form tag.
