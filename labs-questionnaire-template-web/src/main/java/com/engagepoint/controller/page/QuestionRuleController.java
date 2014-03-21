@@ -317,9 +317,6 @@ public class QuestionRuleController extends RuleController implements Serializab
         if (GROUP_STRING.equals(templateTreeController.getSelectedType())) {
             currentRules = ((GroupBean) templateTreeController.getSelectedNode().getData()).getGroupRules();
         }
-        if (QUESTION_STRING.equals(templateTreeController.getSelectedType())) {
-            currentRules = ((Question) templateTreeController.getSelectedNode().getData()).getQuestionRules();
-        }
         return currentRules;
     }
 
