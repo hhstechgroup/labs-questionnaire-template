@@ -7,7 +7,7 @@ GivenStories: base_stories/openDefaultPage.story
 Scenario: Create new template, add section, add group and save template
 Meta: @testName         LQE-6 test
       @sectionName      Page 1
-      @groupName        GROUP_1
+      @groupName        Group 1
 GivenStories: base_stories/template/addTemplate.story,
               base_stories/template/tree/addSection.story,
               base_stories/template/tree/findSectionInTree.story,
@@ -21,7 +21,7 @@ Then verify that in table 'formTemplate:form:treeMultiple' is displayed '2' elem
 Scenario: Add group in existing template and save
 Meta: @testName         LQE-6 test
       @sectionName      Page 1
-      @groupName        GROUP_2
+      @groupName        Group 2
 GivenStories: base_stories/template/tree/findSectionInTree.story,
               base_stories/template/tree/addGroup.story,
               base_stories/template/tree/findGroupInTree.story,
@@ -33,7 +33,7 @@ Then verify that in table 'formTemplate:form:treeMultiple' is displayed '3' elem
 Scenario: Add group and cancel saving template
 Meta: @testName         LQE-6 test
       @sectionName      Page 1
-      @groupName        GROUP_2
+      @groupName        Group 2
 GivenStories: base_stories/template/tree/findSectionInTree.story,
               base_stories/template/tree/addGroup.story,
               base_stories/template/cancelSavingTemplate.story,

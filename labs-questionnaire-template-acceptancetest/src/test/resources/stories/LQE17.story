@@ -1,20 +1,16 @@
 Narrative:
-In order to have an ability to edit template 
-As a template author
-I want to add “Grid" questions to question groups
-	
-	
-GivenStories: base_stories/openDefaultPage.story			 
-Scenario: 
-User can add questions on the template creation/editing form.
-User can select "Grid" in the Question Type drop-down list.
-User can enter some text for the question in the Question Text field.
-Meta: @testName         LQE-14
+As a template author I want to add "FileUpload" questions to question groups so that
+the template meets my needs.
+
+GivenStories: base_stories/openDefaultPage.story
+Scenario: create and fill
+Meta: @testName         LQE-17
       @sectionName      Page 1
       @groupName        Group 1
-      @questionType     GRID
-      @questionText     Question text LQE-14
-      @helpText         Help text LQE-14
+      @questionType     FILEUPLOAD
+      @questionText     Question text LQE-17
+      @helpText         Help text LQE-17
+
 GivenStories: base_stories/template/addTemplate.story,
               base_stories/template/tree/addSection.story,
               base_stories/template/tree/findSectionInTree.story,
@@ -24,35 +20,15 @@ GivenStories: base_stories/template/addTemplate.story,
               base_stories/question/fillCommonPropertiesInQuestion.story
 Then wait until all animations on page completed
 
-Scenario: add row 1
-Meta: @rowName         row 1
-GivenStories: base_stories/question/addRow.story
-Then wait until all animations on page completed
 
-Scenario: add row 2
-Meta: @rowName         row 2
-GivenStories: base_stories/question/addRow.story
-Then wait until all animations on page completed
+Scenario: save and check
 
-Scenario: add column 1
-Meta: @columnName      column 1
-GivenStories: base_stories/question/addColumn.story
-Then wait until all animations on page completed
-
-Scenario: add column 2
-Meta: @columnName      column 2
-GivenStories: base_stories/question/addColumn.story
-Then wait until all animations on page completed
-
-
-Scenario:
-User can save the template with added questions.
-Meta: @testName         LQE-14
+Meta: @testName         LQE-17
       @sectionName      Page 1
       @groupName        Group 1
       @questionName     Question ...
-      @questionText     Question text LQE-14
-      @helpText         Help text LQE-14
+      @questionText     Question text LQE-17
+      @helpText         Help text LQE-17
 GivenStories: base_stories/question/saveQuestion.story,
               base_stories/template/saveTemplate.story,
               base_stories/template/editTemplate.story,
@@ -61,21 +37,22 @@ GivenStories: base_stories/question/saveQuestion.story,
               base_stories/question/checkSavedCommonPropertiesInQuestion.story
 Then wait until all animations on page completed
 
-Scenario:
-User can edit question.
-Meta: @questionText     Question text LQE-14 edit
-      @helpText         Help text LQE-14 edit
+Scenario: edit
+Meta: @questionText     Question text LQE-17 edit
+      @helpText         Help text LQE-17 edit
 GivenStories: base_stories/question/fillCommonPropertiesInQuestion.story
 Then wait until all animations on page completed
 
-Scenario: 
-check edited and save
-Meta: @testName         LQE-14
+
+
+Scenario: check and save
+Meta: @testName         LQE-17
       @sectionName      Page 1
       @groupName        Group 1
       @questionName     Question ...
-      @questionText     Question text LQE-14 edit
-      @helpText         Help text LQE-14 edit
+      @questionText     Question text LQE-17 edit
+      @helpText         Help text LQE-17 edit
+
 GivenStories: base_stories/question/saveQuestion.story,
               base_stories/template/saveTemplate.story,
               base_stories/template/editTemplate.story,
