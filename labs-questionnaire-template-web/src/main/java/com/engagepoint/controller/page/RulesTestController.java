@@ -103,16 +103,16 @@ public class RulesTestController extends RuleController implements Serializable 
      * @return
      */
     public String displayTemplateElement(BasicBean bb) {
-        String result = bb.getId();
+        String result = bb.getDisplayedName() + " " + bb.getDisplayedId();
         // TODO change to element name
 
         String s = bb.getType();
         if (SECTION.equals(s)) {
-            return result;
+            return "⚫ " + result;
         } else if (GROUP.equals(s)) {
-            return "___" + result;
+            return "    ⚫ " + result;
         } else if (QUESTION.equals(s)) {
-            return "______" + result;
+            return "        ⚫ " + result;
         } else {
             return "";
         }
