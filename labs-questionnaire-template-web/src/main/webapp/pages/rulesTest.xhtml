@@ -33,7 +33,7 @@
                     <p:commandButton value="Rules" id="viewRules"
                                      style=""
                                      rendered="#{rulesTestController.getViewRuleButton(templateEl)}"
-                                     styleClass="small blue"
+                                     styleClass="small secondary"
                                      update="questionstable"
                                      action="#{rulesTestController.showRuleForQuestionButton(templateEl)}">
                     </p:commandButton>
@@ -41,7 +41,7 @@
                     <p:commandButton value="Test" id="testdep"
                                      style=""
                                      rendered="#{rulesTestController.dependencies.get(templateEl)!=null}"
-                                     styleClass="small blue"
+                                     styleClass="small secondary"
                                      action="#{rulesTestController.initTestQuestion(templateEl)}"
                                      update=":form1:answer,@([id$=SetAnswerPanel])"
                                      oncomplete="dlgSetAnswer.show();"/>
