@@ -251,22 +251,22 @@ public class QuestionRuleController extends RuleController implements Serializab
      * @return list of questions.
      */
     public List<Question> getQuestions() {
-        if(templateTreeController!=null && QUESTION_STRING.equals(templateTreeController.getSelectedType())){
+        if (templateTreeController != null && QUESTION_STRING.equals(templateTreeController.getSelectedType())) {
             return getQuestionsForQuestionRule();
         }
-        if(templateTreeController!=null && GROUP_STRING.equals(templateTreeController.getSelectedType())){
+        if (templateTreeController != null && GROUP_STRING.equals(templateTreeController.getSelectedType())) {
             return getQuestionsForGroupRule();
         }
-        if(templateTreeController!=null && SECTION_STRING.equals(templateTreeController.getSelectedType())){
+        if (templateTreeController != null && SECTION_STRING.equals(templateTreeController.getSelectedType())) {
             return getQuestionsForSectionRule();
         }
         return getQuestions1();
     }
 
-    private List<Question> getQuestionsForQuestionRule(){
+    private List<Question> getQuestionsForQuestionRule() {
         List<Question> list = new ArrayList<Question>();
-        for (Question question : getQuestions1()){
-            if(currentQuestion.getId().equals(question.getId())){
+        for (Question question : getQuestions1()) {
+            if (currentQuestion.getId().equals(question.getId())) {
                 break;
             }
             list.add(question);
@@ -275,12 +275,12 @@ public class QuestionRuleController extends RuleController implements Serializab
         return list;
     }
 
-    private List<Question> getQuestionsForGroupRule(){
+    private List<Question> getQuestionsForGroupRule() {
         List<Question> list = new ArrayList<Question>();
         ITERATION:
         for (SectionBean sectionBean : getTemplateEditController().getCurrentTemplate().getSectionsList()) {
             for (GroupBean groupBean : sectionBean.getGroupsList()) {
-                if(groupBean.getId().equals(((GroupBean) templateTreeController.getSelectedNode().getData()).getId())){
+                if (groupBean.getId().equals(((GroupBean) templateTreeController.getSelectedNode().getData()).getId())) {
                     break ITERATION;
                 }
 
@@ -292,10 +292,10 @@ public class QuestionRuleController extends RuleController implements Serializab
         return list;
     }
 
-    private List<Question> getQuestionsForSectionRule(){
+    private List<Question> getQuestionsForSectionRule() {
         List<Question> list = new ArrayList<Question>();
         for (SectionBean sectionBean : getTemplateEditController().getCurrentTemplate().getSectionsList()) {
-            if(sectionBean.getId().equals(((SectionBean) templateTreeController.getSelectedNode().getData()).getId())){
+            if (sectionBean.getId().equals(((SectionBean) templateTreeController.getSelectedNode().getData()).getId())) {
                 break;
             }
             for (GroupBean groupBean : sectionBean.getGroupsList()) {
@@ -316,6 +316,9 @@ public class QuestionRuleController extends RuleController implements Serializab
         }
         if (GROUP_STRING.equals(templateTreeController.getSelectedType())) {
             currentRules = ((GroupBean) templateTreeController.getSelectedNode().getData()).getGroupRules();
+        }
+        if (QUESTION_STRING.equals(templateTreeController.getSelectedType())) {
+            currentRules = ((Question) templateTreeController.getSelectedNode().getData()).getQuestionRules();
         }
         return currentRules;
     }
@@ -420,11 +423,11 @@ public class QuestionRuleController extends RuleController implements Serializab
     }
 
     void setCurrentQuestion(@Observes @NewQuestion Question question) {
-        if(currentQuestion==null){
+        if (currentQuestion == null) {
             currentQuestion = question;
         }
         if (currentRules == null) {
-            if (question.getRules()!=null && question.getRules().size() != 0) {
+            if (question.getRules() != null && question.getRules().size() != 0) {
                 currentRules = cloneRulesList(question.getRules());
             } else {
                 currentRules = new ArrayList<Rule>();
