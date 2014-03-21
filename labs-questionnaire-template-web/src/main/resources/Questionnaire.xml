@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<questionnaire-forms xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'
-	xsi:noNamespaceSchemaLocation='XSDforWizard.xsd'>
+<questionnaire-forms>
     <questionnaire-form form-id="f1">
         <form-name>Test template</form-name>
         <pages>
@@ -13,297 +12,300 @@
                         <group-rules/>
                         <questions>
                             <question xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="textQuestionBean" question-id="f1p1g1q1" answer-required="true">
-                                <question-title>What's you're name?</question-title>
-                                <question-type>TEXT</question-type>
-                                <question-rules/>
-                                <help-text>Enter first name (with default)</help-text>
-                                <default-answers>
-                                    <default-answer>Anonimus</default-answer>
-                                </default-answers>
+<question-title>What's you're name?</question-title>
+<question-type>TEXT</question-type>
+<question-rules/>
+<help-text>Enter first name (with default)</help-text>
+<default-answers>
+    <default-answer>Anonimus</default-answer>
+</default-answers>
                             </question>
                             <question xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="dateQuestionBean" question-id="f1p1g1q2" answer-required="true">
-                                <question-title>When is your birthday?</question-title>
-                                <question-type>DATE</question-type>
-                                <question-rules/>
-                                <help-text>(with default)</help-text>
-                                <default-answers>
-                                    <default-answer>18-03-2014</default-answer>
-                                </default-answers>
+<question-title>When is your birthday?</question-title>
+<question-type>DATE</question-type>
+<question-rules/>
+<help-text>(with default)</help-text>
+<default-answers>
+    <default-answer>21-03-2014</default-answer>
+</default-answers>
                             </question>
                             <question xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="multipleChoiceQuestionBean" question-id="f1p1g1q3" answer-required="false">
-                                <question-title>Happy birthday! Choose your present.</question-title>
-                                <question-type>MULTIPLECHOICE</question-type>
-                                <question-rules/>
-                                <help-text>You can choose only one. (with default)</help-text>
-                                <options>
-                                    <option>Car</option>
-                                    <option>Flat</option>
-                                    <option>Flowers</option>
-                                </options>
-                                <default-answers>
-                                    <default-answer>Flowers</default-answer>
-                                </default-answers>
+<question-title>Happy birthday! Choose your present.</question-title>
+<question-type>MULTIPLECHOICE</question-type>
+<question-rules/>
+<help-text>You can choose only one. (with default)</help-text>
+<options>
+    <option>Car</option>
+    <option>Flat</option>
+    <option>Flowers</option>
+</options>
+<default-answers>
+    <default-answer>Flowers</default-answer>
+</default-answers>
                             </question>
                             <question xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="textQuestionBean" question-id="f1p1g1q4" answer-required="false">
-                                <question-title>Tell something about yourself</question-title>
-                                <question-type>PARAGRAPHTEXT</question-type>
-                                <question-rules/>
-                                <help-text>(with default)</help-text>
-                                <default-answers>
-                                    <default-answer>Nothing to tell</default-answer>
-                                </default-answers>
+<question-title>Tell something about yourself</question-title>
+<question-type>PARAGRAPHTEXT</question-type>
+<question-rules/>
+<help-text>(with default)</help-text>
+<default-answers>
+    <default-answer>Nothing to tell</default-answer>
+</default-answers>
                             </question>
                             <question xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="checkBoxQuestionBean" question-id="f1p1g1q5" answer-required="false">
-                                <question-title>What pets do you have?</question-title>
-                                <question-type>CHECKBOX</question-type>
-                                <question-rules/>
-                                <help-text>(with default)</help-text>
-                                <options>
-                                    <option>Fishes</option>
-                                    <option>Cat</option>
-                                    <option>Dog</option>
-                                    <option>Others</option>
-                                </options>
-                                <default-answers>
-                                    <default-answer>Dog</default-answer>
-                                    <default-answer>Others</default-answer>
-                                </default-answers>
+<question-title>What pets do you have?</question-title>
+<question-type>CHECKBOX</question-type>
+<question-rules/>
+<help-text>(with default)</help-text>
+<options>
+    <option>Fishes</option>
+    <option>Cat</option>
+    <option>Dog</option>
+    <option>Others</option>
+</options>
+<default-answers>
+    <default-answer>Dog</default-answer>
+    <default-answer>Others</default-answer>
+</default-answers>
                             </question>
                             <question xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="chooseFromListQuestionBean" question-id="f1p1g1q6" answer-required="true">
-                                <question-title>Your gender</question-title>
-                                <question-type>CHOOSEFROMLIST</question-type>
-                                <question-rules/>
-                                <help-text>(with default)</help-text>
-                                <options>
-                                    <option>male</option>
-                                    <option>female</option>
-                                </options>
-                                <default-answers>
-                                    <default-answer>male</default-answer>
-                                </default-answers>
+<question-title>Your gender</question-title>
+<question-type>CHOOSEFROMLIST</question-type>
+<question-rules/>
+<help-text>(with default)</help-text>
+<options>
+    <option>male</option>
+    <option>female</option>
+</options>
+<default-answers>
+    <default-answer>male</default-answer>
+</default-answers>
                             </question>
                             <question xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="rangeQuestionBean" question-id="f1p1g1q7" answer-required="false">
-                                <question-title>How do you like these questions?</question-title>
-                                <question-type>RANGE</question-type>
-                                <question-rules/>
-                                <help-text>on a scale from 1 to 5 (with default)</help-text>
-                                <range range-end="5" range-begin="1"/>
-                                <default-answers>
-                                    <default-answer>2</default-answer>
-                                    <default-answer>3</default-answer>
-                                </default-answers>
+<question-title>How do you like these questions?</question-title>
+<question-type>RANGE</question-type>
+<question-rules/>
+<help-text>on a scale from 1 to 5 (with default)</help-text>
+<range range-end="5" range-begin="1"/>
+<default-answers>
+    <default-answer>2</default-answer>
+    <default-answer>3</default-answer>
+</default-answers>
                             </question>
                             <question xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="dateQuestionBean" question-id="f1p1g1q8" answer-required="false">
-                                <question-title>What time do you get up?</question-title>
-                                <question-type>TIME</question-type>
-                                <question-rules/>
-                                <help-text>(with default)</help-text>
-                                <default-answers>
-                                    <default-answer>15:10</default-answer>
-                                </default-answers>
+<question-title>What time do you get up?</question-title>
+<question-type>TIME</question-type>
+<question-rules/>
+<help-text>(with default)</help-text>
+<default-answers>
+    <default-answer>11:13</default-answer>
+</default-answers>
                             </question>
                         </questions>
                     </group>
                     <group group-id="f1p1g2">
                         <group-name>Personal data with rules</group-name>
-                        <group-rules/>
+                        <group-rules>
+                            <group-rule xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="rule">
+<method>this.ruleExecutor.renderedRule('%s', ['Car'])</method>
+<parentId>f1p1g1q3</parentId>
+                            </group-rule>
+                        </group-rules>
                         <questions>
                             <question xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="textQuestionBean" question-id="f1p1g2q1" answer-required="true">
-                                <question-title>What's you're name?</question-title>
-                                <question-type>TEXT</question-type>
-                                <question-rules>
-                                    <question-rule xsi:type="rule">
-                                        <method>this.ruleExecutor.renderedRule('%s', ['123'])</method>
-                                        <parentId>f1p1g1q1</parentId>
-                                    </question-rule>
-                                </question-rules>
-                                <help-text>Enter first name</help-text>
-                                <default-answers>
-                                    <default-answer/>
-                                </default-answers>
+<question-title>What's you're name?</question-title>
+<question-type>TEXT</question-type>
+<question-rules>
+    <question-rule xsi:type="rule">
+        <method>this.ruleExecutor.renderedRule('%s', ['123'])</method>
+        <parentId>f1p1g1q1</parentId>
+    </question-rule>
+</question-rules>
+<help-text>Enter first name</help-text>
+<default-answers>
+    <default-answer></default-answer>
+</default-answers>
                             </question>
                             <question xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="dateQuestionBean" question-id="f1p1g2q2" answer-required="true">
-                                <question-title>When is your birthday?</question-title>
-                                <question-type>DATE</question-type>
-                                <question-rules>
-                                    <question-rule xsi:type="rule">
-                                        <method>
-                                            this.ruleExecutor.renderedRule('%s', ['18-03-2014'])
-                                        </method>
-                                        <parentId>f1p1g1q2</parentId>
-                                    </question-rule>
-                                </question-rules>
-                                <help-text/>
-                                <default-answers>
-                                    <default-answer>18-03-2014</default-answer>
-                                </default-answers>
+<question-title>When is your birthday?</question-title>
+<question-type>DATE</question-type>
+<question-rules>
+    <question-rule xsi:type="rule">
+        <method>this.ruleExecutor.renderedRule('%s', ['18-03-2014'])</method>
+        <parentId>f1p1g1q2</parentId>
+    </question-rule>
+</question-rules>
+<help-text></help-text>
+<default-answers>
+    <default-answer>21-03-2014</default-answer>
+</default-answers>
                             </question>
                             <question xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="multipleChoiceQuestionBean" question-id="f1p1g2q3" answer-required="false">
-                                <question-title>Happy birthday! Choose your present.</question-title>
-                                <question-type>MULTIPLECHOICE</question-type>
-                                <question-rules/>
-                                <help-text>You can choose only one.</help-text>
-                                <options>
-                                    <option>Car</option>
-                                    <option>Flat</option>
-                                    <option>Flowers</option>
-                                </options>
-                                <default-answers>
-                                    <default-answer/>
-                                </default-answers>
+<question-title>Happy birthday! Choose your present.</question-title>
+<question-type>MULTIPLECHOICE</question-type>
+<question-rules/>
+<help-text>You can choose only one.</help-text>
+<options>
+    <option>Car</option>
+    <option>Flat</option>
+    <option>Flowers</option>
+</options>
+<default-answers>
+    <default-answer></default-answer>
+</default-answers>
                             </question>
                             <question xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="textQuestionBean" question-id="f1p1g2q4" answer-required="false">
-                                <question-title>Tell something about yourself</question-title>
-                                <question-type>PARAGRAPHTEXT</question-type>
-                                <question-rules/>
-                                <help-text/>
-                                <default-answers>
-                                    <default-answer/>
-                                </default-answers>
+<question-title>Tell something about yourself</question-title>
+<question-type>PARAGRAPHTEXT</question-type>
+<question-rules/>
+<help-text></help-text>
+<default-answers>
+    <default-answer></default-answer>
+</default-answers>
                             </question>
                             <question xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="checkBoxQuestionBean" question-id="f1p1g2q5" answer-required="false">
-                                <question-title>What pets do you have?</question-title>
-                                <question-type>CHECKBOX</question-type>
-                                <question-rules/>
-                                <help-text/>
-                                <options>
-                                    <option>Fishes</option>
-                                    <option>Cat</option>
-                                    <option>Dog</option>
-                                    <option>Others</option>
-                                </options>
-                                <default-answers/>
+<question-title>What pets do you have?</question-title>
+<question-type>CHECKBOX</question-type>
+<question-rules/>
+<help-text></help-text>
+<options>
+    <option>Fishes</option>
+    <option>Cat</option>
+    <option>Dog</option>
+    <option>Others</option>
+</options>
+<default-answers/>
                             </question>
                             <question xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="chooseFromListQuestionBean" question-id="f1p1g2q6" answer-required="true">
-                                <question-title>Your gender</question-title>
-                                <question-type>CHOOSEFROMLIST</question-type>
-                                <question-rules/>
-                                <help-text/>
-                                <options>
-                                    <option>male</option>
-                                    <option>female</option>
-                                </options>
-                                <default-answers>
-                                    <default-answer/>
-                                </default-answers>
+<question-title>Your gender</question-title>
+<question-type>CHOOSEFROMLIST</question-type>
+<question-rules/>
+<help-text></help-text>
+<options>
+    <option>male</option>
+    <option>female</option>
+</options>
+<default-answers>
+    <default-answer></default-answer>
+</default-answers>
                             </question>
                             <question xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="rangeQuestionBean" question-id="f1p1g2q7" answer-required="false">
-                                <question-title>How do you like these questions?</question-title>
-                                <question-type>RANGE</question-type>
-                                <question-rules/>
-                                <help-text>on a scale from 1 to 5</help-text>
-                                <range range-end="5" range-begin="1"/>
-                                <default-answers>
-                                    <default-answer>0</default-answer>
-                                    <default-answer>0</default-answer>
-                                </default-answers>
+<question-title>How do you like these questions?</question-title>
+<question-type>RANGE</question-type>
+<question-rules/>
+<help-text>on a scale from 1 to 5</help-text>
+<range range-end="5" range-begin="1"/>
+<default-answers>
+    <default-answer>0</default-answer>
+    <default-answer>0</default-answer>
+</default-answers>
                             </question>
                             <question xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="dateQuestionBean" question-id="f1p1g2q8" answer-required="false">
-                                <question-title>What time do you get up?</question-title>
-                                <question-type>TIME</question-type>
-                                <question-rules/>
-                                <help-text/>
-                                <default-answers>
-                                    <default-answer>15:10</default-answer>
-                                </default-answers>
+<question-title>What time do you get up?</question-title>
+<question-type>TIME</question-type>
+<question-rules/>
+<help-text></help-text>
+<default-answers>
+    <default-answer>11:13</default-answer>
+</default-answers>
                             </question>
                         </questions>
                     </group>
                     <group group-id="f1p1g3">
                         <group-name>Personal data without default</group-name>
-                        <group-rules>
-                            <group-rule xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="rule">
-                                <method>this.ruleExecutor.renderedRule('%s', ['123'])</method>
-                                <parentId>f1p1g1q1</parentId>
-                            </group-rule>
-                        </group-rules>
+                        <group-rules/>
                         <questions>
                             <question xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="textQuestionBean" question-id="f1p1g3q1" answer-required="true">
-                                <question-title>What's you're name?</question-title>
-                                <question-type>TEXT</question-type>
-                                <question-rules/>
-                                <help-text>Enter first name (without default)</help-text>
-                                <default-answers>
-                                    <default-answer/>
-                                </default-answers>
+<question-title>What's you're name?</question-title>
+<question-type>TEXT</question-type>
+<question-rules/>
+<help-text>Enter first name (without default)</help-text>
+<default-answers>
+    <default-answer></default-answer>
+</default-answers>
                             </question>
                             <question xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="dateQuestionBean" question-id="f1p1g3q2" answer-required="true">
-                                <question-title>When is your birthday?</question-title>
-                                <question-type>DATE</question-type>
-                                <question-rules/>
-                                <help-text>(without default)</help-text>
-                                <default-answers>
-                                    <default-answer>18-03-2014</default-answer>
-                                </default-answers>
+<question-title>When is your birthday?</question-title>
+<question-type>DATE</question-type>
+<question-rules/>
+<help-text>(without default)</help-text>
+<default-answers>
+    <default-answer>21-03-2014</default-answer>
+</default-answers>
                             </question>
                             <question xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="multipleChoiceQuestionBean" question-id="f1p1g3q3" answer-required="false">
-                                <question-title>Happy birthday! Choose your present.</question-title>
-                                <question-type>MULTIPLECHOICE</question-type>
-                                <question-rules/>
-                                <help-text>You can choose only one. (without default)</help-text>
-                                <options>
-                                    <option>Car</option>
-                                    <option>Flat</option>
-                                    <option>Flowers</option>
-                                </options>
-                                <default-answers>
-                                    <default-answer/>
-                                </default-answers>
+<question-title>Happy birthday! Choose your present.</question-title>
+<question-type>MULTIPLECHOICE</question-type>
+<question-rules/>
+<help-text>You can choose only one. (without default)</help-text>
+<options>
+    <option>Car</option>
+    <option>Flat</option>
+    <option>Flowers</option>
+</options>
+<default-answers>
+    <default-answer></default-answer>
+</default-answers>
                             </question>
                             <question xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="textQuestionBean" question-id="f1p1g3q4" answer-required="false">
-                                <question-title>Tell something about yourself</question-title>
-                                <question-type>PARAGRAPHTEXT</question-type>
-                                <question-rules/>
-                                <help-text>(without default)</help-text>
-                                <default-answers>
-                                    <default-answer/>
-                                </default-answers>
+<question-title>Tell something about yourself</question-title>
+<question-type>PARAGRAPHTEXT</question-type>
+<question-rules/>
+<help-text>(without default)</help-text>
+<default-answers>
+    <default-answer></default-answer>
+</default-answers>
                             </question>
                             <question xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="checkBoxQuestionBean" question-id="f1p1g3q5" answer-required="false">
-                                <question-title>What pets do you have?</question-title>
-                                <question-type>CHECKBOX</question-type>
-                                <question-rules/>
-                                <help-text>(without default)</help-text>
-                                <options>
-                                    <option>Fishes</option>
-                                    <option>Cat</option>
-                                    <option>Dog</option>
-                                    <option>Others</option>
-                                </options>
-                                <default-answers/>
+<question-title>What pets do you have?</question-title>
+<question-type>CHECKBOX</question-type>
+<question-rules/>
+<help-text>(without default)</help-text>
+<options>
+    <option>Fishes</option>
+    <option>Cat</option>
+    <option>Dog</option>
+    <option>Others</option>
+</options>
+<default-answers/>
                             </question>
                             <question xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="chooseFromListQuestionBean" question-id="f1p1g3q6" answer-required="true">
-                                <question-title>Your gender</question-title>
-                                <question-type>CHOOSEFROMLIST</question-type>
-                                <question-rules/>
-                                <help-text>(without default)</help-text>
-                                <options>
-                                    <option>male</option>
-                                    <option>female</option>
-                                </options>
-                                <default-answers>
-                                    <default-answer/>
-                                </default-answers>
+<question-title>Your gender</question-title>
+<question-type>CHOOSEFROMLIST</question-type>
+<question-rules/>
+<help-text>(without default)</help-text>
+<options>
+    <option>male</option>
+    <option>female</option>
+</options>
+<default-answers>
+    <default-answer></default-answer>
+</default-answers>
                             </question>
                             <question xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="rangeQuestionBean" question-id="f1p1g3q7" answer-required="false">
-                                <question-title>How do you like these questions?</question-title>
-                                <question-type>RANGE</question-type>
-                                <question-rules/>
-                                <help-text>on a scale from 1 to 5 (without default)</help-text>
-                                <range range-end="5" range-begin="1"/>
-                                <default-answers>
-                                    <default-answer>0</default-answer>
-                                    <default-answer>0</default-answer>
-                                </default-answers>
+<question-title>How do you like these questions?</question-title>
+<question-type>RANGE</question-type>
+<question-rules>
+    <question-rule xsi:type="rule">
+        <method>this.ruleExecutor.renderedRule('%s', ['lalala'])</method>
+        <parentId>f1p1g2q4</parentId>
+    </question-rule>
+</question-rules>
+<help-text>on a scale from 1 to 5 (without default)</help-text>
+<range range-end="5" range-begin="1"/>
+<default-answers>
+    <default-answer>0</default-answer>
+    <default-answer>0</default-answer>
+</default-answers>
                             </question>
                             <question xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="dateQuestionBean" question-id="f1p1g3q8" answer-required="false">
-                                <question-title>What time do you get up?</question-title>
-                                <question-type>TIME</question-type>
-                                <question-rules/>
-                                <help-text>(without default)</help-text>
-                                <default-answers>
-                                    <default-answer>15:10</default-answer>
-                                </default-answers>
+<question-title>What time do you get up?</question-title>
+<question-type>TIME</question-type>
+<question-rules/>
+<help-text>(without default)</help-text>
+<default-answers>
+    <default-answer>11:13</default-answer>
+</default-answers>
                             </question>
                         </questions>
                     </group>
@@ -323,13 +325,13 @@
                         <group-rules/>
                         <questions>
                             <question xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="textQuestionBean" question-id="f1p2g1q1" answer-required="false">
-                                <question-title>65656</question-title>
-                                <question-type>TEXT</question-type>
-                                <question-rules/>
-                                <help-text/>
-                                <default-answers>
-                                    <default-answer/>
-                                </default-answers>
+<question-title>65656</question-title>
+<question-type>TEXT</question-type>
+<question-rules/>
+<help-text></help-text>
+<default-answers>
+    <default-answer></default-answer>
+</default-answers>
                             </question>
                         </questions>
                     </group>
