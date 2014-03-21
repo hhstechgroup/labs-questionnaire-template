@@ -108,11 +108,11 @@ public class RulesTestController extends RuleController implements Serializable 
 
         String s = bb.getType();
         if (SECTION.equals(s)) {
-            return "⚫ " + result;
+            return "" + result;
         } else if (GROUP.equals(s)) {
-            return "    ⚫ " + result;
+            return "    " + result;
         } else if (QUESTION.equals(s)) {
-            return "        ⚫ " + result;
+            return "        " + result;
         } else {
             return "";
         }
