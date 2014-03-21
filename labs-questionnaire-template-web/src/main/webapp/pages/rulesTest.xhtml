@@ -1,59 +1,56 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:p="http://primefaces.org/ui"
-	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:uib="http://engagepoint.com/uib"
-	xmlns:F="http://java.sun.com/jsp/jstl/sql"
-	template="/templates/templateEdit.xhtml">
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:uib="http://engagepoint.com/uib"
+                xmlns:F="http://java.sun.com/jsp/jstl/sql"
+                template="/templates/templateEdit.xhtml">
 
-	<ui:define name="page">
+    <ui:define name="page">
 
-		<h:form id="form1">
-			<h:outputText value="TEMPLATE ID: "/>
-			<h:outputText value="#{rulesTestController.currentTemplate.id}"/>
-			<br/>
-			
-			<uib:dataTable id="questionstable" var="templateEl" 
-				value="#{rulesTestController.templateElementsList}">
-				<uib:column>
-				<p:commandButton icon="ui-icon-close"
-				 rendered="#{rulesTestController.notRenderedSet.contains(templateEl)}"
-				 styleClass="small blue"/>
-				</uib:column>
-				<uib:column>
-					<h:outputText value="#{rulesTestController.displayTemplateElement(templateEl)}"/>
-				</uib:column>
-				
-				<uib:column headerText="Dependencies">
-					<h:outputText value="#{rulesTestController.getDependentByQuestion(templateEl)}" />
-				</uib:column>
-				<uib:column>
+        <h:form id="form1">
+            <h:outputText value="TEMPLATE ID: "/>
+            <h:outputText value="#{rulesTestController.currentTemplate.id}"/>
+            <br/>
+
+            <uib:dataTable id="questionstable" var="templateEl"
+                           value="#{rulesTestController.templateElementsList}">
+                <uib:column>
+                    <p:commandButton icon="ui-icon-remove"
+                                     rendered="#{rulesTestController.notRenderedSet.contains(templateEl)}"
+                                     styleClass="custom"/>
+                </uib:column>
+                <uib:column>
+                    <h:outputText value="#{rulesTestController.displayTemplateElement(templateEl)}"/>
+                </uib:column>
+
+                <uib:column headerText="Dependencies">
+                    <h:outputText value="#{rulesTestController.getDependentByQuestion(templateEl)}"/>
+                </uib:column>
+                <uib:column>
                     <p:commandButton value="Rules" id="viewRules"
-                                     style="float:center;"
+                                     style=""
                                      rendered="#{rulesTestController.getViewRuleButton(templateEl)}"
-                                     styleClass="small blue"
+                                     styleClass="small secondary"
                                      update="questionstable"
-                                     action="#{rulesTestController.showRuleForQuestionButton(templateEl)}"
-                            >
+                                     action="#{rulesTestController.showRuleForQuestionButton(templateEl)}">
                     </p:commandButton>
-					
-				</uib:column>
-				<uib:column>
-					<p:commandButton value="Test" id="testdep"
-								style="float:center;"
-                                rendered="#{rulesTestController.dependencies.get(templateEl)!=null}"
-								styleClass="small blue"
-                                action="#{rulesTestController.initTestQuestion(templateEl)}"
-                                update=":form1:answer,@([id$=SetAnswerPanel])"
-                                oncomplete="dlgSetAnswer.show();" />
-				</uib:column>
-			</uib:dataTable>
-			<br/>
-			<p:commandButton id="back" value="Back" title="Back"
-				action="#{listController.income()}">
-			</p:commandButton>
+
+                    <p:commandButton value="Test" id="testdep"
+                                     style=""
+                                     rendered="#{rulesTestController.dependencies.get(templateEl)!=null}"
+                                     styleClass="small secondary"
+                                     action="#{rulesTestController.initTestQuestion(templateEl)}"
+                                     update=":form1:answer,@([id$=SetAnswerPanel])"
+                                     oncomplete="dlgSetAnswer.show();"/>
+                </uib:column>
+            </uib:dataTable>
+            <br/>
+            <p:commandButton id="back" value="Back" title="Back"
+                             action="#{listController.income()}">
+            </p:commandButton>
 
 
             <p:dialog widgetVar="showRulesdialog" modal="true" closable="true">
@@ -66,9 +63,9 @@
                 </uib:dataTable>
 
             </p:dialog>
-			
-			
-			 <p:dialog id="answer" widgetVar="dlgSetAnswer"
+
+
+            <p:dialog id="answer" widgetVar="dlgSetAnswer"
                       modal="true" closable="true">
                 <p:panel id="SetAnswerPanel">
                     <br/>
@@ -130,16 +127,14 @@
 
                     <br/>
                     <br/>
-                    <p:commandButton value="Apply value" onclick="dlgSetAnswer.hide()" 
-                    update="questionstable"
-                    actionListener="#{rulesTestController.saveRuleAnswerAction}"
-                    action="#{rulesTestController.testRule}"/>
+                    <p:commandButton value="Apply value" onclick="dlgSetAnswer.hide()"
+                                     update="questionstable"
+                                     actionListener="#{rulesTestController.saveRuleAnswerAction}"
+                                     action="#{rulesTestController.testRule}"/>
                 </p:panel>
             </p:dialog>
 
 
-           
-
-		</h:form>
-	</ui:define>
+        </h:form>
+    </ui:define>
 </ui:composition>
